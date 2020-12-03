@@ -47,7 +47,20 @@ $ make test
 $ make format
 ```
 
-### Create build package
-```bash
-$ make build
-```  
+### Release build package
+Releases are triggered through Github publish workflow.  Input version part to update before publishing to pypi - [patch, minor, major]
+
+#### Running Github Workflows on forked repositories
+
+Github Workflows don't run on forked repositories by default.
+You must enable GitHub Actions in the Actions tab of the forked repository.
+
+See more details at https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull-request-events-for-forked-repositories
+
+## Contributing
+
+Contributions are welcomed! Read the [Contributing Guide](./.github/CONTRIBUTING.md) for more information.
+
+## Licensing
+
+This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.

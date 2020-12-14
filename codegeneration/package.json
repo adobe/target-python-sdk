@@ -1,0 +1,19 @@
+{
+  "name": "python-codegenerator",
+  "version": "1.0.0",
+  "description": "Open API Python code generation",
+  "scripts": {
+    "clean": "shx rm -rf ../build && shx rm -rf ../delivery-api-client",
+    "prepare": "shx mkdir ../delivery-api-client",
+    "select-401": "openapi-generator-cli version-manager set 4.0.1",
+    "precodegen": "npm run clean && npm run prepare && npm run select-401",
+    "generate": "openapi-generator-cli generate -g python -c config.json -i ../openapi/delivery/api.yaml -o ../build --skip-validate-spec",
+    "copy-generated": "shx cp -r ../build/openapi_client ../delivery-api-client/src",
+    "codegen": "npm run generate && npm run copy-generated",
+    "codegenhelp": "openapi-generator-cli config-help -g python"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.1.4",
+    "shx": "^0.3.3"
+  }
+}

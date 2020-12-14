@@ -1,0 +1,7 @@
+{
+  "artifactVersion": "1.0.0",
+  "modelPackage": "Model",
+  "invokerPackage": "Adobe\\Target\\Delivery\\v1",
+  "variableNamingConvention": "camelCase",
+  "srcBasePath": "src"
+}

@@ -1,5 +1,7 @@
 .PHONY: clean install codegen format test build
 
+all: pre_env clean install codegen format test build
+
 pre_env:
 	${PYTHON_PATH} -m pip install --upgrade virtualenv
 env: 

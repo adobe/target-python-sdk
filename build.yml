@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [2.7, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
+
+    steps:
+      - uses: actions/checkout@main
+      - name: Set up Python ${{matrix.python-version}}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ~2.7
+      - name: lint, test, generate coverage, build
+        run: |
+          make ci
+          make pre_build
+        env:
+          CI: true
+      - name: coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: Python-${{ matrix.python-version }}
+          parallel: true
+    
+    steps:
+      - uses: actions/checkout@main
+      - name: Set up Python ${{matrix.python-version}}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ^3.9
+      - name: lint, test, generate coverage, build
+        run: |
+          make ci
+          make pre_build
+        env:
+          CI: true
+      - name: coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: Python-${{ matrix.python-version }}
+          parallel: true
+
+  coverage:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: coveralls report
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true

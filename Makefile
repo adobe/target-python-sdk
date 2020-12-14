@@ -19,11 +19,11 @@ clean:
 # Install dependencies - pip update sometimes required for python 2.7
 install: env
 	curl https://bootstrap.pypa.io/get-pip.py | python
-	pip install --upgrade pip "setuptools>=38.3.0,<=44.1.x" wheel pep517 pylint twine bump2version
+	pip install --upgrade pip "setuptools>=38.3.0,<=44.1.x" wheel pep517 pylint twine bump2version pytest coverage coveralls
 
 # Run tests
 test: env
-	python -m unittest -v tests
+	coverage run --source src --module pytest tests
 
 # Format code
 format: env
@@ -31,14 +31,10 @@ format: env
 
 # Generate client based on open-api spec
 codegen:
-	cd codegeneration && npm run codegen
-
-# Use build.yml to set up python version 
-ci:
-	export PYTHON_PATH=python
+	cd codegeneration && npm install && npm run codegen
 
 # All the things to run on commit/PR open
-pre_build: new_env clean install codegen format test
+pre_build: new_env clean install format test
 
 # Create build package
 build: env

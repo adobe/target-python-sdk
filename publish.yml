@@ -1,0 +1,36 @@
+name: Upload Python Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Bump which version number? (major, minor, patch)"
+        required: true
+        default: "patch"
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '^3.9'
+    - name: Install dependencies
+      run: |
+        make ci
+        make pre_build
+    - name: Build and publish new version
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.ADOBE_BOT_GITHUB_TOKEN }}
+        CI: true
+      run: |
+        make version_bump part=${{ github.event.inputs.bump }}
+        make build
+        make publish

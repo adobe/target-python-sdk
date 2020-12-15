@@ -138,3 +138,6 @@ dmypy.json
 cython_debug/
 
 codegeneration/node_modules/
+
+.idea
+.vscode

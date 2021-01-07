@@ -1,5 +1,7 @@
 # Adobe Target Python SDK
 
+[![Coverage Status](https://coveralls.io/repos/github/adobe/target-python-sdk/badge.svg?branch=main)](https://coveralls.io/github/adobe/target-python-sdk?branch=main)
+
 ### Requirements
 
 ```

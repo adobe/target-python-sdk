@@ -8,11 +8,13 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
+"""Validation functions"""
 from target_python_sdk.messages import MESSAGES
 from target_python_sdk.enums import DecisioningMethod
 
 
 def validate_client_options(options):
+    """Validates options for TargetClient"""
     if not options:
         return MESSAGES.get('OPTIONS_REQUIRED')
 

@@ -7,6 +7,10 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
+
+"""
+This module includes the TargetClient for making personalization requests
+"""
 from threading import Timer
 from target_python_sdk.messages import MESSAGES
 from target_python_sdk.events import CLIENT_READY
@@ -25,12 +29,14 @@ DEFAULT_OPTS = {
 
 
 class TargetClient:
+    """External-facing Target client for handling personalization"""
     def __init__(self, options):
         if not options or not options.get('internal'):
             raise Exception(MESSAGES.get('PRIVATE_CONSTRUCTOR'))
 
         self.config = options
-        self.config['timeout'] = options.get('timeout') if options.get('timeout') else DEFAULT_TIMEOUT
+        self.config['timeout'] = options.get('timeout') if options.get('timeout') \
+            else DEFAULT_TIMEOUT
         self.logger = get_logger(options.get('logger'))
         event_emitter = EventProvider(self.config.get('events')).emit
 
@@ -51,18 +57,26 @@ class TargetClient:
         options.target_location_hint: str - Target Location Hint, optional
         options.secure: bool - Unset to enforce HTTP scheme, default: true
         options.logger: dict - Replaces the default noop logger, optional
-        options.decisioning_method: str ('on-device'|'server-side'|'hybrid') - The decisioning method, defaults to remote, optional
-        options.polling_interval: int - (Local Decisioning) Polling interval in ms, default: 30000
-        options.maximum_wait_ready: int - (Local Decisioning) The maximum amount of time (in ms) to wait for clientReady.  Default is to wait indefinitely.
-        options.artifact_location: str - (Local Decisioning) Fully qualified url to the location of the artifact, optional
-        options.artifact_payload: str "import("@adobe/target-decisioning-engine/types/DecisioningArtifact").DecisioningArtifact" - (Local Decisioning) A pre-fetched artifact, optional
+        options.decisioning_method: str ('on-device'|'server-side'|'hybrid')
+            - The decisioning method, defaults to remote, optional
+        options.polling_interval: int - (Local Decisioning)
+            Polling interval in ms, default: 30000
+        options.maximum_wait_ready: int - (Local Decisioning) The maximum amount of time (in ms)
+            to wait for clientReady.  Default is to wait indefinitely.
+        options.artifact_location: str - (Local Decisioning) Fully qualified url to the location
+            of the artifact, optional
+        options.artifact_payload: str
+            "import("@adobe/target-decisioning-engine/types/DecisioningArtifact")
+            .DecisioningArtifact" - (Local Decisioning) A pre-fetched artifact, optional
         options.environment_id: int - The Target environment ID, defaults to production, optional
         options.environment: str - The Target environment name, defaults to production, optional
         options.cdn_environment: str - The CDN environment name, defaults to production, optional
         options.telemetry_enabled: bool - If set to false, telemetry data will not be sent to Adobe
         options.version: str - The version number of at.js, optional
-        options.property_token: str - A property token used to limit the scope of evaluated target activities, optional
-        options.events: dict.<str, function> - An object with event name keys and callback function values, optional
+        options.property_token: str - A property token used to limit the scope of evaluated target
+            activities, optional
+        options.events: dict.<str, function> - An object with event name keys and callback
+            function values, optional
         :returns
         TargetClient instance object
         """
@@ -78,3 +92,6 @@ class TargetClient:
         opts = dict(DEFAULT_OPTS)
         opts.update(options)
         return TargetClient(opts)
+
+    def get_offers(self, options):
+        """Fetches personalization offers"""

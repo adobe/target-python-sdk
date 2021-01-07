@@ -8,12 +8,17 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
+"""Event Provider"""
+
+
 class EventProvider:
+    """EventProvider"""
+
     def __init__(self, events=None):
-        if events is None:
-            events = {}
+        print(events)
 
     def emit(self, event_name, payload=None):
-        if payload is None:
-            payload = {}
+        """Emits events"""
 
+    def subscribe(self):
+        """Subscribe to events"""

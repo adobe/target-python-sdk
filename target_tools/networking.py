@@ -8,8 +8,10 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
+"""Networking related functions"""
 import requests
 
 
 def get_fetch_api(fetch_api):
+    """Specifies which http request impl to use"""
     return fetch_api if callable(fetch_api) else requests.get

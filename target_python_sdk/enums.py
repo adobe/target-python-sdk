@@ -8,10 +8,12 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
+"""Enums"""
 import enum
 
 
 class DecisioningMethod(enum.Enum):
+    """Specifies where decisions are made"""
     ON_DEVICE = "on-device"
     SERVER_SIDE = "server-side"
     HYBRID = "hybrid"

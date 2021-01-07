@@ -8,12 +8,14 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
+"""Test cases for __init__.py"""
 import unittest
+
 try:
     from unittest.mock import Mock
 except ImportError:
     from mock import Mock
-from target_python_sdk import TargetClient, DecisioningMethod
+from target_python_sdk import TargetClient
 
 
 class TestTargetClient(unittest.TestCase):
@@ -48,7 +50,7 @@ class TestTargetClient(unittest.TestCase):
 
         with self.assertRaises(Exception) as err:
             TargetClient.create(options)
-            self.assertEqual(str(err.exception) ==
+            self.assertEqual(str(err.exception),
                              'Invalid Decisioning Method.  Must be set to one of: on-device,server-side,hybrid')
 
     def test_create_custom_fetch_api(self):

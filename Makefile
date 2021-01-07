@@ -31,7 +31,7 @@ coverage:
 
 # Format code
 format: env
-	pylint src tests
+	pylint target_python_sdk target_tools
 
 # Generate client based on open-api spec
 codegen:

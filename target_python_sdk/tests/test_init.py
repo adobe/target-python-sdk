@@ -135,6 +135,7 @@ class TestTargetClient(unittest.TestCase):
         client = TargetClient.create(options)
         self.assertIsNotNone(client)
 
+<<<<<<< HEAD
     def test_get_offers_no_options(self):
         with self.assertRaises(Exception) as err:
             self.client.get_offers({})
@@ -387,3 +388,13 @@ class TestTargetClient(unittest.TestCase):
         for response_token in response_tokens:
             self.assertIsNotNone(response_token.get('activity.id'))
             self.assertIsNotNone(response_token.get('experience.id'))
+=======
+    def test_get_attributes(self):
+        options = {
+            'client': "clientId",
+            'organization_id': "orgId"
+        }
+        client = TargetClient.create(options)
+        mbox_names = ["mbox-a", "mbox-b", "mbox-c"]
+        self.assertIsNotNone(client.get_attributes(mbox_names, options))
+>>>>>>> TNT-38924 getAttributes()

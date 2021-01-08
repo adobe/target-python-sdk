@@ -24,9 +24,14 @@ from target_python_sdk.utils import compose_functions
 from target_python_sdk.utils import create_visitor
 from target_python_sdk.target import execute_delivery
 from target_python_sdk.target import handle_delivery_response
+from target_python_sdk.enums import DecisioningMethod
+from target_tools.constants import EMPTY_REQUEST
+from target_tools.utils import add_mboxes_to_request
+from target_tools.attributes_provider import AttributesProvider
 from target_tools.logger import get_logger
 from target_tools.event_provider import EventProvider
 from target_tools.enums import DecisioningMethod
+
 
 CLIENT_READY_DELAY = .1
 DEFAULT_TIMEOUT = 3000
@@ -214,3 +219,30 @@ class TargetClient:
         }
         target_options.update(options)
         return execute_delivery(self.config, target_options)
+
+
+    def get_attributes(self, mbox_names, options=None):
+        """
+        The TargetClient get_attributes method
+        :parameter
+        mbox_names: list<str> - A list of mbox names that contains JSON content attributes, required
+        options: dict - TargetClient options, required
+        options.request: "import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest" -
+            Target View Delivery API request, required
+        options.visitor_cookie: str - VisitorId cookie, optional
+        options.target_cookie: str - Target cookie, optional
+        options.target_location_hint: str - Target Location Hint, optional
+        options.consumer_id: str - When stitching multiple calls, different consumerIds should be provided, optional
+        options.customer_ids: list - An array of Customer Ids in VisitorId-compatible format, optional
+        options.session_id: str - Session Id, used for linking multiple requests, optional
+        options.visitor: dict - Supply an external VisitorId instance, optional
+        options.decisioning_method: str ('on-device'|'server-side'|'hybrid') - The execution mode, defaults to
+            remote, optional
+        """
+
+        options['request'] = options.get('request') if options and options.get('request') else EMPTY_REQUEST
+
+        request = add_mboxes_to_request(mbox_names, options.get('request'), "execute")
+        options['request'] = request
+
+        return AttributesProvider(self.get_offers(options))

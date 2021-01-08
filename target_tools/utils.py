@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Copyright 2020 Adobe. All rights reserved.
+=======
+# Copyright 2021 Adobe. All rights reserved.
+>>>>>>> TNT-38924 getAttributes()
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -8,6 +12,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
+<<<<<<< HEAD
 """Assorted utility functions for target_tools package"""
 # pylint: disable=protected-access
 
@@ -49,3 +54,19 @@ def get_property(config, request):
 def decisioning_engine_ready(decisioning_engine):
     """Checks if decisioning engine is ready"""
     return decisioning_engine if decisioning_engine and decisioning_engine.is_ready() else None
+=======
+"""utils"""
+
+
+def add_mboxes_to_request(mbox_names, request, request_type):
+    """The add_mboxes_to_request method
+    Ensures the mboxes specified are part of the returned delivery request
+    :parameter
+    mbox_names: list<str> - A list of mbox names that contains JSON content attributes, required
+    request: "import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest" - Target View
+        Delivery API request, required
+    request_type: str ('execute'|'prefetch')
+    """
+    print(mbox_names, request, request_type)
+    return request
+>>>>>>> TNT-38924 getAttributes()

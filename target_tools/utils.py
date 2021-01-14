@@ -56,9 +56,41 @@ def decisioning_engine_ready(decisioning_engine):
     return decisioning_engine if decisioning_engine and decisioning_engine.is_ready() else None
 =======
 """utils"""
+from functools import reduce
 
+MBOXES = 'mboxes'
 
-def add_mboxes_to_request(mbox_names, request, request_type):
+def get_names_for_requested(items_key, delivery_request):
+    """
+    :parameter
+    items_key: str ('mboxes' | 'views')
+    request: "import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest" - Target View
+        Delivery API request, required
+    :returns
+    mbox_names: set<str> - Set of mbox names
+    """
+    result_set = set()
+    for request_type in ['prefetch', 'execute']:
+        if delivery_request and delivery_request.get(request_type) and isinstance(delivery_request.
+        get(request_type).get(items_key), list):
+            items = delivery_request.get(request_type).get(items_key)
+        else:
+            items = []
+    for item in items:
+        result_set.add(item.get('name'))
+    return result_set
+
+def get_mbox_names(delivery_request):
+    """
+    :parameter
+    request: "import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest" - Target View
+        Delivery API request, required
+    :returns
+    mbox_names: set<str> - Set of mbox names
+    """
+    return get_names_for_requested(MBOXES, delivery_request)
+
+def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     """The add_mboxes_to_request method
     Ensures the mboxes specified are part of the returned delivery request
     :parameter
@@ -67,6 +99,29 @@ def add_mboxes_to_request(mbox_names, request, request_type):
         Delivery API request, required
     request_type: str ('execute'|'prefetch')
     """
+<<<<<<< HEAD
     print(mbox_names, request, request_type)
     return request
 >>>>>>> TNT-38924 getAttributes()
+=======
+    requested_mboxes = get_mbox_names(request)
+    mboxes = []
+    if request and request.get(request_type) and isinstance(request.get(request_type).get('mboxes'), list):
+        mboxes.extend(request.get(request_type).get('mboxes'))
+
+    highest_user_specified_index = reduce(lambda highest, mbox: max(highest, mbox.get('index')
+        if mbox.get('index').isnumeric() else 0), 0)
+
+    next_index = highest_user_specified_index + 1
+
+    filtered_mbox_names = list(filter(lambda mbox_name: not mbox_name in requested_mboxes, mbox_names))
+    for mbox_name in filtered_mbox_names:
+        mboxes.append({'name': mbox_name, 'index': next_index})
+        next_index += 1
+
+    result = {**request}
+
+    result['requestType'].extend(mboxes)
+
+    return result
+>>>>>>> Added utility methods

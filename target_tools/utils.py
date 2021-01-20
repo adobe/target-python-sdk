@@ -56,7 +56,6 @@ def decisioning_engine_ready(decisioning_engine):
     return decisioning_engine if decisioning_engine and decisioning_engine.is_ready() else None
 =======
 """utils"""
-from functools import reduce
 
 MBOXES = 'mboxes'
 
@@ -76,8 +75,8 @@ def get_names_for_requested(items_key, delivery_request):
             items = delivery_request.get(request_type).get(items_key)
         else:
             items = []
-    for item in items:
-        result_set.add(item.get('name'))
+        for item in items:
+            result_set.add(item.get('name'))
     return result_set
 
 def get_mbox_names(delivery_request):
@@ -109,19 +108,19 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     if request and request.get(request_type) and isinstance(request.get(request_type).get('mboxes'), list):
         mboxes.extend(request.get(request_type).get('mboxes'))
 
-    highest_user_specified_index = reduce(lambda highest, mbox: max(highest, mbox.get('index')
-        if mbox.get('index').isnumeric() else 0), 0)
+    highest_user_specified_index_mbox = max(mboxes, key=lambda mbox:mbox['index']).get('index') if mboxes else 0
 
-    next_index = highest_user_specified_index + 1
+    next_index = highest_user_specified_index_mbox + 1
 
-    filtered_mbox_names = list(filter(lambda mbox_name: not mbox_name in requested_mboxes, mbox_names))
+    filtered_mbox_names = [mbox_name for mbox_name in mbox_names if mbox_name not in requested_mboxes]
+
     for mbox_name in filtered_mbox_names:
         mboxes.append({'name': mbox_name, 'index': next_index})
         next_index += 1
 
-    result = {**request}
-
-    result['requestType'].extend(mboxes)
+    result = request
+    if request and request.get(request_type) and isinstance(request.get(request_type).get('mboxes'), list):
+        result[request_type]['mboxes'] = mboxes
 
     return result
 >>>>>>> Added utility methods

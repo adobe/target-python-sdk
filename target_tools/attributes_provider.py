@@ -37,7 +37,7 @@ class AttributesProvider:
         offers_response: TargetDeliveryResponse
         """
         self.offers_response = offers_response
-        self.indexed = create_indexed(offers_response.get('response')) if offers_response else {}
+        self.indexed = create_indexed(offers_response.get('response')) if offers_response and offers_response.get('response') else {}
 
     def get_value(self, mbox_name, key):
         """
@@ -49,9 +49,13 @@ class AttributesProvider:
             raise Exception(attribute_not_exist(key, mbox_name))
         return self.indexed.get(mbox_name).get(key)
 
-    def get_as_object(self, mbox_name):
+    def get_as_object(self, mbox_name=None):
         """Gets object"""
         return self.indexed.get(mbox_name) if mbox_name else self.indexed
+
+    def as_object(self, mbox_name=None):
+        """Gets object"""
+        return self.get_as_object(mbox_name)
 
     def to_json(self):
         """Gets json"""

@@ -10,9 +10,7 @@
 
 """Test cases for attributes_provider.py"""
 import unittest
-from target_tools import utils
 from target_tools.attributes_provider import AttributesProvider
-from target_tools.messages import attribute_not_exist
 
 target_response = {
   'visitor_state': {
@@ -125,15 +123,13 @@ class TestAttributesProvider(unittest.TestCase):
         feature = AttributesProvider(target_response)
 
         self.assertTrue(callable(feature.get_value))
-        self.assertTrue(callable(feature.get_as_object))
+        self.assertTrue(callable(feature.as_object))
         self.assertTrue(callable(feature.to_json))
         self.assertTrue(callable(feature.get_response))
 
         self.assertDictEqual(feature.get_response(), target_response)
 
     def test_gets_value_for_single_mbox(self):
-        print('current')
-
         feature_a = AttributesProvider(target_response)
 
         self.assertEqual(feature_a.get_value("feature-flag-a", "payment_experience"), "legacy")
@@ -147,3 +143,76 @@ class TestAttributesProvider(unittest.TestCase):
         self.assertTrue(feature_b.get_value("feature-flag-b", "show_feature_y"))
         self.assertEqual(feature_b.get_value("feature-flag-b", "cart_version"), 1.3)
         self.assertEqual(feature_b.get_value("feature-flag-b", "customer_survey_value"), 102)
+
+    def test_gets_value_for_multiple_mboxes_at_once(self):
+        features = AttributesProvider(target_response)
+
+        self.assertEqual(features.get_value("feature-flag-a", "payment_experience"), "legacy")
+        self.assertFalse(features.get_value("feature-flag-a", "show_feature_x"))
+        self.assertEqual(features.get_value("feature-flag-a", "payment_gateway_version"), 2.3)
+        self.assertEqual(features.get_value("feature-flag-a", "customer_feedback_value"), 10)
+
+        self.assertEqual(features.get_value("feature-flag-b", "purchase_experience"), "beta2")
+        self.assertTrue(features.get_value("feature-flag-b", "show_feature_y"))
+        self.assertEqual(features.get_value("feature-flag-b", "cart_version"), 1.3)
+        self.assertEqual(features.get_value("feature-flag-b", "customer_survey_value"), 102)
+
+    def test_gets_as_object(self):
+        features = AttributesProvider(target_response)
+
+        self.assertDictEqual(features.as_object("feature-flag-a"), {
+            'payment_experience': "legacy",
+            'show_feature_x': False,
+            'payment_gateway_version': 2.3,
+            'customer_feedback_value': 10
+        })
+
+        self.assertDictEqual(features.as_object("feature-flag-b"), {
+            'purchase_experience': "beta2",
+            'show_feature_y': True,
+            'cart_version': 1.3,
+            'customer_survey_value': 102
+        })
+
+        self.assertDictEqual(features.as_object(), {
+            "feature-flag-a": {
+                'payment_experience': "legacy",
+                'show_feature_x': False,
+                'payment_gateway_version': 2.3,
+                'customer_feedback_value': 10
+            },
+            "feature-flag-b": {
+                'purchase_experience': "beta2",
+                'show_feature_y': True,
+                'cart_version': 1.3,
+                'customer_survey_value': 102
+            }
+        })
+
+        self.assertDictEqual(features.to_json(), {
+            "feature-flag-a": {
+                'payment_experience': "legacy",
+                'show_feature_x': False,
+                'payment_gateway_version': 2.3,
+                'customer_feedback_value': 10
+            },
+            "feature-flag-b": {
+                'purchase_experience': "beta2",
+                'show_feature_y': True,
+                'cart_version': 1.3,
+                'customer_survey_value': 102
+            }
+        })
+
+    def test_throws_an_error_if_an_attribute_does_not_exist(self):
+        features = AttributesProvider(target_response)
+
+        with self.assertRaises(Exception) as context:
+            features.get_value("feature-flag-a", "my_property_name")
+
+        self.assertTrue("Attribute my_property_name does not exist for mbox feature-flag-a" in context.exception)
+
+        with self.assertRaises(Exception) as context:
+            features.get_value("feature-flag-xyz", "my_property_name")
+
+        self.assertTrue("Attribute my_property_name does not exist for mbox feature-flag-xyz" in context.exception)

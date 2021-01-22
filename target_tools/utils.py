@@ -57,7 +57,7 @@ def decisioning_engine_ready(decisioning_engine):
 =======
 """utils"""
 
-MBOXES = 'mboxes'
+MBOXES = "mboxes"
 
 def get_names_for_requested(items_key, delivery_request):
     """
@@ -69,7 +69,7 @@ def get_names_for_requested(items_key, delivery_request):
     mbox_names: set<str> - Set of mbox names
     """
     result_set = set()
-    for request_type in ['prefetch', 'execute']:
+    for request_type in ["prefetch", "execute"]:
         if delivery_request and delivery_request.get(request_type) and isinstance(delivery_request.
         get(request_type).get(items_key), list):
             items = delivery_request.get(request_type).get(items_key)

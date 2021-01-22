@@ -246,3 +246,4 @@ class TargetClient:
         options['request'] = request
 
         return AttributesProvider(self.get_offers(options))
+

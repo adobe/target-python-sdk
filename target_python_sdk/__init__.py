@@ -32,7 +32,6 @@ from target_tools.logger import get_logger
 from target_tools.event_provider import EventProvider
 from target_tools.enums import DecisioningMethod
 
-
 CLIENT_READY_DELAY = .1
 DEFAULT_TIMEOUT = 3000
 DEFAULT_OPTS = {
@@ -240,10 +239,14 @@ class TargetClient:
             remote, optional
         """
 
-        options['request'] = options.get('request') if options and options.get('request') else EMPTY_REQUEST
+        if not options or not options.get('request'):
+            options = {'request': EMPTY_REQUEST}
 
         request = add_mboxes_to_request(mbox_names, options.get('request'), "execute")
-        options['request'] = request
 
-        return AttributesProvider(self.get_offers(options))
+        options['request'].update(request)
+
+        response = self.get_offers(options)
+
+        return AttributesProvider(response)
 

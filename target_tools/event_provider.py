@@ -16,7 +16,7 @@ class EventProvider:
 
     def __init__(self, events=None):
         """Initialize EventProvider"""
-        print events
+        print(events)
 
     def emit(self, event_name, payload=None):
         """Emits events"""

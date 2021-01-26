@@ -21,6 +21,10 @@ def get_logger():
 =======
 def get_logger(logger=None):
     """Returns standard root logger for now"""
+<<<<<<< HEAD
     print logger
 >>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
+=======
+    print(logger)
+>>>>>>> Put back parenthesis to satisfy linter
     return LOG

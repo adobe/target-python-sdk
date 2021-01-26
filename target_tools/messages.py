@@ -13,6 +13,7 @@
 # governing permissions and limitations under the License.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 """Error and log messages"""
 
 DECISIONING_ENGINE_NOT_READY = "Unable to fulfill request; decisioning engine not ready."
@@ -28,6 +29,10 @@ def property_token_mismatch(request_property, config_property):
     return "The property token specified in the request '{}' does not match the one specified in the config '{}'."\
         .format(request_property, config_property)
 =======
+=======
+"""Error messages"""
+
+>>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
 def attribute_not_exist(key_name, mbox_name):
     """Attribute not exist"""
     return "Attribute " + key_name + " does not exist for mbox " + mbox_name

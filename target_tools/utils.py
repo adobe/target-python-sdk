@@ -59,6 +59,7 @@ def decisioning_engine_ready(decisioning_engine):
 
 MBOXES = "mboxes"
 
+
 def get_names_for_requested(items_key, delivery_request):
     """
     :parameter
@@ -70,14 +71,15 @@ def get_names_for_requested(items_key, delivery_request):
     """
     result_set = set()
     for request_type in ["prefetch", "execute"]:
-        if delivery_request and delivery_request.get(request_type) and isinstance(delivery_request.
-        get(request_type).get(items_key), list):
+        if delivery_request and delivery_request.get(request_type) and isinstance(
+                delivery_request. get(request_type).get(items_key), list):
             items = delivery_request.get(request_type).get(items_key)
         else:
             items = []
         for item in items:
             result_set.add(item.get('name'))
     return result_set
+
 
 def get_mbox_names(delivery_request):
     """
@@ -88,6 +90,7 @@ def get_mbox_names(delivery_request):
     mbox_names: set<str> - Set of mbox names
     """
     return get_names_for_requested(MBOXES, delivery_request)
+
 
 def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     """The add_mboxes_to_request method
@@ -105,21 +108,25 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
 =======
     requested_mboxes = get_mbox_names(request)
     mboxes = []
-    if request and request.get(request_type) and isinstance(request.get(request_type).get('mboxes'), list):
+    if request and request.get(request_type) and isinstance(
+            request.get(request_type).get('mboxes'), list):
         mboxes.extend(request.get(request_type).get('mboxes'))
 
-    highest_user_specified_index_mbox = max(mboxes, key=lambda mbox:mbox['index']).get('index') if mboxes else 0
+    highest_user_specified_index_mbox = max(
+        mboxes, key=lambda mbox: mbox['index']).get('index') if mboxes else 0
 
     next_index = highest_user_specified_index_mbox + 1
 
-    filtered_mbox_names = [mbox_name for mbox_name in mbox_names if mbox_name not in requested_mboxes]
+    filtered_mbox_names = [
+        mbox_name for mbox_name in mbox_names if mbox_name not in requested_mboxes]
 
     for mbox_name in filtered_mbox_names:
         mboxes.append({'name': mbox_name, 'index': next_index})
         next_index += 1
 
     result = request
-    if request and request.get(request_type) and isinstance(request.get(request_type).get('mboxes'), list):
+    if request and request.get(request_type) and isinstance(
+            request.get(request_type).get('mboxes'), list):
         result[request_type]['mboxes'] = mboxes
 
     return result

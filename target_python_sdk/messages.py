@@ -1,4 +1,4 @@
-# Copyright 2020 Adobe. All rights reserved.
+# Copyright 2021 Adobe. All rights reserved.
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,18 +17,30 @@ MESSAGES = {
     'DECISIONING_METHOD_INVALID': "Invalid Decisioning Method.  Must be set to one of: {}".format(
         ",".join([e.value for e in DecisioningMethod])),
     'FETCH_API_REQUIRED': "Fetch API is required",
+<<<<<<< HEAD
     'REQUEST_REQUIRED': "Request object of type DeliveryRequest is required",
+=======
+    'REQUEST_REQUIRED': "Request object is required",
+>>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
     'EXECUTE_FIELDS_REQUIRED': "Either pageLoad or mboxes is required in execute",
     'PREFETCH_FIELDS_REQUIRED': "Either views, pageLoad or mboxes is required in prefetch",
     'NOTIFICATIONS_REQUIRED': "Notifications list is required in request",
     'MBOX_INVALID': "Mbox validation failed for: ",
     'NOTIFICATION_INVALID': "Notification validation failed for: ",
     'CLIENT_REQUIRED': "Client is required",
+<<<<<<< HEAD
     'OPTIONS_REQUIRED': "Options are required",
+=======
+    'OPTIONS_REQUIRED': "Options map is required",
+>>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
     'REQUEST_SENT': "Request sent",
     'RESPONSE_RECEIVED': "Response received",
     'FETCH_UNDEFINED': "Fetch is not defined!",
     'DECISIONING_ENGINE_UNDEFINED': "Decisioning Engine is undefined",
+<<<<<<< HEAD
     'LOCATION_HINT_REQUEST_FAILED': "Unable to retrieve location hint cookie.",
     'INVALID_CALLBACK': "Callback must be a callable function"
+=======
+    'LOCATION_HINT_REQUEST_FAILED': "Unable to retrieve location hint cookie."
+>>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
 }

@@ -13,18 +13,19 @@ import unittest
 
 from target_tools import utils
 
+
 class TestUtils(unittest.TestCase):
 
     def test_get_mbox_names(self):
         result = utils.get_mbox_names({
-            'context': { 'channel': "web" },
+            'context': {'channel': "web"},
             'execute': {
-                'mboxes': [{ 'name': "one" }, { 'name': "two" }]
+                'mboxes': [{'name': "one"}, {'name': "two"}]
             },
             'prefetch': {
-                'mboxes': [{ 'name': "three" }, { 'name': "four" }]
+                'mboxes': [{'name': "three"}, {'name': "four"}]
             }
-            })
+        })
         self.assertTrue(isinstance(result, set))
         self.assertEqual(len(result), 4)
         self.assertTrue("one" in result)
@@ -37,25 +38,25 @@ class TestUtils(unittest.TestCase):
             {
                 'prefetch': {
                     'mboxes': [
-                    {
-                        'name': "mbox-foo",
-                        'index': 1
-                    },
-                    {
-                        'name': "mbox-bar",
-                        'index': 2
-                    },
-                    {
-                        'name': "mbox-baz",
-                        'index': 3
-                    }
+                        {
+                            'name': "mbox-foo",
+                            'index': 1
+                        },
+                        {
+                            'name': "mbox-bar",
+                            'index': 2
+                        },
+                        {
+                            'name': "mbox-baz",
+                            'index': 3
+                        }
                     ]
                 }
             },
             utils.add_mboxes_to_request(
                 ["mbox-foo", "mbox-bar", "mbox-baz"],
                 {
-                    'context': { 'channel': "web" },
+                    'context': {'channel': "web"},
                     'prefetch': {
                         'mboxes': []
                     }
@@ -69,25 +70,25 @@ class TestUtils(unittest.TestCase):
             {
                 'execute': {
                     'mboxes': [
-                    {
-                        'name': "mbox-foo",
-                        'index': 1
-                    },
-                    {
-                        'name': "mbox-bar",
-                        'index': 2
-                    },
-                    {
-                        'name': "mbox-baz",
-                        'index': 3
-                    }
+                        {
+                            'name': "mbox-foo",
+                            'index': 1
+                        },
+                        {
+                            'name': "mbox-bar",
+                            'index': 2
+                        },
+                        {
+                            'name': "mbox-baz",
+                            'index': 3
+                        }
                     ]
                 }
             },
             utils.add_mboxes_to_request(
                 ["mbox-foo", "mbox-bar", "mbox-baz"],
                 {
-                    'context': { 'channel': "web" },
+                    'context': {'channel': "web"},
                     'execute': {
                         'mboxes': []
                     }
@@ -96,34 +97,35 @@ class TestUtils(unittest.TestCase):
             )
         )
 
-    def test_add_mboxes_to_request_adds_without_duplicates_preserves_existings(self):
+    def test_add_mboxes_to_request_adds_without_duplicates_preserves_existings(
+            self):
         self.assertDictContainsSubset(
             {
                 'prefetch': {
                     'mboxes': [
-                    {
-                        'name': "mbox-foo",
-                        'index': 6
-                    },
-                    {
-                        'name': "mbox-jab",
-                        'index': 2
-                    },
-                    {
-                        'name': "mbox-bar",
-                        'index': 7
-                    },
-                    {
-                        'name': "mbox-baz",
-                        'index': 8
-                    }
+                        {
+                            'name': "mbox-foo",
+                            'index': 6
+                        },
+                        {
+                            'name': "mbox-jab",
+                            'index': 2
+                        },
+                        {
+                            'name': "mbox-bar",
+                            'index': 7
+                        },
+                        {
+                            'name': "mbox-baz",
+                            'index': 8
+                        }
                     ]
                 }
             },
             utils.add_mboxes_to_request(
                 ["mbox-foo", "mbox-bar", "mbox-baz"],
                 {
-                    'context': { 'channel': "web" },
+                    'context': {'channel': "web"},
                     'prefetch': {
                         'mboxes': [
                             {

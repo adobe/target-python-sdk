@@ -1,4 +1,4 @@
-# Copyright 2020 Adobe. All rights reserved.
+# Copyright 2021 Adobe. All rights reserved.
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -44,14 +44,22 @@ class TargetClient:
     """External-facing Target client for handling personalization"""
 
     def __init__(self, options):
+        """Initialize TargetClient"""
         if not options or not options.get('internal'):
             raise Exception(MESSAGES.get('PRIVATE_CONSTRUCTOR'))
 
+<<<<<<< HEAD
         self.config = deepcopy(options)
         self.config['timeout'] = options.get('timeout') if options.get('timeout') \
             else DEFAULT_TIMEOUT
 
         self.logger = get_logger()
+=======
+        self.config = options
+        self.config['timeout'] = options.get(
+            'timeout') if options.get('timeout') else DEFAULT_TIMEOUT
+        self.logger = get_logger(options.get('logger'))
+>>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
         event_emitter = EventProvider(self.config.get('events')).emit
         self.decisioning_engine = None
 
@@ -219,7 +227,6 @@ class TargetClient:
         target_options.update(options)
         return execute_delivery(self.config, target_options)
 
-
     def get_attributes(self, mbox_names, options=None):
         """
         The TargetClient get_attributes method
@@ -242,7 +249,8 @@ class TargetClient:
         if not options or not options.get('request'):
             options = {'request': EMPTY_REQUEST}
 
-        request = add_mboxes_to_request(mbox_names, options.get('request'), "execute")
+        request = add_mboxes_to_request(
+            mbox_names, options.get('request'), "execute")
 
         options['request'].update(request)
 

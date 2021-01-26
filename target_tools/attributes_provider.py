@@ -8,6 +8,8 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
+"""AttributesProvider"""
+
 from target_tools.messages import attribute_not_exist
 
 def create_indexed(response):
@@ -17,13 +19,15 @@ def create_indexed(response):
     """
     result = {}
     for request_type in ["prefetch", "execute"]:
-        if response.get(request_type) and response.get(request_type).get('mboxes') and isinstance(response.
-        get(request_type).get('mboxes'), list):
+        if response.get(request_type) and response.get(request_type).get(
+                'mboxes') and isinstance(response. get(request_type).get('mboxes'), list):
             for mbox in response.get(request_type).get('mboxes'):
                 name = mbox.get('name')
                 for option in mbox.get('options'):
-                    if option.get('content_type') == "json" and option.get('content'):
-                        result[name] = {} if not result or not result.get(name) else result[name]
+                    if option.get('content_type') == "json" and option.get(
+                            'content'):
+                        result[name] = {} if not result or not result.get(
+                            name) else result[name]
                         result[name].update(option.get('content'))
     return result
 
@@ -37,7 +41,8 @@ class AttributesProvider:
         offers_response: TargetDeliveryResponse
         """
         self.offers_response = offers_response
-        self.indexed = create_indexed(offers_response.get('response')) if offers_response and offers_response.get('response') else {}
+        self.indexed = create_indexed(offers_response.get(
+            'response')) if offers_response and offers_response.get('response') else {}
 
     def get_value(self, mbox_name, key):
         """
@@ -45,7 +50,8 @@ class AttributesProvider:
         :parameter
         mbox_name: str
         """
-        if mbox_name not in self.indexed or key not in self.indexed.get(mbox_name):
+        if mbox_name not in self.indexed or key not in self.indexed.get(
+                mbox_name):
             raise Exception(attribute_not_exist(key, mbox_name))
         return self.indexed.get(mbox_name).get(key)
 

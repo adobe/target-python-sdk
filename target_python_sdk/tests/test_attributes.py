@@ -10,7 +10,6 @@
 
 """Test cases for get_attributes"""
 import unittest
-import json
 
 try:
     from unittest.mock import Mock

@@ -26,7 +26,7 @@ jobs:
         run: |
           make pre_build
       - name: generate coveralls coverage
-        run: coveralls
+        run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_FLAG_NAME: ${{ matrix.test-name }}

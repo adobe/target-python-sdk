@@ -1,0 +1,48 @@
+{
+   "status":200,
+   "requestId":"5798c85a-7eac-4e33-8c94-7419a28677b1",
+   "client":"unifiedjslab",
+   "id":{
+      "tntId":"123.35_0",
+      "customerIds": [{
+        "id": "999",
+        "integrationCode": "foo",
+        "authenticatedState": "authenticated"
+      }]
+   },
+   "edgeHost":"mboxedge35.tt.omtrdc.net",
+   "prefetch":{
+      "mboxes":[
+         {
+            "index":1,
+            "name":"homepage",
+            "options": [{
+              "content": {
+                "browserName": "Google Chrome"
+              },
+              "type": "json",
+              "eventToken":
+                "hi+ys8FLH8AC6VEf02b7k5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+            }],
+            "metrics": [{
+              "type": "click",
+              "eventToken": "YkhqwhXNq2tRoWQ/jt8MZw=="
+            }]
+         }
+      ]
+   },
+   "execute":{
+      "mboxes":[
+         {
+            "index":1,
+            "name":"cart",
+            "options": [{
+              "content": "<p>Hello World</p>",
+              "type": "html",
+              "eventToken":
+                "hi+ys8FLH8AC6VEf02b7k5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpMMM2Q=="
+            }]
+         }
+      ]
+   }
+}

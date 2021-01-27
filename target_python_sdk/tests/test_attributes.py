@@ -223,8 +223,10 @@ class TestGetAttributes(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             attributes.get_value("unknown-flag", "payment_experience")
 
-        self.assertTrue(
-            "Attribute payment_experience does not exist for mbox unknown-flag" in context.exception)
+        print(context.exception)
+
+        self.assertEqual(
+            "Attribute payment_experience does not exist for mbox unknown-flag", str(context.exception))
 
     def test_adds_mbox_names_to_the_delivery_request_as_needed(self):
         target_request = {

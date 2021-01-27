@@ -48,18 +48,10 @@ class TargetClient:
         if not options or not options.get('internal'):
             raise Exception(MESSAGES.get('PRIVATE_CONSTRUCTOR'))
 
-<<<<<<< HEAD
-        self.config = deepcopy(options)
-        self.config['timeout'] = options.get('timeout') if options.get('timeout') \
-            else DEFAULT_TIMEOUT
-
-        self.logger = get_logger()
-=======
         self.config = options
         self.config['timeout'] = options.get(
             'timeout') if options.get('timeout') else DEFAULT_TIMEOUT
         self.logger = get_logger(options.get('logger'))
->>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
         event_emitter = EventProvider(self.config.get('events')).emit
         self.decisioning_engine = None
 
@@ -257,4 +249,3 @@ class TargetClient:
         response = self.get_offers(options)
 
         return AttributesProvider(response)
-

@@ -9,7 +9,6 @@
 # governing permissions and limitations under the License.
 
 """Test cases for get_attributes"""
-# pylint: disable=duplicate-code
 import unittest
 
 try:

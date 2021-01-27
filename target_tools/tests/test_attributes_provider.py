@@ -9,7 +9,6 @@
 # governing permissions and limitations under the License.
 
 """Test cases for attributes_provider.py"""
-# pylint: disable=duplicate-code
 import unittest
 from target_tools.attributes_provider import AttributesProvider
 

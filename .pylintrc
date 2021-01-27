@@ -2,6 +2,10 @@
 max-line-length=120
 no-docstring-rgx=^[tT]est*
 
+<<<<<<< HEAD
+=======
+# https://github.com/PyCQA/pylint/issues/214
+>>>>>>> Workaround for known issue of False Positive duplicate-code in pylint for tests
 [SIMILARITIES]
 
 # Minimum lines number of a similarity.

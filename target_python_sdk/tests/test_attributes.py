@@ -223,8 +223,6 @@ class TestGetAttributes(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             attributes.get_value("unknown-flag", "payment_experience")
 
-        print(context.exception)
-
         self.assertEqual(
             "Attribute payment_experience does not exist for mbox unknown-flag", str(context.exception))
 

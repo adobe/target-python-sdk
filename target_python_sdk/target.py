@@ -19,9 +19,16 @@ from functools import partial
 from target_python_sdk import compose_functions
 from target_python_sdk.messages import MESSAGES
 from target_python_sdk.cookies import parse_cookies
-from target_python_sdk.helper import create_delivery_api, get_device_id, get_cluster, \
-    get_target_host, get_session_id, create_headers, create_delivery_request, create_configuration, process_response, \
-    preserve_location_hint
+from target_python_sdk.helper import create_delivery_api
+from target_python_sdk.helper import get_device_id
+from target_python_sdk.helper import get_cluster
+from target_python_sdk.helper import get_target_host
+from target_python_sdk.helper import get_session_id
+from target_python_sdk.helper import create_headers
+from target_python_sdk.helper import create_delivery_request
+from target_python_sdk.helper import create_configuration
+from target_python_sdk.helper import process_response
+from target_python_sdk.helper import preserve_location_hint
 from target_tools.logger import get_logger
 from target_tools.utils import requires_decisioning_engine
 from target_tools.utils import decisioning_engine_ready

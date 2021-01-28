@@ -8,9 +8,29 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Testing helper functions for transforming dicts to DeliveryRequest models"""
-from delivery_api_client import VisitorId, CustomerId, Context, Geo, Browser, Window, Screen, Application, \
-    MobilePlatform, Address, ExperienceCloud, AnalyticsRequest, AudienceManager, ExecuteRequest, Order, Product, \
-    MboxRequest, ViewRequest, RequestDetails as PageLoad, PrefetchRequest, DeliveryRequest, Notification, ChannelType
+from delivery_api_client import VisitorId
+from delivery_api_client import CustomerId
+from delivery_api_client import Context
+from delivery_api_client import Geo
+from delivery_api_client import Browser
+from delivery_api_client import Window
+from delivery_api_client import Screen
+from delivery_api_client import Application
+from delivery_api_client import MobilePlatform
+from delivery_api_client import Address
+from delivery_api_client import ExperienceCloud
+from delivery_api_client import AnalyticsRequest
+from delivery_api_client import AudienceManager
+from delivery_api_client import ExecuteRequest
+from delivery_api_client import Order
+from delivery_api_client import Product
+from delivery_api_client import MboxRequest
+from delivery_api_client import ViewRequest
+from delivery_api_client import RequestDetails as PageLoad
+from delivery_api_client import PrefetchRequest
+from delivery_api_client import DeliveryRequest
+from delivery_api_client import Notification
+from delivery_api_client import ChannelType
 from delivery_api_client import ModelProperty as Property
 
 

@@ -19,8 +19,10 @@ from target_python_sdk.events import CLIENT_READY
 from target_python_sdk.validators import validate_client_options
 from target_python_sdk.validators import validate_get_offers_options
 from target_python_sdk.helper import preserve_location_hint
-from target_python_sdk.utils import compose_functions, create_visitor
-from target_python_sdk.target import execute_delivery, handle_delivery_response
+from target_python_sdk.utils import compose_functions
+from target_python_sdk.utils import create_visitor
+from target_python_sdk.target import execute_delivery
+from target_python_sdk.target import handle_delivery_response
 from target_tools.logger import get_logger
 from target_tools.event_provider import EventProvider
 from target_tools.enums import DecisioningMethod
@@ -55,52 +57,51 @@ class TargetClient:
     @staticmethod
     def create(options=None):
         """The TargetClient creation factory method
-        :param options: dict - TargetClient options, required
+        :param options: (dict) TargetClient options, required
 
-        options.client: str - Target Client Id, required
+        options.client: (str) Target Client Id, required
 
-        options.organization_id: str - Target Organization Id, required
+        options.organization_id: (str) Target Organization Id, required
 
-        options.timeout: int - Target request timeout in ms, default: 3000
+        options.timeout: (int) Target request timeout in ms, default: 3000
 
-        options.server_domain: str - Server domain, optional
+        options.server_domain: (str) Server domain, optional
 
-        options.target_location_hint: str - Target Location Hint, optional
+        options.target_location_hint: (str) Target Location Hint, optional
 
-        options.secure: bool - Unset to enforce HTTP scheme, default: true
+        options.secure: (bool) Unset to enforce HTTP scheme, default: true
 
-        options.logger: dict - Replaces the default noop logger, optional
+        options.logger: (dict) Replaces the default noop logger, optional
 
-        options.decisioning_method: str ('on-device'|'server-side'|'hybrid')
-            - The decisioning method, defaults to remote, optional
+        options.decisioning_method: ('on-device'|'server-side'|'hybrid')
+            The decisioning method, defaults to remote, optional
 
-        options.polling_interval: int - (Local Decisioning)
+        options.polling_interval: (int) Local Decisioning -
             Polling interval in ms, default: 30000
 
-        options.maximum_wait_ready: int - (Local Decisioning) The maximum amount of time (in ms)
+        options.maximum_wait_ready: (int) Local Decisioning - The maximum amount of time (in ms)
             to wait for clientReady.  Default is to wait indefinitely.
 
-        options.artifact_location: str - (Local Decisioning) Fully qualified url to the location
+        options.artifact_location: (str) Local Decisioning - Fully qualified url to the location
             of the artifact, optional
 
-        options.artifact_payload: str
-            "import("@adobe/target-decisioning-engine/types/DecisioningArtifact")
-            .DecisioningArtifact" - (Local Decisioning) A pre-fetched artifact, optional
+        options.artifact_payload: (target_decisioning_engine/types/DecisioningArtifact)
+            Local Decisioning - A pre-fetched artifact, optional
 
-        options.environment_id: int - The Target environment ID, defaults to production, optional
+        options.environment_id: (int) The Target environment ID, defaults to production, optional
 
-        options.environment: str - The Target environment name, defaults to production, optional
+        options.environment: (str) The Target environment name, defaults to production, optional
 
-        options.cdn_environment: str - The CDN environment name, defaults to production, optional
+        options.cdn_environment: (str) The CDN environment name, defaults to production, optional
 
-        options.telemetry_enabled: bool - If set to false, telemetry data will not be sent to Adobe
+        options.telemetry_enabled: (bool) - If set to false, telemetry data will not be sent to Adobe
 
-        options.version: str - The version number of this sdk, optional
+        options.version: (str) - The version number of this sdk, optional
 
-        options.property_token: str - A property token used to limit the scope of evaluated target
+        options.property_token: (str) - A property token used to limit the scope of evaluated target
             activities, optional
 
-        options.events: dict.<str, function> - An object with event name keys and callback
+        options.events: (dict.<str, callable>) An object with event name keys and callback
             function values, optional
 
         :return TargetClient instance object

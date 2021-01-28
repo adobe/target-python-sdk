@@ -18,24 +18,37 @@ except ImportError:
 import json
 from copy import deepcopy
 import pkg_resources
-from delivery_api_client import ApiClient, MobilePlatformType, DeviceType, ScreenOrientationType, ExecuteResponse, \
-    PrefetchResponse
-from delivery_api_client.Model.customer_id import CustomerId
-from delivery_api_client.Model.metric_type import MetricType
-from delivery_api_client.configuration import Configuration
-from delivery_api_client.Model.analytics_request import AnalyticsRequest
-from delivery_api_client.Model.audience_manager import AudienceManager
-from delivery_api_client.Model.authenticated_state import AuthenticatedState
-from delivery_api_client.Model.channel_type import ChannelType
-from delivery_api_client.Model.context import Context
-from delivery_api_client.Model.experience_cloud import ExperienceCloud
-from delivery_api_client.Model.logging_type import LoggingType
-from delivery_api_client.Model.visitor_id import VisitorId
-from delivery_api_client.api.delivery_api import DeliveryApi
+from delivery_api_client import ApiClient
+from delivery_api_client import MobilePlatformType
+from delivery_api_client import DeviceType
+from delivery_api_client import ScreenOrientationType
+from delivery_api_client import ExecuteResponse
+from delivery_api_client import PrefetchResponse
+from delivery_api_client import CustomerId
+from delivery_api_client import MetricType
+from delivery_api_client import Configuration
+from delivery_api_client import AnalyticsRequest
+from delivery_api_client import AudienceManager
+from delivery_api_client import AuthenticatedState
+from delivery_api_client import ChannelType
+from delivery_api_client import Context
+from delivery_api_client import ExperienceCloud
+from delivery_api_client import LoggingType
+from delivery_api_client import VisitorId
+from delivery_api_client import DeliveryApi
 from target_python_sdk import MESSAGES
-from target_python_sdk.cookies import DEVICE_ID_COOKIE, SESSION_ID_COOKIE, LOCATION_HINT_COOKIE, create_target_cookie
-from target_python_sdk.utils import is_string, create_uuid, is_dict, is_number, get_timezone_offset, \
-    get_epoch_time, flatten_list, remove_empty_values
+from target_python_sdk.cookies import DEVICE_ID_COOKIE
+from target_python_sdk.cookies import SESSION_ID_COOKIE
+from target_python_sdk.cookies import LOCATION_HINT_COOKIE
+from target_python_sdk.cookies import create_target_cookie
+from target_python_sdk.utils import is_string
+from target_python_sdk.utils import create_uuid
+from target_python_sdk.utils import is_dict
+from target_python_sdk.utils import is_number
+from target_python_sdk.utils import get_timezone_offset
+from target_python_sdk.utils import get_epoch_time
+from target_python_sdk.utils import flatten_list
+from target_python_sdk.utils import remove_empty_values
 from target_tools.constants import DEFAULT_GLOBAL_MBOX
 from target_tools.utils import requires_decisioning_engine
 from target_tools.logger import get_logger

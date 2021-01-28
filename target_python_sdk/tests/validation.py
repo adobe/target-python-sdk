@@ -8,8 +8,14 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Validation helper functions for test cases"""
-from delivery_api_client import DeliveryResponse, DeliveryRequest, ExecuteResponse, View, PrefetchResponse, \
-    PageLoadResponse, MboxResponse, PrefetchMboxResponse
+from delivery_api_client import DeliveryResponse
+from delivery_api_client import DeliveryRequest
+from delivery_api_client import ExecuteResponse
+from delivery_api_client import View
+from delivery_api_client import PrefetchResponse
+from delivery_api_client import PageLoadResponse
+from delivery_api_client import MboxResponse
+from delivery_api_client import PrefetchMboxResponse
 
 
 def validate_option(_self, option):

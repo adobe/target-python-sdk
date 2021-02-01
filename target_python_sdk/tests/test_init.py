@@ -13,14 +13,16 @@ import json
 import multiprocessing
 import unittest
 from copy import deepcopy
+
 from urllib3_mock import Responses
 import delivery_api_client
 from delivery_api_client import ScreenOrientationType
 from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock
-from target_python_sdk.tests.validation import validate_offers
+from target_python_sdk.tests.validation import validate_response
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
+from target_python_sdk.tests.helpers import get_client_options
 
 
 responses = Responses('requests.packages.urllib3')
@@ -29,10 +31,7 @@ responses = Responses('requests.packages.urllib3')
 class TestTargetClient(unittest.TestCase):
 
     def setUp(self):
-        client_options = {
-            'client': 'testingclient',
-            'organization_id': '11D1C9L459CE0AD80A495CBE@AdobeOrg'
-        }
+        client_options = get_client_options()
         self.get_offers_options = {
             'request': {
                 'id': {
@@ -210,7 +209,7 @@ class TestTargetClient(unittest.TestCase):
 
         def verify_callback(result):
             self.assertEqual(len(responses.calls), 1)
-            validate_offers(self, result)
+            validate_response(self, result)
             shared['has_response'] = True
 
         async_opts['callback'] = verify_callback
@@ -263,7 +262,7 @@ class TestTargetClient(unittest.TestCase):
         opts['request'] = create_delivery_request(opts['request'])
         result = self.client.get_offers(opts)
         self.assertEqual(len(responses.calls), 1)
-        validate_offers(self, result)
+        validate_response(self, result)
 
     @responses.activate
     def test_get_offers_sync_error(self):
@@ -292,7 +291,7 @@ class TestTargetClient(unittest.TestCase):
         result = self.client.get_offers(opts)
 
         self.assertEqual(len(responses.calls), 1)
-        validate_offers(self, result)
+        validate_response(self, result)
         self.assertIsNotNone(result.get('target_cookie'))
         self.assertIsNotNone(result.get('target_location_hint_cookie'))
 
@@ -311,7 +310,7 @@ class TestTargetClient(unittest.TestCase):
         result = self.client.get_offers(opts)
 
         self.assertEqual(len(responses.calls), 1)
-        validate_offers(self, result)
+        validate_response(self, result)
 
     @responses.activate
     def test_get_offers_execute(self):
@@ -340,7 +339,7 @@ class TestTargetClient(unittest.TestCase):
         result = self.client.get_offers(opts)
 
         self.assertEqual(len(responses.calls), 1)
-        validate_offers(self, result)
+        validate_response(self, result)
 
     @responses.activate
     def test_get_offers_prefetch(self):
@@ -379,7 +378,7 @@ class TestTargetClient(unittest.TestCase):
         result = self.client.get_offers(opts)
 
         self.assertEqual(len(responses.calls), 1)
-        validate_offers(self, result)
+        validate_response(self, result)
         response_tokens = result.get('response_tokens')
         self.assertIsNotNone(response_tokens)
         self.assertEqual(len(response_tokens), 2)

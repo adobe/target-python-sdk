@@ -20,7 +20,8 @@ MOCK_RESPONSES = {
     'prefetch': './responses/prefetch.json',
     'execute': './responses/execute.json',
     'customer_ids': './responses/customer_ids.json',
-    'invalid_request': './responses/invalid_request_error.json'
+    'invalid_request': './responses/invalid_request_error.json',
+    'notifications': './responses/notifications.json'
 }
 
 

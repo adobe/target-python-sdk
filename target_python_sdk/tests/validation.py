@@ -114,7 +114,7 @@ def validate_delivery_response(_self, get_offers_resp, get_offers_req):
         validate_prefetch(_self, get_offers_resp.prefetch, get_offers_req.prefetch)
 
 
-def validate_offers(_self, result):
+def validate_response(_self, result):
     """Static get_offers validation
     :param _self (unittest.TestCase) required
     :param result (dict) Wrapper around DeliveryResponse payload

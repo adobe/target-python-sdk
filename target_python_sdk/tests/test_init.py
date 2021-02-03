@@ -387,3 +387,29 @@ class TestTargetClient(unittest.TestCase):
         for response_token in response_tokens:
             self.assertIsNotNone(response_token.get('activity.id'))
             self.assertIsNotNone(response_token.get('experience.id'))
+
+    @responses.activate
+    def test_get_offers_with_trace(self):
+        setup_mock('debug_trace', responses)
+        opts = deepcopy(self.get_offers_options)
+        opts['request']['trace'] = {
+            'authorization_token': 'token',
+            'usage': {
+                'a': 'b',
+                'c': 'd'
+            }
+        }
+        opts['request'] = create_delivery_request(opts['request'])
+        result = self.client.get_offers(opts)
+        self.assertEqual(len(responses.calls), 1)
+        validate_response(self, result)
+
+        if not result.get('response').execute.mboxes:
+            self.fail('Expected execute mboxes in DeliveryResponse')
+        for mbox in result.get('response').execute.mboxes:
+            self.assertIsNotNone(mbox.trace)
+
+        if not result.get('response').prefetch.mboxes:
+            self.fail('Expected prefetch mboxes in DeliveryResponse')
+        for mbox in result.get('response').prefetch.mboxes:
+            self.assertIsNotNone(mbox.trace)

@@ -9,6 +9,7 @@
 # governing permissions and limitations under the License.
 """Testing helper functions for transforming dicts to DeliveryRequest models"""
 from delivery_api_client import VisitorId
+from delivery_api_client import Trace
 from delivery_api_client import CustomerId
 from delivery_api_client import Context
 from delivery_api_client import Geo
@@ -250,6 +251,11 @@ def create_notifications(notifications):
     return result_notifications or None
 
 
+def create_trace(trace):
+    """Creates Trace object"""
+    return Trace(**trace) if trace else None
+
+
 def create_delivery_request(request_dict):
     """Create new DeliveryRequest from request dict"""
     _id = create_visitor_id(request_dict.get('id'))
@@ -259,7 +265,8 @@ def create_delivery_request(request_dict):
     execute = create_execute(request_dict.get('execute'))
     prefetch = create_prefetch(request_dict.get('prefetch'))
     notifications = create_notifications(request_dict.get('notifications'))
+    trace = create_trace(request_dict.get('trace'))
     delivery_request = DeliveryRequest(id=_id, _property=_property, context=context,
                                        experience_cloud=experience_cloud, execute=execute,
-                                       prefetch=prefetch, notifications=notifications)
+                                       prefetch=prefetch, notifications=notifications, trace=trace)
     return delivery_request

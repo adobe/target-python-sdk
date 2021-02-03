@@ -22,7 +22,7 @@ def create_indexed(response):
     result = {}
     for request_type in REQUEST_TYPES:
         if response.get(request_type) and response.get(request_type).get(
-                'mboxes') and is_list(response. get(request_type).get('mboxes')):
+                'mboxes') and is_list(response.get(request_type).get('mboxes')):
             for mbox in response.get(request_type).get('mboxes'):
                 name = mbox.get('name')
                 for option in mbox.get('options'):

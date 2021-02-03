@@ -16,6 +16,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 DEFAULT_GLOBAL_MBOX = "target-global-mbox"
 DEFAULT_NUM_FETCH_RETRIES = 10
 DEFAULT_MAXIMUM_WAIT_READY = -1  # default is to wait indefinitely
@@ -27,10 +28,13 @@ CHANNEL_TYPE = {
 =======
 #from delivery_api_client.src.Model.channel_type import ChannelType
 >>>>>>> Per review comments - part 1
+=======
+from delivery_api_client.src.Model.channel_type import ChannelType
+>>>>>>> Missed changes
 
 EMPTY_REQUEST = {
     'context': {
-        'channel': 'Web' #ChannelType.WEB
+        'channel': ChannelType.WEB
     }
 }
 <<<<<<< HEAD

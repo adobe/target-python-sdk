@@ -35,5 +35,9 @@ def property_token_mismatch(request_property, config_property):
 >>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
 def attribute_not_exist(key_name, mbox_name):
     """Attribute not exist"""
+<<<<<<< HEAD
     return "Attribute " + key_name + " does not exist for mbox " + mbox_name
 >>>>>>> AttributesProvider
+=======
+    return "Attribute {} does not exist for mbox {}".format(key_name, mbox_name)
+>>>>>>> Per review comments - part 1

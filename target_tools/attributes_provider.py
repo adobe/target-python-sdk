@@ -10,17 +10,19 @@
 
 """AttributesProvider"""
 
+from target_python_sdk.utils import is_list
 from target_tools.messages import attribute_not_exist
+from target_tools.constants import REQUEST_TYPES
 
 def create_indexed(response):
     """
-    :parameter
-    response: "import("../delivery-api-client/models/DeliveryResponse").DeliveryResponse"
+    :param response: (delivery_api_client.Model.delivery_response.DeliveryResponse)
+        Target View Delivery API response
     """
     result = {}
-    for request_type in ["prefetch", "execute"]:
+    for request_type in REQUEST_TYPES:
         if response.get(request_type) and response.get(request_type).get(
-                'mboxes') and isinstance(response. get(request_type).get('mboxes'), list):
+                'mboxes') and is_list(response. get(request_type).get('mboxes')):
             for mbox in response.get(request_type).get('mboxes'):
                 name = mbox.get('name')
                 for option in mbox.get('options'):
@@ -37,8 +39,7 @@ class AttributesProvider:
 
     def __init__(self, offers_response):
         """
-        :parameter
-        offers_response: TargetDeliveryResponse
+        :param offers_response: (TargetDeliveryResponse)
         """
         self.offers_response = offers_response
         self.indexed = create_indexed(offers_response.get(
@@ -47,8 +48,7 @@ class AttributesProvider:
     def get_value(self, mbox_name, key):
         """
         Gets value
-        :parameter
-        mbox_name: str
+        :param mbox_name: (str) The specified mbox name
         """
         if mbox_name not in self.indexed or key not in self.indexed.get(
                 mbox_name):

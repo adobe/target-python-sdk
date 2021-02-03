@@ -139,6 +139,7 @@ class TestTargetClient(unittest.TestCase):
         }
         client = TargetClient.create(options)
         self.assertIsNotNone(client)
+<<<<<<< HEAD
 
 <<<<<<< HEAD
     def test_get_offers_no_options(self):
@@ -403,3 +404,5 @@ class TestTargetClient(unittest.TestCase):
         mbox_names = ["mbox-a", "mbox-b", "mbox-c"]
         self.assertIsNotNone(client.get_attributes(mbox_names, options))
 >>>>>>> TNT-38924 getAttributes()
+=======
+>>>>>>> Per review comments - part 1

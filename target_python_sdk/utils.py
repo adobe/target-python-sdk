@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Copyright 2020 Adobe. All rights reserved.
+=======
+# Copyright 2021 Adobe. All rights reserved.
+>>>>>>> Per review comments - part 1
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -9,6 +13,7 @@
 # governing permissions and limitations under the License.
 
 """Assorted shared functions"""
+<<<<<<< HEAD
 import json
 try:
     from functools import reduce
@@ -51,10 +56,13 @@ def is_dict(value):
     """Checks if value is a dict"""
     return isinstance(value, dict)
 
+=======
+>>>>>>> Per review comments - part 1
 
 def is_list(value):
     """Checks if value is a list"""
     return isinstance(value, list)
+<<<<<<< HEAD
 
 
 def create_uuid():
@@ -90,3 +98,5 @@ def remove_empty_values(_dict):
 def create_visitor(config, visitor_cookie=None, customer_ids=None):
     """Create visitor"""
     print("{}.{}.{}".format(json.dumps(config), visitor_cookie, json.dumps(customer_ids)))
+=======
+>>>>>>> Per review comments - part 1

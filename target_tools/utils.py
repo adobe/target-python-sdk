@@ -57,37 +57,33 @@ def decisioning_engine_ready(decisioning_engine):
 =======
 """utils"""
 
-MBOXES = "mboxes"
+from target_python_sdk.utils import is_list
+from target_tools.constants import REQUEST_TYPES
 
+MBOXES = "mboxes"
 
 def get_names_for_requested(items_key, delivery_request):
     """
-    :parameter
-    items_key: str ('mboxes' | 'views')
-    request: "import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest" - Target View
-        Delivery API request, required
+    :param items_key: ('mboxes' | 'views')
+    request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+        Target View Delivery API request, required
     :returns
-    mbox_names: set<str> - Set of mbox names
+    mbox_names: (set) Set of mbox names
     """
     result_set = set()
-    for request_type in ["prefetch", "execute"]:
-        if delivery_request and delivery_request.get(request_type) and isinstance(
-                delivery_request. get(request_type).get(items_key), list):
-            items = delivery_request.get(request_type).get(items_key)
-        else:
-            items = []
-        for item in items:
+    for request_type in REQUEST_TYPES:
+        request_item = delivery_request.get(request_type)
+        for item in (items for items in request_item.get(items_key, []) if items):
             result_set.add(item.get('name'))
     return result_set
 
 
 def get_mbox_names(delivery_request):
     """
-    :parameter
-    request: "import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest" - Target View
-        Delivery API request, required
+    :param request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+        Target View Delivery API request, required
     :returns
-    mbox_names: set<str> - Set of mbox names
+    mbox_names: (set) Set of mbox names
     """
     return get_names_for_requested(MBOXES, delivery_request)
 
@@ -95,11 +91,10 @@ def get_mbox_names(delivery_request):
 def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     """The add_mboxes_to_request method
     Ensures the mboxes specified are part of the returned delivery request
-    :parameter
-    mbox_names: list<str> - A list of mbox names that contains JSON content attributes, required
-    request: "import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest" - Target View
-        Delivery API request, required
-    request_type: str ('execute'|'prefetch')
+    :param mbox_names: (list) A list of mbox names that contains JSON content attributes, required
+    request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+        Target View Delivery API request, required
+    request_type: ('execute'|'prefetch')
     """
 <<<<<<< HEAD
     print(mbox_names, request, request_type)
@@ -108,26 +103,24 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
 =======
     requested_mboxes = get_mbox_names(request)
     mboxes = []
-    if request and request.get(request_type) and isinstance(
-            request.get(request_type).get('mboxes'), list):
-        mboxes.extend(request.get(request_type).get('mboxes'))
+    if not request or not request.get(request_type) or not is_list(
+            request.get(request_type).get('mboxes')):
+        return request
+
+    mboxes.extend(request.get(request_type).get('mboxes'))
 
     highest_user_specified_index_mbox = max(
         mboxes, key=lambda mbox: mbox['index']).get('index') if mboxes else 0
 
     next_index = highest_user_specified_index_mbox + 1
 
-    filtered_mbox_names = [
-        mbox_name for mbox_name in mbox_names if mbox_name not in requested_mboxes]
-
-    for mbox_name in filtered_mbox_names:
+    for mbox_name in (name for name in mbox_names if name not in requested_mboxes):
         mboxes.append({'name': mbox_name, 'index': next_index})
         next_index += 1
 
     result = request
-    if request and request.get(request_type) and isinstance(
-            request.get(request_type).get('mboxes'), list):
-        result[request_type]['mboxes'] = mboxes
+
+    result[request_type]['mboxes'] = mboxes
 
     return result
 >>>>>>> Added utility methods

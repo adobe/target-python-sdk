@@ -62,6 +62,7 @@ class TargetClient:
     def create(options=None):
         """The TargetClient creation factory method
         :param options: (dict) TargetClient options, required
+<<<<<<< HEAD
 
         options.client: (str) Target Client Id, required
 
@@ -108,6 +109,34 @@ class TargetClient:
         options.events: (dict.<str, callable>) An object with event name keys and callback
             function values, optional
 
+=======
+        options.client: (str) Target Client Id, required
+        options.organization_id: (str) Target Organization Id, required
+        options.timeout: (int) Target request timeout in ms, default: 3000
+        options.server_domain: (str) Server domain, optional
+        options.target_location_hint: (str) Target Location Hint, optional
+        options.secure: (bool) Unset to enforce HTTP scheme, default: true
+        options.logger: (dict) Replaces the default noop logger, optional
+        options.decisioning_method: ('on-device'|'server-side'|'hybrid')
+            The decisioning method, defaults to remote, optional
+        options.polling_interval: (int) Local Decisioning -
+            Polling interval in ms, default: 30000
+        options.maximum_wait_ready: (int) Local Decisioning - The maximum amount of time (in ms)
+            to wait for clientReady.  Default is to wait indefinitely.
+        options.artifact_location: (str) Local Decisioning - Fully qualified url to the location
+            of the artifact, optional
+        options.artifact_payload: (target_decisioning_engine/types/DecisioningArtifact)
+            Local Decisioning - A pre-fetched artifact, optional
+        options.environment_id: (int) The Target environment ID, defaults to production, optional
+        options.environment: (str) The Target environment name, defaults to production, optional
+        options.cdn_environment: (str) The CDN environment name, defaults to production, optional
+        options.telemetry_enabled: (bool) - If set to false, telemetry data will not be sent to Adobe
+        options.version: (str) - The version number of this sdk, optional
+        options.property_token: (str) - A property token used to limit the scope of evaluated target
+            activities, optional
+        options.events: (dict.<str, callable>) An object with event name keys and callback
+            function values, optional
+>>>>>>> Per review comments - part 1
         :return TargetClient instance object
         """
 
@@ -222,20 +251,18 @@ class TargetClient:
     def get_attributes(self, mbox_names, options=None):
         """
         The TargetClient get_attributes method
-        :parameter
-        mbox_names: list<str> - A list of mbox names that contains JSON content attributes, required
-        options: dict - TargetClient options, required
-        options.request: "import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest" -
+        :param mbox_names: (list) A list of mbox names that contains JSON content attributes, required
+        options: (dict) Request options
+        options.request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
             Target View Delivery API request, required
-        options.visitor_cookie: str - VisitorId cookie, optional
-        options.target_cookie: str - Target cookie, optional
-        options.target_location_hint: str - Target Location Hint, optional
-        options.consumer_id: str - When stitching multiple calls, different consumerIds should be provided, optional
-        options.customer_ids: list - An array of Customer Ids in VisitorId-compatible format, optional
-        options.session_id: str - Session Id, used for linking multiple requests, optional
-        options.visitor: dict - Supply an external VisitorId instance, optional
-        options.decisioning_method: str ('on-device'|'server-side'|'hybrid') - The execution mode, defaults to
-            remote, optional
+        options.visitor_cookie: (str) VisitorId cookie, optional
+        options.target_cookie: (str) Target cookie, optional
+        options.target_location_hint: (str) Target Location Hint, optional
+        options.consumer_id: (str) When stitching multiple calls, different consumerIds should be provided, optional
+        options.customer_ids: (list) A list of Customer Ids in VisitorId-compatible format, optional
+        options.session_id: (str) Session Id, used for linking multiple requests, optional
+        options.visitor: (dict) Supply an external VisitorId instance, optional
+        options.decisioning_method: ('on-device'|'server-side'|'hybrid') Execution mode, defaults to remote, optional
         """
 
         if not options or not options.get('request'):

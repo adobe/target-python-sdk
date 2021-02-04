@@ -1,0 +1,52 @@
+{
+   "status":200,
+   "requestId":"d5875232-4fc5-4405-b2f2-c8cf97ee5e34",
+   "client":"unifiedjslab",
+   "id":{
+      "tntId":"123.35_0"
+   },
+   "edgeHost":"mboxedge35.tt.omtrdc.net",
+   "prefetch":{
+      "pageLoad":{
+         "options":[
+            {
+               "content": {
+                  "a": "my custom json"
+               },
+               "type":"json",
+               "eventToken":"XoXF6byz+xl/hHDOMv31BWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+               "responseTokens":{
+                  "activity.id":"377179",
+                  "experience.id":"0"
+               }
+            }
+         ]
+      },
+      "mboxes":[
+         {
+            "index":1,
+            "name":"cart",
+            "options":[{
+               "content":"<p> Cart Mbox </p>",
+               "type":"html",
+               "eventToken":"XoXF6byz+xl/hHDOMv31BWqipfsIHvVzTQxHolz2IpSCnL9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+               "responseTokens":{
+                  "activity.id":"377177",
+                  "experience.id":"1"
+               }
+            }]
+         }
+      ],
+      "views": [{
+         "name": "Home",
+         "options":[{
+            "type":"actions",
+            "content":[{
+               "type":"html",
+               "content": "<p> Home Page </p>",
+               "selector": "#parent"
+            }]
+         }]
+      }]
+   }
+}

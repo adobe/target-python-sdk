@@ -8,13 +8,17 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
-"""Output logger"""
-import logging
+"""Error and log messages"""
 
-LOGGER_NAME = 'adobe.target'
-LOG = logging.getLogger(LOGGER_NAME)
+DECISIONING_ENGINE_NOT_READY = "Unable to fulfill request; decisioning engine not ready."
 
 
-def get_logger():
-    """Returns singleton logger for sdk"""
-    return LOG
+def attribute_not_exist(key_name, mbox_name):
+    """Mbox attribute does not exist error string"""
+    return "Attribute '{}' does not exist for mbox '{}'".format(key_name, mbox_name)
+
+
+def property_token_mismatch(request_property, config_property):
+    """Property token mismatch error string"""
+    return "The property token specified in the request '{}' does not match the one specified in the config '{}'."\
+        .format(request_property, config_property)

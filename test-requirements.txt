@@ -1,1 +1,2 @@
 mock==4.0.3
+urllib3-mock==0.3.3

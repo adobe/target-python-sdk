@@ -1,3 +1,8 @@
 [MASTER]
 max-line-length=120
 no-docstring-rgx=^[tT]est*
+
+[SIMILARITIES]
+
+# Minimum lines number of a similarity.
+min-similarity-lines=30

@@ -25,6 +25,7 @@ jobs:
         env:
           CI: true
           PYTHON_PATH: python
+          PYTHON_VERSION: ${{ matrix.python-version }}
         run: |
           make pre_build
       - name: generate coveralls coverage

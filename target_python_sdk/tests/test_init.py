@@ -124,7 +124,7 @@ class TestTargetClient(unittest.TestCase):
         with self.assertRaises(Exception) as err:
             TargetClient.create(options)
         self.assertEqual(str(err.exception),
-                         'Invalid Decisioning Method.  Must be set to one of: on-device,server-side,hybrid')
+                         'Invalid Decisioning Method.  Must be set to one of: hybrid,on-device,server-side')
 
     def test_create_return_client(self):
         options = {

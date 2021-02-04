@@ -14,6 +14,6 @@ import enum
 
 class DecisioningMethod(enum.Enum):
     """Specifies where decisions are made"""
+    HYBRID = "hybrid"
     ON_DEVICE = "on-device"
     SERVER_SIDE = "server-side"
-    HYBRID = "hybrid"

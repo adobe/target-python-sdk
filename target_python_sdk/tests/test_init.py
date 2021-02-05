@@ -14,6 +14,7 @@ import multiprocessing
 import unittest
 from copy import deepcopy
 
+import six
 from urllib3_mock import Responses
 import delivery_api_client
 from delivery_api_client import ScreenOrientationType
@@ -220,6 +221,7 @@ class TestTargetClient(unittest.TestCase):
             self.fail("Test case timed out waiting for callback to be invoked")
         self.assertTrue(shared.get('has_response'))
 
+    @unittest.skipIf(six.PY2, "Python 2 doesn't support err_callback for apply_async")
     @responses.activate
     def test_get_offers_async_error(self):
         setup_mock('invalid_request', responses, 400)

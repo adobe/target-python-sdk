@@ -59,3 +59,22 @@ def validate_get_offers_options(options):
         return MESSAGES.get('INVALID_CALLBACK')
 
     return None
+
+
+def validate_send_notifications_options(options):
+    """Validates options for send_notifications"""
+    if not options:
+        return MESSAGES.get('OPTIONS_REQUIRED')
+
+    request = options.get('request')
+    if not request:
+        return MESSAGES.get('REQUEST_REQUIRED')
+
+    if not request.notifications and not request.telemetry:
+        return MESSAGES.get('NOTIFICATIONS_REQUIRED')
+
+    callback = options.get('callback')
+    if callback and not callable(callback):
+        return MESSAGES.get('INVALID_CALLBACK')
+
+    return None

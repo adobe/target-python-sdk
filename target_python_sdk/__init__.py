@@ -17,6 +17,7 @@ from threading import Timer
 from target_python_sdk.messages import MESSAGES
 from target_python_sdk.events import CLIENT_READY
 from target_python_sdk.validators import validate_client_options
+from target_python_sdk.validators import validate_send_notifications_options
 from target_python_sdk.validators import validate_get_offers_options
 from target_python_sdk.helper import preserve_location_hint
 from target_python_sdk.utils import compose_functions
@@ -52,7 +53,6 @@ class TargetClient:
 
         timer = Timer(CLIENT_READY_DELAY, event_emitter, [CLIENT_READY])
         timer.start()
-
 
     @staticmethod
     def create(options=None):
@@ -158,13 +158,59 @@ class TargetClient:
         #                                     customer_ids=options.get('customer_ids'))
 
         config = deepcopy(self.config)
-        config.update({
-            'decisioning_method': options.get('decisioning_method') or self.config.get('decisioning_method')
-        })
-
+        config['decisioning_method'] = options.get('decisioning_method') or self.config.get('decisioning_method')
         target_options = {
             'config': config,
             'logger': self.logger
         }
         target_options.update(options)
         return execute_delivery(self.config, target_options, self.decisioning_engine)
+
+    def send_notifications(self, options):
+        """ The TargetClient sendNotifications method
+        :param options: (dict) Notifications request options
+
+        options.request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+            Target View Delivery API request, required
+
+        options.visitor_cookie: (str) VisitorId cookie, optional
+
+        options.target_cookie: (str) Target cookie, optional
+
+        options.target_location_hint: (str) Target Location Hint, optional
+
+        options.consumer_id: (str) When stitching multiple calls, different consumerIds should be provided, optional
+
+        options.customer_ids: (list) A list of Customer Ids in VisitorId-compatible format, optional
+
+        options.session_id: (str) Session Id, used for linking multiple requests, optional
+
+        options.visitor: (dict) Supply an external VisitorId instance, optional
+
+        options.callback: (callable) If handling request asynchronously, the callback is invoked when response is ready
+
+        options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
+            is raised
+
+        :return (dict) if async_req = False, otherwise (AsyncResult).
+            If callback was provided then a DeliveryResponse will be returned through that
+        """
+
+        error = validate_send_notifications_options(options)
+
+        if error:
+            raise Exception(error)
+
+        # options['visitor'] = create_visitor(self.config,
+        #                                     visitor_cookie=options.get('visitor_cookie'),
+        #                                     customer_ids=options.get('customer_ids'))
+
+        config = deepcopy(self.config)
+        # execution mode for sending notifications must always be remote
+        config['decisioning_method'] = DecisioningMethod.SERVER_SIDE
+        target_options = {
+            'config': config,
+            'logger': self.logger
+        }
+        target_options.update(options)
+        return execute_delivery(self.config, target_options)

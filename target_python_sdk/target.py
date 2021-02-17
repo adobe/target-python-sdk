@@ -39,7 +39,7 @@ from target_tools.enums import DecisioningMethod
 logger = get_logger()
 
 
-def execute_delivery(client_config, options, decisioning_engine):
+def execute_delivery(client_config, options, decisioning_engine=None):
     """Construct Delivery API request and send"""
     opts_config = options.get('config')
     _property = get_property(opts_config, options.get('request'))

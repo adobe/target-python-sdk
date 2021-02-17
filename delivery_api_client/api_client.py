@@ -1,4 +1,5 @@
 # coding: utf-8
+
 """
     Adobe Target Delivery API
 
@@ -28,6 +29,11 @@ from delivery_api_client.configuration import Configuration
 import delivery_api_client.Model
 from delivery_api_client import rest
 from delivery_api_client.exceptions import ApiValueError, ApiException
+
+try:
+    basestring
+except NameError:
+    basestring = str
 
 
 class ApiClient(object):
@@ -317,7 +323,7 @@ class ApiClient(object):
                     klass = getattr(delivery_api_client.Model, klass)
                 except AttributeError as err:
                     orig_klass = klass
-                    if isinstance(data, str):
+                    if isinstance(data, basestring):
                         klass = six.text_type
                     if isinstance(data, list):
                         klass = list
@@ -396,21 +402,25 @@ class ApiClient(object):
                                    _preload_content, _request_timeout, _host,
                                    _request_auth)
 
-        return self.pool.apply_async(self.__call_api, (resource_path,
-                                                       method, path_params,
-                                                       query_params,
-                                                       header_params, body,
-                                                       post_params, files,
-                                                       response_types_map,
-                                                       auth_settings,
-                                                       _return_http_data_only,
-                                                       collection_formats,
-                                                       _preload_content,
-                                                       _request_timeout,
-                                                       _host, _request_auth),
-                                     {},
-                                    callback,
-                                    err_callback)
+        if six.PY3:
+            # Only Python 3 supports err_callback
+            apply_async_args = (self.__call_api,
+                                (resource_path, method, path_params, query_params,
+                                header_params, body, post_params, files, response_types_map,
+                                auth_settings, _return_http_data_only, collection_formats,
+                                 _preload_content, _request_timeout, _host, _request_auth),
+                                {},
+                                callback,
+                                err_callback)
+        else:
+            apply_async_args = (self.__call_api,
+                                (resource_path, method, path_params, query_params,
+                                 header_params, body, post_params, files, response_types_map,
+                                 auth_settings, _return_http_data_only, collection_formats,
+                                 _preload_content, _request_timeout, _host, _request_auth),
+                                {},
+                                callback)
+        return self.pool.apply_async(*apply_async_args)
 
     def request(self, method, url, query_params=None, headers=None,
                 post_params=None, body=None, _preload_content=True,

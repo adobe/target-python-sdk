@@ -14,7 +14,7 @@ import time
 try:
     from urllib.parse import unquote, quote
 except ImportError:
-    from urlparse import unquote, quote
+    from urllib import unquote, quote
 from target_python_sdk.utils import is_number, get_epoch_time
 
 TARGET_COOKIE = 'mbox'

@@ -1,0 +1,17 @@
+{
+  "status": 200,
+  "requestId": "36014eed-4772-4c48-a9e2-e532762b6a85",
+  "client": "unifiedjslab",
+  "id": {
+      "tntId": "123.35_0"
+  },
+  "edgeHost": "mboxedge28.tt.omtrdc.net",
+  "notifications": [
+      {
+          "id": "SummerOfferNotification"
+      },
+      {
+          "id": "SummerShoesOfferNotification"
+      }
+  ]
+}

@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-# Copyright 2020 Adobe. All rights reserved.
-# This file is licensed to you under the Apache License, Version 2.0 (the 'License');
-=======
 # Copyright 2021 Adobe. All rights reserved.
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
->>>>>>> Fixed formatting to be consistent with pep8 and updated copyright to 2021
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -139,9 +134,7 @@ class TestTargetClient(unittest.TestCase):
         }
         client = TargetClient.create(options)
         self.assertIsNotNone(client)
-<<<<<<< HEAD
 
-<<<<<<< HEAD
     def test_get_offers_no_options(self):
         with self.assertRaises(Exception) as err:
             self.client.get_offers({})
@@ -394,15 +387,3 @@ class TestTargetClient(unittest.TestCase):
         for response_token in response_tokens:
             self.assertIsNotNone(response_token.get('activity.id'))
             self.assertIsNotNone(response_token.get('experience.id'))
-=======
-    def test_get_attributes(self):
-        options = {
-            'client': "clientId",
-            'organization_id': "orgId"
-        }
-        client = TargetClient.create(options)
-        mbox_names = ["mbox-a", "mbox-b", "mbox-c"]
-        self.assertIsNotNone(client.get_attributes(mbox_names, options))
->>>>>>> TNT-38924 getAttributes()
-=======
->>>>>>> Per review comments - part 1

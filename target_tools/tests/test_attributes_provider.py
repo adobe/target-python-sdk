@@ -269,10 +269,10 @@ class TestAttributesProvider(unittest.TestCase):
             features.get_value("feature-flag-a", "my_property_name")
 
         self.assertEqual(
-            "Attribute my_property_name does not exist for mbox feature-flag-a", str(context.exception))
+            "Attribute 'my_property_name' does not exist for mbox 'feature-flag-a'", str(context.exception))
 
         with self.assertRaises(Exception) as context:
             features.get_value("feature-flag-xyz", "my_property_name")
 
         self.assertEqual(
-            "Attribute my_property_name does not exist for mbox feature-flag-xyz", str(context.exception))
+            "Attribute 'my_property_name' does not exist for mbox 'feature-flag-xyz'", str(context.exception))

@@ -24,7 +24,6 @@ from target_python_sdk.utils import compose_functions
 from target_python_sdk.utils import create_visitor
 from target_python_sdk.target import execute_delivery
 from target_python_sdk.target import handle_delivery_response
-from target_python_sdk.enums import DecisioningMethod
 from target_tools.constants import EMPTY_REQUEST
 from target_tools.utils import add_mboxes_to_request
 from target_tools.attributes_provider import AttributesProvider
@@ -51,7 +50,7 @@ class TargetClient:
         self.config = options
         self.config['timeout'] = options.get(
             'timeout') if options.get('timeout') else DEFAULT_TIMEOUT
-        self.logger = get_logger(options.get('logger'))
+        self.logger = get_logger()
         event_emitter = EventProvider(self.config.get('events')).emit
         self.decisioning_engine = None
 
@@ -62,7 +61,6 @@ class TargetClient:
     def create(options=None):
         """The TargetClient creation factory method
         :param options: (dict) TargetClient options, required
-<<<<<<< HEAD
 
         options.client: (str) Target Client Id, required
 
@@ -109,34 +107,6 @@ class TargetClient:
         options.events: (dict.<str, callable>) An object with event name keys and callback
             function values, optional
 
-=======
-        options.client: (str) Target Client Id, required
-        options.organization_id: (str) Target Organization Id, required
-        options.timeout: (int) Target request timeout in ms, default: 3000
-        options.server_domain: (str) Server domain, optional
-        options.target_location_hint: (str) Target Location Hint, optional
-        options.secure: (bool) Unset to enforce HTTP scheme, default: true
-        options.logger: (dict) Replaces the default noop logger, optional
-        options.decisioning_method: ('on-device'|'server-side'|'hybrid')
-            The decisioning method, defaults to remote, optional
-        options.polling_interval: (int) Local Decisioning -
-            Polling interval in ms, default: 30000
-        options.maximum_wait_ready: (int) Local Decisioning - The maximum amount of time (in ms)
-            to wait for clientReady.  Default is to wait indefinitely.
-        options.artifact_location: (str) Local Decisioning - Fully qualified url to the location
-            of the artifact, optional
-        options.artifact_payload: (target_decisioning_engine/types/DecisioningArtifact)
-            Local Decisioning - A pre-fetched artifact, optional
-        options.environment_id: (int) The Target environment ID, defaults to production, optional
-        options.environment: (str) The Target environment name, defaults to production, optional
-        options.cdn_environment: (str) The CDN environment name, defaults to production, optional
-        options.telemetry_enabled: (bool) - If set to false, telemetry data will not be sent to Adobe
-        options.version: (str) - The version number of this sdk, optional
-        options.property_token: (str) - A property token used to limit the scope of evaluated target
-            activities, optional
-        options.events: (dict.<str, callable>) An object with event name keys and callback
-            function values, optional
->>>>>>> Per review comments - part 1
         :return TargetClient instance object
         """
 

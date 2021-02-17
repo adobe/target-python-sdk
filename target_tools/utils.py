@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Copyright 2020 Adobe. All rights reserved.
-=======
 # Copyright 2021 Adobe. All rights reserved.
->>>>>>> TNT-38924 getAttributes()
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,7 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 
-<<<<<<< HEAD
 """Assorted utility functions for target_tools package"""
 # pylint: disable=protected-access
 
@@ -20,6 +15,11 @@ from delivery_api_client import ModelProperty as Property
 from target_tools.enums import DecisioningMethod
 from target_tools.logger import get_logger
 from target_tools.messages import property_token_mismatch
+from target_tools.constants import REQUEST_TYPES
+from target_python_sdk.utils import is_list
+
+
+MBOXES = "mboxes"
 
 logger = get_logger()
 
@@ -54,13 +54,7 @@ def get_property(config, request):
 def decisioning_engine_ready(decisioning_engine):
     """Checks if decisioning engine is ready"""
     return decisioning_engine if decisioning_engine and decisioning_engine.is_ready() else None
-=======
-"""utils"""
 
-from target_python_sdk.utils import is_list
-from target_tools.constants import REQUEST_TYPES
-
-MBOXES = "mboxes"
 
 def get_names_for_requested(items_key, delivery_request):
     """
@@ -72,7 +66,7 @@ def get_names_for_requested(items_key, delivery_request):
     """
     result_set = set()
     for request_type in REQUEST_TYPES:
-        request_item = delivery_request.request_type
+        request_item = getattr(delivery_request, request_type, {})
         for item in (items for items in request_item.get(items_key, []) if items):
             result_set.add(item.get('name'))
     return result_set
@@ -96,18 +90,13 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
         Target View Delivery API request, required
     request_type: ('execute'|'prefetch')
     """
-<<<<<<< HEAD
-    print(mbox_names, request, request_type)
-    return request
->>>>>>> TNT-38924 getAttributes()
-=======
     requested_mboxes = get_mbox_names(request)
     mboxes = []
-    if not request or not request.request_type or not is_list(
-            request.request_type.mboxes):
+    if not request or not request.get(request_type) or not is_list(
+            request.get(request_type).get('mboxes')):
         return request
 
-    mboxes.extend(request.request_type.mboxes)
+    mboxes.extend(request.get(request_type).get('mboxes'))
 
     highest_user_specified_index_mbox = max(
         mboxes, key=lambda mbox: mbox['index']).get('index') if mboxes else 0
@@ -123,4 +112,3 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     result[request_type]['mboxes'] = mboxes
 
     return result
->>>>>>> Added utility methods

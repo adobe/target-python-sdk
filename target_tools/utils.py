@@ -109,6 +109,6 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
 
     result = request
 
-    result[request_type].mboxes = mboxes
+    result.request_type.mboxes = mboxes
 
     return result

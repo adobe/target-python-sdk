@@ -77,8 +77,6 @@ class TestGetAttributes(unittest.TestCase):
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
 
-        result = self.client.get_offers(opts)
-
         feature_a = self.client.get_attributes(["feature-flag-a"], )
 
         self.assertEqual(feature_a.get_value(
@@ -167,9 +165,6 @@ class TestGetAttributes(unittest.TestCase):
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
 
-        result = self.client.get_offers(opts)
-
-
         attributes = self.client.get_attributes(["unknown-flag"], opts)
 
         with self.assertRaises(Exception) as context:
@@ -222,9 +217,6 @@ class TestGetAttributes(unittest.TestCase):
         setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
-
-        result = self.client.get_offers(opts)
-
 
         attributes = self.client.get_attributes(["feature-flag-b"], opts)
 

@@ -50,9 +50,6 @@ class TestUtils(unittest.TestCase):
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
 
-        result = self.client.get_offers(opts)
-
-
         result = utils.get_mbox_names(opts['request'])
         self.assertTrue(isinstance(result, set))
         self.assertEqual(len(result), 4)
@@ -83,7 +80,6 @@ class TestUtils(unittest.TestCase):
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
 
-        result = self.client.get_offers(opts)
         self.assertDictContainsSubset(
             {
                 'prefetch': {
@@ -132,7 +128,6 @@ class TestUtils(unittest.TestCase):
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
 
-        result = self.client.get_offers(opts)
         self.assertDictContainsSubset(
             {
                 'execute': {
@@ -191,7 +186,6 @@ class TestUtils(unittest.TestCase):
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
 
-        result = self.client.get_offers(opts)
         self.assertDictContainsSubset(
             {
                 'prefetch': {

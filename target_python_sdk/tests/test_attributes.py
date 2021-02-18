@@ -22,8 +22,11 @@ responses = Responses('requests.packages.urllib3')
 
 class TestGetAttributes(unittest.TestCase):
 
-    @responses.activate
-    def test_gets_attributes_from_api_response(self):
+    def setUp(self):
+        client_options = {
+            'client': "someClientId",
+            'organization_id': "someOrgId"
+        }
         self.get_attributes_options = {
             'request': {
                 'id': {
@@ -64,14 +67,10 @@ class TestGetAttributes(unittest.TestCase):
                 }
             }
         }
-
-        client_options = {
-            'client': "someClientId",
-            'organization_id': "someOrgId"
-        }
-
         self.client = TargetClient.create(client_options)
 
+    @responses.activate
+    def test_gets_attributes_from_api_response(self):
         setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
@@ -113,55 +112,26 @@ class TestGetAttributes(unittest.TestCase):
 
     @responses.activate
     def test_fails_gracefully_if_an_attribute_does_not_exist(self):
-        self.get_attributes_options = {
-            'request': {
-                'id': {
-                    'tnt_id': "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-                    'marketing_cloud_visitor_id': "07327024324407615852294135870030620007"
-                },
-                'context': {
-                    'channel': ChannelType.WEB,
-                    'mobile_platform': None,
-                    'application': None,
-                    'screen': None,
-                    'window': None,
-                    'browser': None,
-                    'address': {
-                        'url': "http://adobe.com",
-                        'referring_url': None
-                    },
-                    'geo': None,
-                    'time_offset_in_minutes': None,
-                    'user_agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
-                    'beacon': False
-                },
-                'prefetch': {
-                    'mboxes': [
-                        {
-                            'name': "feature-flag-a",
-                            'index': 2
-                        }
-                    ]
-                },
-                'execute': {
-                    'mboxes': [
-                        {
-                            'index': 2,
-                            'name': "feature-flag-b"
-                        }
-                    ]
-                }
-            }
-        }
-
-        client_options = {
-            'client': "someClientId",
-            'organization_id': "someOrgId"
-        }
-        self.client = TargetClient.create(client_options)
-
         setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
+        prefetch = {
+            'mboxes': [
+                {
+                    'name': "feature-flag-a",
+                    'index': 2
+                }
+            ]
+        }
+        execute = {
+            'mboxes': [
+                {
+                    'index': 2,
+                    'name': "feature-flag-b"
+                }
+            ]
+        }
+        opts['request']['prefetch'] = prefetch
+        opts['request']['execute'] = execute
         opts['request'] = create_delivery_request(opts['request'])
 
         attributes = self.client.get_attributes(["unknown-flag"], opts)
@@ -174,47 +144,18 @@ class TestGetAttributes(unittest.TestCase):
 
     @responses.activate
     def test_adds_mbox_names_to_the_delivery_request_as_needed(self):
-        self.get_attributes_options = {
-            'request': {
-                'id': {
-                    'tnt_id': "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-                    'marketing_cloud_visitor_id': "07327024324407615852294135870030620007"
-                },
-                'context': {
-                    'channel': ChannelType.WEB,
-                    'mobile_platform': None,
-                    'application': None,
-                    'screen': None,
-                    'window': None,
-                    'browser': None,
-                    'address': {
-                        'url': "http://adobe.com",
-                        'referring_url': None
-                    },
-                    'geo': None,
-                    'time_offset_in_minutes': None,
-                    'user_agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
-                    'beacon': False
-                },
-                'prefetch': {
-                    'mboxes': [
-                        {
-                            'name': "feature-flag-a",
-                            'index': 2
-                        }
-                    ]
-                }
-            }
-        }
-
-        client_options = {
-            'client': "someClientId",
-            'organization_id': "someOrgId"
-        }
-        self.client = TargetClient.create(client_options)
-
         setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
+        prefetch = {
+            'mboxes': [
+                {
+                    'name': "feature-flag-a",
+                    'index': 2
+                }
+            ]
+        }
+        opts['request']['prefetch'] = prefetch
+        opts['request']['execute'] = None
         opts['request'] = create_delivery_request(opts['request'])
 
         attributes = self.client.get_attributes(["feature-flag-b"], opts)

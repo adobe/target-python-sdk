@@ -12,7 +12,6 @@
 import unittest
 from copy import deepcopy
 from urllib3_mock import Responses
-import delivery_api_client
 from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock
@@ -25,8 +24,11 @@ responses = Responses('requests.packages.urllib3')
 
 class TestUtils(unittest.TestCase):
 
-    @responses.activate
-    def test_get_mbox_names(self):
+    def setUp(self):
+        client_options = {
+            'client': "someClientId",
+            'organization_id': "someOrgId"
+        }
         self.get_attributes_options = {
             'request': {
                 'context': {'channel': ChannelType.WEB},
@@ -38,14 +40,10 @@ class TestUtils(unittest.TestCase):
                 }
             }
         }
-
-        client_options = {
-            'client': "someClientId",
-            'organization_id': "someOrgId"
-        }
-
         self.client = TargetClient.create(client_options)
 
+    @responses.activate
+    def test_get_mbox_names(self):
         setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
@@ -60,24 +58,13 @@ class TestUtils(unittest.TestCase):
 
     @responses.activate
     def test_add_mboxes_to_request_adds_prefetch(self):
-        self.get_attributes_options = {
-            'request': {
-                'context': {'channel': ChannelType.WEB},
-                'prefetch': {
-                    'mboxes': []
-                }
-            }
-        }
-
-        client_options = {
-            'client': "someClientId",
-            'organization_id': "someOrgId"
-        }
-
-        self.client = TargetClient.create(client_options)
-
         setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
+        prefetch = {
+            'mboxes': []
+        }
+        opts['request']['prefetch'] = prefetch
+        opts['request']['execute'] = None
         opts['request'] = create_delivery_request(opts['request'])
 
         self.assertDictContainsSubset(
@@ -108,24 +95,13 @@ class TestUtils(unittest.TestCase):
 
     @responses.activate
     def test_add_mboxes_to_request_adds_execute(self):
-        self.get_attributes_options = {
-            'request': {
-                'context': {'channel': ChannelType.WEB},
-                'execute': {
-                    'mboxes': []
-                }
-            }
-        }
-
-        client_options = {
-            'client': "someClientId",
-            'organization_id': "someOrgId"
-        }
-
-        self.client = TargetClient.create(client_options)
-
         setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
+        execute = {
+            'mboxes': []
+        }
+        opts['request']['prefetch'] = None
+        opts['request']['execute'] = execute
         opts['request'] = create_delivery_request(opts['request'])
 
         self.assertDictContainsSubset(
@@ -157,33 +133,25 @@ class TestUtils(unittest.TestCase):
     @responses.activate
     def test_add_mboxes_to_request_adds_without_duplicates_preserves_existings(
             self):
-        self.get_attributes_options = {
-            'request': {
-                'context': {'channel': ChannelType.WEB},
-                'prefetch': {
-                    'mboxes': [
-                        {
-                            'name': "mbox-foo",
-                            'index': 6
-                        },
-                        {
-                            'name': "mbox-jab",
-                            'index': 2
-                        }
-                    ]
-                }
-            }
-        }
-
-        client_options = {
-            'client': "someClientId",
-            'organization_id': "someOrgId"
-        }
-
-        self.client = TargetClient.create(client_options)
-
         setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
+
+        prefetch = {
+            'mboxes': [
+                {
+                    'name': "mbox-foo",
+                    'index': 6
+                },
+                {
+                    'name': "mbox-jab",
+                    'index': 2
+                }
+            ]
+        }
+        opts['request']['prefetch'] = prefetch
+        opts['request']['execute'] = None
+
+
         opts['request'] = create_delivery_request(opts['request'])
 
         self.assertDictContainsSubset(

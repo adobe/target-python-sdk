@@ -23,8 +23,7 @@ import six
 from urllib3_mock import Responses
 import delivery_api_client
 from delivery_api_client import ScreenOrientationType
-from delivery_api_client import DeliveryApi
-from delivery_api_client import Trace
+from delivery_api_client import ApiClient
 from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock
@@ -408,15 +407,15 @@ class TestTargetClient(unittest.TestCase):
         }
         opts['request'] = create_delivery_request(opts['request'])
 
-        execute_spy = spy_decorator(DeliveryApi.execute)
-        with patch.object(DeliveryApi, "execute", execute_spy):
+        request_spy = spy_decorator(ApiClient.request)
+        with patch.object(ApiClient, 'request', request_spy):
             result = self.client.get_offers(opts)
 
             # validate Delivery API request
-            expected_req_trace = execute_spy.mock.call_args.args[2].trace
-            self.assertTrue(isinstance(expected_req_trace, Trace))
-            self.assertEqual(expected_req_trace.authorization_token, 'token')
-            self.assertEqual(expected_req_trace.usage, {
+            expected_req_trace = request_spy.mock.call_args.kwargs['body']['trace']
+            self.assertTrue(isinstance(expected_req_trace, dict))
+            self.assertEqual(expected_req_trace.get('authorizationToken'), 'token')
+            self.assertEqual(expected_req_trace.get('usage'), {
                 'a': 'b',
                 'c': 'd'
             })

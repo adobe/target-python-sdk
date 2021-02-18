@@ -412,7 +412,7 @@ class TestTargetClient(unittest.TestCase):
             result = self.client.get_offers(opts)
 
             # validate Delivery API request
-            expected_req_trace = request_spy.mock.call_args.kwargs['body']['trace']
+            expected_req_trace = request_spy.mock.call_args[1]['body']['trace']
             self.assertTrue(isinstance(expected_req_trace, dict))
             self.assertEqual(expected_req_trace.get('authorizationToken'), 'token')
             self.assertEqual(expected_req_trace.get('usage'), {

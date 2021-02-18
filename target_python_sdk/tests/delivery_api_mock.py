@@ -21,6 +21,7 @@ MOCK_RESPONSES = {
     'execute': './responses/execute.json',
     'customer_ids': './responses/customer_ids.json',
     'invalid_request': './responses/invalid_request_error.json',
+    'attributes_provider': './responses/attributes_provider.json',
     'get_attributes': './responses/get_attributes.json',
     'notifications': './responses/notifications.json'
 }

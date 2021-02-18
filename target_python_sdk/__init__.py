@@ -241,7 +241,7 @@ class TargetClient:
         request = add_mboxes_to_request(
             mbox_names, options.get('request'), "execute")
 
-        options['request'].update(request)
+        options['request'] = request
 
         response = self.get_offers(options)
 

@@ -21,11 +21,11 @@ def create_indexed(response):
     """
     result = {}
     for request_type in REQUEST_TYPES:
-        if response.get(request_type) and response.get(request_type).get('mboxes') and is_list(response
-            .get(request_type).get('mboxes')):
-            for mbox in response.get(request_type).get('mboxes'):
-                name = mbox.get('name')
-                for option in mbox.get('options'):
+        if response[request_type] and response[request_type].mboxes and is_list(response
+            [request_type].mboxes):
+            for mbox in response[request_type].mboxes:
+                name = mbox.name
+                for option in mbox.options:
                     if option.get('content_type') == "json" and option.get(
                             'content'):
                         result[name] = {} if not result or not result.get(
@@ -43,8 +43,8 @@ class AttributesProvider:
         """
         self.offers_response = offers_response
         self.indexed = {}
-        if offers_response and offers_response.get('response'):
-            self.indexed = create_indexed(offers_response.get('response'))
+        if offers_response:
+            self.indexed = create_indexed(offers_response)
 
     def get_value(self, mbox_name, key):
         """

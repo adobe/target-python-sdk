@@ -10,125 +10,76 @@
 
 """Test cases for get_attributes"""
 import unittest
-
-try:
-    from unittest.mock import Mock
-except ImportError:
-    from mock import Mock
-
+from copy import deepcopy
+from urllib3_mock import Responses
+import delivery_api_client
+from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
+from target_python_sdk.tests.delivery_api_mock import setup_mock
+from target_python_sdk.tests.delivery_request_setup import create_delivery_request
 
-DELIVERY_API_RESPONSE = {
-    'status': 200,
-    'request_id': "0c22fb957e8b4297b29ab3932bb179c3",
-    'client': "adobesummit2018",
-    'id': {
-        'tnt_id': "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-        'marketing_cloud_visitor_id': "07327024324407615852294135870030620007"
-    },
-    'edge_host': "mboxedge28.tt.omtrdc.net",
-    'prefetch': {
-        'mboxes': [
-            {
-                'index': 2,
-                'name': "feature-flag-a",
-                'options': [
-                    {
-                        'content': {
-                            'payment_experience': "legacy",
-                            'show_feature_x': False,
-                            'payment_gateway_version': 2.3,
-                            'customer_feedback_value': 10
-                        },
-                        'content_type': "json",
-                        'event_token':
-                        "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-                    }
-                ]
-            }
-        ]
-    },
-    'execute': {
-        'mboxes': [
-            {
-                'index': 1,
-                'name': "feature-flag-b",
-                'options': [
-                    {
-                        'content_type': "json",
-                        'content': {
-                            'purchase_experience': "beta2",
-                            'show_feature_y': True,
-                            'cart_version': 1.3,
-                            'customer_survey_value': 102
-                        }
-                    }
-                ]
-            }
-        ]
-    }
-}
 
+responses = Responses('requests.packages.urllib3')
 
 class TestGetAttributes(unittest.TestCase):
 
+    @responses.activate
     def test_gets_attributes_from_api_response(self):
-        target_request = {
-            'id': {
-                'tnt_id': "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-                'marketing_cloud_visitor_id': "07327024324407615852294135870030620007"
-            },
-            'context': {
-                'channel': "web",
-                'mobile_platform': None,
-                'application': None,
-                'screen': None,
-                'window': None,
-                'browser': None,
-                'address': {
-                    'url': "http://adobe.com",
-                    'referring_url': None
+        self.get_attributes_options = {
+            'request': {
+                'id': {
+                    'tnt_id': "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+                    'marketing_cloud_visitor_id': "07327024324407615852294135870030620007"
                 },
-                'geo': None,
-                'time_offset_in_minutes': None,
-                'user_agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
-                'beacon': False
-            },
-            'prefetch': {
-                'mboxes': [
-                    {
-                        'name': "feature-flag-a",
-                        'index': 1
-                    }
-                ]
-            },
-            'execute': {
-                'mboxes': [
-                    {
-                        'index': 1,
-                        'name': "feature-flag-b"
-                    }
-                ]
+                'context': {
+                    'channel': ChannelType.WEB,
+                    'mobile_platform': None,
+                    'application': None,
+                    'screen': None,
+                    'window': None,
+                    'browser': None,
+                    'address': {
+                        'url': "http://adobe.com",
+                        'referring_url': None
+                    },
+                    'geo': None,
+                    'time_offset_in_minutes': None,
+                    'user_agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+                    'beacon': False
+                },
+                'prefetch': {
+                    'mboxes': [
+                        {
+                            'name': "feature-flag-a",
+                            'index': 1
+                        }
+                    ]
+                },
+                'execute': {
+                    'mboxes': [
+                        {
+                            'index': 1,
+                            'name': "feature-flag-b"
+                        }
+                    ]
+                }
             }
         }
 
-        options = {
+        client_options = {
             'client': "someClientId",
             'organization_id': "someOrgId"
         }
 
-        client = TargetClient.create(options)
-        request_options = {
-            'request': target_request,
-            'session_id': "dummy_session"
-        }
-        response_options = {
-            'response': DELIVERY_API_RESPONSE
-        }
-        response_options.update(request_options)
-        client.get_offers = Mock(return_value=response_options)
+        self.client = TargetClient.create(client_options)
 
-        feature_a = client.get_attributes(["feature-flag-a"], )
+        setup_mock('get_attributes', responses)
+        opts = deepcopy(self.get_attributes_options)
+        opts['request'] = create_delivery_request(opts['request'])
+
+        result = self.client.get_offers(opts)
+
+        feature_a = self.client.get_attributes(["feature-flag-a"], )
 
         self.assertEqual(feature_a.get_value(
             "feature-flag-a", "payment_experience"), "legacy")
@@ -146,7 +97,7 @@ class TestGetAttributes(unittest.TestCase):
             'customer_feedback_value': 10
         })
 
-        features = client.get_attributes(["feature-flag-a", "feature-flag-b"])
+        features = self.client.get_attributes(["feature-flag-a", "feature-flag-b"])
 
         self.assertEqual(features.get_value(
             "feature-flag-b", "purchase_experience"), "beta2")
@@ -163,14 +114,15 @@ class TestGetAttributes(unittest.TestCase):
             'customer_survey_value': 102
         })
 
+    @responses.activate
     def test_fails_gracefully_if_an_attribute_does_not_exist(self):
-        target_request = {
+        self.get_attributes_options = {
             'id': {
                 'tnt_id': "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
                 'marketing_cloud_visitor_id': "07327024324407615852294135870030620007"
             },
             'context': {
-                'channel': "web",
+                'channel': ChannelType.WEB,
                 'mobile_platform': None,
                 'application': None,
                 'screen': None,
@@ -203,22 +155,20 @@ class TestGetAttributes(unittest.TestCase):
             }
         }
 
-        options = {
+        client_options = {
             'client': "someClientId",
             'organization_id': "someOrgId"
         }
-        client = TargetClient.create(options)
-        request_options = {
-            'request': target_request,
-            'session_id': "dummy_session"
-        }
-        response_options = {
-            'response': DELIVERY_API_RESPONSE
-        }
-        response_options.update(request_options)
-        client.get_offers = Mock(return_value=response_options)
+        self.client = TargetClient.create(client_options)
 
-        attributes = client.get_attributes(["unknown-flag"], request_options)
+        setup_mock('get_attributes', responses)
+        opts = deepcopy(self.get_attributes_options)
+        opts['request'] = create_delivery_request(opts['request'])
+
+        result = self.client.get_offers(opts)
+
+
+        attributes = self.client.get_attributes(["unknown-flag"], opts['request'])
 
         with self.assertRaises(Exception) as context:
             attributes.get_value("unknown-flag", "payment_experience")
@@ -226,14 +176,15 @@ class TestGetAttributes(unittest.TestCase):
         self.assertEqual(
             "Attribute 'payment_experience' does not exist for mbox 'unknown-flag'", str(context.exception))
 
+    @responses.activate
     def test_adds_mbox_names_to_the_delivery_request_as_needed(self):
-        target_request = {
+        self.get_attributes_options = {
             'id': {
                 'tnt_id': "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
                 'marketing_cloud_visitor_id': "07327024324407615852294135870030620007"
             },
             'context': {
-                'channel': "web",
+                'channel': ChannelType.WEB,
                 'mobile_platform': None,
                 'application': None,
                 'screen': None,
@@ -258,22 +209,20 @@ class TestGetAttributes(unittest.TestCase):
             }
         }
 
-        options = {
+        client_options = {
             'client': "someClientId",
             'organization_id': "someOrgId"
         }
-        client = TargetClient.create(options)
-        request_options = {
-            'request': target_request,
-            'session_id': "dummy_session"
-        }
-        response_options = {
-            'response': DELIVERY_API_RESPONSE
-        }
-        response_options.update(request_options)
-        client.get_offers = Mock(return_value=response_options)
+        self.client = TargetClient.create(client_options)
 
-        attributes = client.get_attributes(["feature-flag-b"], request_options)
+        setup_mock('get_attributes', responses)
+        opts = deepcopy(self.get_attributes_options)
+        opts['request'] = create_delivery_request(opts['request'])
+
+        result = self.client.get_offers(opts)
+
+
+        attributes = self.client.get_attributes(["feature-flag-b"], opts['request'])
 
         self.assertTrue(attributes.get_value(
             "feature-flag-b", "show_feature_y"))

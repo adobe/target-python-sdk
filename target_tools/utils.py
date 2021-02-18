@@ -67,7 +67,7 @@ def get_names_for_requested(items_key, delivery_request):
     result_set = set()
     for request_type in REQUEST_TYPES:
         request_item = getattr(delivery_request, request_type, {})
-        for item in (items for items in request_item.get(items_key, []) if items):
+        for item in (items for items in getattr(request_item, items_key, []) if items):
             result_set.add(item.get('name'))
     return result_set
 
@@ -92,11 +92,11 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     """
     requested_mboxes = get_mbox_names(request)
     mboxes = []
-    if not request or not request.get(request_type) or not is_list(
-            request.get(request_type).get('mboxes')):
+    if not request or not getattr(request, request_type, {}) or not is_list(
+            getattr(request, request_type, {}).get('mboxes')):
         return request
 
-    mboxes.extend(request.get(request_type).get('mboxes'))
+    mboxes.extend(getattr(request, request_type, {}).get('mboxes'))
 
     highest_user_specified_index_mbox = max(
         mboxes, key=lambda mbox: mbox['index']).get('index') if mboxes else 0

@@ -67,7 +67,7 @@ def get_names_for_requested(items_key, delivery_request):
     result_set = set()
     for request_type in REQUEST_TYPES:
         request_item = getattr(delivery_request, request_type, {})
-        for item in (items for items in getattr(request_item, items_key, []) if items):
+        for item in getattr(request_item, items_key, []) or []:
             result_set.add(item.name)
     return result_set
 
@@ -109,6 +109,6 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
 
     result = request
 
-    result.request_type.mboxes = mboxes
+    getattr(result, request_type).mboxes = mboxes
 
     return result

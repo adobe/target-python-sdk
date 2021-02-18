@@ -21,9 +21,8 @@ def create_indexed(response):
     """
     result = {}
     for request_type in REQUEST_TYPES:
-        if response.request_type and response.request_type.mboxes and is_list(response
-            .request_type.mboxes):
-            for mbox in response.request_type.mboxes:
+        if getattr(response, request_type) and getattr(response, request_type).mboxes and is_list(getattr(response, request_type).mboxes):
+            for mbox in getattr(response, request_type).mboxes:
                 name = mbox.name
                 for option in mbox.options:
                     if option.get('content_type') == "json" and option.get(

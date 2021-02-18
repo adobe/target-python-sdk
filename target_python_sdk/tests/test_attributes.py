@@ -12,7 +12,6 @@
 import unittest
 from copy import deepcopy
 from urllib3_mock import Responses
-import delivery_api_client
 from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock

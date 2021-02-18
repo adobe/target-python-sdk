@@ -12,7 +12,6 @@
 import unittest
 from copy import deepcopy
 from urllib3_mock import Responses
-import delivery_api_client
 from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock
@@ -61,7 +60,7 @@ class TestAttributesProvider(unittest.TestCase):
             }
         }
         self.client = TargetClient.create(client_options)
-    
+
 
     @responses.activate
     def test_has_appropriate_method_calls(self):
@@ -76,14 +75,13 @@ class TestAttributesProvider(unittest.TestCase):
         self.assertTrue(callable(feature.to_json))
         self.assertTrue(callable(feature.get_response))
 
-        self.assertDictEqual(feature.get_response(), result['response'])
+        self.assertDictEqual(feature.get_response(), opts['response'])
 
     @responses.activate
     def test_gets_value_for_single_mbox(self):
         setup_mock('attributes_provider', responses)
         opts = deepcopy(self.get_attributes_options)
         opts['request'] = create_delivery_request(opts['request'])
-        result = self.client.get_offers(opts)
 
         feature_a = AttributesProvider(opts['response'])
 

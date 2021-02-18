@@ -14,17 +14,24 @@ import multiprocessing
 import unittest
 from copy import deepcopy
 
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+
 import six
 from urllib3_mock import Responses
 import delivery_api_client
 from delivery_api_client import ScreenOrientationType
+from delivery_api_client import DeliveryApi
+from delivery_api_client import Trace
 from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock
 from target_python_sdk.tests.validation import validate_response
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
 from target_python_sdk.tests.helpers import get_client_options
-
+from target_python_sdk.tests.helpers import spy_decorator
 
 responses = Responses('requests.packages.urllib3')
 
@@ -400,16 +407,30 @@ class TestTargetClient(unittest.TestCase):
             }
         }
         opts['request'] = create_delivery_request(opts['request'])
-        result = self.client.get_offers(opts)
-        self.assertEqual(len(responses.calls), 1)
-        validate_response(self, result)
 
-        if not result.get('response').execute.mboxes:
-            self.fail('Expected execute mboxes in DeliveryResponse')
-        for mbox in result.get('response').execute.mboxes:
-            self.assertIsNotNone(mbox.trace)
+        execute_spy = spy_decorator(DeliveryApi.execute)
+        with patch.object(DeliveryApi, "execute", execute_spy):
+            result = self.client.get_offers(opts)
 
-        if not result.get('response').prefetch.mboxes:
-            self.fail('Expected prefetch mboxes in DeliveryResponse')
-        for mbox in result.get('response').prefetch.mboxes:
-            self.assertIsNotNone(mbox.trace)
+            # validate Delivery API request
+            expected_req_trace = execute_spy.mock.call_args.args[2].trace
+            self.assertTrue(isinstance(expected_req_trace, Trace))
+            self.assertEqual(expected_req_trace.authorization_token, 'token')
+            self.assertEqual(expected_req_trace.usage, {
+                'a': 'b',
+                'c': 'd'
+            })
+
+            # validate Delivery API response
+            self.assertEqual(len(responses.calls), 1)
+            validate_response(self, result)
+
+            if not result.get('response').execute.mboxes:
+                self.fail('Expected execute mboxes in DeliveryResponse')
+            for mbox in result.get('response').execute.mboxes:
+                self.assertIsNotNone(mbox.trace)
+
+            if not result.get('response').prefetch.mboxes:
+                self.fail('Expected prefetch mboxes in DeliveryResponse')
+            for mbox in result.get('response').prefetch.mboxes:
+                self.assertIsNotNone(mbox.trace)

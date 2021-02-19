@@ -10,20 +10,29 @@
 
 """Event Provider"""
 
-class TargetEvent:
-    def __init__(self, event_type, payload={}):
-        self[event_type] = event_type
-        for key in payload.keys():
-            self[key] = payload.get(key)
+def target_event(event_type, payload=None):
+    """Creates Target event
+    :param event_type: (str) Event type, required
+    payload: (dict) Payload, optional
+    """
+    result = {}
+    if not payload:
+        payload = {}
+    result.event_type = event_type
+    for key in payload.keys():
+        result.key = payload.get(key)
+    return result
 
 class EventProvider:
     """EventProvider"""
 
-    def __init__(self, events={}):
+    def __init__(self, events=None):
         """
         :param events: (dict.<str, callable>) An object with event name keys and callback
             function values, optional
         """
+        if not events:
+            events = {}
         self.subscriptions = {}
         self.subscription_count = 0
         for event_name in events.keys():
@@ -38,23 +47,25 @@ class EventProvider:
         self.subscription_count += 1
         if not self.subscriptions.get(event_name):
             self.subscriptions[event_name] = {}
-        
+
         self.subscriptions[event_name][self.subscription_count] = callback_func
         return "{}:{}".format(event_name, self.subscription_count)
- 
-    def unsubscribe(self, id):
+
+    def unsubscribe(self, event_id):
         """Unsubscribe from events
-        :param id: (str) Event Id, required
+        :param event_id: (str) Event Id, required
         """
-        event_name, event_id = id.split(":")
+        event_name, event_id = event_id.split(":")
         if self.subscriptions.get(event_name):
             self.subscriptions[event_name][event_id]=None
 
-    def emit(self, event_name, payload={}):
+    def emit(self, event_name, payload=None):
         """Emits events
         :param event_name: (str) Event name, required
         payload: (dict) Payload, optional
         """
+        if not payload:
+            payload = {}
         subscribed = self.subscriptions.get(event_name) or []
-        for key, subscriber in subscribed.items():
-            subscriber(TargetEvent(event_name, payload))
+        for subscriber in subscribed.values():
+            subscriber(target_event(event_name, payload))

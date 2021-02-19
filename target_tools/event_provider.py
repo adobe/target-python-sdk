@@ -67,5 +67,5 @@ class EventProvider:
         if not payload:
             payload = {}
         subscribed = self.subscriptions.get(event_name) or []
-        for subscriber in subscribed.values():
+        for subscriber in subscribed:
             subscriber(target_event(event_name, payload))

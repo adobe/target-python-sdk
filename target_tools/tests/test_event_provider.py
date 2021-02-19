@@ -21,13 +21,47 @@ except ImportError:
 class TestEventsProvider(unittest.TestCase):
 
     def test_subscribes_to_an_event(self):
-        print("")
+        def aloha(event):
+            self.assertEqual(event, {
+                'event_type': "aloha"
+            })
+        
+        event_provider = EventProvider({
+            aloha
+        })
+        event_provider.emit("aloha")
+        self.assertEqual(aloha.call_args_list, 1)
 
     def test_subscribes_to_an_event_with_payload(self):
-        print("")
+        def aloha(event):
+            self.assertEqual(event, {
+                'event_type': "aloha",
+                'data': {
+                    'value': "hello"
+                },
+                'code': 11
+            })
+        
+        event_provider = EventProvider(aloha)
+        event_provider.emit("aloha", {
+                'data': {
+                    'value': "hello"
+                },
+                'code': 11
+        })
+        self.assertEqual(aloha.call_args_list, 1)
 
     def test_supports_ad_hoc_subscriptions(self):
-        print("")
+        def aloha(event):
+            self.assertEqual(event, {
+                'event_type': "aloha"
+            })
+        
+        event_provider = EventProvider()
+        event_provider.subscribe("aloha", aloha)
+        event_provider.emit("aloha")
+        self.assertEqual(aloha.call_args_list, 1)
+
 
     def test_supports_ad_hoc_unsubscribe(self):
         mock = MagicMock()

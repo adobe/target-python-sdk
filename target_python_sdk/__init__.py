@@ -47,7 +47,7 @@ class TargetClient:
         self.config['timeout'] = options.get('timeout') if options.get('timeout') \
             else DEFAULT_TIMEOUT
 
-        self.logger = get_logger()
+        self.logger = options.get('logger', get_logger())
         event_emitter = EventProvider(self.config.get('events')).emit
         self.decisioning_engine = None
 
@@ -85,7 +85,7 @@ class TargetClient:
         options.artifact_location: (str) Local Decisioning - Fully qualified url to the location
             of the artifact, optional
 
-        options.artifact_payload: (target_decisioning_engine/types/DecisioningArtifact)
+        options.artifact_payload: (target_decisioning_engine.types.decisioning_artifact.DecisioningArtifact)
             Local Decisioning - A pre-fetched artifact, optional
 
         options.environment_id: (int) The Target environment ID, defaults to production, optional

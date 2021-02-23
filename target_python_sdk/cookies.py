@@ -16,12 +16,12 @@ try:
 except ImportError:
     from urllib import unquote, quote
 from target_python_sdk.utils import is_number, get_epoch_time
+from target_tools.constants import MILLISECONDS_IN_SECOND
 
 TARGET_COOKIE = 'mbox'
 SESSION_ID_COOKIE = 'session'
 DEVICE_ID_COOKIE = 'PC'
 LOCATION_HINT_COOKIE = 'mboxEdgeCluster'
-MILLISECONDS_IN_SECOND = 1000
 
 
 def create_internal_cookie(name, value, expires):

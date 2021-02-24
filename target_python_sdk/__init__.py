@@ -1,4 +1,4 @@
-# Copyright 2020 Adobe. All rights reserved.
+# Copyright 2021 Adobe. All rights reserved.
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -47,7 +47,7 @@ class TargetClient:
         self.config['timeout'] = options.get('timeout') if options.get('timeout') \
             else DEFAULT_TIMEOUT
 
-        self.logger = get_logger()
+        self.logger = options.get('logger', get_logger())
         event_emitter = EventProvider(self.config.get('events')).emit
         self.decisioning_engine = None
 
@@ -85,7 +85,7 @@ class TargetClient:
         options.artifact_location: (str) Local Decisioning - Fully qualified url to the location
             of the artifact, optional
 
-        options.artifact_payload: (target_decisioning_engine/types/DecisioningArtifact)
+        options.artifact_payload: (target_decisioning_engine.types.decisioning_artifact.DecisioningArtifact)
             Local Decisioning - A pre-fetched artifact, optional
 
         options.environment_id: (int) The Target environment ID, defaults to production, optional

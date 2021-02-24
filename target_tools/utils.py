@@ -1,5 +1,5 @@
-# Copyright 2020 Adobe. All rights reserved.
-# This file is licensed to you under the Apache License, Version 2.0 (the "License")
+# Copyright 2021 Adobe. All rights reserved.
+# This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -12,10 +12,20 @@
 # pylint: disable=protected-access
 
 from delivery_api_client import ModelProperty as Property
+from delivery_api_client import ExecuteRequest
+from delivery_api_client import PrefetchRequest
+from delivery_api_client import MboxRequest
 from target_tools.constants import REQUEST_TYPES
 from target_tools.enums import DecisioningMethod
 from target_tools.logger import get_logger
 from target_tools.messages import property_token_mismatch
+
+MBOXES = "mboxes"
+
+REQUEST_TYPE_MAP = {
+    "execute": ExecuteRequest,
+    "prefetch": PrefetchRequest
+}
 
 VIEWS = "views"
 MBOXES = "mboxes"
@@ -80,20 +90,19 @@ def has_requested_views(delivery_request):
 
 def get_names_for_requested(items_key, delivery_request):
     """
-    :param items_key: ("mboxes"|"views") key, required
+    :param items_key: ('mboxes' | 'views')
     :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
-        Target Delivery API request, required
-    :return: (set<str>) Set of names
+        Target View Delivery API request, required
+    :return (set) Set of mbox names
     """
     result_set = set()
-
-    for _type in REQUEST_TYPES:
-        if delivery_request and getattr(delivery_request, _type, None) \
-                and getattr(getattr(delivery_request, _type, {}), items_key, None):
-            items = getattr(getattr(delivery_request, _type, {}), items_key, [])
-            for item in (item for item in items if item.name):
-                result_set.add(item.name)
-
+    for request_type in REQUEST_TYPES:
+        request_item = getattr(delivery_request, request_type)
+        if not request_item:
+            continue
+        items = getattr(request_item, items_key, []) or []
+        for item in (item for item in items if item.name):
+            result_set.add(item.name)
     return result_set
 
 
@@ -104,6 +113,37 @@ def get_mbox_names(delivery_request):
     :return: (set<str>) Set of mbox names
     """
     return get_names_for_requested(MBOXES, delivery_request)
+
+
+def add_mboxes_to_request(mbox_names, request, request_type="execute"):
+    """Modifies request in place to add specified mboxes
+    :param mbox_names: (list) A list of mbox names that contain JSON content attributes, required
+    :param request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+        Target View Delivery API request, required
+    :param request_type: ('execute'|'prefetch')
+    """
+    requested_mboxes = get_mbox_names(request)
+    mboxes = []
+    if not getattr(request, request_type):
+        subreq_instance = REQUEST_TYPE_MAP.get(request_type)()
+        setattr(request, request_type, subreq_instance)
+
+    subreq = getattr(request, request_type)
+    if subreq.mboxes:
+        mboxes.extend(subreq.mboxes)
+
+    highest_user_specified_index_mbox = max(
+        mboxes, key=lambda mbox: mbox.index).index if mboxes else 0
+
+    next_index = highest_user_specified_index_mbox + 1
+
+    for mbox_name in (name for name in mbox_names if name not in requested_mboxes):
+        mboxes.append(MboxRequest(name=mbox_name, index=next_index))
+        next_index += 1
+
+    subreq.mboxes = mboxes
+
+    return request
 
 
 def get_view_names(delivery_request):

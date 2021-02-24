@@ -10,11 +10,26 @@
 
 """Output logger"""
 import logging
+import sys
 
 LOGGER_NAME = 'adobe.target'
-LOG = logging.getLogger(LOGGER_NAME)
+
+this = sys.modules[__name__]
+this.LOG = None
 
 
-def get_logger():
-    """Returns singleton logger for sdk"""
-    return LOG
+def get_logger(logger=None):
+    """Returns singleton logger for sdk. By default, propagates to root logger at INFO level
+    :param logger: (Logger) User-provided logger that overrides default for entire sdk
+    :return: (Logger) Singleton logger for use throughout the sdk
+    """
+    if this.LOG:
+        return this.LOG
+
+    if logger:
+        this.LOG = logger
+    else:
+        this.LOG = logging.getLogger(LOGGER_NAME)
+        this.LOG.setLevel(logging.INFO)
+
+    return this.LOG

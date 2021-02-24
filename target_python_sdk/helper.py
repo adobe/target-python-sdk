@@ -10,6 +10,7 @@
 
 """Helper functions for sending requests to Delivery API"""
 # pylint: disable=too-many-arguments
+# pylint: disable=protected-access
 
 try:
     from functools import reduce
@@ -426,6 +427,11 @@ def create_prefetch(prefetch):
     return prefetch
 
 
+def create_property(_property):
+    """Validate DeliveryRequest property object"""
+    return _property if _property and _property.token and is_string(_property.token) else None
+
+
 def create_delivery_request(incoming_request, options):
     """Update incoming DeliveryRequest"""
     uuid_method = options.get('uuid_method', create_uuid)
@@ -433,6 +439,8 @@ def create_delivery_request(incoming_request, options):
     delivery_request.request_id = uuid_method()
     delivery_request.environment_id = options.get('environment_id')
     delivery_request.id = create_visitor_id(incoming_request.id, options)
+    delivery_request._property = create_property(incoming_request._property)
+    delivery_request.trace = incoming_request.trace
     delivery_request.context = create_context(incoming_request.context)
     delivery_request.experience_cloud = create_experience_cloud(
         incoming_request.experience_cloud,

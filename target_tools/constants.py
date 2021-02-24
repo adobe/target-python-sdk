@@ -9,6 +9,7 @@
 # governing permissions and limitations under the License.
 
 """Constants"""
+from delivery_api_client import ChannelType
 
 from delivery_api_client import ChannelType
 from delivery_api_client import DeliveryRequest
@@ -20,3 +21,17 @@ DEFAULT_MAXIMUM_WAIT_READY = -1  # default is to wait indefinitely
 
 EMPTY_REQUEST = DeliveryRequest(context=Context(channel=ChannelType.WEB))
 REQUEST_TYPES = ["prefetch", "execute"]
+
+ENVIRONMENT_PROD = "production"
+ENVIRONMENT_STAGE = "staging"
+ENVIRONMENT_DEV = "development"
+POSSIBLE_ENVIRONMENTS = [
+  ENVIRONMENT_PROD,
+  ENVIRONMENT_STAGE,
+  ENVIRONMENT_DEV
+]
+
+UNKNOWN_IP_ADDRESS = "unknownIpAddress"
+
+EMPTY_STRING = ""
+MILLISECONDS_IN_SECOND = 1000

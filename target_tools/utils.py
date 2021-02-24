@@ -15,10 +15,10 @@ from delivery_api_client import ModelProperty as Property
 from delivery_api_client import ExecuteRequest
 from delivery_api_client import PrefetchRequest
 from delivery_api_client import MboxRequest
+from target_tools.constants import REQUEST_TYPES
 from target_tools.enums import DecisioningMethod
 from target_tools.logger import get_logger
 from target_tools.messages import property_token_mismatch
-from target_tools.constants import REQUEST_TYPES
 
 MBOXES = "mboxes"
 
@@ -26,6 +26,9 @@ REQUEST_TYPE_MAP = {
     "execute": ExecuteRequest,
     "prefetch": PrefetchRequest
 }
+
+VIEWS = "views"
+MBOXES = "mboxes"
 
 logger = get_logger()
 
@@ -62,7 +65,30 @@ def decisioning_engine_ready(decisioning_engine):
     return decisioning_engine if decisioning_engine and decisioning_engine.is_ready() else None
 
 
-def get_names_for_requested(items_key, delivery_request):
+def has_requested(items_key, delivery_request):
+    """
+    :param items_key: ("mboxes"|"views") key, required
+    :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+        Target Delivery API request, required
+    :return: (bool) Does request include items_key
+    """
+    for _type in REQUEST_TYPES:
+        if delivery_request and getattr(delivery_request, _type, None) \
+                and getattr(getattr(delivery_request, _type, {}), items_key, None):
+            return True
+    return False
+
+
+def has_requested_views(delivery_request):
+    """
+    :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+        Target Delivery API request, required
+    :return: (bool) Does request include views
+    """
+    return has_requested(VIEWS, delivery_request)
+
+  
+  def get_names_for_requested(items_key, delivery_request):
     """
     :param items_key: ('mboxes' | 'views')
     :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
@@ -74,7 +100,8 @@ def get_names_for_requested(items_key, delivery_request):
         request_item = getattr(delivery_request, request_type)
         if not request_item:
             continue
-        for item in (getattr(request_item, items_key) or []):
+        items = getattr(request_item, items_key) or []
+        for item in (item for item in items if item.name):
             result_set.add(item.name)
     return result_set
 
@@ -82,8 +109,8 @@ def get_names_for_requested(items_key, delivery_request):
 def get_mbox_names(delivery_request):
     """
     :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
-        Target View Delivery API request, required
-    :return mbox_names: (set) Set of mbox names
+        Target Delivery API request, required
+    :return: (set<str>) Set of mbox names
     """
     return get_names_for_requested(MBOXES, delivery_request)
 
@@ -117,3 +144,17 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     subreq.mboxes = mboxes
 
     return request
+
+  
+def get_view_names(delivery_request):
+    """
+    :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+        Target Delivery API request, required
+    :return: (set<str>) Set of view names
+    """
+    return get_names_for_requested(VIEWS, delivery_request)
+
+
+def noop():
+    """No-Op function for when callable is required"""
+    return None

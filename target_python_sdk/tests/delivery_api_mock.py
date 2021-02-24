@@ -23,7 +23,8 @@ MOCK_RESPONSES = {
     'invalid_request': './responses/invalid_request_error.json',
     'attributes_provider': './responses/attributes_provider.json',
     'get_attributes': './responses/get_attributes.json',
-    'notifications': './responses/notifications.json'
+    'notifications': './responses/notifications.json',
+    'debug_trace': './responses/debug_trace.json'
 }
 
 

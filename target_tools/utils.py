@@ -12,14 +12,20 @@
 # pylint: disable=protected-access
 
 from delivery_api_client import ModelProperty as Property
+from delivery_api_client import ExecuteRequest
+from delivery_api_client import PrefetchRequest
+from delivery_api_client import MboxRequest
 from target_tools.enums import DecisioningMethod
 from target_tools.logger import get_logger
 from target_tools.messages import property_token_mismatch
 from target_tools.constants import REQUEST_TYPES
-from target_python_sdk.utils import is_list
-
 
 MBOXES = "mboxes"
+
+REQUEST_TYPE_MAP = {
+    "execute": ExecuteRequest,
+    "prefetch": PrefetchRequest
+}
 
 logger = get_logger()
 
@@ -59,44 +65,45 @@ def decisioning_engine_ready(decisioning_engine):
 def get_names_for_requested(items_key, delivery_request):
     """
     :param items_key: ('mboxes' | 'views')
-    request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+    :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
         Target View Delivery API request, required
-    :returns
-    mbox_names: (set) Set of mbox names
+    :return (set) Set of mbox names
     """
     result_set = set()
     for request_type in REQUEST_TYPES:
-        request_item = getattr(delivery_request, request_type, {})
-        for item in getattr(request_item, items_key, []) or []:
+        request_item = getattr(delivery_request, request_type)
+        if not request_item:
+            continue
+        for item in (getattr(request_item, items_key) or []):
             result_set.add(item.name)
     return result_set
 
 
 def get_mbox_names(delivery_request):
     """
-    :param request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+    :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
         Target View Delivery API request, required
-    :returns
-    mbox_names: (set) Set of mbox names
+    :return mbox_names: (set) Set of mbox names
     """
     return get_names_for_requested(MBOXES, delivery_request)
 
 
 def add_mboxes_to_request(mbox_names, request, request_type="execute"):
-    """The add_mboxes_to_request method
-    Ensures the mboxes specified are part of the returned delivery request
-    :param mbox_names: (list) A list of mbox names that contains JSON content attributes, required
-    request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
+    """Modifies request in place to add specified mboxes
+    :param mbox_names: (list) A list of mbox names that contain JSON content attributes, required
+    :param request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
         Target View Delivery API request, required
-    request_type: ('execute'|'prefetch')
+    :param request_type: ('execute'|'prefetch')
     """
     requested_mboxes = get_mbox_names(request)
     mboxes = []
-    if not request or not getattr(request, request_type, {}) or not is_list(
-            getattr(request, request_type, {}).mboxes):
-        return request
+    if not getattr(request, request_type):
+        subreq_instance = REQUEST_TYPE_MAP.get(request_type)()
+        setattr(request, request_type, subreq_instance)
 
-    mboxes.extend(getattr(request, request_type, {}).mboxes)
+    subreq = getattr(request, request_type)
+    if subreq.mboxes:
+        mboxes.extend(subreq.mboxes)
 
     highest_user_specified_index_mbox = max(
         mboxes, key=lambda mbox: mbox.index).index if mboxes else 0
@@ -104,11 +111,9 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     next_index = highest_user_specified_index_mbox + 1
 
     for mbox_name in (name for name in mbox_names if name not in requested_mboxes):
-        mboxes.append({'name': mbox_name, 'index': next_index})
+        mboxes.append(MboxRequest(name=mbox_name, index=next_index))
         next_index += 1
 
-    result = request
+    subreq.mboxes = mboxes
 
-    getattr(result, request_type).mboxes = mboxes
-
-    return result
+    return request

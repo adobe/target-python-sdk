@@ -20,7 +20,7 @@
                             "payment_gateway_version": 2.3,
                             "customer_feedback_value": 10
                         },
-                        "content_type": "json",
+                        "type": "json",
                         "event_token":
                         "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                     }
@@ -35,7 +35,7 @@
                 "name": "feature-flag-b",
                 "options": [
                     {
-                        "content_type": "json",
+                        "type": "json",
                         "content": {
                             "purchase_experience": "beta2",
                             "show_feature_y": true,

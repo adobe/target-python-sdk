@@ -11,18 +11,12 @@
 """Constants"""
 
 from delivery_api_client import ChannelType
-
+from delivery_api_client import DeliveryRequest
+from delivery_api_client import Context
 
 DEFAULT_GLOBAL_MBOX = "target-global-mbox"
 DEFAULT_NUM_FETCH_RETRIES = 10
 DEFAULT_MAXIMUM_WAIT_READY = -1  # default is to wait indefinitely
 
-
-EMPTY_REQUEST = {
-    'context': {
-        'channel': ChannelType.WEB
-    }
-}
-
-
+EMPTY_REQUEST = DeliveryRequest(context=Context(channel=ChannelType.WEB))
 REQUEST_TYPES = ["prefetch", "execute"]

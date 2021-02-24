@@ -27,6 +27,7 @@ from target_python_sdk.target import handle_delivery_response
 from target_tools.constants import EMPTY_REQUEST
 from target_tools.utils import add_mboxes_to_request
 from target_tools.attributes_provider import AttributesProvider
+from target_tools.attributes_provider import get_attributes_callback
 from target_tools.logger import get_logger
 from target_tools.event_provider import EventProvider
 from target_tools.enums import DecisioningMethod
@@ -146,8 +147,8 @@ class TargetClient:
 
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
             is raised
-        :return (dict) if async_req = False, otherwise (AsyncResult).
-            If callback was provided then a DeliveryResponse will be returned through that
+        :return (dict|AsyncResult) Returns response synchronously if no options.callback provided,
+        otherwise returns AsyncResult. If callback was provided then a DeliveryResponse will be returned through that
         """
 
         error = validate_get_offers_options(options)
@@ -195,8 +196,9 @@ class TargetClient:
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
             is raised
 
-        :return (dict) if async_req = False, otherwise (AsyncResult).
-            If callback was provided then a DeliveryResponse will be returned through that
+
+        :return (dict|AsyncResult) Returns response synchronously if no options.callback provided,
+        otherwise returns AsyncResult. If callback was provided then a DeliveryResponse will be returned through that
         """
 
         error = validate_send_notifications_options(options)
@@ -222,7 +224,7 @@ class TargetClient:
         """
         The TargetClient get_attributes method
         :param mbox_names: (list) A list of mbox names that contains JSON content attributes, required
-        options: (dict) Request options
+        :param options: (dict) Request options
         options.request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
             Target View Delivery API request, required
         options.visitor_cookie: (str) VisitorId cookie, optional
@@ -233,16 +235,24 @@ class TargetClient:
         options.session_id: (str) Session Id, used for linking multiple requests, optional
         options.visitor: (dict) Supply an external VisitorId instance, optional
         options.decisioning_method: ('on-device'|'server-side'|'hybrid') Execution mode, defaults to remote, optional
+        options.callback: (callable) If handling request asynchronously, the callback is invoked when response is ready
+        options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
+            is raised
+        :return (target_tools.attributes_provider.AttributesProvider|AsyncResult)
+            Returns AttributesProvider synchronously if no options.callback provided, otherwise returns AsyncResult.
+            If callback was provided then an AttributesProvider will be returned through that
         """
 
         if not options or not options.get('request'):
             options = {'request': EMPTY_REQUEST}
 
-        request = add_mboxes_to_request(
+        add_mboxes_to_request(
             mbox_names, options.get('request'), "execute")
 
-        options['request'] = request
+        if options.get('callback'):
+            wrapped_callback = compose_functions(options.get('callback'), get_attributes_callback)
+            options['callback'] = wrapped_callback
+            return self.get_offers(options)
 
         response = self.get_offers(options)
-
         return AttributesProvider(response)

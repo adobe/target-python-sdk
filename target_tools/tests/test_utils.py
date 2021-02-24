@@ -14,41 +14,38 @@ from copy import deepcopy
 from urllib3_mock import Responses
 from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
-from target_python_sdk.tests.delivery_api_mock import setup_mock
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
+from target_tools.utils import get_mbox_names
+from target_tools.utils import add_mboxes_to_request
 
-from target_tools import utils
-
-responses = Responses('requests.packages.urllib3')
+responses = Responses("requests.packages.urllib3")
 
 
 class TestUtils(unittest.TestCase):
 
     def setUp(self):
         client_options = {
-            'client': "someClientId",
-            'organization_id': "someOrgId"
+            "client": "someClientId",
+            "organization_id": "someOrgId"
         }
         self.get_attributes_options = {
-            'request': {
-                'context': {'channel': ChannelType.WEB},
-                'execute': {
-                    'mboxes': [{'name': "one"}, {'name': "two"}]
+            "request": {
+                "context": {"channel": ChannelType.WEB},
+                "execute": {
+                    "mboxes": [{"name": "one"}, {"name": "two"}]
                 },
-                'prefetch': {
-                    'mboxes': [{'name': "three"}, {'name': "four"}]
+                "prefetch": {
+                    "mboxes": [{"name": "three"}, {"name": "four"}]
                 }
             }
         }
         self.client = TargetClient.create(client_options)
 
-    @responses.activate
     def test_get_mbox_names(self):
-        setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
-        opts['request'] = create_delivery_request(opts['request'])
+        opts["request"] = create_delivery_request(opts["request"])
 
-        result = utils.get_mbox_names(opts['request'])
+        result = get_mbox_names(opts["request"])
         self.assertTrue(isinstance(result, set))
         self.assertEqual(len(result), 4)
         self.assertTrue("one" in result)
@@ -56,130 +53,83 @@ class TestUtils(unittest.TestCase):
         self.assertTrue("three" in result)
         self.assertTrue("four" in result)
 
-    @responses.activate
     def test_add_mboxes_to_request_adds_prefetch(self):
-        setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
         prefetch = {
-            'mboxes': []
+            "mboxes": []
         }
-        opts['request']['prefetch'] = prefetch
-        opts['request']['execute'] = None
-        opts['request'] = create_delivery_request(opts['request'])
+        opts["request"]["prefetch"] = prefetch
+        opts["request"]["execute"] = None
+        opts["request"] = create_delivery_request(opts["request"])
 
-        self.assertDictContainsSubset(
-            {
-                'prefetch': {
-                    'mboxes': [
-                        {
-                            'name': "mbox-foo",
-                            'index': 1
-                        },
-                        {
-                            'name': "mbox-bar",
-                            'index': 2
-                        },
-                        {
-                            'name': "mbox-baz",
-                            'index': 3
-                        }
-                    ]
-                }
-            },
-            utils.add_mboxes_to_request(
-                ["mbox-foo", "mbox-bar", "mbox-baz"],
-                opts['request'],
-                "prefetch"
-            )
+        mboxes_to_add = ["mbox-foo", "mbox-bar", "mbox-baz"]
+        add_mboxes_to_request(
+            mboxes_to_add,
+            opts["request"],
+            "prefetch"
         )
 
-    @responses.activate
+        self.assertEqual(len(opts["request"].prefetch.mboxes), 3)
+        for index, mbox in enumerate(opts["request"].prefetch.mboxes):
+            self.assertEqual(mbox.index, index + 1)
+            self.assertEqual(mbox.name, mboxes_to_add[index])
+
     def test_add_mboxes_to_request_adds_execute(self):
-        setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
         execute = {
-            'mboxes': []
+            "mboxes": []
         }
-        opts['request']['prefetch'] = None
-        opts['request']['execute'] = execute
-        opts['request'] = create_delivery_request(opts['request'])
+        opts["request"]["prefetch"] = None
+        opts["request"]["execute"] = execute
+        opts["request"] = create_delivery_request(opts["request"])
 
-        self.assertDictContainsSubset(
-            {
-                'execute': {
-                    'mboxes': [
-                        {
-                            'name': "mbox-foo",
-                            'index': 1
-                        },
-                        {
-                            'name': "mbox-bar",
-                            'index': 2
-                        },
-                        {
-                            'name': "mbox-baz",
-                            'index': 3
-                        }
-                    ]
-                }
-            },
-            utils.add_mboxes_to_request(
-                ["mbox-foo", "mbox-bar", "mbox-baz"],
-                opts['request'],
-                "execute"
-            )
+        mboxes_to_add = ["mbox-foo", "mbox-bar", "mbox-baz"]
+        add_mboxes_to_request(
+            mboxes_to_add,
+            opts["request"],
+            "execute"
         )
 
-    @responses.activate
-    def test_add_mboxes_to_request_adds_without_duplicates_preserves_existings(
+        self.assertEqual(len(opts["request"].execute.mboxes), 3)
+        for index, mbox in enumerate(opts["request"].execute.mboxes):
+            self.assertEqual(mbox.index, index + 1)
+            self.assertEqual(mbox.name, mboxes_to_add[index])
+
+    def test_add_mboxes_to_request_no_duplicates_preserves_existing(
             self):
-        setup_mock('get_attributes', responses)
         opts = deepcopy(self.get_attributes_options)
 
         prefetch = {
-            'mboxes': [
+            "mboxes": [
                 {
-                    'name': "mbox-foo",
-                    'index': 6
+                    "name": "mbox-foo",
+                    "index": 6
                 },
                 {
-                    'name': "mbox-jab",
-                    'index': 2
+                    "name": "mbox-jab",
+                    "index": 2
                 }
             ]
         }
-        opts['request']['prefetch'] = prefetch
-        opts['request']['execute'] = None
+        opts["request"]["prefetch"] = prefetch
+        opts["request"]["execute"] = None
 
+        opts["request"] = create_delivery_request(opts["request"])
 
-        opts['request'] = create_delivery_request(opts['request'])
-
-        self.assertDictContainsSubset(
-            {
-                'prefetch': {
-                    'mboxes': [
-                        {
-                            'name': "mbox-foo",
-                            'index': 6
-                        },
-                        {
-                            'name': "mbox-jab",
-                            'index': 2
-                        },
-                        {
-                            'name': "mbox-bar",
-                            'index': 7
-                        },
-                        {
-                            'name': "mbox-baz",
-                            'index': 8
-                        }
-                    ]
-                }
-            },
-            utils.add_mboxes_to_request(
-                ["mbox-foo", "mbox-bar", "mbox-baz"],
-                opts['request'],
-                "prefetch"
-            )
+        mboxes_to_add = ["mbox-foo", "mbox-bar", "mbox-baz"]
+        add_mboxes_to_request(
+            mboxes_to_add,
+            opts["request"],
+            "prefetch"
         )
+
+        self.assertEqual(len(opts["request"].prefetch.mboxes), 4)
+        resulting_mboxes = opts["request"].prefetch.mboxes
+        self.assertEqual(resulting_mboxes[0].index, 6)
+        self.assertEqual(resulting_mboxes[0].name, "mbox-foo")
+        self.assertEqual(resulting_mboxes[1].index, 2)
+        self.assertEqual(resulting_mboxes[1].name, "mbox-jab")
+        self.assertEqual(resulting_mboxes[2].index, 7)
+        self.assertEqual(resulting_mboxes[2].name, "mbox-bar")
+        self.assertEqual(resulting_mboxes[3].index, 8)
+        self.assertEqual(resulting_mboxes[3].name, "mbox-baz")

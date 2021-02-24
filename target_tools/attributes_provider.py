@@ -9,28 +9,27 @@
 # governing permissions and limitations under the License.
 
 """AttributesProvider"""
-
-from target_python_sdk.utils import is_list
+from delivery_api_client import OptionType
 from target_tools.messages import attribute_not_exist
 from target_tools.constants import REQUEST_TYPES
+
 
 def create_indexed(response):
     """
     :param response: (delivery_api_client.Model.delivery_response.DeliveryResponse)
         Target View Delivery API response
+    :return (dict<str, str|dict|list>) returns a map of mbox names to content
     """
     result = {}
     for request_type in REQUEST_TYPES:
-        if getattr(response, request_type) and getattr(response, request_type).mboxes and is_list(
-            getattr(response, request_type).mboxes):
+        if getattr(response, request_type) and getattr(response, request_type).mboxes:
             for mbox in getattr(response, request_type).mboxes:
                 name = mbox.name
                 for option in mbox.options:
-                    if option.get('content_type') == "json" and option.get(
-                            'content'):
+                    if option.type == OptionType.JSON and option.content:
                         result[name] = {} if not result or not result.get(
                             name) else result[name]
-                        result[name].update(option.get('content'))
+                        result[name].update(option.content)
     return result
 
 
@@ -39,35 +38,38 @@ class AttributesProvider:
 
     def __init__(self, offers_response):
         """
-        :param offers_response: (TargetDeliveryResponse)
+        :param offers_response: (dict) get_offers response
         """
         self.offers_response = offers_response
         self.indexed = {}
-        if offers_response:
-            self.indexed = create_indexed(offers_response)
+        if offers_response and offers_response.get("response"):
+            self.indexed = create_indexed(offers_response.get("response"))
 
     def get_value(self, mbox_name, key):
         """
         Gets value
         :param mbox_name: (str) The specified mbox name
+        :param key: (str) Content dict key for the mbox content - if content is a dict
         """
         if mbox_name not in self.indexed or key not in self.indexed.get(
                 mbox_name):
             raise Exception(attribute_not_exist(key, mbox_name))
         return self.indexed.get(mbox_name).get(key)
 
-    def get_as_object(self, mbox_name=None):
-        """Gets object"""
+    def as_object(self, mbox_name=None):
+        """Gets object based on mbox name
+        :param mbox_name: (str) mbox name, optional
+        :return: (str|dict|list) returns single mbox content if mbox_name provided, else entire mbox content map
+        """
         return self.indexed.get(mbox_name) if mbox_name else self.indexed
 
-    def as_object(self, mbox_name=None):
-        """Gets object"""
-        return self.get_as_object(mbox_name)
-
-    def to_json(self):
-        """Gets json"""
-        return self.get_as_object(None)
-
     def get_response(self):
-        """Gets response"""
+        """
+        :return (dict) returns get_offers response
+        """
         return self.offers_response
+
+
+def get_attributes_callback(get_offers_resp):
+    """Callback fn for when get_attributes is called asynchronously"""
+    return AttributesProvider(get_offers_resp)

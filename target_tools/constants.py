@@ -10,8 +10,6 @@
 
 """Constants"""
 from delivery_api_client import ChannelType
-
-from delivery_api_client import ChannelType
 from delivery_api_client import DeliveryRequest
 from delivery_api_client import Context
 

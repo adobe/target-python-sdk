@@ -87,8 +87,8 @@ def has_requested_views(delivery_request):
     """
     return has_requested(VIEWS, delivery_request)
 
-  
-  def get_names_for_requested(items_key, delivery_request):
+
+def get_names_for_requested(items_key, delivery_request):
     """
     :param items_key: ('mboxes' | 'views')
     :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
@@ -100,7 +100,7 @@ def has_requested_views(delivery_request):
         request_item = getattr(delivery_request, request_type)
         if not request_item:
             continue
-        items = getattr(request_item, items_key) or []
+        items = getattr(request_item, items_key, []) or []
         for item in (item for item in items if item.name):
             result_set.add(item.name)
     return result_set
@@ -145,7 +145,7 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
 
     return request
 
-  
+
 def get_view_names(delivery_request):
     """
     :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)

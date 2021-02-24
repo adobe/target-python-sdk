@@ -180,9 +180,9 @@ class TestGetAttributes(unittest.TestCase):
     def test_get_attributes_empty_delivery_request(self):
         with patch.object(TargetClient, "get_offers", return_value=None) as get_offers_stub:
             self.client.get_attributes(["feature-flag-b"])
-            self.assertIsNotNone(get_offers_stub.call_args.args[0].get("request").execute)
-            self.assertEqual(len(get_offers_stub.call_args.args[0].get("request").execute.mboxes), 1)
-            self.assertEqual(get_offers_stub.call_args.args[0].get("request").execute.mboxes[0].name, "feature-flag-b")
+            self.assertIsNotNone(get_offers_stub.call_args[0][0].get("request").execute)
+            self.assertEqual(len(get_offers_stub.call_args[0][0].get("request").execute.mboxes), 1)
+            self.assertEqual(get_offers_stub.call_args[0][0].get("request").execute.mboxes[0].name, "feature-flag-b")
 
     @responses.activate
     def test_get_attributes_async(self):

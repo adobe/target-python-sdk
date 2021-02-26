@@ -9,66 +9,78 @@
 # governing permissions and limitations under the License.
 
 """Test cases for events_provider.py"""
-
 import unittest
-from target_tools.attributes_provider import EventProvider
+from target_tools.event_provider import EventProvider
 
 try:
     from unittest.mock import MagicMock
 except ImportError:
     from mock import MagicMock
 
+
 class TestEventsProvider(unittest.TestCase):
 
-    def test_subscribes_to_an_event(self):
+    def test_emit_without_payload(self):
+        called = {"was_called": False}
+
         def aloha(event):
+            called["was_called"] = True
             self.assertEqual(event, {
-                'event_type': "aloha"
+                'type': "aloha"
             })
-        
+
         event_provider = EventProvider({
-            aloha
+            "aloha": aloha
         })
         event_provider.emit("aloha")
-        self.assertEqual(aloha.call_args_list, 1)
+        self.assertTrue(called["was_called"])
 
-    def test_subscribes_to_an_event_with_payload(self):
+    def test_emit_with_payload(self):
+        called = {"was_called": False}
+
         def aloha(event):
+            called["was_called"] = True
             self.assertEqual(event, {
-                'event_type': "aloha",
+                'type': "aloha",
                 'data': {
                     'value': "hello"
                 },
                 'code': 11
             })
-        
-        event_provider = EventProvider(aloha)
-        event_provider.emit("aloha", {
-                'data': {
-                    'value': "hello"
-                },
-                'code': 11
+
+        event_provider = EventProvider({
+            "aloha": aloha
         })
-        self.assertEqual(aloha.call_args_list, 1)
+        event_provider.emit("aloha", {
+            'data': {
+                'value': "hello"
+            },
+            'code': 11
+        })
+        self.assertTrue(called["was_called"])
 
-    def test_supports_ad_hoc_subscriptions(self):
+    def test_subscribe(self):
+        called = {"was_called": False}
+
         def aloha(event):
+            called["was_called"] = True
             self.assertEqual(event, {
-                'event_type': "aloha"
+                'type': "aloha"
             })
-        
+
         event_provider = EventProvider()
         event_provider.subscribe("aloha", aloha)
         event_provider.emit("aloha")
-        self.assertEqual(aloha.call_args_list, 1)
 
+        self.assertEqual(event_provider.subscription_count, 1)
+        self.assertTrue(called["was_called"])
 
-    def test_supports_ad_hoc_unsubscribe(self):
-        mock = MagicMock()
-        aloha = mock
+    def test_unsubscribe(self):
+        aloha = MagicMock()
 
         event_provider = EventProvider()
         subscription_id = event_provider.subscribe("aloha", aloha)
+        self.assertEqual(event_provider.subscription_count, 1)
 
         event_provider.emit("aloha")
         event_provider.unsubscribe(subscription_id)
@@ -77,4 +89,5 @@ class TestEventsProvider(unittest.TestCase):
         event_provider.emit("aloha")
         event_provider.emit("aloha")
 
-        self.assertEqual(aloha.call_args_list, 1)
+        self.assertEqual(aloha.call_count, 1)
+        self.assertEqual(event_provider.subscription_count, 0)

@@ -2,6 +2,7 @@
 max-line-length=120
 no-docstring-rgx=^[tT]est*
 
+# https://github.com/PyCQA/pylint/issues/214
 [SIMILARITIES]
 # Minimum lines number of a similarity.
 min-similarity-lines=30

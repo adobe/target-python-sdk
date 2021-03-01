@@ -194,3 +194,4 @@ class ArtifactProvider:
                 "error": err
             }
             self.event_emitter(ARTIFACT_DOWNLOAD_FAILED, failure_event)
+        return None

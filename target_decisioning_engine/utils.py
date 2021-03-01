@@ -13,6 +13,7 @@ from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
 from target_decisioning_engine.messages import MESSAGES
 from target_python_sdk.utils import is_string
+from target_python_sdk.utils import parse_int
 from target_tools.constants import POSSIBLE_ENVIRONMENTS
 from target_tools.constants import EMPTY_STRING
 from target_tools.constants import ENVIRONMENT_PROD
@@ -122,7 +123,7 @@ def match_major_version(semantic_version, major_version):
     :param major_version: (int)
     """
     parts = semantic_version.split(".")
-    major = int(parts[0])
+    major = parse_int(parts[0])
     return major_version == major
 
 

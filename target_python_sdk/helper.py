@@ -43,6 +43,7 @@ from target_python_sdk.cookies import SESSION_ID_COOKIE
 from target_python_sdk.cookies import LOCATION_HINT_COOKIE
 from target_python_sdk.cookies import create_target_cookie
 from target_python_sdk.utils import is_string
+from target_python_sdk.utils import parse_int
 from target_python_sdk.utils import create_uuid
 from target_python_sdk.utils import is_dict
 from target_python_sdk.utils import is_number
@@ -281,7 +282,7 @@ def create_context(context):
 def get_location_hint(location_hint_string):
     """Convert location hint str to int"""
     try:
-        return int(location_hint_string) if location_hint_string else None
+        return parse_int(location_hint_string) if location_hint_string else None
     except ValueError:
         return None
 

@@ -8,6 +8,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Tests cases for LimitedKeyDict"""
+# pylint: disable=super-init-not-called
 import unittest
 
 from target_decisioning_engine.types.limited_key_dict import LimitedKeyDict
@@ -33,20 +34,20 @@ class DictImpl(LimitedKeyDict):
 class TestLimitedKeyDict(unittest.TestCase):
     """TestLimitedKeyDict"""
 
-    def testInvalidInstance(self):
+    def test_invalid_instance(self):
         with self.assertRaises(NotImplementedError):
             LimitedKeyDict()
 
-    def testInvalidKeysOnCreation(self):
+    def test_invalid_keys_on_creation(self):
         test_dict = DictImpl({"bad": "val", "a": "foo", "b": 2})
         self.assertEqual(test_dict, {"a": "foo", "b": 2})
 
-    def testSetInvalidKey(self):
+    def test_set_invalid_key(self):
         test_dict = DictImpl()
         with self.assertRaises(KeyError):
             test_dict["bad"] = "oh no"
 
-    def testSetValidKey(self):
+    def test_set_valid_key(self):
         test_dict = DictImpl({"a": "foo"})
         test_dict["b"] = 100
         test_dict["c"] = True

@@ -70,7 +70,7 @@ class TestArtifactProvider(unittest.TestCase):
         with patch.object(ArtifactProvider, "fetch_artifact", return_value=None) as mock_fetch_artifact:
             self.provider = ArtifactProvider(config)
             self.provider.initialize()
-            mock_fetch_artifact.assert_called_once()
+            self.assertEqual(mock_fetch_artifact.call_count, 1)
             self.assertEqual(self.provider.artifact_location,
                              "https://assets.adobetarget.com/client123/production/v1/rules.json")
             self.assertTrue(self.provider.polling_timer.is_alive())
@@ -80,7 +80,7 @@ class TestArtifactProvider(unittest.TestCase):
         with patch.object(ArtifactProvider, "fetch_artifact", return_value=None) as mock_fetch_artifact:
             self.provider = ArtifactProvider(config)
             self.provider.initialize()
-            mock_fetch_artifact.assert_called_once()
+            self.assertEqual(mock_fetch_artifact.call_count, 1)
             self.assertEqual(self.provider.artifact_location, "Mordor")
             self.assertTrue(self.provider.polling_timer.is_alive())
 

@@ -187,7 +187,6 @@ class ArtifactProvider:
                 # GA TODO - GeoProvider separate ticket
                 # self.emit_new_artifact(response_data, create_geo_object_from_headers(res.headers))
                 return response_data
-            return None
         except Exception as err:
             self.logger.error(MESSAGES.get("ARTIFACT_FETCH_ERROR")(str(err)))
             failure_event = {

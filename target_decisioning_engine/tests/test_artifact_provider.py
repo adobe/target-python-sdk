@@ -15,7 +15,10 @@ try:
     from unittest.mock import patch, Mock, call
 except ImportError:
     from mock import patch, Mock, call
-from http.client import NOT_MODIFIED, OK
+try
+    from http.client import NOT_MODIFIED, OK
+except ImportError:
+    from httplib import NOT_MODIFIED, OK
 from urllib3.exceptions import SSLError
 from target_decisioning_engine.artifact_provider import ArtifactProvider
 from target_decisioning_engine.artifact_provider import HTTP_RETRY

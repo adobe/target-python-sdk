@@ -11,3 +11,7 @@
 """Events"""
 
 CLIENT_READY = "clientReady"
+
+ARTIFACT_DOWNLOAD_SUCCEEDED = "artifactDownloadSucceeded"
+ARTIFACT_DOWNLOAD_FAILED = "artifactDownloadFailed"
+GEO_LOCATION_UPDATED = "geoLocationUpdated"

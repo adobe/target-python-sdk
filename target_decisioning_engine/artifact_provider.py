@@ -13,10 +13,8 @@
 
 import json
 from threading import Timer
-
-from urllib3 import Retry
-
 import urllib3
+from urllib3 import Retry
 from target_decisioning_engine.constants import LOG_PREFIX
 from target_decisioning_engine.constants import MINIMUM_POLLING_INTERVAL
 from target_decisioning_engine.constants import DEFAULT_POLLING_INTERVAL
@@ -26,6 +24,7 @@ from target_decisioning_engine.events import GEO_LOCATION_UPDATED
 from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED
 from target_decisioning_engine.messages import MESSAGES
 from target_decisioning_engine.utils import determine_artifact_location
+from target_decisioning_engine.utils import get_http_codes_to_retry
 from target_python_sdk.utils import is_number
 from target_python_sdk.utils import is_string
 from target_python_sdk.utils import is_dict
@@ -37,9 +36,7 @@ NOT_MODIFIED = 304
 OK = 200
 HTTP_GET = "GET"
 BACKOFF_FACTOR = 0.1
-HTTP_RETRY = Retry(NUM_FETCH_RETRIES, backoff_factor=BACKOFF_FACTOR)
-
-http = urllib3.PoolManager()
+CODES_TO_RETRY = get_http_codes_to_retry()
 
 
 class ArtifactProvider:
@@ -50,6 +47,8 @@ class ArtifactProvider:
         :param config: (target_decisioning_engine.types.decisioning_config.DecisioningConfig)
             Decisioning engine configuration
         """
+        self.pool_manager = urllib3.PoolManager()
+        self.http_retry = Retry(total=NUM_FETCH_RETRIES, backoff_factor=BACKOFF_FACTOR, status_forcelist=CODES_TO_RETRY)
         self.config = config
         self.logger = get_logger(config.logger)
         self.event_emitter = config.event_emitter or noop
@@ -64,7 +63,7 @@ class ArtifactProvider:
         self.last_response_data = None
         self.artifact_tracer = None
 
-    def get_polling_interval(self):
+    def _get_polling_interval(self):
         """Get artifact polling interval"""
         if self.config.polling_interval == 0:
             return 0
@@ -76,11 +75,11 @@ class ArtifactProvider:
 
     def initialize(self):
         """Initialize ArtifactProvider and fetch initial artifact"""
-        self.polling_interval = self.get_polling_interval()
+        self.polling_interval = self._get_polling_interval()
         self.artifact_location = self.config.artifact_location if is_string(self.config.artifact_location) else \
             determine_artifact_location(self.config)
         try:
-            self.artifact = self.get_initial_artifact()
+            self.artifact = self._get_initial_artifact()
             # GA TODO - ArtifactTracer is a separate ticket
             # self.artifact_tracer = ArtifactTracer(
             #     self.artifact_location,
@@ -91,9 +90,9 @@ class ArtifactProvider:
             # )
             # self.add_subscription(self.artifact_tracer_update)
         finally:
-            self.schedule_next_update()
+            self._schedule_next_update()
 
-    def emit_new_artifact(self, artifact_payload, geo_context=None):
+    def _emit_new_artifact(self, artifact_payload, geo_context=None):
         """Send events and notify subscribers of new artifact"""
         if not geo_context:
             geo_context = {}
@@ -124,17 +123,17 @@ class ArtifactProvider:
         except KeyError:
             pass
 
-    def fetch_and_schedule(self):
+    def _fetch_and_schedule(self):
         """Fetch artifact and schedule next polling"""
-        self.artifact = self.fetch_artifact(self.artifact_location)
-        self.schedule_next_update()
+        self.artifact = self._fetch_artifact(self.artifact_location)
+        self._schedule_next_update()
 
-    def schedule_next_update(self):
+    def _schedule_next_update(self):
         """Schedule next artifact polling based on configured interval (in seconds)"""
         if self.polling_interval == 0 or self.polling_halted:
             return
 
-        self.polling_timer = Timer(self.polling_interval, self.fetch_and_schedule)
+        self.polling_timer = Timer(self.polling_interval, self._fetch_and_schedule)
         self.polling_timer.start()
 
     def stop_all_polling(self):
@@ -147,22 +146,22 @@ class ArtifactProvider:
     def resume_polling(self):
         """Enable artifact polling"""
         self.polling_halted = False
-        self.schedule_next_update()
+        self._schedule_next_update()
 
     def get_artifact(self):
         """Return current artifact"""
         return self.artifact
 
-    def get_initial_artifact(self):
+    def _get_initial_artifact(self):
         """Fetch initial artifact"""
         return self.config.artifact_payload if is_dict(self.config.artifact_payload) else \
-            self.fetch_artifact(self.artifact_location)
+            self._fetch_artifact(self.artifact_location)
 
-    def artifact_tracer_update(self, artifact):
+    def _artifact_tracer_update(self, artifact):
         """Update ArtifactTracer with latest artifact"""
         self.artifact_tracer.provide_new_artifact(artifact)
 
-    def fetch_artifact(self, artifact_url):
+    def _fetch_artifact(self, artifact_url):
         """Fetch artifact from server"""
         headers = {}
         self.logger.debug("{} fetching artifact - {}".format(LOG_TAG, artifact_url))
@@ -171,7 +170,7 @@ class ArtifactProvider:
             headers["If-None-Match"] = self.last_response_etag
 
         try:
-            res = http.request(HTTP_GET, artifact_url, headers=headers, retries=HTTP_RETRY)
+            res = self.pool_manager.request(HTTP_GET, artifact_url, headers=headers, retries=self.http_retry)
             self.logger.debug("{} artifact received - status={}".format(LOG_TAG, res.status))
 
             if res.status == NOT_MODIFIED and self.last_response_data:
@@ -184,8 +183,10 @@ class ArtifactProvider:
                     self.last_response_data = response_data
                     self.last_response_etag = etag
 
-                # GA TODO - GeoProvider separate ticket
-                # self.emit_new_artifact(response_data, create_geo_object_from_headers(res.headers))
+                # GA TODO - GeoProvider separate ticket + add test to make sure _emit_new_artifact called
+                # self._emit_new_artifact(response_data, create_geo_object_from_headers(res.headers))
+                self._emit_new_artifact(response_data)
+
                 return response_data
         except Exception as err:
             self.logger.error(MESSAGES.get("ARTIFACT_FETCH_ERROR")(str(err)))

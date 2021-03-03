@@ -17,15 +17,30 @@ class DecisioningConfig:
     """DecisioningConfig"""
 
     def __init__(self, client, organization_id, polling_interval=None,
-                 artifact_location=None, artifact_payload=None, property_token=None, environment=None,
+                 artifact_location=None, artifact_payload=None, environment=None,
                  cdn_environment=None, cdn_base_path=None, logger=None, send_notification_func=None,
                  telemetry_enabled=True, event_emitter=None, maximum_wait_ready=None):
+        """
+        :param client: (str) Target Client Id
+        :param organization_id: (str) Target Organization Id
+        :param polling_interval: (int) Polling interval in seconds, default: 300
+        :param artifact_location: (str) Fully qualified url to the location of the artifact
+        :param artifact_payload: (dict) A pre-fetched artifact
+        :param environment: ("production"|"staging"|"development") The target environment name. Defaults to production.
+        :param cdn_environment: ("production"|"staging"|"development") The CDN environment name. Defaults to production
+        :param cdn_base_path: (str) A CDN base URL to override the default based on cdnEnvironment.
+        :param logger: (`logging.Logger`) sdk logger
+        :param send_notification_func: (callable) Function used to send notifications
+        :param telemetry_enabled: (bool) If set to false, telemetry data will not be sent to Adobe
+        :param event_emitter: (callable) Function used to emit events
+        :param maximum_wait_ready: (int) The maximum amount of time (in seconds) to wait for decisioning engine to
+            become ready.  Default is to wait indefinitely.
+        """
         self.client = client
         self.organization_id = organization_id
         self.polling_interval = polling_interval
         self.artifact_location = artifact_location
         self.artifact_payload = artifact_payload
-        self.property_token = property_token
         self.environment = environment
         self.cdn_environment = cdn_environment
         self.cdn_base_path = cdn_base_path

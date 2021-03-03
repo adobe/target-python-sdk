@@ -8,6 +8,8 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """On Device Decisioning util functions"""
+# pylint: disable=protected-access
+import requests
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
@@ -191,3 +193,18 @@ def determine_artifact_location(config):
     ]
     filtered = filter(None, location_parts)
     return "/".join(filtered)
+
+
+def should_retry_http_code(status_code):
+    """
+    :param status_code: (int) http status code to check for retry eligibility
+    :return: (bool) whether or not responses with the status_code should be retried
+    """
+    return status_code not in range(200, 500)
+
+
+def get_http_codes_to_retry():
+    """
+    :return: set of http codes that should be retried
+    """
+    return set(x for x in requests.status_codes._codes if should_retry_http_code(x))

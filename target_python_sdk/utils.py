@@ -10,6 +10,7 @@
 
 """Assorted shared functions"""
 import json
+
 try:
     from functools import reduce
 except ImportError:
@@ -43,8 +44,16 @@ def is_number(value):
     try:
         int(value)
         return True
-    except ValueError:
+    except (ValueError, TypeError):
         return False
+
+
+def parse_int(value):
+    """Casts value to integer if possible, otherwise returns None"""
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return None
 
 
 def is_dict(value):
@@ -62,17 +71,18 @@ def create_uuid():
     return str(uuid.uuid4())
 
 
-def get_epoch_time():
-    """Get current epoch time"""
-    now = datetime.datetime.utcnow()
-    return math.ceil((now - EPOCH_START).total_seconds())
+def get_epoch_time(utc_datetime=None):
+    """Get epoch time (seconds) from either passed in UTC datetime or current datetime"""
+    if not utc_datetime:
+        utc_datetime = datetime.datetime.utcnow()
+    return math.ceil((utc_datetime - EPOCH_START).total_seconds())
 
 
 def get_timezone_offset():
     """Get local timezone offset from UTC"""
     timezone = get_localzone()
     offset_minutes = timezone.utcoffset(datetime.datetime.now()).total_seconds() // SECONDS_IN_MINUTE
-    return int(offset_minutes)
+    return parse_int(offset_minutes)
 
 
 def flatten_list(_list):

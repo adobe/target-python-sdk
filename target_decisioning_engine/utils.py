@@ -1,4 +1,4 @@
-# Copyright 2020 Adobe. All rights reserved.
+# Copyright 2021 Adobe. All rights reserved.
 # This file is licensed to you under the Apache License, Version 2.0 (the "License")
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -8,11 +8,14 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """On Device Decisioning util functions"""
+# pylint: disable=protected-access
+import requests
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
 from target_decisioning_engine.messages import MESSAGES
 from target_python_sdk.utils import is_string
+from target_python_sdk.utils import parse_int
 from target_tools.constants import POSSIBLE_ENVIRONMENTS
 from target_tools.constants import EMPTY_STRING
 from target_tools.constants import ENVIRONMENT_PROD
@@ -122,7 +125,7 @@ def match_major_version(semantic_version, major_version):
     :param major_version: (int)
     """
     parts = semantic_version.split(".")
-    major = int(parts[0])
+    major = parse_int(parts[0])
     return major_version == major
 
 
@@ -190,3 +193,18 @@ def determine_artifact_location(config):
     ]
     filtered = filter(None, location_parts)
     return "/".join(filtered)
+
+
+def should_retry_http_code(status_code):
+    """
+    :param status_code: (int) http status code to check for retry eligibility
+    :return: (bool) whether or not responses with the status_code should be retried
+    """
+    return status_code not in range(200, 500)
+
+
+def get_http_codes_to_retry():
+    """
+    :return: set of http codes that should be retried
+    """
+    return set(x for x in requests.status_codes._codes if should_retry_http_code(x))

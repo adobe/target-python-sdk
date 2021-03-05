@@ -38,7 +38,7 @@ format: env
 ifneq (,$(filter $(PYTHON_VERSION),2.7 3.4))
 		echo "Linting turned off for python version ${PYTHON_VERSION}"
 else
-		pylint target_python_sdk target_tools
+		pylint target_python_sdk target_tools target_decisioning_engine
 endif
 
 # Generate client based on open-api spec

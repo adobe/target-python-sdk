@@ -1,4 +1,4 @@
-# Copyright 2020 Adobe. All rights reserved.
+# Copyright 2021 Adobe. All rights reserved.
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,7 +15,9 @@ try:
     from urllib.parse import unquote, quote
 except ImportError:
     from urllib import unquote, quote
-from target_python_sdk.utils import is_number, get_epoch_time
+from target_python_sdk.utils import is_number
+from target_python_sdk.utils import get_epoch_time
+from target_python_sdk.utils import parse_int
 from target_tools.constants import MILLISECONDS_IN_SECOND
 
 TARGET_COOKIE = 'mbox'
@@ -52,7 +54,7 @@ def deserialize_cookie(string):
     return create_internal_cookie(
         unquote(parts[0]),
         unquote(parts[1]),
-        int(parts[2])
+        parse_int(parts[2])
     )
 
 

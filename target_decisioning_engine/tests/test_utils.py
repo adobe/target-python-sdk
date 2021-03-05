@@ -1,4 +1,4 @@
-# Copyright 2020 Adobe. All rights reserved.
+# Copyright 2021 Adobe. All rights reserved.
 # This file is licensed to you under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License. You may obtain a copy
 # of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -10,11 +10,19 @@
 """Unit tests for target_decisioning_engine.utils module"""
 # pylint: disable=too-many-arguments
 import unittest
+try:
+    from unittest.mock import patch, Mock
+except ImportError:
+    from mock import patch, Mock
 from target_decisioning_engine.types.decisioning_artifact import DecisioningArtifact
+from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.utils import parse_url
+from target_decisioning_engine.utils import determine_artifact_location
 from target_decisioning_engine.utils import has_remote_dependency
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
 from target_tools.constants import EMPTY_STRING
+from target_tools.constants import ENVIRONMENT_DEV
+from target_tools.constants import ENVIRONMENT_STAGE
 
 
 class TestUtils(unittest.TestCase):
@@ -98,3 +106,26 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(result.get("remote_needed"), True)
         self.assertEqual(result.get("remote_mboxes"), {"mbox1", "mbox3"})
         self.assertEqual(result.get("remote_views"), {"view1", "view3"})
+
+    def test_determine_artifact_location(self):
+        config = DecisioningConfig("MyClient", "12345@AdobeOrg", environment=ENVIRONMENT_DEV,
+                                   cdn_environment=ENVIRONMENT_STAGE)
+        artifact_location = determine_artifact_location(config)
+        self.assertEqual(artifact_location,
+                         "https://assets.staging.adobetarget.com/MyClient/development/v1/rules.json")
+
+    def test_determine_artifact_location_invalid_env(self):
+        config = DecisioningConfig("MyClient", "12345@AdobeOrg", environment="bad")
+        mock_logger = Mock()
+        with patch("target_decisioning_engine.utils.logger", mock_logger):
+            artifact_location = determine_artifact_location(config)
+            self.assertEqual(artifact_location,
+                             "https://assets.adobetarget.com/MyClient/production/v1/rules.json")
+            self.assertEqual(mock_logger.debug.call_count, 1)
+            self.assertEqual(mock_logger.debug.call_args[0][0],
+                             "'bad' is not a valid target environment, defaulting to 'production'.")
+
+    def test_determine_artifact_location_filter_missing_parts(self):
+        config = DecisioningConfig(None, None, environment=ENVIRONMENT_DEV)
+        artifact_location = determine_artifact_location(config)
+        self.assertEqual(artifact_location, "https://assets.adobetarget.com/development/v1/rules.json")

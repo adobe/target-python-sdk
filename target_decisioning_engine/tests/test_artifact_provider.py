@@ -41,7 +41,7 @@ class TestArtifactProvider(unittest.TestCase):
     def setUp(self):
         self.default_config = DecisioningConfig("client123", "org999", artifact_location=ARTIFACT_URL,
                                                 event_emitter=Mock())
-        self.provider = ArtifactProvider(self.default_config)
+        self.provider = None
 
     def tearDown(self):
         self.provider.stop_all_polling()

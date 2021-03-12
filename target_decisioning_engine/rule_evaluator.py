@@ -10,12 +10,10 @@
 """rule evaluator"""
 # pylint: disable=too-few-public-methods
 # pylint: disable=too-many-arguments
+# pylint: disable=no-self-use
 
 from copy import deepcopy
 from json_logic import jsonLogic
-
-from target_decisioning_engine.allocation_provider import compute_allocation
-from target_decisioning_engine.constants import ACTIVITY_ID
 from target_decisioning_engine.context_provider import create_page_context
 from target_decisioning_engine.context_provider import create_mbox_context
 
@@ -55,8 +53,8 @@ class RuleEvaluator:
         rule_context.update({
             "page": page,
             "referring": referring,
-            "mbox": create_mbox_context(request_detail),
-            "allocation": compute_allocation(self.client_id, rule.get("meta", {}).get(ACTIVITY_ID), self.visitor_id)
+            "mbox": create_mbox_context(request_detail)
+            # "allocation": compute_allocation(self.client_id, rule.get("meta", {}).get(ACTIVITY_ID), self.visitor_id)
         })
 
         rule_satisfied = jsonLogic(rule.get("condition"), rule_context)

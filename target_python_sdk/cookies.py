@@ -16,7 +16,7 @@ try:
 except ImportError:
     from urllib import unquote, quote
 from target_python_sdk.utils import is_number
-from target_python_sdk.utils import get_epoch_time
+from target_python_sdk.utils import get_epoch_time_milliseconds
 from target_python_sdk.utils import parse_int
 from target_tools.constants import MILLISECONDS_IN_SECOND
 
@@ -92,7 +92,7 @@ def parse_cookies(target_cookie):
 
 def create_target_cookie(cookies):
     """Serializes several individual cookies into a single Target cookie"""
-    now = get_epoch_time() * MILLISECONDS_IN_SECOND
+    now = get_epoch_time_milliseconds()
     max_age = abs(get_max_expires(cookies) * MILLISECONDS_IN_SECOND - now)
     serialized_cookies = [serialize_cookie(cookie) for cookie in cookies]
 

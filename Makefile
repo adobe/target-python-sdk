@@ -19,7 +19,7 @@ clean:
 # Install dependencies - older versions of python need to bootstrap pip for CI workflow
 install: env
 ifneq (,$(filter $(PYTHON_VERSION),2.7 3.4 3.5))
-		curl https://bootstrap.pypa.io/${PYTHON_VERSION}/get-pip.py | python
+		curl https://bootstrap.pypa.io/pip/${PYTHON_VERSION}/get-pip.py | python
 endif
 	python -m pip install --upgrade pip "setuptools>=38.3.0,<=44.1.x" wheel pep517 pylint "twine==1.7.0" bump2version coverage coveralls
 	python -m pip install -r requirements.txt

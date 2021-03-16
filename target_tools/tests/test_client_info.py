@@ -62,7 +62,7 @@ class TestClientInfo(unittest.TestCase):
 
     def test_browser_from_user_agent_ie_7(self):
         result = browser_from_user_agent(IE11_COMPAT_WIN)
-        self.validate_browser(result, "IE", 7)
+        self.validate_browser(result, "IE", 11)
 
     def test_browser_from_user_agent_firefox_78(self):
         result = browser_from_user_agent(FIREFOX_MAC)
@@ -86,7 +86,7 @@ class TestClientInfo(unittest.TestCase):
 
     def test_operating_system_from_user_agent_chrome_mac(self):
         os_name = operating_system_from_user_agent(CHROME_MAC)
-        self.assertEqual(os_name, "Mac OS")
+        self.assertEqual(os_name, "Mac OS X")
 
     def test_operating_system_from_user_agent_ie_11(self):
         os_name = operating_system_from_user_agent(IE11_WIN)
@@ -122,15 +122,15 @@ class TestClientInfo(unittest.TestCase):
 
     def test_device_type_from_user_agent_chrome(self):
         device_type = device_type_from_user_agent(CHROME_MAC)
-        self.assertEqual(device_type, "Desktop")
+        self.assertEqual(device_type, "Mac")
 
     def test_device_type_from_user_agent_firefox(self):
         device_type = device_type_from_user_agent(FIREFOX_MAC)
-        self.assertEqual(device_type, "Desktop")
+        self.assertEqual(device_type, "Mac")
 
     def test_device_type_from_user_agent_safari(self):
         device_type = device_type_from_user_agent(SAFARI_MAC)
-        self.assertEqual(device_type, "Desktop")
+        self.assertEqual(device_type, "Mac")
 
     def test_device_type_from_user_agent_edge(self):
         device_type = device_type_from_user_agent(EDGE_WIN)

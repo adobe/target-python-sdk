@@ -13,8 +13,11 @@
 
 from copy import deepcopy
 from json_logic import jsonLogic
+
+from target_decisioning_engine.allocation_provider import compute_allocation
 from target_decisioning_engine.constants import ACTIVITY_ID
-from target_decisioning_engine.context_provider import create_page_context, create_mbox_context
+from target_decisioning_engine.context_provider import create_page_context
+from target_decisioning_engine.context_provider import create_mbox_context
 
 
 class RuleEvaluator:

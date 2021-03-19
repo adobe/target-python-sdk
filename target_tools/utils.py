@@ -158,3 +158,18 @@ def get_view_names(delivery_request):
 def noop():
     """No-Op function for when callable is required"""
     return None
+
+
+def memoize(func, args_resolver=None):
+    """Function memoization for better performance"""
+    cache = dict()
+
+    def memoized_func(*args):
+        key = args_resolver(args) if args_resolver else args
+        if key in cache:
+            return cache[key]
+        result = func(*args)
+        cache[key] = result
+        return result
+
+    return memoized_func

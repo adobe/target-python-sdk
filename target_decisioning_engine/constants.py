@@ -39,7 +39,7 @@ CDN_BASE = {
     ENVIRONMENT_DEV: CDN_BASE_DEV
 }
 
-CAMPAIGN_BUCKET_SALT = "campaign"
+CAMPAIGN_BUCKET_SALT = "0"
 
 # Response token keys
 AUDIENCE_IDS = "audience.ids"

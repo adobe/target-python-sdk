@@ -51,7 +51,7 @@ def _calculate_allocation(device_id):
     """
     signed_numeric_hash_value = hash_unencoded_chars(device_id)
     hash_fixed_bucket = abs(signed_numeric_hash_value) % TOTAL_BUCKETS
-    allocation_value = (hash_fixed_bucket / TOTAL_BUCKETS) * MAX_PERCENTAGE
+    allocation_value = (hash_fixed_bucket / float(TOTAL_BUCKETS)) * MAX_PERCENTAGE
     return round(allocation_value, 2)
 
 

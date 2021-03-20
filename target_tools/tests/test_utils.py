@@ -9,6 +9,10 @@
 # governing permissions and limitations under the License.
 
 """Test cases for utils.py"""
+try:
+    from unittest.mock import Mock
+except ImportError:
+    from mock import Mock
 import unittest
 from copy import deepcopy
 from urllib3_mock import Responses
@@ -16,6 +20,7 @@ from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
 from target_tools.utils import get_mbox_names
+from target_tools.utils import memoize
 from target_tools.utils import add_mboxes_to_request
 
 responses = Responses("requests.packages.urllib3")
@@ -133,3 +138,53 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(resulting_mboxes[2].name, "mbox-bar")
         self.assertEqual(resulting_mboxes[3].index, 8)
         self.assertEqual(resulting_mboxes[3].name, "mbox-baz")
+
+    def test_memoize_default_args_resolver(self):
+        mock_fn = Mock(return_value=100)
+        test_fn = memoize(mock_fn)
+
+        result = test_fn(1, x="memo", y=999)
+        self.assertEqual(result, 100)
+        result = test_fn(1, x="memo", y=999)
+        self.assertEqual(result, 100)
+        result = test_fn(1, x="memo", y=999)
+        self.assertEqual(result, 100)
+        self.assertEqual(mock_fn.call_count, 1)
+        self.assertEqual(mock_fn.call_args[0][0], 1)
+        self.assertEqual(mock_fn.call_args[1].get("x"), "memo")
+        self.assertEqual(mock_fn.call_args[1].get("y"), 999)
+
+        test_fn(1, x="no match", y=111)
+        test_fn(1, x="memo")
+        test_fn(1)
+        test_fn()
+        self.assertEqual(mock_fn.call_count, 5)
+
+    def test_memoize_custom_args_resolver(self):
+        def resolver(args, kwargs):
+            key = ""
+            for _arg in args:
+                key += str(_arg)
+            for _key, _val in list(kwargs.items()):
+                key += "{}={}".format(_key, _val)
+            return key
+
+        mock_fn = Mock(return_value=100)
+        test_fn = memoize(mock_fn, args_resolver=resolver)
+
+        result = test_fn(1, x="memo", y=999)
+        self.assertEqual(result, 100)
+        result = test_fn(1, x="memo", y=999)
+        self.assertEqual(result, 100)
+        result = test_fn(1, x="memo", y=999)
+        self.assertEqual(result, 100)
+        self.assertEqual(mock_fn.call_count, 1)
+        self.assertEqual(mock_fn.call_args[0][0], 1)
+        self.assertEqual(mock_fn.call_args[1].get("x"), "memo")
+        self.assertEqual(mock_fn.call_args[1].get("y"), 999)
+
+        test_fn(1, x="no match", y=111)
+        test_fn(1, x="memo")
+        test_fn(1)
+        test_fn()
+        self.assertEqual(mock_fn.call_count, 5)

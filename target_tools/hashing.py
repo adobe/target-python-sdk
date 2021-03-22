@@ -9,6 +9,7 @@
 # governing permissions and limitations under the License.
 """Hashing functions"""
 # pylint: disable=invalid-name
+# pylint: disable=unused-argument
 
 import ctypes
 from target_tools.utils import memoize
@@ -81,9 +82,9 @@ def hash_unencoded_chars_raw(string_value, seed=0):
     return h1
 
 
-def _create_memoization_key(_list):
+def _create_memoization_key(args, kwargs):
     """Joins list of values to create memo cache key"""
-    return "-".join(_list)
+    return "-".join(args)
 
 
 hash_unencoded_chars = memoize(hash_unencoded_chars_raw, _create_memoization_key)

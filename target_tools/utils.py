@@ -164,11 +164,11 @@ def memoize(func, args_resolver=None):
     """Function memoization for better performance"""
     cache = dict()
 
-    def memoized_func(*args):
-        key = args_resolver(args) if args_resolver else args
+    def memoized_func(*args, **kwargs):
+        key = args_resolver(args, kwargs) if args_resolver else (args, frozenset(kwargs.items()))
         if key in cache:
             return cache[key]
-        result = func(*args)
+        result = func(*args, **kwargs)
         cache[key] = result
         return result
 

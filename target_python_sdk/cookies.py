@@ -99,5 +99,5 @@ def create_target_cookie(cookies):
     return {
         'name': TARGET_COOKIE,
         'value': "|".join(serialized_cookies),
-        'maxAge': math.ceil(max_age // MILLISECONDS_IN_SECOND)
+        'maxAge': math.ceil(float(max_age) / MILLISECONDS_IN_SECOND)
     }

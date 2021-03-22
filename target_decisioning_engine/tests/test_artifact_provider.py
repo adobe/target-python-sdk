@@ -44,7 +44,7 @@ class TestArtifactProvider(unittest.TestCase):
         self.provider = None
 
     def tearDown(self):
-        self.provider.stop_all_polling()
+        self.provider.stop_polling()
 
     def test_get_polling_interval_equals_zero(self):
         config = DecisioningConfig(None, None, polling_interval=0)
@@ -132,7 +132,7 @@ class TestArtifactProvider(unittest.TestCase):
         # Test add_subscription
         subscriber = Mock()
         self.assertEqual(self.provider.subscription_count, 0)
-        subscription_key = self.provider.add_subscription(subscriber)
+        subscription_key = self.provider.subscribe(subscriber)
         self.assertEqual(self.provider.subscription_count, 1)
         self.assertEqual(self.provider.subscriptions.get(subscription_key), subscriber)
 
@@ -144,13 +144,13 @@ class TestArtifactProvider(unittest.TestCase):
             self.assertEqual(subscriber.call_args[0][0], response_data)
 
         # Test remove_subscription
-        self.provider.remove_subscription(subscription_key)
+        self.provider.unsubscribe(subscription_key)
         self.assertEqual(self.provider.subscription_count, 0)
 
     def test_remove_subscription_bad_key(self):
         self.provider = ArtifactProvider(self.default_config)
         self.assertEqual(self.provider.subscription_count, 0)
-        self.provider.remove_subscription(100)
+        self.provider.unsubscribe(100)
         self.assertEqual(self.provider.subscription_count, 0)
 
     def test_stop_all_polling(self):
@@ -160,7 +160,7 @@ class TestArtifactProvider(unittest.TestCase):
             self.assertTrue(self.provider.polling_timer.is_alive())
             self.assertFalse(self.provider.polling_halted)
 
-            self.provider.stop_all_polling()
+            self.provider.stop_polling()
             self.assertIsNone(self.provider.polling_timer)
             self.assertTrue(self.provider.polling_halted)
 
@@ -168,7 +168,7 @@ class TestArtifactProvider(unittest.TestCase):
         self.provider = ArtifactProvider(self.default_config)
         with patch.object(self.provider.pool_manager, "request", return_value=HTTPResponse()):
             self.provider.initialize()  # starts polling thread
-            self.provider.stop_all_polling()
+            self.provider.stop_polling()
             self.assertTrue(self.provider.polling_halted)
 
             self.provider.resume_polling()

@@ -27,7 +27,7 @@ class LimitedKeyDict(dict):
         """
         if not kwargs:
             return
-        valid = {key: value for (key, value) in kwargs.items() if key in self._get_valid_keys()}
+        valid = {key: value for (key, value) in list(kwargs.items()) if key in self._get_valid_keys()}
         self.update(valid)
 
     def __setitem__(self, key, val):

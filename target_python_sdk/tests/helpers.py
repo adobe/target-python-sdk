@@ -8,6 +8,9 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Helper functions for testing"""
+import json
+import os
+
 try:
     from unittest.mock import MagicMock
 except ImportError:
@@ -32,3 +35,12 @@ def spy_decorator(method_to_decorate):
 
     wrapper.mock = mock
     return wrapper
+
+
+def read_json_file(directory, filename):
+    """Read json file"""
+    file_path = os.path.join(directory, filename)
+    _file = open(file_path, )
+    data = json.load(_file)
+    _file.close()
+    return data

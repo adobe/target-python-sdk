@@ -3,4 +3,4 @@ tzlocal==2.1
 python-dateutil==2.8.1
 ua-parser==0.10.0
 user-agents==2.2.0
-enum34==1.1.8
+enum34==1.1.10

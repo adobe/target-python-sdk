@@ -16,6 +16,9 @@ from threading import Timer
 import urllib3
 from urllib3 import Retry
 from target_decisioning_engine.constants import LOG_PREFIX
+from target_decisioning_engine.constants import HTTP_GET
+from target_decisioning_engine.constants import NOT_MODIFIED
+from target_decisioning_engine.constants import OK
 from target_decisioning_engine.constants import MINIMUM_POLLING_INTERVAL
 from target_decisioning_engine.constants import DEFAULT_POLLING_INTERVAL
 from target_decisioning_engine.constants import NUM_FETCH_RETRIES
@@ -25,6 +28,7 @@ from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED
 from target_decisioning_engine.messages import MESSAGES
 from target_decisioning_engine.utils import determine_artifact_location
 from target_decisioning_engine.utils import get_http_codes_to_retry
+from target_decisioning_engine.geo_provider import create_or_update_geo_object
 from target_python_sdk.utils import is_number
 from target_python_sdk.utils import is_string
 from target_python_sdk.utils import is_dict
@@ -32,9 +36,6 @@ from target_tools.logger import get_logger
 from target_tools.utils import noop
 
 LOG_TAG = "{}.ArtifactProvider".format(LOG_PREFIX)
-NOT_MODIFIED = 304
-OK = 200
-HTTP_GET = "GET"
 BACKOFF_FACTOR = 0.1
 CODES_TO_RETRY = get_http_codes_to_retry()
 
@@ -98,7 +99,11 @@ class ArtifactProvider:
             self._schedule_next_update()
 
     def _emit_new_artifact(self, artifact_payload, geo_context=None):
-        """Send events and notify subscribers of new artifact"""
+        """Send events and notify subscribers of new artifact
+        :param artifact_payload: (dict) artifact payload in dict format
+        :param geo_context: (dict) geo object in dict format
+        :return: None
+        """
         if not geo_context:
             geo_context = {}
 
@@ -193,9 +198,8 @@ class ArtifactProvider:
                     self.last_response_data = response_data
                     self.last_response_etag = etag
 
-                # GA TODO - GeoProvider separate ticket + add test to make sure _emit_new_artifact called
-                # self._emit_new_artifact(response_data, create_geo_object_from_headers(res.headers))
-                self._emit_new_artifact(response_data)
+                geo = create_or_update_geo_object(geo_data=res.headers)
+                self._emit_new_artifact(response_data, geo.to_dict())
 
                 return response_data
         except Exception as err:

@@ -9,27 +9,26 @@
 # governing permissions and limitations under the License.
 """Unit tests for target_decisioning_engine.artifact_provider module"""
 # pylint: disable=too-many-public-methods
-import json
-import unittest
-import time
-import urllib3
 
 try:
     from unittest.mock import patch, Mock
 except ImportError:
     from mock import patch, Mock
-try:
-    from http.client import NOT_MODIFIED, OK
-except ImportError:
-    from httplib import NOT_MODIFIED, OK
-
+import json
+import unittest
+import time
+import urllib3
 from urllib3.exceptions import MaxRetryError
 from urllib3.response import HTTPResponse
 from target_decisioning_engine.artifact_provider import ArtifactProvider
-from target_decisioning_engine.constants import MINIMUM_POLLING_INTERVAL
+from target_decisioning_engine.constants import MINIMUM_POLLING_INTERVAL, HTTP_HEADER_FORWARDED_FOR, \
+    HTTP_HEADER_GEO_LATITUDE, HTTP_HEADER_GEO_LONGITUDE, HTTP_HEADER_GEO_COUNTRY, HTTP_HEADER_GEO_REGION, \
+    HTTP_HEADER_GEO_CITY
 from target_decisioning_engine.constants import DEFAULT_POLLING_INTERVAL
+from target_decisioning_engine.constants import OK
+from target_decisioning_engine.constants import NOT_MODIFIED
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
-from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED
+from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED, GEO_LOCATION_UPDATED
 from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_SUCCEEDED
 from target_python_sdk.tests.helpers import spy_decorator
 
@@ -137,7 +136,8 @@ class TestArtifactProvider(unittest.TestCase):
         self.assertEqual(self.provider.subscriptions.get(subscription_key), subscriber)
 
         response_data = {"y": 88, "q": 14}
-        response_mock = Mock(status=OK, data=json.dumps(response_data))
+        response_headers = {}
+        response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)
         with patch.object(self.provider.pool_manager, "request", return_value=response_mock):
             self.provider.initialize()
             self.assertEqual(subscriber.call_count, 1)
@@ -221,7 +221,22 @@ class TestArtifactProvider(unittest.TestCase):
     def test_fetch_artifact_response_status_ok_with_etag(self):
         response_data = {"y": 88, "q": 14}
         response_headers = {
-            "Etag": "12345"
+            "Etag": "12345",
+            HTTP_HEADER_FORWARDED_FOR: "12.21.1.40",
+            HTTP_HEADER_GEO_LATITUDE: 37.75,
+            HTTP_HEADER_GEO_LONGITUDE: -122.4,
+            HTTP_HEADER_GEO_COUNTRY: "US",
+            HTTP_HEADER_GEO_REGION: "CA",
+            HTTP_HEADER_GEO_CITY: "SAN FRANCISCO"
+        }
+        expected_geo = {
+            "city": "SAN FRANCISCO",
+            "country_code": "US",
+            "ip_address": "12.21.1.40",
+            "latitude": 37.75,
+            "longitude": -122.4,
+            "state_code": "CA",
+            "zip": None
         }
         response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)
         self.provider = ArtifactProvider(self.default_config)
@@ -236,11 +251,28 @@ class TestArtifactProvider(unittest.TestCase):
                              self.default_config.artifact_location)
             self.assertEqual(self.default_config.event_emitter.call_args_list[0][0][1].get("artifact_payload"),
                              response_data)
+            self.assertEqual(self.default_config.event_emitter.call_args_list[1][0][0], GEO_LOCATION_UPDATED)
+            self.assertEqual(self.default_config.event_emitter.call_args_list[1][0][1].get("geo_context"), expected_geo)
 
     def test_fetch_artifact_response_status_ok_no_etag(self):
         response_data = {"y": 88, "q": 14}
         response_headers = {
-            "Etag": None
+            "Etag": None,
+            HTTP_HEADER_FORWARDED_FOR: "12.21.1.40",
+            HTTP_HEADER_GEO_LATITUDE: 37.75,
+            HTTP_HEADER_GEO_LONGITUDE: -122.4,
+            HTTP_HEADER_GEO_COUNTRY: "US",
+            HTTP_HEADER_GEO_REGION: "CA",
+            HTTP_HEADER_GEO_CITY: "SAN FRANCISCO"
+        }
+        expected_geo = {
+            "city": "SAN FRANCISCO",
+            "country_code": "US",
+            "ip_address": "12.21.1.40",
+            "latitude": 37.75,
+            "longitude": -122.4,
+            "state_code": "CA",
+            "zip": None
         }
         response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)
         self.provider = ArtifactProvider(self.default_config)
@@ -255,3 +287,5 @@ class TestArtifactProvider(unittest.TestCase):
                              self.default_config.artifact_location)
             self.assertEqual(self.default_config.event_emitter.call_args_list[0][0][1].get("artifact_payload"),
                              response_data)
+            self.assertEqual(self.default_config.event_emitter.call_args_list[1][0][0], GEO_LOCATION_UPDATED)
+            self.assertEqual(self.default_config.event_emitter.call_args_list[1][0][1].get("geo_context"), expected_geo)

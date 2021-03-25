@@ -9,17 +9,17 @@
 # governing permissions and limitations under the License.
 
 """Assorted shared functions"""
-import json
-
 try:
     from functools import reduce
 except ImportError:
     pass
+import json
 import datetime
 import operator
 import uuid
 import math
 from tzlocal import get_localzone
+from target_tools.constants import MILLISECONDS_IN_SECOND
 
 EPOCH_START = datetime.datetime.utcfromtimestamp(0)
 SECONDS_IN_MINUTE = 60
@@ -78,6 +78,12 @@ def get_epoch_time(utc_datetime=None):
     return math.ceil((utc_datetime - EPOCH_START).total_seconds())
 
 
+def get_epoch_time_milliseconds(utc_datetime=None):
+    """Get epoch time (milliseconds) from either passed in UTC datetime or current datetime"""
+    epoch_seconds = get_epoch_time(utc_datetime)
+    return epoch_seconds * MILLISECONDS_IN_SECOND
+
+
 def get_timezone_offset():
     """Get local timezone offset from UTC"""
     timezone = get_localzone()
@@ -100,3 +106,8 @@ def remove_empty_values(_dict):
 def create_visitor(config, visitor_cookie=None, customer_ids=None):
     """Create visitor"""
     print("{}.{}.{}".format(json.dumps(config), visitor_cookie, json.dumps(customer_ids)))
+
+
+def is_empty(val):
+    """Returns True if val is Falsy, otherwise returns False"""
+    return not bool(val)

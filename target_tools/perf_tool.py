@@ -22,7 +22,7 @@ class PerfTool:
 
     def _get_unique_timing_id(self, _id):
         """
-        :param _id: (str) ID
+        :param _id: (str) metric name
         :return: (str) unique ID
         """
         count = self.timing_ids.get(_id, 0) + 1
@@ -31,18 +31,18 @@ class PerfTool:
 
     def time_start(self, _id, increment_timer=False):
         """Sets start time for ID
-        :param _id: (str) ID
+        :param _id: (str) metric name
         :param increment_timer: (bool) increment timer, defaults to False
         :return: (str) ID
         """
         timing_id = self._get_unique_timing_id(_id) if increment_timer else _id
-        if not self.start_times.get(timing_id):
+        if timing_id not in self.start_times:
             self.start_times[timing_id] = get_epoch_time_milliseconds()
         return timing_id
 
     def time_end(self, _id, offset=0):
         """Sets timing for ID
-        :param _id: (str) ID
+        :param _id: (str) timing_id that must match the output from time_start
         :param offset: (int) timing offset, defaults to 0
         :return: (int) timing
         """

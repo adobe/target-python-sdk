@@ -16,6 +16,7 @@ except ImportError:
     from mock import Mock, patch
 import unittest
 from target_python_sdk.utils import get_epoch_time
+from target_python_sdk.utils import is_empty
 from target_python_sdk.utils import get_epoch_time_milliseconds
 
 
@@ -49,3 +50,17 @@ class TestUtils(unittest.TestCase):
             result = get_epoch_time_milliseconds(MOCK_DATE)
             self.assertEqual(result, 1616424781000)
             self.assertEqual(mock_datetime.utcnow.call_count, 0)
+
+    def test_is_empty_list(self):
+        self.assertTrue(is_empty(None))
+        self.assertTrue(is_empty(""))
+        self.assertTrue(is_empty([]))
+        self.assertTrue(is_empty({}))
+        self.assertTrue(is_empty(set()))
+        self.assertTrue(is_empty(tuple()))
+
+        self.assertFalse(is_empty("not empty"))
+        self.assertFalse(is_empty([1]))
+        self.assertFalse(is_empty({"a": "b"}))
+        self.assertFalse(is_empty(set([1, 2, 3])))
+        self.assertFalse(is_empty(tuple(["x", "y"])))

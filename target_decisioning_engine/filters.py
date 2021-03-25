@@ -8,6 +8,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """filters"""
+from target_python_sdk.utils import is_empty
 
 
 def by_property_token(property_token):
@@ -23,7 +24,7 @@ def by_property_token(property_token):
         """
         property_tokens = rule.get("propertyTokens", [])
 
-        return len(property_tokens) == 0 if not property_token else\
-            (len(property_tokens) == 0 or property_token in property_tokens)
+        return is_empty(property_tokens) if not property_token else \
+            (is_empty(property_tokens) or property_token in property_tokens)
 
     return _filter

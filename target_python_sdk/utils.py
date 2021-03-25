@@ -106,3 +106,8 @@ def remove_empty_values(_dict):
 def create_visitor(config, visitor_cookie=None, customer_ids=None):
     """Create visitor"""
     print("{}.{}.{}".format(json.dumps(config), visitor_cookie, json.dumps(customer_ids)))
+
+
+def is_empty(val):
+    """Returns True if val is Falsy, otherwise returns False"""
+    return not bool(val)

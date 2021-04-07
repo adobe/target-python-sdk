@@ -95,7 +95,6 @@ class TestTargetDecisioningEngine(unittest.TestCase):
                 artifact = self.decisioning.get_raw_artifact()
                 self.assertIsNotNone(artifact)
 
-
     def test_initialize_error_fetching_artifact(self):
         config = deepcopy(CONFIG)
         config.polling_interval = 0

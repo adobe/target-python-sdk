@@ -48,7 +48,7 @@ class Rule(LimitedKeyDict):
         "propertyTokens": "list<str>",
         "seed": "str",
         "condition": "dict",
-        "consequence": "dict version of delivery_api_client.Model.mbox_response.MboxResponse"
+        "consequence": "delivery_api_client.Model.mbox_response.MboxResponse"
     }
 
     def __init__(self, kwargs=None):

@@ -19,10 +19,9 @@ from target_decisioning_engine.types.decisioning_context import DecisioningConte
 from target_decisioning_engine.types.decisioning_context import TimingContext
 from target_decisioning_engine.utils import parse_url
 from target_python_sdk.utils import is_string
-from target_python_sdk.utils import get_epoch_time
+from target_python_sdk.utils import get_epoch_time_milliseconds
 from target_tools.client_info import browser_from_user_agent
 from target_tools.client_info import operating_system_from_user_agent
-from target_tools.constants import MILLISECONDS_IN_SECOND
 
 EMPTY_CONTEXT = Context(channel=ChannelType.WEB)
 
@@ -133,7 +132,7 @@ def _create_timing_context():
     _current_time = "{}{}".format(current_hours, current_minutes)  # 24-hour time, UTC, HHmm
     # now.weekday() gives us Monday as 0 through Sunday as 6.  We want to return Monday as 1 through Sunday as 7
     _current_day = now.weekday() + 1
-    return TimingContext(current_timestamp=get_epoch_time(now) * MILLISECONDS_IN_SECOND,
+    return TimingContext(current_timestamp=get_epoch_time_milliseconds(now),
                          current_time=_current_time,
                          current_day=_current_day)
 

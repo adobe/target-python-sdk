@@ -39,6 +39,11 @@ BACKOFF_FACTOR = 0.1
 CODES_TO_RETRY = get_http_codes_to_retry()
 
 
+def get_min_polling_interval():
+    """Minimum allowed amount of time between polling - in seconds"""
+    return MINIMUM_POLLING_INTERVAL
+
+
 class ArtifactProvider:
     """ArtifactProvider"""
 
@@ -50,7 +55,7 @@ class ArtifactProvider:
         self.pool_manager = urllib3.PoolManager()
         self.http_retry = Retry(total=NUM_FETCH_RETRIES, backoff_factor=BACKOFF_FACTOR, status_forcelist=CODES_TO_RETRY)
         self.config = config
-        self.logger = get_logger(config.logger)
+        self.logger = get_logger()
         self.event_emitter = config.event_emitter or noop
         self.polling_interval = None
         self.artifact_location = None
@@ -69,7 +74,7 @@ class ArtifactProvider:
             return 0
 
         return max(
-            MINIMUM_POLLING_INTERVAL,
+            get_min_polling_interval(),
             self.config.polling_interval if is_number(self.config.polling_interval) else DEFAULT_POLLING_INTERVAL
         )
 
@@ -109,13 +114,13 @@ class ArtifactProvider:
         for subscription_func in self.subscriptions.values():
             subscription_func(artifact_payload)
 
-    def add_subscription(self, callback_func):
+    def subscribe(self, callback_func):
         """Add event subscription"""
         self.subscription_count += 1
         self.subscriptions[self.subscription_count] = callback_func
         return self.subscription_count
 
-    def remove_subscription(self, _id):
+    def unsubscribe(self, _id):
         """Remove event subscription"""
         try:
             del self.subscriptions[_id]
@@ -136,7 +141,7 @@ class ArtifactProvider:
         self.polling_timer = Timer(self.polling_interval, self._fetch_and_schedule)
         self.polling_timer.start()
 
-    def stop_all_polling(self):
+    def stop_polling(self):
         """Disable artifact polling"""
         if self.polling_timer:
             self.polling_timer.cancel()
@@ -160,6 +165,11 @@ class ArtifactProvider:
     def _artifact_tracer_update(self, artifact):
         """Update ArtifactTracer with latest artifact"""
         self.artifact_tracer.provide_new_artifact(artifact)
+
+    def get_trace(self):
+        """Returns ArtifactTracer in dict format"""
+        # GA TODO - ArtifactTracer is a separate ticket
+        return self.artifact_tracer.to_dict()
 
     def _fetch_artifact(self, artifact_url):
         """Fetch artifact from server"""

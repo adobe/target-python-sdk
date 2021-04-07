@@ -12,6 +12,7 @@
 import json
 import os
 
+from target_python_sdk.tests.helpers import read_json_file
 
 CURRENT_DIR = os.path.dirname(__file__)
 
@@ -28,21 +29,12 @@ MOCK_RESPONSES = {
 }
 
 
-def read_json_file(filename):
-    """Read json file"""
-    file_path = os.path.join(CURRENT_DIR, filename)
-    _file = open(file_path, )
-    data = json.load(_file)
-    _file.close()
-    return data
-
-
 def setup_mock(response_key, responses, status=200):
     """Sets up mock response for Delivery API call"""
     filename = MOCK_RESPONSES.get(response_key)
     if not filename:
         return
-    data = read_json_file(filename)
+    data = read_json_file(CURRENT_DIR, filename)
 
     responses.add('POST', '/rest/v1/delivery',
                   body=json.dumps(data), status=status,

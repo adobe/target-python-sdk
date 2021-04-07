@@ -18,7 +18,7 @@ class DecisioningConfig:
 
     def __init__(self, client, organization_id, polling_interval=None,
                  artifact_location=None, artifact_payload=None, environment=None,
-                 cdn_environment=None, cdn_base_path=None, logger=None, send_notification_func=None,
+                 cdn_environment=None, cdn_base_path=None, send_notification_func=None,
                  telemetry_enabled=True, event_emitter=None, maximum_wait_ready=None):
         """
         :param client: (str) Target Client Id
@@ -29,7 +29,6 @@ class DecisioningConfig:
         :param environment: ("production"|"staging"|"development") The target environment name. Defaults to production.
         :param cdn_environment: ("production"|"staging"|"development") The CDN environment name. Defaults to production
         :param cdn_base_path: (str) A CDN base URL to override the default based on cdnEnvironment.
-        :param logger: (`logging.Logger`) sdk logger
         :param send_notification_func: (callable) Function used to send notifications
         :param telemetry_enabled: (bool) If set to false, telemetry data will not be sent to Adobe
         :param event_emitter: (callable) Function used to emit events
@@ -44,7 +43,6 @@ class DecisioningConfig:
         self.environment = environment
         self.cdn_environment = cdn_environment
         self.cdn_base_path = cdn_base_path
-        self.logger = logger
         self.send_notification_func = send_notification_func
         self.telemetry_enabled = telemetry_enabled
         self.event_emitter = event_emitter if event_emitter and callable(event_emitter) else \

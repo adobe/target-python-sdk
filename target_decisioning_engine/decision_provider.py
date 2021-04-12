@@ -59,6 +59,11 @@ def order_by_name(obj):
     return obj.name
 
 
+def order_by_event_token(metric):
+    """Sort by event_token for Metric"""
+    return metric.event_token
+
+
 class DecisionProvider:
     """DecisionProvider"""
 
@@ -159,8 +164,7 @@ class DecisionProvider:
                             existing_consequence.metrics = []
                         existing_consequence.metrics.extend(consequence.metrics or [])
 
-            responses = consequences.values()
-            return sorted(responses, key=order_by_name)
+            return sorted(consequences.values(), key=order_by_name)
 
         def _process_mbox_request(mbox_request, additional_post_processors=None):
             """
@@ -233,7 +237,7 @@ class DecisionProvider:
             indexed_metrics = reduce(_metrics_accumulator, consequences, {})
 
             if indexed_metrics:
-                mbox_response.metrics = indexed_metrics.values()
+                mbox_response.metrics = sorted(indexed_metrics.values(), key=order_by_event_token)
 
             return mbox_response
 

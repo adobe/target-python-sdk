@@ -11,11 +11,15 @@
 # pylint: disable=too-few-public-methods
 # pylint: disable=too-many-arguments
 # pylint: disable=no-self-use
-
 from copy import deepcopy
 from json_logic import jsonLogic
+from target_python_sdk.utils import to_dict
+from target_decisioning_engine.allocation_provider import compute_allocation
+from target_decisioning_engine.constants import ACTIVITY_ID
 from target_decisioning_engine.context_provider import create_page_context
 from target_decisioning_engine.context_provider import create_mbox_context
+from target_tools.response_helpers import create_view_response
+from target_tools.response_helpers import create_mbox_response
 
 
 class RuleEvaluator:
@@ -34,35 +38,37 @@ class RuleEvaluator:
         :param rule: (target_decisioning_engine.types.decisioning_artifact.Rule) rule
         :param context: (target_decisioning_engine.types.decisioning_context.DecisioningContext) context
         :param request_type: ( "mbox"|"view"|"pageLoad") request type
-        :param request_detail: (delivery_api_client.Model.request_details.RequestDetails) request details
+        :param request_detail: (delivery_api_client.Model.request_details.RequestDetails |
+            delivery_api_client.Model.mbox_request.MboxRequest) request details
         :param post_processors: (list<callable>) post-processors used to process an mbox if needed
         :param tracer: (target_decisioning_engine.trace_provider.RequestTracer) request tracer
         :return: (delivery_api_client.Model.mbox_response.MboxResponse)
         """
 
         consequence = None
-        page = context.page
-        referring = context.referring
+        page = context.get("page")
+        referring = context.get("referring")
 
-        if request_detail.address:
+        if request_detail and request_detail.address:
             page = create_page_context(request_detail.address) or page
             referring = create_page_context(request_detail.address) or referring
 
-        rule_context = dict(context)
-        # GA TODO - AllocationProvider
-        rule_context.update({
-            "page": page,
-            "referring": referring,
-            "mbox": create_mbox_context(request_detail)
-            # "allocation": compute_allocation(self.client_id, rule.get("meta", {}).get(ACTIVITY_ID), self.visitor_id)
+        context.update({
+            "page": to_dict(page),
+            "referring": to_dict(referring),
+            "mbox": to_dict(create_mbox_context(request_detail)),
+            "allocation": compute_allocation(self.client_id, rule.get("meta", {}).get(ACTIVITY_ID), self.visitor_id)
         })
 
-        rule_satisfied = jsonLogic(rule.get("condition"), rule_context)
-        tracer.trace_rule_evaluated(rule, request_detail, request_type, rule_context, rule_satisfied)
+        rule_satisfied = jsonLogic(rule.get("condition"), context)
+        tracer.trace_rule_evaluated(rule, context, rule_satisfied)
 
         if rule_satisfied:
-            consequence = deepcopy(rule.get("consequence"))
-            consequence.index = request_detail.index
+            if "key" in rule.get("consequence") or "state" in rule.get("consequence"):
+                create_view_response(deepcopy(rule.get("consequence")))
+            else:
+                consequence = create_mbox_response(deepcopy(rule.get("consequence")))
+                consequence.index = request_detail.index if hasattr(request_detail, "index") else None
 
             for post_process_func in post_processors:
                 consequence = post_process_func(rule, consequence, request_type, request_detail, tracer)

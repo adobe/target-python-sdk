@@ -21,6 +21,7 @@ from target_decisioning_engine.messages import MESSAGES
 from target_decisioning_engine.request_provider import valid_delivery_request
 from target_decisioning_engine.utils import match_major_version
 from target_decisioning_engine.utils import has_remote_dependency
+from target_decisioning_engine.decision_provider import DecisionProvider
 
 
 class TargetDecisioningEngine:
@@ -59,12 +60,12 @@ class TargetDecisioningEngine:
         options.request = valid_request
 
         # GA TODO - TraceProvider
+        trace_provider = MagicMock()
         # trace_provider = TraceProvider(self.config, options, artifact_provider.get_trace())
 
-        # GA TODO - DecisionProvider
-        return MagicMock()
-        # return DecisionProvider(self.config, options, create_decisioning_context(valid_request),
-        #                         self.artifact, trace_provider)
+        decisioning = DecisionProvider(self.config, options, create_decisioning_context(valid_request),
+                                       self.artifact, trace_provider)
+        return decisioning.run()
 
     def is_ready(self):
         """

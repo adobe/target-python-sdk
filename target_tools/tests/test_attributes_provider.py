@@ -14,16 +14,15 @@ import unittest
 from target_python_sdk.tests.delivery_response_setup import create_delivery_response
 from target_tools.attributes_provider import AttributesProvider
 
-
 DELIVERY_RESPONSE = create_delivery_response({
     "status": 200,
-    "request_id": "2e401dcc43ea437b8cb6d178d49303e2",
+    "requestId": "2e401dcc43ea437b8cb6d178d49303e2",
     "id": {
-        "tnt_id": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-        "marketing_cloud_visitor_id": "07327024324407615852294135870030620007"
+        "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+        "marketingCloudVisitorId": "07327024324407615852294135870030620007"
     },
     "client": "adobesummit2018",
-    "edge_host": "mboxedge28.tt.omtrdc.net",
+    "edgeHost": "mboxedge28.tt.omtrdc.net",
     "prefetch": {
         "mboxes": [
             {
@@ -38,7 +37,7 @@ DELIVERY_RESPONSE = create_delivery_response({
                             "payment_gateway_version": 2.3,
                             "customer_feedback_value": 10
                         },
-                        "event_token":
+                        "eventToken":
                             "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                     }
                 ]

@@ -36,7 +36,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(result.get("fragment"), fragment)
         self.assertEqual(result.get("domain"), domain)
         self.assertEqual(result.get("subdomain"), subdomain)
-        self.assertEqual(result.get("top_level_domain"), top_level_domain)
+        self.assertEqual(result.get("topLevelDomain"), top_level_domain)
 
     def test_parse_url_host_length_1(self):
         url = "http://myfavesite/posts?page=1#bottom"

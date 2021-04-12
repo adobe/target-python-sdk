@@ -37,7 +37,7 @@ def get_rule_key(rule):
     :param rule: (target_decisioning_engine.types.decisioning_artifact.Rule) Decisioning artifact rule, required
     :return: (str) rule key
     """
-    return rule.rule_key
+    return rule.get("ruleKey")
 
 
 def parse_url(url):
@@ -60,18 +60,18 @@ def parse_url(url):
     result["domain"] = host
     result["subdomain"] = EMPTY_STRING
     if len(domain_parts) == 1:
-        result["top_level_domain"] = EMPTY_STRING
+        result["topLevelDomain"] = EMPTY_STRING
         return result
     if len(domain_parts) == 2:
-        result["top_level_domain"] = domain_parts[1]
+        result["topLevelDomain"] = domain_parts[1]
         return result
     if len(domain_parts) == 3:
         result["subdomain"] = EMPTY_STRING if domain_parts[0] == "www" else domain_parts[0]
-        result["top_level_domain"] = domain_parts[2]
+        result["topLevelDomain"] = domain_parts[2]
         return result
     if len(domain_parts) == 4:
         result["subdomain"] = EMPTY_STRING if domain_parts[0] == "www" else domain_parts[0]
-        result["top_level_domain"] = "{}.{}".format(domain_parts[2], domain_parts[3])
+        result["topLevelDomain"] = "{}.{}".format(domain_parts[2], domain_parts[3])
 
     return result
 

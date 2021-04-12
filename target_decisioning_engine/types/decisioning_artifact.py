@@ -15,7 +15,7 @@ from target_decisioning_engine.types.limited_key_dict import LimitedKeyDict
 class RuleMeta(LimitedKeyDict):
     """RuleMeta"""
 
-    __attribute_map = {
+    __key_map = {
         "activity.id": "int",
         "activity.name": "str",
         "activity.type": "str",
@@ -33,17 +33,17 @@ class RuleMeta(LimitedKeyDict):
     }
 
     def __init__(self, kwargs=None):
-        """kwargs should only consist of keys inside __attribute_map"""
+        """kwargs should only consist of keys inside __key_map"""
         self._validate_kwargs_and_update(kwargs)
 
     def _get_valid_keys(self):
-        return RuleMeta.__attribute_map.keys()
+        return RuleMeta.__key_map.keys()
 
 
 class Rule(LimitedKeyDict):
     """Rule"""
 
-    __attribute_map = {
+    __key_map = {
         "ruleKey": "str",
         "propertyTokens": "list<str>",
         "seed": "str",
@@ -52,17 +52,17 @@ class Rule(LimitedKeyDict):
     }
 
     def __init__(self, kwargs=None):
-        """kwargs should only consist of keys inside __attribute_map"""
+        """kwargs should only consist of keys inside __key_map"""
         self._validate_kwargs_and_update(kwargs)
 
     def _get_valid_keys(self):
-        return Rule.__attribute_map.keys()
+        return Rule.__key_map.keys()
 
 
 class DecisioningArtifactMeta(LimitedKeyDict):
     """DecisioningArtifactMeta"""
 
-    __attribute_map = {
+    __key_map = {
         "generatedAt": "str",
         "organizationId": "str",
         "clientCode": "str",
@@ -71,33 +71,33 @@ class DecisioningArtifactMeta(LimitedKeyDict):
     }
 
     def __init__(self, kwargs=None):
-        """kwargs should only consist of keys inside __attribute_map"""
+        """kwargs should only consist of keys inside __key_map"""
         self._validate_kwargs_and_update(kwargs)
 
     def _get_valid_keys(self):
-        return DecisioningArtifactMeta.__attribute_map.keys()
+        return DecisioningArtifactMeta.__key_map.keys()
 
 
 class DecisioningArtifactRules(LimitedKeyDict):
     """DecisioningArtifactRules"""
 
-    __attribute_map = {
+    __key_map = {
         "mboxes": "dict<str: list<Rule>>",
         "views": "dict<str: list<Rule>>"
     }
 
     def __init__(self, kwargs=None):
-        """kwargs should only consist of keys inside __attribute_map"""
+        """kwargs should only consist of keys inside __key_map"""
         self._validate_kwargs_and_update(kwargs)
 
     def _get_valid_keys(self):
-        return DecisioningArtifactRules.__attribute_map.keys()
+        return DecisioningArtifactRules.__key_map.keys()
 
 
 class DecisioningArtifact(LimitedKeyDict):
     """DecisioningArtifact"""
 
-    __attribute_map = {
+    __key_map = {
         "version": "str",
         "globalMbox": "str",
         "geoTargetingEnabled": "bool",
@@ -111,8 +111,8 @@ class DecisioningArtifact(LimitedKeyDict):
     }
 
     def __init__(self, kwargs=None):
-        """kwargs should only consist of keys inside __attribute_map"""
+        """kwargs should only consist of keys inside __key_map"""
         self._validate_kwargs_and_update(kwargs)
 
     def _get_valid_keys(self):
-        return DecisioningArtifact.__attribute_map.keys()
+        return DecisioningArtifact.__key_map.keys()

@@ -7,7 +7,6 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
-
 """Assorted shared functions"""
 try:
     from functools import reduce
@@ -111,3 +110,30 @@ def create_visitor(config, visitor_cookie=None, customer_ids=None):
 def is_empty(val):
     """Returns True if val is Falsy, otherwise returns False"""
     return not bool(val)
+
+
+def to_dict(obj):
+    """Converts a class instance object into a dict"""
+    if isinstance(obj, dict):
+        data = {}
+        for (key, val) in obj.items():
+            data[key] = to_dict(val)
+        return data
+    if hasattr(obj, "__iter__") and not isinstance(obj, str):
+        return [to_dict(v) for v in obj]
+    if hasattr(obj, "attribute_map"):
+        data = {}
+        for key, mapped_key in obj.attribute_map.items():
+            value = getattr(obj, key)
+            data[mapped_key] = to_dict(value)
+        return data
+    if hasattr(obj, "__dict__"):
+        return {key: to_dict(value) for key, value in obj.__dict__.items()}
+    return obj
+
+
+def get_value_from_object(obj, key):
+    """Retrieves value via key for dicts or attribute for instance objects"""
+    if is_dict(obj):
+        return obj.get(key)
+    return getattr(obj, key, None)

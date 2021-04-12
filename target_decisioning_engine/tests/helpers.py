@@ -10,11 +10,11 @@
 """Util functions for testing decisioning engine"""
 # pylint: disable=unused-argument
 import os
-from target_python_sdk.tests.helpers import read_json_file
 from target_python_sdk.utils import is_dict
 from target_python_sdk.utils import is_string
 from target_python_sdk.utils import is_number
 from target_python_sdk.utils import is_list
+from target_python_sdk.tests.helpers import read_json_file
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.types.target_delivery_request import TargetDeliveryRequest
@@ -32,32 +32,35 @@ def _default_parse_handler(key, value):
 
 def _traverse_object(obj=None, result=None, parse_handler=_default_parse_handler):
     """Traverses dict obj and constructs a new dict by executing parse_handler for each dict entry"""
-    if not obj:
-        obj = {}
-    if not result:
-        result = {}
+    if is_dict(result):
+        for key, val in obj.items():
+            if is_list(val) or is_dict(val):
+                result[key] = _traverse_object(val, [] if is_list(val) else {}, parse_handler)
+            else:
+                result[key] = parse_handler(key, val)
+    elif is_list(result):
+        for key, val in enumerate(obj):
+            if is_list(val) or is_dict(val):
+                result.append(_traverse_object(val, [] if is_list(val) else {}, parse_handler))
+            else:
+                result.append(parse_handler(key, val))
 
-    for key, val in list(obj.items()) if is_dict(obj) else enumerate(obj):
-        if is_list(val) or is_dict(val):
-            result[key] = _traverse_object(val, [] if is_list(val) else {}, parse_handler)
-        else:
-            result[key] = parse_handler(key, val)
     return result
 
 
 def assert_object(value):
     """Throws AssertionError if value is not an object"""
-    assert isinstance(value, object)
+    assert isinstance(value, object), "'{}' is not an object".format(value)
 
 
 def assert_string(value):
     """Throws AssertionError if value is not a str"""
-    assert is_string(value)
+    assert is_string(value), "'{}' is not a string".format(value)
 
 
 def assert_number(value):
     """Throws AssertionError if value is not an int"""
-    assert is_number(value)
+    assert is_number(value), "'{}' is not a number".format(value)
 
 
 def prepare_test_response(response=None):
@@ -100,16 +103,27 @@ def _hydrate_artifacts(artifact_folder, artifact_list, test_obj=None):
 def expect_to_match_object(received, expected):
     """Validates received response against expected response"""
     expected = prepare_test_response(expected)
+
+    if received is None:
+        assert expected is None, "None value received, but expected '{}'".format(expected)
+
     for key, value in expected.items():
-        assert received.get(key)
         if callable(value):
             value(received.get(key))
         elif is_dict(value):
-            assert expect_to_match_object(received.get(key), value)
+            expect_to_match_object(received.get(key), value)
         elif is_list(value):
-            assert set(value).issubset(set(received.get(key)))
+            for index, item in enumerate(value):
+                if is_dict(item):
+                    expect_to_match_object(received.get(key)[index], item)
+                else:
+                    assert item == received.get(key)[index], \
+                        "Received list item '{}' does not equal expected list item '{}'" \
+                        .format(str(received.get(key)[index]), str(item))
         else:
-            assert value == received.get(key)
+            assert value == received.get(key), \
+                "Received value '{}' for key '{}' does not equal expected value '{}'" \
+                .format(received.get(key), key, value)
 
 
 def is_json(filename):
@@ -136,7 +150,7 @@ def get_test_models():
     return filter(is_json, get_files_in_dir(TEST_MODELS_FOLDER))
 
 
-def get_test_suites(test_suite_name):
+def get_test_suites(test_suite_name, exclude_suites):
     """Retrieves and hydrates all artifacts.  Filters by test suite if test_suite_name provided"""
     artifacts = list(get_test_artifacts())
     test_models = get_test_models()
@@ -147,7 +161,7 @@ def get_test_suites(test_suite_name):
 
     hydrated_artifacts = []
     for test_model_file_name in test_models:
-        if not _matches_test_suite_name(test_model_file_name):
+        if not _matches_test_suite_name(test_model_file_name) or test_model_file_name in exclude_suites:
             continue
         suite = read_json_file(TEST_MODELS_FOLDER, test_model_file_name)
         hydrated_artifacts.append(_hydrate_artifacts(TEST_ARTIFACTS_FOLDER, artifacts, suite))

@@ -11,22 +11,8 @@
 from delivery_api_client import DeliveryResponse
 from delivery_api_client import ExecuteResponse
 from delivery_api_client import PrefetchResponse
-from delivery_api_client import Option
 from delivery_api_client import MboxResponse
-
-
-def create_options(mbox):
-    """Create Options"""
-    if not mbox:
-        return None
-
-    result_options = []
-    if mbox.get('options'):
-        for _option in mbox.get('options'):
-            option = Option(**_option)
-            result_options.append(option)
-
-    return result_options
+from target_tools.response_helpers import create_options
 
 
 def create_mboxes(mboxes):

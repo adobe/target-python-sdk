@@ -25,7 +25,6 @@ except ImportError:
 
 from delivery_api_client import MboxResponse
 from delivery_api_client import MboxRequest
-from delivery_api_client import VisitorId
 from delivery_api_client import ExecuteResponse
 from delivery_api_client import PrefetchResponse
 from target_decisioning_engine.constants import LOG_PREFIX
@@ -120,7 +119,7 @@ class DecisionProvider:
 
             consequences = {}
 
-            if request_details.name:
+            if request_details and request_details.name:
                 view_rules = self.rules.get("views", {}).get(request_details.name, [])
             else:
                 view_rules = reduce(_view_request_accumulator, self.rules.get("views", {}).keys(), [])
@@ -210,18 +209,17 @@ class DecisionProvider:
                 "trace": None
             }
 
-            def _preserve_trace(rule, mbox_response):
+            def _preserve_trace(rule, mbox_response, request_type, request_detail, tracer):
                 preserved["trace"] = mbox_response.trace
                 return mbox_response
 
-            mbox_request = MboxRequest(**request_details.to_dict())
+            mbox_request = MboxRequest(**request_details.to_dict()) if request_details else MboxRequest()
             mbox_request.name = self.global_mbox_name
             consequences = _process_mbox_request(mbox_request, [_preserve_trace, remove_page_load_attributes])
             options = flatten_list([consequence.options for consequence in consequences])
             mbox_response = MboxResponse(options=options, trace=preserved.get("trace"))
 
-            def _metrics_accumulator(indexed, consequence_tuple):
-                consequence = consequence_tuple[1]
+            def _metrics_accumulator(indexed, consequence):
                 for metric in consequence.metrics or []:
                     indexed[metric.event_token] = metric
                 return indexed
@@ -235,16 +233,17 @@ class DecisionProvider:
 
         response = PrefetchResponse() if mode == "prefetch" else ExecuteResponse()
 
-        if self.request[mode].mboxes:
+        if getattr(self.request, mode).mboxes:
+            mboxes = getattr(self.request, mode).mboxes
             response.mboxes = flatten_list([_process_mbox_request(mbox_request) for mbox_request
-                                            in self.request[mode].mboxes])
+                                            in mboxes if mbox_request])
 
-        if self.request[mode].views:
-            response.views = flatten_list([_process_view_request(request_details) for request_details
-                                           in self.request[mode].views])
+        if getattr(getattr(self.request, mode), "views", None):
+            views = getattr(getattr(self.request, mode), "views")
+            response.views = flatten_list([_process_view_request(request_details) for request_details in views])
 
-        if self.request[mode].page_load:
-            response.page_load = _process_page_load_request(self.request[mode].page_load)
+        page_load = getattr(self.request, mode).page_load
+        response.page_load = _process_page_load_request(page_load)
 
         return response
 
@@ -293,8 +292,8 @@ class DecisionProvider:
             status=PARTIAL_CONTENT if self.dependency.get("remote_needed") is True else OK,
             remote_mboxes=self.dependency.get("remote_mboxes"),
             remote_views=self.dependency.get("remote_views"),
-            request_id=self.request.requestId,
-            _id=VisitorId(**self.request.id),
+            request_id=self.request.request_id,
+            _id=self.request.id,
             client=self.client_id,
             execute=self._get_execute_decisions(common_post_processor),
             prefetch=self._get_prefetch_decisions(common_post_processor)

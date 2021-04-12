@@ -37,23 +37,23 @@ class TestGetAttributes(unittest.TestCase):
         self.get_attributes_options = {
             "request": {
                 "id": {
-                    "tnt_id": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-                    "marketing_cloud_visitor_id": "07327024324407615852294135870030620007"
+                    "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+                    "marketingCloudVisitorId": "07327024324407615852294135870030620007"
                 },
                 "context": {
                     "channel": ChannelType.WEB,
-                    "mobile_platform": None,
+                    "mobilePlatform": None,
                     "application": None,
                     "screen": None,
                     "window": None,
                     "browser": None,
                     "address": {
                         "url": "http://adobe.com",
-                        "referring_url": None
+                        "referringUrl": None
                     },
                     "geo": None,
-                    "time_offset_in_minutes": None,
-                    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+                    "timeOffsetInMinutes": None,
+                    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
                     "beacon": False
                 },
                 "prefetch": {

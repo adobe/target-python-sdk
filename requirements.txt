@@ -4,4 +4,4 @@ python-dateutil==2.8.1
 ua-parser==0.10.0
 user-agents==2.2.0
 enum34==1.1.10
-json-logic==0.6.3
+json_logic_qubit==0.9.1

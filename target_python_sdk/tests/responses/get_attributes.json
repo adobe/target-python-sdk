@@ -1,12 +1,12 @@
 {
     "status": 200,
-    "request_id": "0c22fb957e8b4297b29ab3932bb179c3",
+    "requestId": "0c22fb957e8b4297b29ab3932bb179c3",
     "client": "adobesummit2018",
     "id": {
-        "tnt_id": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-        "marketing_cloud_visitor_id": "07327024324407615852294135870030620007"
+        "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+        "marketingCloudVisitorId": "07327024324407615852294135870030620007"
     },
-    "edge_host": "mboxedge28.tt.omtrdc.net",
+    "edgeHost": "mboxedge28.tt.omtrdc.net",
     "prefetch": {
         "mboxes": [
             {
@@ -21,7 +21,7 @@
                             "customer_feedback_value": 10
                         },
                         "type": "json",
-                        "event_token":
+                        "eventToken":
                         "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                     }
                 ]

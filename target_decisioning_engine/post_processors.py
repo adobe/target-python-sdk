@@ -9,14 +9,12 @@
 # governing permissions and limitations under the License.
 """Post-processing functions for DecisionProvider"""
 # pylint: disable=unused-argument
-import re
-from copy import deepcopy
-
 try:
     from functools import reduce
 except ImportError:
     pass
-
+import re
+from copy import deepcopy
 from delivery_api_client import MetricType
 from delivery_api_client import OptionType
 from target_decisioning_engine.constants import ACTIVITY_DECISIONING_METHOD
@@ -39,8 +37,11 @@ from target_decisioning_engine.constants import GEO_LONGITUDE
 from target_decisioning_engine.constants import ACTIVITY_ID
 from target_decisioning_engine.enums import RequestType
 from target_python_sdk.utils import is_string
+from target_python_sdk.utils import get_value_from_object
+from target_tools.response_helpers import create_action
 
-MACRO_PATTERN_REGEX = r"${([a-zA-Z0-9_.]*?)}"  # /\$\{([a-zA-Z0-9_.]*?)\}/gi
+
+MACRO_PATTERN_REGEX = r"\${([a-zA-Z0-9_.]*?)}"
 
 MACRO_NAME_REPLACEMENTS = {
     "campaign": "activity",
@@ -159,6 +160,7 @@ def add_trace(rule, mbox_response, request_type, request_detail, tracer):
     """
     result = deepcopy(mbox_response)
     result.trace = tracer.get_trace_result()
+    return mbox_response
 
 
 def remove_page_load_attributes(rule, mbox_response, request_type, request_detail, tracer):
@@ -203,34 +205,36 @@ def create_response_tokens_post_processor(context, response_tokens_in_artifact=N
         ACTIVITY_DECISIONING_METHOD: "on-device"
     }
 
-    if GEO_CITY in response_tokens_in_artifact and context.geo.city:
-        response_tokens[GEO_CITY] = context.geo.city
+    if GEO_CITY in response_tokens_in_artifact and context.get("geo").get("city"):
+        response_tokens[GEO_CITY] = context.get("geo").get("city")
 
-    if GEO_COUNTRY in response_tokens_in_artifact and context.geo.country:
-        response_tokens[GEO_COUNTRY] = context.geo.country
+    if GEO_COUNTRY in response_tokens_in_artifact and context.get("geo").get("country"):
+        response_tokens[GEO_COUNTRY] = context.get("geo").get("country")
 
-    if GEO_STATE in response_tokens_in_artifact and context.geo.region:
-        response_tokens[GEO_STATE] = context.geo.region
+    if GEO_STATE in response_tokens_in_artifact and context.get("geo").get("region"):
+        response_tokens[GEO_STATE] = context.get("geo").get("region")
 
-    if GEO_LATITUDE in response_tokens_in_artifact and context.geo.latitude:
-        response_tokens[GEO_LATITUDE] = context.geo.latitude
+    if GEO_LATITUDE in response_tokens_in_artifact and context.get("geo").get("latitude"):
+        response_tokens[GEO_LATITUDE] = context.get("geo").get("latitude")
 
-    if GEO_LONGITUDE in response_tokens_in_artifact and context.geo.longitude:
-        response_tokens[GEO_LONGITUDE] = context.geo.longitude
+    if GEO_LONGITUDE in response_tokens_in_artifact and context.get("geo").get("longitude"):
+        response_tokens[GEO_LONGITUDE] = context.get("geo").get("longitude")
 
-    def add_response_tokens(rule, mbox_response):
+    def add_response_tokens(rule, mbox_response, request_type, request_detail, tracer):
         """
         :param rule: (target_decisioning_engine.types.decisioning_artifact.Rule) rule
         :param mbox_response: (delivery_api_client.Model.mbox_response.MboxResponse) mbox response
+        :param request_type: ( "mbox"|"view"|"pageLoad") request type
+        :param request_detail: (delivery_api_client.Model.request_details.RequestDetails) request details
+        :param tracer: (target_decisioning_engine.trace_provider.RequestTracer) request tracer
         :return: (delivery_api_client.Model.mbox_response.MboxResponse) mbox response
         """
         mbox_response_copy = deepcopy(mbox_response)
         meta = rule.get("meta", {})
 
-        def response_token_accumulator(result, response_token_tuple):
+        def response_token_accumulator(result, response_token_key):
             """Used in reduce fn to gather response tokens"""
-            response_token_key = response_token_tuple[0]
-            if response_token_key in response_tokens_in_artifact and meta.get(response_token_key):
+            if response_token_key in response_tokens_in_artifact and response_token_key in meta:
                 result[response_token_key] = meta[response_token_key]
 
             return result
@@ -277,10 +281,11 @@ def add_campaign_macro_values(html_content, rule, request_detail):
             parts = parts[len(parts) - 2:]
         filtered = [part for part in parts if part not in MACRO_NAME_REMOVALS]
         key = ".".join(filtered)
-        parameters = request_detail.parameters or {}
-        for item in [rule.meta, request_detail, parameters]:
-            if item and getattr(item, key, None):
-                return getattr(item, key, None)
+        parameters = request_detail.parameters if request_detail and request_detail.parameters else {}
+        for item in [rule.get("meta"), request_detail, parameters]:
+            replacement = get_value_from_object(item, key)
+            if replacement is not None:
+                return str(replacement)
         return match.group(0)
 
     return re.sub(MACRO_PATTERN_REGEX, replace_match, html_content, flags=re.IGNORECASE)
@@ -307,8 +312,9 @@ def update_option_campaign_content(_option, rule, request_detail):
     if _option.type == OptionType.HTML:
         _option.content = add_campaign_macro_values(_option.content, rule, request_detail)
     if _option.type == OptionType.ACTIONS:
-        _option.content = [update_action_campaign_content(action, rule, request_detail) for action in
+        _option.content = [update_action_campaign_content(create_action(action), rule, request_detail) for action in
                            _option.content]
+    return _option
 
 
 def replace_campaign_macros(rule, mbox_response, request_type, request_detail, tracer):

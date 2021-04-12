@@ -17,6 +17,7 @@ import datetime
 import operator
 import uuid
 import math
+from six import string_types
 from tzlocal import get_localzone
 from target_tools.constants import MILLISECONDS_IN_SECOND
 
@@ -31,11 +32,7 @@ def compose_functions(outer, inner):
 
 def is_string(value):
     """Checks if value is string"""
-    try:
-        basestring
-    except NameError:
-        basestring = str
-    return isinstance(value, basestring)
+    return isinstance(value, string_types)
 
 
 def is_number(value):

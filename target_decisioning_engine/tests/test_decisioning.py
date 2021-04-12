@@ -13,6 +13,7 @@
 """
 # pylint: disable=cell-var-from-loop
 # pylint: disable=too-many-locals
+# pylint: disable=invalid-name
 try:
     from unittest.mock import Mock, patch
 except ImportError:
@@ -24,8 +25,7 @@ import json
 from copy import deepcopy
 from contextlib import contextmanager
 from urllib3 import HTTPResponse
-from urllib3 import PoolManager
-from target_decisioning_engine import TargetDecisioningEngine
+from target_decisioning_engine import TargetDecisioningEngine, GeoProvider
 from target_decisioning_engine.tests.helpers import expect_to_match_object
 from target_decisioning_engine.tests.helpers import get_test_suites
 from target_decisioning_engine.tests.helpers import create_decisioning_config
@@ -44,9 +44,7 @@ JUST_THIS_TEST = None
 EXCLUDE_SUITES = [
     "TEST_SUITE_NOTIFICATIONS.json",
     "TEST_SUITE_TRACE.json",
-    "TEST_SUITE_TELEMETRY.json",
-    "TEST_SUITE_GEO.json",
-    "TEST_SUITE_RESPONSE_TOKENS.json"  # GA TODO GeoProvider
+    "TEST_SUITE_TELEMETRY.json"
 ]
 TEST_SUITES = get_test_suites(JUST_THIS_TEST.get("suite") if JUST_THIS_TEST else None, EXCLUDE_SUITES)
 
@@ -76,10 +74,10 @@ def datetime_mock(mock_date):
 @contextmanager
 def geo_mock(mock_geo):
     """GeoProvider http mock"""
-    # GA TODO - GeoProvider - prevent this from colliding with artifact mock
     if mock_geo:
-        with patch.object(PoolManager, "request", return_value=HTTPResponse(status=200, body=json.dumps(mock_geo))) \
-                as mock_response:
+        with patch.object(GeoProvider, "_request_geo") as mock_request_geo:
+            mock_response = HTTPResponse(status=200, body=json.dumps(mock_geo))
+            mock_request_geo.return_value = mock_response
             yield mock_response
     else:
         yield None
@@ -88,8 +86,10 @@ def geo_mock(mock_geo):
 @contextmanager
 def artifact_mock(artifact):
     """ArtifactProvider http mock"""
-    with patch.object(PoolManager, "request", return_value=HTTPResponse(status=200, body=json.dumps(artifact))) \
-            as mock_response:
+    with patch("target_decisioning_engine.artifact_provider.urllib3.PoolManager") as MockPoolManager:
+        instance = MockPoolManager.return_value
+        mock_response = HTTPResponse(status=200, body=json.dumps(artifact))
+        instance.request.return_value = mock_response
         yield mock_response
 
 

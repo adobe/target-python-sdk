@@ -22,6 +22,7 @@ from target_decisioning_engine.request_provider import valid_delivery_request
 from target_decisioning_engine.utils import match_major_version
 from target_decisioning_engine.utils import has_remote_dependency
 from target_decisioning_engine.decision_provider import DecisionProvider
+from target_decisioning_engine.geo_provider import GeoProvider
 
 
 class TargetDecisioningEngine:
@@ -50,9 +51,7 @@ class TargetDecisioningEngine:
                 SUPPORTED_ARTIFACT_MAJOR_VERSION)
             )
 
-        # GA TODO GeoProvider
-        # geo_provider = GeoProvider(self.config, self.artifact)
-        geo_provider = MagicMock()
+        geo_provider = GeoProvider(self.config, self.artifact)
         valid_request = valid_delivery_request(request, target_options.target_location_hint,
                                                geo_provider.valid_geo_request_context)
 

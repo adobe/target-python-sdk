@@ -135,6 +135,10 @@ class GeoProvider:
         self.geo_targeting_enabled = artifact.get("geoTargetingEnabled", False)
         self.event_emitter = config.event_emitter or noop
 
+    def _request_geo(self, geo_lookup_path, headers):
+        """Sends http request for geo data"""
+        return self.pool_manager.request(HTTP_GET, geo_lookup_path, headers=headers)
+
     def valid_geo_request_context(self, geo_request_context=None):
         """
         :param geo_request_context: (delivery_api_client.Model.geo.Geo) geo object
@@ -155,7 +159,7 @@ class GeoProvider:
                 headers[HTTP_HEADER_FORWARDED_FOR] = geo_request_context.ip_address
 
             try:
-                geo_response = self.pool_manager.request(HTTP_GET, geo_lookup_path, headers=headers)
+                geo_response = self._request_geo(geo_lookup_path, headers)
 
                 if geo_response.status != OK:
                     self.logger.error("{} status code while fetching geo data at: {} - message: {}".format(

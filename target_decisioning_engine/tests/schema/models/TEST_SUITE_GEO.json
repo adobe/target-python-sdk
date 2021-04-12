@@ -21,8 +21,8 @@
             },
             "geo": {
               "city": "SAN FRANCISCO",
-              "countryCode": "UNITED STATES",
-              "stateCode": "CALIFORNIA",
+              "countryCode": "US",
+              "stateCode": "CA",
               "latitude": 37.75,
               "longitude": -122.4
             },

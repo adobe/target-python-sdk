@@ -55,6 +55,7 @@ logger = get_logger()
 
 
 def order_by_name(obj):
+    """Sort by name for MboxResponse and View"""
     return obj.name
 
 

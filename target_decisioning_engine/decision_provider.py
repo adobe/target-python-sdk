@@ -54,6 +54,10 @@ OK = 200
 logger = get_logger()
 
 
+def order_by_name(obj):
+    return obj.name
+
+
 class DecisionProvider:
     """DecisionProvider"""
 
@@ -154,7 +158,9 @@ class DecisionProvider:
                             existing_consequence.metrics = []
                         existing_consequence.metrics.extend(consequence.metrics or [])
 
-            return consequences.values()
+            responses = consequences.values()
+            responses.sort(key=order_by_name)
+            return responses
 
         def _process_mbox_request(mbox_request, additional_post_processors=None):
             """

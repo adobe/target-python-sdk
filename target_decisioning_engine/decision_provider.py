@@ -160,8 +160,7 @@ class DecisionProvider:
                         existing_consequence.metrics.extend(consequence.metrics or [])
 
             responses = consequences.values()
-            responses.sort(key=order_by_name)
-            return responses
+            return sorted(responses, key=order_by_name)
 
         def _process_mbox_request(mbox_request, additional_post_processors=None):
             """

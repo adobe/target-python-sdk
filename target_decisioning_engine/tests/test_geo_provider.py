@@ -8,12 +8,11 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Test cases for taraget_decisioning_engine.geo_provider module"""
-import time
-
 try:
     from unittest.mock import patch
 except ImportError:
     from mock import patch
+import time
 import json
 import os
 import unittest
@@ -23,7 +22,8 @@ from delivery_api_client import Geo
 from target_decisioning_engine.geo_provider import create_or_update_geo_object
 from target_decisioning_engine.geo_provider import GeoProvider
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
-from target_decisioning_engine.constants import HTTP_HEADER_FORWARDED_FOR, BAD_REQUEST
+from target_decisioning_engine.constants import HTTP_HEADER_FORWARDED_FOR
+from target_decisioning_engine.constants import BAD_REQUEST
 from target_decisioning_engine.constants import OK
 from target_python_sdk.tests.helpers import read_json_file
 

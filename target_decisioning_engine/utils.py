@@ -10,6 +10,7 @@
 """On Device Decisioning util functions"""
 # pylint: disable=protected-access
 import requests
+from tld import get_tld
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
@@ -24,12 +25,17 @@ from target_tools.utils import get_mbox_names
 from target_tools.utils import get_view_names
 from target_tools.utils import has_requested_views
 
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
 
 logger = get_logger()
+
+DEFAULT_PARSED_URL = {
+    "path": "",
+    "query": "",
+    "fragment": "",
+    "domain": "",
+    "subdomain": "",
+    "topLevelDomain": ""
+}
 
 
 def get_rule_key(rule):
@@ -40,40 +46,33 @@ def get_rule_key(rule):
     return rule.get("ruleKey")
 
 
+def _get_default_parsed_url(url):
+    """Returns default dict for urls that cannot be parsed"""
+    parsed = dict(DEFAULT_PARSED_URL)
+    parsed["url"] = url
+    return parsed
+
+
 def parse_url(url):
     """parse url"""
     if not is_string(url):
-        url = EMPTY_STRING
+        return _get_default_parsed_url(EMPTY_STRING)
 
-    parsed = urlparse(url) or {}
-    host, path, query, fragment = [getattr(parsed, key, "") for key in ["netloc", "path", "query", "fragment"]]
+    parsed = get_tld(url, as_object=True, fail_silently=True)
+    if not parsed:
+        return _get_default_parsed_url(url)
 
-    result = {
+    path, query, fragment = [getattr(parsed.parsed_url, key, "") for key in ["path", "query", "fragment"]]
+
+    return {
         "url": url,
         "path": path,
         "query": query,
-        "fragment": fragment
+        "fragment": fragment,
+        "domain": parsed.domain,
+        "subdomain": parsed.subdomain,
+        "topLevelDomain": parsed.tld
     }
-
-    domain_parts = host.split(".")
-
-    result["domain"] = host
-    result["subdomain"] = EMPTY_STRING
-    if len(domain_parts) == 1:
-        result["topLevelDomain"] = EMPTY_STRING
-        return result
-    if len(domain_parts) == 2:
-        result["topLevelDomain"] = domain_parts[1]
-        return result
-    if len(domain_parts) == 3:
-        result["subdomain"] = EMPTY_STRING if domain_parts[0] == "www" else domain_parts[0]
-        result["topLevelDomain"] = domain_parts[2]
-        return result
-    if len(domain_parts) == 4:
-        result["subdomain"] = EMPTY_STRING if domain_parts[0] == "www" else domain_parts[0]
-        result["topLevelDomain"] = "{}.{}".format(domain_parts[2], domain_parts[3])
-
-    return result
 
 
 def has_remote_dependency(artifact, request):

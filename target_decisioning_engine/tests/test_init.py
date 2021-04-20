@@ -8,6 +8,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Test cases for TargetDecisioningEngine"""
+# pylint: disable=protected-access
 try:
     from unittest.mock import Mock, patch
 except ImportError:
@@ -77,8 +78,8 @@ class TestTargetDecisioningEngine(unittest.TestCase):
             self.decisioning.initialize()
 
         self.assertEqual(self.decisioning.artifact, ARTIFACT_BLANK)
-        self.assertIsNotNone(self.decisioning.artifact_provider)
-        self.assertEqual(self.decisioning.artifact_provider.subscription_count, 1)
+        self.assertIsNotNone(self.decisioning._artifact_provider)
+        self.assertEqual(self.decisioning._artifact_provider.subscription_count, 2)
 
     def test_initialize_updates_artifact_on_polling_interval(self):
         config = deepcopy(CONFIG)

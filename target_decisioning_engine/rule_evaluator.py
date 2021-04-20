@@ -44,24 +44,24 @@ class RuleEvaluator:
         :param tracer: (target_decisioning_engine.trace_provider.RequestTracer) request tracer
         :return: (delivery_api_client.Model.mbox_response.MboxResponse)
         """
-
+        rule_context = deepcopy(context)
         consequence = None
-        page = context.get("page")
-        referring = context.get("referring")
+        page = rule_context.get("page")
+        referring = rule_context.get("referring")
 
         if request_detail and request_detail.address:
             page = create_page_context(request_detail.address) or page
             referring = create_page_context(request_detail.address) or referring
 
-        context.update({
+        rule_context.update({
             "page": to_dict(page),
             "referring": to_dict(referring),
             "mbox": to_dict(create_mbox_context(request_detail)),
             "allocation": compute_allocation(self.client_id, rule.get("meta", {}).get(ACTIVITY_ID), self.visitor_id)
         })
 
-        rule_satisfied = jsonLogic(rule.get("condition"), context)
-        tracer.trace_rule_evaluated(rule, context, rule_satisfied)
+        rule_satisfied = jsonLogic(rule.get("condition"), rule_context)
+        tracer.trace_rule_evaluated(rule, rule_context, rule_satisfied)
 
         if rule_satisfied:
             if "key" in rule.get("consequence") or "state" in rule.get("consequence"):

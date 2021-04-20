@@ -13,10 +13,7 @@
 # pylint: disable=too-many-statements
 # pylint: disable=too-many-instance-attributes
 # pylint: disable=too-many-arguments
-try:
-    from unittest.mock import MagicMock
-except ImportError:
-    from mock import MagicMock
+
 try:
     from functools import reduce
 except ImportError:
@@ -42,6 +39,7 @@ from target_decisioning_engine.types.decision_provider_response import DecisionP
 from target_decisioning_engine.utils import has_remote_dependency
 from target_decisioning_engine.utils import get_rule_key
 from target_decisioning_engine.notification_provider import NotificationProvider
+from target_decisioning_engine.trace_provider import RequestTracer
 from target_python_sdk.utils import flatten_list
 from target_tools.constants import DEFAULT_GLOBAL_MBOX
 from target_tools.logger import get_logger
@@ -107,9 +105,7 @@ class DecisionProvider:
         if not getattr(self.request, mode):
             return None
 
-        # GA TODO TraceProvider
-        # request_tracer = RequestTracer(self.trace_provider, self.artifact)
-        request_tracer = MagicMock()
+        request_tracer = RequestTracer(self.trace_provider, self.artifact)
 
         def _view_request_accumulator(_result, key):
             _result.extend(self.rules.get("views", {}).get(key, []))

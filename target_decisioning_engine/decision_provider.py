@@ -13,7 +13,6 @@
 # pylint: disable=too-many-statements
 # pylint: disable=too-many-instance-attributes
 # pylint: disable=too-many-arguments
-
 try:
     from unittest.mock import MagicMock
 except ImportError:
@@ -24,6 +23,7 @@ except ImportError:
     pass
 
 from delivery_api_client import MboxResponse
+from delivery_api_client import TelemetryEntry
 from delivery_api_client import MboxRequest
 from delivery_api_client import ExecuteResponse
 from delivery_api_client import PrefetchResponse
@@ -41,6 +41,7 @@ from target_decisioning_engine.timings import TIMING_GET_OFFER
 from target_decisioning_engine.types.decision_provider_response import DecisionProviderResponse
 from target_decisioning_engine.utils import has_remote_dependency
 from target_decisioning_engine.utils import get_rule_key
+from target_decisioning_engine.notification_provider import NotificationProvider
 from target_python_sdk.utils import flatten_list
 from target_tools.constants import DEFAULT_GLOBAL_MBOX
 from target_tools.logger import get_logger
@@ -94,10 +95,8 @@ class DecisionProvider:
         rule_evaluator = RuleEvaluator(self.client_id, self.visitor_id)
         self.process_rule = rule_evaluator.process_rule
         self.dependency = has_remote_dependency(artifact, self.request)
-        # GA TODO NotificationProvider
-        # self.notification_provider = NotificationProvider(self.request, self.visitor, self.send_notification_func,
-        #                                                   self.telemetry_enabled)
-        self.notification_provider = MagicMock()
+        self.notification_provider = NotificationProvider(self.request, self.visitor, self.send_notification_func,
+                                                          self.telemetry_enabled)
 
     def _get_decisions(self, mode, post_processors):
         """
@@ -268,7 +267,7 @@ class DecisionProvider:
         :param tracer: (target_decisioning_engine.trace_provider.RequestTracer) request tracer
         :return: (delivery_api_client.Model.mbox_response.MboxResponse)
         """
-        self.notification_provider.addNotification(mbox_response, tracer.trace_notification(rule))
+        self.notification_provider.add_notification(mbox_response, tracer.trace_notification(rule))
         return mbox_response
 
     def _get_execute_decisions(self, post_processors=None):
@@ -311,9 +310,8 @@ class DecisionProvider:
             prefetch=self._get_prefetch_decisions(common_post_processor)
         )
 
-        self.notification_provider.add_telemetry_entry({
-            "execution": self.timing_tool.time_end(TIMING_GET_OFFER)
-        })
+        telemetry_entry = TelemetryEntry(execution=self.timing_tool.time_end(TIMING_GET_OFFER))
+        self.notification_provider.add_telemetry_entry(telemetry_entry)
         self.notification_provider.send_notifications()
         logger.debug("{} - REQUEST: {} /n RESPONSE: {}".format(LOG_TAG, self.request, response))
         return response

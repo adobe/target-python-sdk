@@ -39,12 +39,9 @@ JUST_THIS_TEST = None
 #   "test": "no_value_for_template"
 # }
 
-
 # GA TODO - remove this once all ODD features have been implemented
 EXCLUDE_SUITES = [
-    "TEST_SUITE_NOTIFICATIONS.json",
-    "TEST_SUITE_TRACE.json",
-    "TEST_SUITE_TELEMETRY.json"
+    "TEST_SUITE_TRACE.json"
 ]
 TEST_SUITES = get_test_suites(JUST_THIS_TEST.get("suite") if JUST_THIS_TEST else None, EXCLUDE_SUITES)
 
@@ -135,8 +132,10 @@ def test_generator(_test):
         test_data = _test.get("test_data")
         send_notifications_fn = Mock()
 
-        _input, output, notification_output, mock_date, mock_geo = \
-            [test_data.get(key) for key in ["input", "output", "notificationOutput", "mockDate", "mockGeo"]]
+        _input, output, mock_date, mock_geo = \
+            [test_data.get(key) for key in ["input", "output", "mockDate", "mockGeo"]]
+
+        notification_output = test_data.get("notificationOutput", False)
 
         conf = test_data.get("conf") or suite_data.get("conf")
         artifact = test_data.get("artifact") or suite_data.get("artifact")
@@ -153,13 +152,14 @@ def test_generator(_test):
             result_dict = to_dict(result)
             expect_to_match_object(result_dict, output)
 
-        if not notification_output:
-            self.assertEqual(send_notifications_fn.call_count, 0)
-        else:
-            self.assertEqual(send_notifications_fn.call_count, 1)
-            notification_payload = send_notifications_fn.call_args[0][0]
-            notification_payload_dict = to_dict(notification_payload)
-            expect_to_match_object(notification_payload_dict, notification_output)
+        if notification_output is not False:
+            if notification_output is None:
+                self.assertEqual(send_notifications_fn.call_count, 0)
+            else:
+                self.assertEqual(send_notifications_fn.call_count, 1)
+                notification_payload = send_notifications_fn.call_args[0][0]
+                notification_payload_dict = to_dict(notification_payload)
+                expect_to_match_object(notification_payload_dict, notification_output)
 
     return execute
 

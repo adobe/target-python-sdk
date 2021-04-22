@@ -26,6 +26,10 @@ from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_SUCCEEDED
 from target_decisioning_engine.events import GEO_LOCATION_UPDATED
 from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED
 from target_decisioning_engine.messages import MESSAGES
+from target_decisioning_engine.timings import TIMING_ARTIFACT_READ_JSON
+from target_decisioning_engine.timings import TIMING_ARTIFACT_DOWNLOADED_TOTAL
+from target_decisioning_engine.timings import TIMING_ARTIFACT_DOWNLOADED_FETCH
+from target_decisioning_engine.timings import TIMING_ARTIFACT_GET_INITIAL
 from target_decisioning_engine.utils import determine_artifact_location
 from target_decisioning_engine.utils import get_http_codes_to_retry
 from target_decisioning_engine.geo_provider import create_or_update_geo_object
@@ -33,6 +37,7 @@ from target_python_sdk.utils import is_number
 from target_python_sdk.utils import is_string
 from target_python_sdk.utils import is_dict
 from target_tools.logger import get_logger
+from target_tools.perf_tool import get_perf_tool_instance
 from target_tools.utils import noop
 
 LOG_TAG = "{}.ArtifactProvider".format(LOG_PREFIX)
@@ -68,6 +73,7 @@ class ArtifactProvider:
         self.last_response_etag = None
         self.last_response_data = None
         self.artifact_tracer = None
+        self.perf_tool = get_perf_tool_instance()
 
     def _get_polling_interval(self):
         """Get artifact polling interval"""
@@ -164,8 +170,11 @@ class ArtifactProvider:
 
     def _get_initial_artifact(self):
         """Fetch initial artifact"""
-        return self.config.artifact_payload if is_dict(self.config.artifact_payload) else \
+        self.perf_tool.time_start(TIMING_ARTIFACT_GET_INITIAL)
+        artifact = self.config.artifact_payload if is_dict(self.config.artifact_payload) else \
             self._fetch_artifact(self.artifact_location)
+        self.perf_tool.time_end(TIMING_ARTIFACT_GET_INITIAL)
+        return artifact
 
     def _artifact_tracer_update(self, artifact):
         """Update ArtifactTracer with latest artifact"""
@@ -178,6 +187,7 @@ class ArtifactProvider:
 
     def _fetch_artifact(self, artifact_url):
         """Fetch artifact from server"""
+        self.perf_tool.time_start(TIMING_ARTIFACT_DOWNLOADED_TOTAL)
         headers = {}
         self.logger.debug("{} fetching artifact - {}".format(LOG_TAG, artifact_url))
 
@@ -185,14 +195,18 @@ class ArtifactProvider:
             headers["If-None-Match"] = self.last_response_etag
 
         try:
+            self.perf_tool.time_start(TIMING_ARTIFACT_DOWNLOADED_FETCH)
             res = self.pool_manager.request(HTTP_GET, artifact_url, headers=headers, retries=self.http_retry)
+            self.perf_tool.time_end(TIMING_ARTIFACT_DOWNLOADED_FETCH)
             self.logger.debug("{} artifact received - status={}".format(LOG_TAG, res.status))
 
             if res.status == NOT_MODIFIED and self.last_response_data:
                 return self.last_response_data
 
             if res.status == OK:
+                self.perf_tool.time_start(TIMING_ARTIFACT_READ_JSON)
                 response_data = json.loads(res.data)
+                self.perf_tool.time_end(TIMING_ARTIFACT_READ_JSON)
                 etag = res.headers.get("Etag")
                 if etag:
                     self.last_response_data = response_data
@@ -201,6 +215,7 @@ class ArtifactProvider:
                 geo = create_or_update_geo_object(geo_data=res.headers)
                 self._emit_new_artifact(response_data, geo.to_dict())
 
+                self.perf_tool.time_end(TIMING_ARTIFACT_DOWNLOADED_TOTAL)
                 return response_data
         except Exception as err:
             self.logger.error(MESSAGES.get("ARTIFACT_FETCH_ERROR")(str(err)))

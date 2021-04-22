@@ -8,10 +8,15 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """perf tool"""
+import sys
 from target_python_sdk.utils import get_epoch_time_milliseconds
 
 
-class PerfTool:
+this = sys.modules[__name__]
+this.perf_tool_instance = None
+
+
+class _PerfTool:
     """PerfTool"""
 
     def __init__(self):
@@ -68,3 +73,10 @@ class PerfTool:
     def get_timings(self):
         """Returns all timings"""
         return self.timings
+
+
+def get_perf_tool_instance():
+    """Creates or gets singleton instance of _PerfTool"""
+    if not this.perf_tool_instance:
+        this.perf_tool_instance = _PerfTool()
+    return this.perf_tool_instance

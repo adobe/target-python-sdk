@@ -9,3 +9,7 @@
 # governing permissions and limitations under the License.
 """timings"""
 TIMING_GET_OFFER = "get_offer"
+TIMING_ARTIFACT_DOWNLOADED_TOTAL = "artifactDownloaded_total"
+TIMING_ARTIFACT_DOWNLOADED_FETCH = "artifactDownloaded_fetch"
+TIMING_ARTIFACT_GET_INITIAL = "artifactGetInitial"
+TIMING_ARTIFACT_READ_JSON = "artifactDownloaded_read_JSON"

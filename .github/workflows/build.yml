@@ -31,7 +31,7 @@ jobs:
       - run: echo "COVERALLS_SUPPORTED=3.5,3.6,3.7,3.8,3.9" >> $GITHUB_ENV
       - if: contains(env.COVERALLS_SUPPORTED, matrix.python-version)
         name: generate coveralls coverage
-        run: coveralls --service=github
+        run: coveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_FLAG_NAME: ${{ matrix.test-name }}

@@ -43,7 +43,8 @@ class DeliveryRequest(object):
         'prefetch': 'PrefetchRequest',
         'telemetry': 'Telemetry',
         'notifications': 'list[Notification]',
-        'qa_mode': 'QAMode'
+        'qa_mode': 'QAMode',
+        'preview': 'Preview'
     }
 
     attribute_map = {
@@ -59,10 +60,11 @@ class DeliveryRequest(object):
         'prefetch': 'prefetch',
         'telemetry': 'telemetry',
         'notifications': 'notifications',
-        'qa_mode': 'qaMode'
+        'qa_mode': 'qaMode',
+        'preview': 'preview'
     }
 
-    def __init__(self, request_id=None, impression_id=None, id=None, environment_id=None, _property=None, trace=None, context=None, experience_cloud=None, execute=None, prefetch=None, telemetry=None, notifications=None, qa_mode=None):  # noqa: E501
+    def __init__(self, request_id=None, impression_id=None, id=None, environment_id=None, _property=None, trace=None, context=None, experience_cloud=None, execute=None, prefetch=None, telemetry=None, notifications=None, qa_mode=None, preview=None):  # noqa: E501
         """DeliveryRequest - a model defined in OpenAPI"""  # noqa: E501
 
         self._request_id = None
@@ -78,6 +80,7 @@ class DeliveryRequest(object):
         self._telemetry = None
         self._notifications = None
         self._qa_mode = None
+        self._preview = None
         self.discriminator = None
 
         if request_id is not None:
@@ -105,6 +108,8 @@ class DeliveryRequest(object):
             self.notifications = notifications
         if qa_mode is not None:
             self.qa_mode = qa_mode
+        if preview is not None:
+            self.preview = preview
 
     @property
     def request_id(self):
@@ -392,6 +397,27 @@ class DeliveryRequest(object):
         """
 
         self._qa_mode = qa_mode
+
+    @property
+    def preview(self):
+        """Gets the preview of this DeliveryRequest.  # noqa: E501
+
+
+        :return: The preview of this DeliveryRequest.  # noqa: E501
+        :rtype: Preview
+        """
+        return self._preview
+
+    @preview.setter
+    def preview(self, preview):
+        """Sets the preview of this DeliveryRequest.
+
+
+        :param preview: The preview of this DeliveryRequest.  # noqa: E501
+        :type: Preview
+        """
+
+        self._preview = preview
 
     def to_dict(self):
         """Returns the model properties as a dict"""

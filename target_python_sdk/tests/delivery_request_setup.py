@@ -287,8 +287,10 @@ def create_delivery_request(request_dict):
     notifications = create_notifications(request_dict.get('notifications'))
     trace = create_trace(request_dict.get('trace'))
     request_id = request_dict.get("requestId")
+    qa_mode = request_dict.get("qa_mode")
+    preview = request_dict.get("preview")
     delivery_request = DeliveryRequest(id=_id, _property=_property, context=context,
                                        experience_cloud=experience_cloud, execute=execute,
                                        prefetch=prefetch, notifications=notifications, trace=trace,
-                                       request_id=request_id)
+                                       request_id=request_id, qa_mode=qa_mode, preview=preview)
     return delivery_request

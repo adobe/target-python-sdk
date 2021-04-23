@@ -56,6 +56,7 @@ from delivery_api_client.Model.prefetch_mbox_response import PrefetchMboxRespons
 from delivery_api_client.Model.prefetch_mbox_response_all_of import PrefetchMboxResponseAllOf
 from delivery_api_client.Model.prefetch_request import PrefetchRequest
 from delivery_api_client.Model.prefetch_response import PrefetchResponse
+from delivery_api_client.Model.preview import Preview
 from delivery_api_client.Model.product import Product
 from delivery_api_client.Model.qa_mode import QAMode
 from delivery_api_client.Model.qa_mode_preview_index import QAModePreviewIndex

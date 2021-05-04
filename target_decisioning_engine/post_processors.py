@@ -17,28 +17,12 @@ import re
 from copy import deepcopy
 from delivery_api_client import MetricType
 from delivery_api_client import OptionType
-from target_decisioning_engine.constants import ACTIVITY_DECISIONING_METHOD
-from target_decisioning_engine.constants import ACTIVITY_NAME
-from target_decisioning_engine.constants import ACTIVITY_TYPE
-from target_decisioning_engine.constants import EXPERIENCE_ID
-from target_decisioning_engine.constants import EXPERIENCE_NAME
-from target_decisioning_engine.constants import LOCATION_ID
-from target_decisioning_engine.constants import LOCATION_NAME
-from target_decisioning_engine.constants import LOCATION_TYPE
-from target_decisioning_engine.constants import OFFER_ID
-from target_decisioning_engine.constants import OFFER_NAME
-from target_decisioning_engine.constants import OPTION_ID
-from target_decisioning_engine.constants import OPTION_NAME
-from target_decisioning_engine.constants import GEO_CITY
-from target_decisioning_engine.constants import GEO_COUNTRY
-from target_decisioning_engine.constants import GEO_STATE
-from target_decisioning_engine.constants import GEO_LATITUDE
-from target_decisioning_engine.constants import GEO_LONGITUDE
-from target_decisioning_engine.constants import ACTIVITY_ID
+import target_decisioning_engine.constants as DecisioningConstants
 from target_decisioning_engine.enums import RequestType
 from target_python_sdk.utils import is_string
 from target_python_sdk.utils import get_value_from_object
 from target_tools.response_helpers import create_action
+
 
 
 MACRO_PATTERN_REGEX = r"\${([a-zA-Z0-9_.]*?)}"
@@ -49,18 +33,18 @@ MACRO_NAME_REPLACEMENTS = {
 }
 
 RESPONSE_TOKEN_KEYS = [
-    ACTIVITY_ID,
-    ACTIVITY_NAME,
-    ACTIVITY_TYPE,
-    EXPERIENCE_ID,
-    EXPERIENCE_NAME,
-    LOCATION_ID,
-    LOCATION_NAME,
-    LOCATION_TYPE,
-    OFFER_ID,
-    OFFER_NAME,
-    OPTION_ID,
-    OPTION_NAME
+    DecisioningConstants.ACTIVITY_ID,
+    DecisioningConstants.ACTIVITY_NAME,
+    DecisioningConstants.ACTIVITY_TYPE,
+    DecisioningConstants.EXPERIENCE_ID,
+    DecisioningConstants.EXPERIENCE_NAME,
+    DecisioningConstants.LOCATION_ID,
+    DecisioningConstants.LOCATION_NAME,
+    DecisioningConstants.LOCATION_TYPE,
+    DecisioningConstants.OFFER_ID,
+    DecisioningConstants.OFFER_NAME,
+    DecisioningConstants.OPTION_ID,
+    DecisioningConstants.OPTION_NAME
 ]
 
 MACRO_NAME_REPLACEMENTS_REGEX = r"{}".format("|".join(MACRO_NAME_REPLACEMENTS.keys()))
@@ -202,23 +186,24 @@ def create_response_tokens_post_processor(context, response_tokens_in_artifact=N
         response_tokens_in_artifact = []
 
     response_tokens = {
-        ACTIVITY_DECISIONING_METHOD: "on-device"
+        DecisioningConstants.ACTIVITY_DECISIONING_METHOD: "on-device"
     }
 
-    if GEO_CITY in response_tokens_in_artifact and context.get("geo").get("city"):
-        response_tokens[GEO_CITY] = context.get("geo").get("city")
+    geo = context.get("geo", {})
+    if DecisioningConstants.GEO_CITY in response_tokens_in_artifact and geo.get("city"):
+        response_tokens[DecisioningConstants.GEO_CITY] = geo.get("city")
 
-    if GEO_COUNTRY in response_tokens_in_artifact and context.get("geo").get("country"):
-        response_tokens[GEO_COUNTRY] = context.get("geo").get("country")
+    if DecisioningConstants.GEO_COUNTRY in response_tokens_in_artifact and geo.get("country"):
+        response_tokens[DecisioningConstants.GEO_COUNTRY] = geo.get("country")
 
-    if GEO_STATE in response_tokens_in_artifact and context.get("geo").get("region"):
-        response_tokens[GEO_STATE] = context.get("geo").get("region")
+    if DecisioningConstants.GEO_STATE in response_tokens_in_artifact and geo.get("region"):
+        response_tokens[DecisioningConstants.GEO_STATE] = geo.get("region")
 
-    if GEO_LATITUDE in response_tokens_in_artifact and context.get("geo").get("latitude"):
-        response_tokens[GEO_LATITUDE] = context.get("geo").get("latitude")
+    if DecisioningConstants.GEO_LATITUDE in response_tokens_in_artifact and geo.get("latitude"):
+        response_tokens[DecisioningConstants.GEO_LATITUDE] = geo.get("latitude")
 
-    if GEO_LONGITUDE in response_tokens_in_artifact and context.get("geo").get("longitude"):
-        response_tokens[GEO_LONGITUDE] = context.get("geo").get("longitude")
+    if DecisioningConstants.GEO_LONGITUDE in response_tokens_in_artifact and geo.get("longitude"):
+        response_tokens[DecisioningConstants.GEO_LONGITUDE] = geo.get("longitude")
 
     def add_response_tokens(rule, mbox_response, request_type, request_detail, tracer):
         """

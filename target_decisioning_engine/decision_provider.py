@@ -116,6 +116,20 @@ class DecisionProvider:
             _result.extend(self.rules.get("views", {}).get(key, []))
             return _result
 
+        def _handle_view_consequence(consequences, consequence):
+            if not consequences.get(consequence.name):
+                consequences[consequence.name] = consequence
+            else:
+                existing_consequence = consequences.get(consequence.name)
+
+                if not existing_consequence.options:
+                    existing_consequence.options = []
+                existing_consequence.options.extend(consequence.options or [])
+
+                if not existing_consequence.metrics:
+                    existing_consequence.metrics = []
+                existing_consequence.metrics.extend(consequence.metrics or [])
+
         def _process_view_request(request_details, additional_post_processors=None):
             """
             :param request_details (delivery_api_client.Model.request_details.RequestDetails) request details
@@ -150,19 +164,7 @@ class DecisionProvider:
 
                 if consequence:
                     matched_rule_keys.add(rule_key)
-
-                    if not consequences.get(consequence.name):
-                        consequences[consequence.name] = consequence
-                    else:
-                        existing_consequence = consequences.get(consequence.name)
-
-                        if not existing_consequence.options:
-                            existing_consequence.options = []
-                        existing_consequence.options.extend(consequence.options or [])
-
-                        if not existing_consequence.metrics:
-                            existing_consequence.metrics = []
-                        existing_consequence.metrics.extend(consequence.metrics or [])
+                    _handle_view_consequence(consequences, consequence)
 
             return sorted(consequences.values(), key=order_by_name)
 

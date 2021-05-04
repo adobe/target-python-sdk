@@ -309,10 +309,10 @@ class TestTargetClient(unittest.TestCase):
         opts = deepcopy(self.get_offers_options)
         customer_ids = [{
             'id': '999',
-            'integration_code': 'foo',
-            'authenticated_state': 'authenticated'
+            'integrationCode': 'foo',
+            'authenticatedState': 'authenticated'
         }]
-        opts['request']['id']['customer_ids'] = customer_ids
+        opts['request']['id']['customerIds'] = customer_ids
         opts['request'] = create_delivery_request(opts['request'])
 
         result = self.client.get_offers(opts)
@@ -329,10 +329,10 @@ class TestTargetClient(unittest.TestCase):
                 'name': 'cart',
                 'index': 1
             }],
-            'page_load': {
+            'pageLoad': {
                 'product': {
                     'id': '123',
-                    'category_id': '456'
+                    'categoryId': '456'
                 },
                 'order': {
                     'id': '111',
@@ -358,10 +358,10 @@ class TestTargetClient(unittest.TestCase):
                 'name': 'cart',
                 'index': 1
             }],
-            'page_load': {
+            'pageLoad': {
                 'product': {
                     'id': '123',
-                    'category_id': '456'
+                    'categoryId': '456'
                 },
                 'order': {
                     'id': '111',
@@ -371,7 +371,7 @@ class TestTargetClient(unittest.TestCase):
             'views': [{
                 'product': {
                     'id': '123',
-                    'category_id': '456'
+                    'categoryId': '456'
                 },
                 'order': {
                     'id': '111',
@@ -399,7 +399,7 @@ class TestTargetClient(unittest.TestCase):
         setup_mock('debug_trace', responses)
         opts = deepcopy(self.get_offers_options)
         opts['request']['trace'] = {
-            'authorization_token': 'token',
+            'authorizationToken': 'token',
             'usage': {
                 'a': 'b',
                 'c': 'd'

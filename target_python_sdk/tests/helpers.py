@@ -40,7 +40,7 @@ def spy_decorator(method_to_decorate):
 def read_json_file(directory, filename):
     """Read json file"""
     file_path = os.path.join(directory, filename)
-    _file = open(file_path)
-    data = json.load(_file)
-    _file.close()
-    return data
+    with open(file_path) as _file:
+        data = json.load(_file)
+        _file.close()
+        return data

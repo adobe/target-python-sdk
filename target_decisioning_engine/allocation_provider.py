@@ -68,7 +68,7 @@ def compute_allocation(client_id, activity_id, visitor_id, salt=CAMPAIGN_BUCKET_
     """
     device_id = ".".join([
         client_id,
-        activity_id,
+        str(activity_id),
         visitor_id if visitor_id and is_string(visitor_id) else get_or_create_visitor_id(visitor_id),
         salt
     ])

@@ -12,6 +12,7 @@
     by uncommenting the line below. Simply specify a suite filename (without extension), and a (optional) test key.
 """
 # pylint: disable=cell-var-from-loop
+# pylint: disable=too-many-locals
 try:
     from unittest.mock import Mock, patch
 except ImportError:
@@ -24,21 +25,30 @@ from copy import deepcopy
 from contextlib import contextmanager
 from urllib3 import HTTPResponse
 from urllib3 import PoolManager
+from target_decisioning_engine import TargetDecisioningEngine
 from target_decisioning_engine.tests.helpers import expect_to_match_object
+from target_decisioning_engine.tests.helpers import get_test_suites
 from target_decisioning_engine.tests.helpers import create_decisioning_config
 from target_decisioning_engine.tests.helpers import create_target_delivery_request
-from target_decisioning_engine import TargetDecisioningEngine
+from target_decisioning_engine.rule_evaluator import to_dict
 
 
 JUST_THIS_TEST = None
 # JUST_THIS_TEST = {
-#   "suite": "TEST_SUITE_TIMEFRAME",
-#   "test": "friday_out_of_range"
+#   "suite": "TEST_SUITE_MACROS",
+#   "test": "no_value_for_template"
 # }
 
-# GA TODO - uncomment this once DecisionProvider is merged
-TEST_SUITES = []
-# TEST_SUITES = get_test_suites(JUST_THIS_TEST.get("suite") if JUST_THIS_TEST else None)
+
+# GA TODO - remove this once all ODD features have been implemented
+EXCLUDE_SUITES = [
+    "TEST_SUITE_NOTIFICATIONS.json",
+    "TEST_SUITE_TRACE.json",
+    "TEST_SUITE_TELEMETRY.json",
+    "TEST_SUITE_GEO.json",
+    "TEST_SUITE_RESPONSE_TOKENS.json"  # GA TODO GeoProvider
+]
+TEST_SUITES = get_test_suites(JUST_THIS_TEST.get("suite") if JUST_THIS_TEST else None, EXCLUDE_SUITES)
 
 
 def should_execute_test(_test_key):
@@ -51,9 +61,16 @@ def datetime_mock(mock_date):
     """datetime.utcnow mock"""
     if mock_date:
         with patch("{}.datetime.datetime".format(__name__), Mock(wraps=datetime.datetime)) as mock_datetime:
-            mock_datetime.utcnow.return_value = mock_date
-            yield
-    yield None
+            _datetime = datetime.datetime(mock_date.get("year"),
+                                          mock_date.get("month") + 1,
+                                          mock_date.get("date"),
+                                          hour=mock_date.get("hours", 0),
+                                          minute=mock_date.get("minutes", 0),
+                                          second=mock_date.get("seconds", 0))
+            mock_datetime.utcnow.return_value = _datetime
+            yield mock_datetime
+    else:
+        yield None
 
 
 @contextmanager
@@ -61,16 +78,19 @@ def geo_mock(mock_geo):
     """GeoProvider http mock"""
     # GA TODO - GeoProvider - prevent this from colliding with artifact mock
     if mock_geo:
-        with patch.object(PoolManager, "request", return_value=HTTPResponse(status=200, body=json.dumps(mock_geo))):
-            yield
-    yield None
+        with patch.object(PoolManager, "request", return_value=HTTPResponse(status=200, body=json.dumps(mock_geo))) \
+                as mock_response:
+            yield mock_response
+    else:
+        yield None
 
 
 @contextmanager
 def artifact_mock(artifact):
     """ArtifactProvider http mock"""
-    with patch.object(PoolManager, "request", return_value=HTTPResponse(status=200, body=json.dumps(artifact))):
-        yield
+    with patch.object(PoolManager, "request", return_value=HTTPResponse(status=200, body=json.dumps(artifact))) \
+            as mock_response:
+        yield mock_response
 
 
 @contextmanager
@@ -100,15 +120,16 @@ class TestDecisioning(unittest.TestCase):
         if self.decisioning:
             self.decisioning.stop_polling()
 
-    # GA TODO - uncomment this once DecisionProvider is merged
-    # def test_suites_exist(self):
-    #     self.assertGreaterEqual(len(TEST_SUITES), 1)
+    def test_suites_exist(self):
+        self.assertGreaterEqual(len(TEST_SUITES), 1)
 
     def test_run_all_tests_on_ci(self):
         if os.getenv('CI'):
             self.assertIsNone(JUST_THIS_TEST)
 
-    def execute_test(self, _test):
+
+def test_generator(_test):
+    def execute(self):
         """Executes single test from suite"""
         suite_data = _test.get("suite_data")
         test_data = _test.get("test_data")
@@ -129,28 +150,26 @@ class TestDecisioning(unittest.TestCase):
             self.assertEqual(self.decisioning.get_raw_artifact(), artifact)
             get_offers_opts = create_target_delivery_request(_input)
             result = self.decisioning.get_offers(get_offers_opts)
-            expect_to_match_object(result, output)
+            result_dict = to_dict(result)
+            expect_to_match_object(result_dict, output)
 
         if not notification_output:
             self.assertEqual(send_notifications_fn.call_count, 0)
         else:
             self.assertEqual(send_notifications_fn.call_count, 1)
             notification_payload = send_notifications_fn.call_args[0][0]
-            expect_to_match_object(notification_payload, notification_output)
+            notification_payload_dict = to_dict(notification_payload)
+            expect_to_match_object(notification_payload_dict, notification_output)
+
+    return execute
 
 
-for i in range(1, len(TEST_SUITES)):
-    test_suite = TEST_SUITES[i]
+for test_suite in TEST_SUITES:
     SUITE_DESCRIPTION = 'test_{}'.format(test_suite.get("description"))
     for test_key in test_suite.get("test").keys():
         if should_execute_test(test_key):
             test = get_test(test_key, test_suite)
-
-
-            def test_function(self):
-                self.execute_test(test)
-
-
             test_description = test.get("test_description")
             TEST_NAME = "{} - {}".format(SUITE_DESCRIPTION, test_description)
+            test_function = test_generator(test)
             setattr(TestDecisioning, TEST_NAME, test_function)

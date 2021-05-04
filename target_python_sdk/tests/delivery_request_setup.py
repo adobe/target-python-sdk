@@ -35,11 +35,18 @@ from delivery_api_client import ChannelType
 from delivery_api_client import ModelProperty as Property
 
 
+def create_customer_id(customer_id):
+    """Create new CustomerId object"""
+    return CustomerId(id=customer_id.get("id"),
+                      integration_code=customer_id.get("integrationCode"),
+                      authenticated_state=customer_id.get("authenticatedState"))
+
+
 def create_customer_ids(customer_ids):
-    """Create new CustomerId objects"""
+    """Create list of CustomerId objects"""
     if not customer_ids:
         return None
-    return [CustomerId(**customer_id) for customer_id in customer_ids]
+    return [create_customer_id(customer_id) for customer_id in customer_ids]
 
 
 def create_visitor_id(_id):
@@ -48,10 +55,10 @@ def create_visitor_id(_id):
         return None
 
     return VisitorId(
-        tnt_id=_id.get('tnt_id'),
-        third_party_id=_id.get('third_party_id'),
-        marketing_cloud_visitor_id=_id.get('marketing_cloud_visitor_id'),
-        customer_ids=create_customer_ids(_id.get('customer_ids'))
+        tnt_id=_id.get('tntId'),
+        third_party_id=_id.get('thirdPartyId'),
+        marketing_cloud_visitor_id=_id.get('marketingCloudVisitorId'),
+        customer_ids=create_customer_ids(_id.get('customerIds'))
     )
 
 
@@ -87,12 +94,22 @@ def create_browser(browser):
 
 def create_geo(geo):
     """Create new Geo"""
-    return Geo(**geo) if geo else None
+    if not geo:
+        return None
+
+    return Geo(ip_address=geo.get("ipAddress"),
+               latitude=geo.get("latitude"),
+               longitude=geo.get("longitude"),
+               country_code=geo.get("countryCode"),
+               state_code=geo.get("stateCode"),
+               city=geo.get("city"),
+               zip=geo.get("zip"))
 
 
 def create_address(address):
     """Create new Address"""
-    return Address(**address) if address else None
+    return Address(url=address.get("url"),
+                   referring_url=address.get("referringUrl")) if address else None
 
 
 def create_context(context):
@@ -101,14 +118,14 @@ def create_context(context):
         context = {}
 
     return Context(channel=context.get('channel') or ChannelType.WEB,
-                   mobile_platform=create_mobile_platform(context.get('mobile_platform')),
+                   mobile_platform=create_mobile_platform(context.get('mobilePlatform')),
                    application=create_application(context.get('application')),
                    screen=create_screen(context.get('screen')),
                    window=create_window(context.get('window')),
                    browser=create_browser(context.get('browser')),
                    address=create_address(context.get('address')),
                    geo=create_geo(context.get('geo')),
-                   user_agent=context.get('user_agent'))
+                   user_agent=context.get('userAgent'))
 
 
 def create_analytics(analytics):
@@ -128,7 +145,7 @@ def create_experience_cloud(experience_cloud):
 
     return ExperienceCloud(
         analytics=create_analytics(experience_cloud.get('analytics')),
-        audience_manager=create_audience_manager(experience_cloud.get('audience_manager'))
+        audience_manager=create_audience_manager(experience_cloud.get('audienceManager'))
     )
 
 
@@ -139,7 +156,8 @@ def create_order(order):
 
 def create_product(product):
     """Create new Product"""
-    return Product(**product) if product else None
+    return Product(id=product.get("id"),
+                   category_id=product.get("categoryId")) if product else None
 
 
 def create_view(view):
@@ -148,7 +166,7 @@ def create_view(view):
         return None
     return ViewRequest(address=create_address(view.get('address')),
                        parameters=view.get('parameters'),
-                       profile_parameters=view.get('profile_parameters'),
+                       profile_parameters=view.get('profileParameters'),
                        order=create_order(view.get('order')),
                        product=create_product(view.get('product')),
                        name=view.get('name'),
@@ -159,6 +177,7 @@ def create_views(views):
     """Creates list of ViewRequest objects"""
     if not views:
         return None
+
     result_views = [create_view(view) for view in views]
     return result_views or None
 
@@ -169,7 +188,7 @@ def create_page_load(page_load):
         return None
     return PageLoad(address=create_address(page_load.get('address')),
                     parameters=page_load.get('parameters'),
-                    profile_parameters=page_load.get('profile_parameters'),
+                    profile_parameters=page_load.get('profileParameters'),
                     order=create_order(page_load.get('order')),
                     product=create_product(page_load.get('product')))
 
@@ -178,9 +197,9 @@ def create_mbox(mbox, index):
     """Create new MboxRequest"""
     if not mbox:
         return None
-    return MboxRequest(address=create_address(mbox.get('')),
+    return MboxRequest(address=create_address(mbox.get('address')),
                        parameters=mbox.get('parameters'),
-                       profile_parameters=mbox.get('profile_parameters'),
+                       profile_parameters=mbox.get('profileParameters'),
                        order=create_order(mbox.get('order')),
                        product=create_product(mbox.get('product')),
                        index=mbox.get('index') if mbox.get('index') else index,
@@ -201,7 +220,7 @@ def create_execute(execute):
     if not execute:
         return None
 
-    page_load = execute.get('page_load')
+    page_load = execute.get('pageLoad')
     mboxes = execute.get('mboxes')
 
     return ExecuteRequest(
@@ -215,7 +234,7 @@ def create_prefetch(prefetch):
     if not prefetch:
         return None
 
-    page_load = prefetch.get('page_load')
+    page_load = prefetch.get('pageLoad')
     views = prefetch.get('views')
     mboxes = prefetch.get('mboxes')
 
@@ -229,7 +248,7 @@ def create_prefetch(prefetch):
 def create_notification(notification):
     """Create new Notification"""
     _id, _type, timestamp, impression_id, tokens, mbox, view = \
-        [notification.get(key) for key in ['id', 'type', 'timestamp', 'impression_id', 'tokens', 'mbox', 'view']]
+        [notification.get(key) for key in ['id', 'type', 'timestamp', 'impressionId', 'tokens', 'mbox', 'view']]
 
     return Notification(
         id=_id,
@@ -253,7 +272,8 @@ def create_notifications(notifications):
 
 def create_trace(trace):
     """Creates Trace object"""
-    return Trace(**trace) if trace else None
+    return Trace(authorization_token=trace.get("authorizationToken"),
+                 usage=trace.get("usage")) if trace else None
 
 
 def create_delivery_request(request_dict):
@@ -261,12 +281,14 @@ def create_delivery_request(request_dict):
     _id = create_visitor_id(request_dict.get('id'))
     _property = create_property(request_dict.get('property'))
     context = create_context(request_dict.get('context'))
-    experience_cloud = create_experience_cloud(request_dict.get('experience_cloud'))
+    experience_cloud = create_experience_cloud(request_dict.get('experienceCloud'))
     execute = create_execute(request_dict.get('execute'))
     prefetch = create_prefetch(request_dict.get('prefetch'))
     notifications = create_notifications(request_dict.get('notifications'))
     trace = create_trace(request_dict.get('trace'))
+    request_id = request_dict.get("requestId")
     delivery_request = DeliveryRequest(id=_id, _property=_property, context=context,
                                        experience_cloud=experience_cloud, execute=execute,
-                                       prefetch=prefetch, notifications=notifications, trace=trace)
+                                       prefetch=prefetch, notifications=notifications, trace=trace,
+                                       request_id=request_id)
     return delivery_request

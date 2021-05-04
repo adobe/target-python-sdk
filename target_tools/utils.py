@@ -101,7 +101,7 @@ def get_names_for_requested(items_key, delivery_request):
         if not request_item:
             continue
         items = getattr(request_item, items_key, []) or []
-        for item in (item for item in items if item.name):
+        for item in (item for item in items if item and item.name):
             result_set.add(item.name)
     return result_set
 

@@ -46,10 +46,10 @@ def _create_browser_context(context):
     browser = browser_from_user_agent(user_agent)
     platform = operating_system_from_user_agent(user_agent)
 
-    return UserContext(browser_type=browser.get("name", "").lower(),
+    return UserContext(browserType=browser.get("name", "").lower(),
                        platform=platform,
                        locale="en",
-                       browser_version=browser.get("version")
+                       browserVersion=browser.get("version")
                        )
 
 
@@ -146,9 +146,9 @@ def create_decisioning_context(delivery_request):
 
     timing_context = _create_timing_context()
 
-    return DecisioningContext(current_timestamp=timing_context.current_timestamp,
-                              current_time=timing_context.current_time,
-                              current_day=timing_context.current_day,
+    return DecisioningContext(current_timestamp=timing_context.get("current_timestamp"),
+                              current_time=timing_context.get("current_time"),
+                              current_day=timing_context.get("current_day"),
                               user=_create_browser_context(context),
                               page=create_page_context(context.address),
                               referring=create_referring_context(context.address),

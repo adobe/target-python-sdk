@@ -8,6 +8,8 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Test cases for taraget_decisioning_engine.geo_provider module"""
+import time
+
 try:
     from unittest.mock import patch
 except ImportError:
@@ -101,6 +103,8 @@ class TestGeoProvider(unittest.TestCase):
             geo_input = Geo(ip_address="12.21.1.40")
             result = geo_provider.valid_geo_request_context(geo_input)
 
+            time.sleep(1)
+
             self.assertEqual(result, geo_input)
             self.assertEqual(mock_http_call.call_count, 0)
 
@@ -120,6 +124,8 @@ class TestGeoProvider(unittest.TestCase):
         with patch.object(geo_provider.pool_manager, "request", return_value=self.mock_geo_response) as mock_http_call:
             geo_input = Geo(ip_address="12.21.1.40")
             result = geo_provider.valid_geo_request_context(geo_input)
+
+            time.sleep(1)
 
             self.assertEqual(result, expected)
             self.assertEqual(mock_http_call.call_count, 1)
@@ -142,6 +148,8 @@ class TestGeoProvider(unittest.TestCase):
             geo_input = Geo(ip_address=None)
             result = geo_provider.valid_geo_request_context(geo_input)
 
+            time.sleep(1)
+
             self.assertEqual(result, expected)
             self.assertEqual(mock_http_call.call_count, 1)
             self.assertEqual(mock_http_call.call_args[0][1], "https://assets.adobetarget.com/v1/geo")
@@ -157,6 +165,8 @@ class TestGeoProvider(unittest.TestCase):
             geo_input = Geo(ip_address=None, city="Las Vegas")
             result = geo_provider.valid_geo_request_context(geo_input)
 
+            time.sleep(1)
+
             self.assertEqual(result, expected)
             self.assertEqual(mock_http_call.call_count, 0)
 
@@ -169,6 +179,8 @@ class TestGeoProvider(unittest.TestCase):
         with patch.object(geo_provider.pool_manager, "request", return_value=mock_bad_response) as mock_http_call:
             geo_input = Geo(ip_address="12.21.1.40")
             result = geo_provider.valid_geo_request_context(geo_input)
+
+            time.sleep(1)
 
             self.assertEqual(result, None)
             self.assertEqual(mock_http_call.call_count, 1)

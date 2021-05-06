@@ -10,7 +10,6 @@
 """GeoProvider class and related functions"""
 # pylint: disable=broad-except
 # pylint: disable=too-few-public-methods
-
 try:
     from functools import reduce
 except ImportError:
@@ -21,6 +20,7 @@ import urllib3
 from delivery_api_client import Geo
 from target_tools.logger import get_logger
 from target_tools.utils import noop
+from target_tools.thread_manager import ThreadManager
 from target_decisioning_engine.constants import HTTP_GET
 from target_decisioning_engine.constants import OK
 from target_decisioning_engine.events import GEO_LOCATION_UPDATED
@@ -34,15 +34,10 @@ from target_decisioning_engine.constants import HTTP_HEADER_GEO_CITY
 from target_python_sdk.utils import parse_float
 
 
-def no_parse(value):
-    """Returns input as-is"""
-    return value
-
-
 GEO_MAPPINGS = [
     {
         "header_name": HTTP_HEADER_FORWARDED_FOR,
-        "parse_value": no_parse,
+        "parse_value": False,
         "value_key": "ip_address"
     },
     {
@@ -57,17 +52,17 @@ GEO_MAPPINGS = [
     },
     {
         "header_name": HTTP_HEADER_GEO_COUNTRY,
-        "parse_value": no_parse,
+        "parse_value": False,
         "value_key": "country_code"
     },
     {
         "header_name": HTTP_HEADER_GEO_REGION,
-        "parse_value": no_parse,
+        "parse_value": False,
         "value_key": "state_code"
     },
     {
         "header_name": HTTP_HEADER_GEO_CITY,
-        "parse_value": no_parse,
+        "parse_value": False,
         "value_key": "city"
     }
 ]
@@ -90,7 +85,8 @@ def _map_geo_values(value_fn, initial=None):
         """
         value = value_fn(geo_mapping.get("header_name"))
         if value:
-            setattr(result, geo_mapping.get("value_key"), geo_mapping.get("parse_value")(value))
+            value = geo_mapping.get("parse_value")(value) if geo_mapping.get("parse_value") else value
+            setattr(result, geo_mapping.get("value_key"), value)
         return result
 
     return reduce(geo_mapping_accumulator, GEO_MAPPINGS, initial)
@@ -129,6 +125,7 @@ class GeoProvider:
         :param artifact: (target_decisioning_engine.types.decisioning_artifact.DecisioningArtifact) artifact
         """
         self.logger = get_logger()
+        self.thread_pool = ThreadManager.instance().pool
         self.pool_manager = urllib3.PoolManager()
         self.config = config
         self.artifact = artifact
@@ -137,7 +134,11 @@ class GeoProvider:
 
     def _request_geo(self, geo_lookup_path, headers):
         """Sends http request for geo data"""
-        return self.pool_manager.request(HTTP_GET, geo_lookup_path, headers=headers)
+        apply_async_args = (self.pool_manager.request,
+                            (HTTP_GET, geo_lookup_path),
+                            {"headers": headers})
+        async_result = self.thread_pool.apply_async(*apply_async_args)
+        return async_result.get()
 
     def valid_geo_request_context(self, geo_request_context=None):
         """
@@ -159,30 +160,33 @@ class GeoProvider:
                 headers[HTTP_HEADER_FORWARDED_FOR] = geo_request_context.ip_address
 
             try:
-                geo_response = self._request_geo(geo_lookup_path, headers)
-
-                if geo_response.status != OK:
-                    self.logger.error("{} status code while fetching geo data at: {} - message: {}".format(
-                        geo_response.status,
-                        geo_lookup_path,
-                        geo_response.data)
-                    )
-                    return None
-
-                geo_payload = json.loads(geo_response.data)
-                validated_geo_request_context = create_or_update_geo_object(
-                    geo_data=geo_payload,
-                    existing_geo_context=validated_geo_request_context
-                )
-
-                self.event_emitter(GEO_LOCATION_UPDATED, {
-                    "geo_context": validated_geo_request_context
-                })
-
-                return validated_geo_request_context
+                response = self._request_geo(geo_lookup_path, headers)
+                return self.geo_response_handler(response, validated_geo_request_context)
             except Exception as err:
                 self.logger.error("Exception while fetching geo data at: {} - error: {}".format(geo_lookup_path,
                                                                                                 (str(err))))
                 return None
+
+        return validated_geo_request_context
+
+    def geo_response_handler(self, response, validated_geo_request_context):
+        """Process geo response"""
+        if response.status != OK:
+            self.logger.error("{} status code while fetching geo data at: {} - message: {}".format(
+                response.status,
+                response,
+                response.data)
+            )
+            return None
+
+        geo_payload = json.loads(response.data)
+        validated_geo_request_context = create_or_update_geo_object(
+            geo_data=geo_payload,
+            existing_geo_context=validated_geo_request_context
+        )
+
+        self.event_emitter(GEO_LOCATION_UPDATED, {
+            "geo_context": validated_geo_request_context
+        })
 
         return validated_geo_request_context

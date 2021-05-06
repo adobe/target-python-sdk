@@ -28,12 +28,10 @@ jobs:
           PYTHON_VERSION: ${{ matrix.python-version }}
         run: |
           make pre_build
-      - run: echo "COVERALLS_SUPPORTED=3.9" >> $GITHUB_ENV
-      - if: contains(env.COVERALLS_SUPPORTED, matrix.python-version)
-        name: generate coveralls coverage
-        run: coveralls --service=github
+      - name: generate coveralls coverage
+        if: matrix.python-version == 3.9
+        run: coveralls --service=github-actions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
           COVERALLS_PARALLEL: false
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}

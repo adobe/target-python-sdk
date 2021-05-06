@@ -14,7 +14,7 @@ import atexit
 from multiprocessing.pool import ThreadPool
 
 
-class ThreadManager:
+class ThreadManager(object):
     """ThreadManager"""
     _instance = None
 

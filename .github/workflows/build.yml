@@ -30,7 +30,7 @@ jobs:
           make pre_build
       - name: generate coveralls coverage
         if: matrix.python-version == 3.9
-        run: coveralls --service=github-actions
+        run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_PARALLEL: false

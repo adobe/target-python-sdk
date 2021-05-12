@@ -14,13 +14,17 @@ try:
     from functools import reduce
 except ImportError:
     pass
+try:
+    from queue import Queue
+except ImportError:
+    from Queue import Queue
 import json
+from threading import Thread
 from copy import deepcopy
 import urllib3
 from delivery_api_client import Geo
 from target_tools.logger import get_logger
 from target_tools.utils import noop
-from target_tools.thread_manager import ThreadManager
 from target_decisioning_engine.constants import HTTP_GET
 from target_decisioning_engine.constants import OK
 from target_decisioning_engine.events import GEO_LOCATION_UPDATED
@@ -125,20 +129,26 @@ class GeoProvider:
         :param artifact: (target_decisioning_engine.types.decisioning_artifact.DecisioningArtifact) artifact
         """
         self.logger = get_logger()
-        self.thread_pool = ThreadManager.instance().pool
         self.pool_manager = urllib3.PoolManager()
         self.config = config
         self.artifact = artifact
         self.geo_targeting_enabled = artifact.get("geoTargetingEnabled", False)
         self.event_emitter = config.event_emitter or noop
 
-    def _request_geo(self, geo_lookup_path, headers):
+    def _execute_request(self, geo_lookup_path, headers, queue):
         """Sends http request for geo data"""
-        apply_async_args = (self.pool_manager.request,
-                            (HTTP_GET, geo_lookup_path),
-                            {"headers": headers})
-        async_result = self.thread_pool.apply_async(*apply_async_args)
-        return async_result.get()
+        response = self.pool_manager.request(HTTP_GET, geo_lookup_path, headers=headers)
+        queue.put(response)
+
+    def _request_geo(self, geo_lookup_path, headers):
+        """Executes geo request in a new thread"""
+        result = Queue()
+        request_thread = Thread(target=self._execute_request,
+                                name="GeoProvider.request",
+                                args=[geo_lookup_path, headers, result])
+        request_thread.start()
+        request_thread.join()
+        return result.get()
 
     def valid_geo_request_context(self, geo_request_context=None):
         """

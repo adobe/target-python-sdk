@@ -5,4 +5,4 @@ ua-parser==0.10.0
 user-agents==2.2.0
 enum34==1.1.10
 json_logic_qubit==0.9.1
-tld==0.12.5
+tld==0.10

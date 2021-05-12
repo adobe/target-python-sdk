@@ -37,7 +37,8 @@ class DeliveryResponse(object):
         'client': 'str',
         'edge_host': 'str',
         'execute': 'ExecuteResponse',
-        'prefetch': 'PrefetchResponse'
+        'prefetch': 'PrefetchResponse',
+        'notifications': 'NotificationResponse'
     }
 
     attribute_map = {
@@ -47,10 +48,11 @@ class DeliveryResponse(object):
         'client': 'client',
         'edge_host': 'edgeHost',
         'execute': 'execute',
-        'prefetch': 'prefetch'
+        'prefetch': 'prefetch',
+        'notifications': 'notifications'
     }
 
-    def __init__(self, status=None, request_id=None, id=None, client=None, edge_host=None, execute=None, prefetch=None):  # noqa: E501
+    def __init__(self, status=None, request_id=None, id=None, client=None, edge_host=None, execute=None, prefetch=None, notifications=None):  # noqa: E501
         """DeliveryResponse - a model defined in OpenAPI"""  # noqa: E501
 
         self._status = None
@@ -60,6 +62,7 @@ class DeliveryResponse(object):
         self._edge_host = None
         self._execute = None
         self._prefetch = None
+        self._notifications = None
         self.discriminator = None
 
         if status is not None:
@@ -76,6 +79,8 @@ class DeliveryResponse(object):
             self.execute = execute
         if prefetch is not None:
             self.prefetch = prefetch
+        if notifications is not None:
+            self.notifications = notifications
 
     @property
     def status(self):
@@ -229,6 +234,27 @@ class DeliveryResponse(object):
         """
 
         self._prefetch = prefetch
+
+    @property
+    def notifications(self):
+        """Gets the notifications of this DeliveryResponse.  # noqa: E501
+
+
+        :return: The notifications of this DeliveryResponse.  # noqa: E501
+        :rtype: NotificationResponse
+        """
+        return self._notifications
+
+    @notifications.setter
+    def notifications(self, notifications):
+        """Sets the notifications of this DeliveryResponse.
+
+
+        :param notifications: The notifications of this DeliveryResponse.  # noqa: E501
+        :type: NotificationResponse
+        """
+
+        self._notifications = notifications
 
     def to_dict(self):
         """Returns the model properties as a dict"""

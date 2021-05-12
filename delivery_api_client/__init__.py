@@ -61,6 +61,7 @@ from delivery_api_client.Model.notification import Notification
 from delivery_api_client.Model.notification_all_of import NotificationAllOf
 from delivery_api_client.Model.notification_mbox import NotificationMbox
 from delivery_api_client.Model.notification_page_load import NotificationPageLoad
+from delivery_api_client.Model.notification_response import NotificationResponse
 from delivery_api_client.Model.notification_view import NotificationView
 from delivery_api_client.Model.option import Option
 from delivery_api_client.Model.option_type import OptionType

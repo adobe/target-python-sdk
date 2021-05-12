@@ -33,21 +33,24 @@ class Metric(object):
     openapi_types = {
         'type': 'MetricType',
         'selector': 'str',
-        'event_token': 'str'
+        'event_token': 'str',
+        'analytics': 'AnalyticsResponse'
     }
 
     attribute_map = {
         'type': 'type',
         'selector': 'selector',
-        'event_token': 'eventToken'
+        'event_token': 'eventToken',
+        'analytics': 'analytics'
     }
 
-    def __init__(self, type=None, selector=None, event_token=None):  # noqa: E501
+    def __init__(self, type=None, selector=None, event_token=None, analytics=None):  # noqa: E501
         """Metric - a model defined in OpenAPI"""  # noqa: E501
 
         self._type = None
         self._selector = None
         self._event_token = None
+        self._analytics = None
         self.discriminator = None
 
         if type is not None:
@@ -56,6 +59,8 @@ class Metric(object):
             self.selector = selector
         if event_token is not None:
             self.event_token = event_token
+        if analytics is not None:
+            self.analytics = analytics
 
     @property
     def type(self):
@@ -123,6 +128,27 @@ class Metric(object):
         """
 
         self._event_token = event_token
+
+    @property
+    def analytics(self):
+        """Gets the analytics of this Metric.  # noqa: E501
+
+
+        :return: The analytics of this Metric.  # noqa: E501
+        :rtype: AnalyticsResponse
+        """
+        return self._analytics
+
+    @analytics.setter
+    def analytics(self, analytics):
+        """Sets the analytics of this Metric.
+
+
+        :param analytics: The analytics of this Metric.  # noqa: E501
+        :type: AnalyticsResponse
+        """
+
+        self._analytics = analytics
 
     def to_dict(self):
         """Returns the model properties as a dict"""

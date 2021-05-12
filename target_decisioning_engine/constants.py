@@ -61,3 +61,8 @@ GEO_COUNTRY = "geo.country"
 GEO_STATE = "geo.state"
 GEO_LATITUDE = "geo.latitude"
 GEO_LONGITUDE = "geo.longitude"
+
+NOT_MODIFIED = 304
+OK = 200
+BAD_REQUEST = 400
+HTTP_GET = "GET"

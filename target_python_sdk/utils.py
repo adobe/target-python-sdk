@@ -52,6 +52,14 @@ def parse_int(value):
         return None
 
 
+def parse_float(value):
+    """Casts value to float if possible, otherwise returns None"""
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        return None
+
+
 def is_dict(value):
     """Checks if value is a dict"""
     return isinstance(value, dict)

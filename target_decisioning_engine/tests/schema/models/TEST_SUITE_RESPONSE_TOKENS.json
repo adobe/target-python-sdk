@@ -21,8 +21,8 @@
             },
             "geo": {
               "city": "SAN FRANCISCO",
-              "countryCode": "UNITED STATES",
-              "stateCode": "CALIFORNIA",
+              "countryCode": "US",
+              "stateCode": "CA",
               "latitude": 37.75,
               "longitude": -122.4
             },
@@ -65,8 +65,8 @@
                     "option.name": "Offer3",
                     "activity.decisioningMethod": "on-device",
                     "geo.city": "SAN FRANCISCO",
-                    "geo.country": "UNITED STATES",
-                    "geo.state": "CALIFORNIA"
+                    "geo.country": "US",
+                    "geo.state": "CA"
                   }
                 }
               ],
@@ -91,8 +91,8 @@
             },
             "geo": {
               "city": "SAN FRANCISCO",
-              "countryCode": "UNITED STATES",
-              "stateCode": "CALIFORNIA",
+              "countryCode": "US",
+              "stateCode": "CA",
               "latitude": 37.75,
               "longitude": -122.4
             },
@@ -136,8 +136,8 @@
                     "option.name": "Offer3",
                     "activity.decisioningMethod": "on-device",
                     "geo.city": "SAN FRANCISCO",
-                    "geo.country": "UNITED STATES",
-                    "geo.state": "CALIFORNIA"
+                    "geo.country": "US",
+                    "geo.state": "CA"
                   }
                 }
               ],

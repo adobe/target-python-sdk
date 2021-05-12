@@ -6,3 +6,5 @@ no-docstring-rgx=^[tT]est*
 [SIMILARITIES]
 # Minimum lines number of a similarity.
 min-similarity-lines=30
+
+disable=W0212,R0205

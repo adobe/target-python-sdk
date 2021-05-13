@@ -18,7 +18,7 @@ clean:
 
 # Install dependencies - older versions of python need to bootstrap pip for CI workflow
 install: env
-ifneq (,$(filter $(PYTHON_VERSION),2.7 3.4 3.5))
+ifneq (,$(filter $(PYTHON_VERSION),2.7))
 		curl https://bootstrap.pypa.io/pip/${PYTHON_VERSION}/get-pip.py | python
 endif
 	python -m pip install --upgrade pip "setuptools>=38.3.0,<=44.1.x" wheel pep517 pylint "twine==1.7.0" bump2version coverage coveralls
@@ -35,7 +35,7 @@ coverage: env
 
 # Format code - turn off linting for older versions of python due to collisions between current and old standards
 format: env
-ifneq (,$(filter $(PYTHON_VERSION),2.7 3.4))
+ifneq (,$(filter $(PYTHON_VERSION),2.7))
 		echo "Linting turned off for python version ${PYTHON_VERSION}"
 else
 		pylint target_python_sdk target_tools target_decisioning_engine

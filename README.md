@@ -5,7 +5,8 @@
 ### Requirements
 
 ```
-Python 2.7+ or 3.4+
+All currently maintained versions of Python are supported, see [Python Releases](https://www.python.org/downloads/).
+Older Python releases may likely work too, but are not officially supported.
 NPM 6+ (required by openapi-generator-cli)
 Java 8+ (required by openapi-generator)
 GNU Make

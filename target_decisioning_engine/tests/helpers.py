@@ -115,7 +115,8 @@ def expect_to_match_object(received, expected):
         elif is_list(value):
             for index, item in enumerate(value):
                 if is_dict(item):
-                    expect_to_match_object(received.get(key)[index], item)
+                    received_item = received.get(key)[index] if received.get(key) else {}
+                    expect_to_match_object(received_item, item)
                 else:
                     assert item == received.get(key)[index], \
                         "Received list item '{}' does not equal expected list item '{}'" \

@@ -38,29 +38,42 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(result.get("subdomain"), subdomain)
         self.assertEqual(result.get("topLevelDomain"), top_level_domain)
 
-    def test_parse_url_host_length_1(self):
+    def test_parse_url_missing_top_level_domain(self):
         url = "http://myfavesite/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite",
+        self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING,
                                 EMPTY_STRING, EMPTY_STRING)
 
-    def test_parse_url_host_length_2(self):
+    def test_parse_url_without_subdomain(self):
         url = "http://myfavesite.com/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite.com",
+        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite",
                                 EMPTY_STRING, "com")
 
-    def test_parse_url_host_length_3(self):
+    def test_parse_url_with_subdomain(self):
+        url = "http://www.myfavesite.com"
+        result = parse_url(url)
+        self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, "myfavesite",
+                                "www", "com")
+
+    def test_parse_url_with_subdomain_path_param_anchor(self):
         url = "http://www.myfavesite.com/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "www.myfavesite.com",
-                                EMPTY_STRING, "com")
+        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite",
+                                "www", "com")
 
-    def test_parse_url_host_length_4(self):
+    def test_parse_url_with_multi_part_subdomain(self):
         url = "http://blog.myfavesite.geocities.com/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "blog.myfavesite.geocities.com",
-                                "blog", "geocities.com")
+        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "geocities",
+                                "blog.myfavesite", "com")
+
+    def test_parse_url_with_multi_part_top_level_domain(self):
+        url = "http://some.subdomain.google.co.uk"
+        result = parse_url(url)
+        self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, "google",
+                                "some.subdomain", "co.uk")
+
 
     def test_has_remote_dependency_no_artifact(self):
         with self.assertRaises(Exception) as err:

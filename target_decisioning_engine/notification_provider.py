@@ -91,29 +91,31 @@ class NotificationProvider:
         self.logger.debug("{}.send_notifications - Notifications: {} \nTelemetry Entries: {}"
                           .format(LOG_TAG, self.notifications, self.telemetry_entries))
 
-        if self.notifications or self.telemetry_entries:
-            _id = self.request.id
-            context = self.request.context
-            experience_cloud = self.request.experience_cloud
+        if not self.notifications and not self.telemetry_entries:
+            return
 
-            notification = {
-                "request": {
-                    "id": _id,
-                    "context": context,
-                    "experienceCloud": experience_cloud
-                },
-                "visitor": self.visitor
+        _id = self.request.id
+        context = self.request.context
+        experience_cloud = self.request.experience_cloud
+
+        notification = {
+            "request": {
+                "id": _id,
+                "context": context,
+                "experienceCloud": experience_cloud
+            },
+            "visitor": self.visitor
+        }
+
+        if self.notifications:
+            notification["request"]["notifications"] = self.notifications
+
+        if self.telemetry_entries:
+            notification["request"]["telemetry"] = {
+                "entries": self.telemetry_entries
             }
 
-            if self.notifications:
-                notification["request"]["notifications"] = self.notifications
-
-            if self.telemetry_entries:
-                notification["request"]["telemetry"] = {
-                    "entries": self.telemetry_entries
-                }
-
-            async_send = threading.Thread(target=self.send_notification_func, args=(notification,))
-            async_send.start()
-            self.notifications = []
-            self.telemetry_entries = []
+        async_send = threading.Thread(target=self.send_notification_func, args=(notification,))
+        async_send.start()
+        self.notifications = []
+        self.telemetry_entries = []

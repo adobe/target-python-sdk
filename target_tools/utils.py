@@ -7,9 +7,9 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
-
 """Assorted utility functions for target_tools package"""
 # pylint: disable=protected-access
+# pylint: disable=unused-argument
 
 from delivery_api_client import ModelProperty as Property
 from delivery_api_client import ExecuteRequest
@@ -155,7 +155,7 @@ def get_view_names(delivery_request):
     return get_names_for_requested(VIEWS, delivery_request)
 
 
-def noop():
+def noop(*args, **kwargs):
     """No-Op function for when callable is required"""
     return None
 

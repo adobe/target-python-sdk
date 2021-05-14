@@ -79,32 +79,6 @@ def create_mbox_response(consequence):
                         analytics=create_analytics_response(consequence))
 
 
-def create_prefetch_mbox_response(consequence):
-    """Convert prefetch mbox response dict to PrefetchMboxResponse instance
-    :param consequence: (dict) decision consequence in form of an mbox response
-    :return: (delivery_api_client.Model.prefetch_mbox_response.PrefetchMboxResponse) mbox response
-    """
-    return PrefetchMboxResponse(index=consequence.get("index"),
-                                name=consequence.get("name"),
-                                options=create_options(consequence),
-                                metrics=create_metrics(consequence),
-                                analytics=create_analytics_response(consequence),
-                                state=consequence.get("state"))
-
-
-def create_view_response(consequence):
-    """Convert view response dict to View instance
-    :param consequence: (dict) decision consequence in form of a view
-    :return: (delivery_api_client.Model.view.View) view response
-    """
-    return View(name=consequence.get("name"),
-                options=create_options(consequence),
-                metrics=create_metrics(consequence),
-                analytics=create_analytics_response(consequence),
-                key=consequence.get("key"),
-                state=consequence.get("state"))
-
-
 def create_action(_action):
     """Create Action"""
     if not _action:

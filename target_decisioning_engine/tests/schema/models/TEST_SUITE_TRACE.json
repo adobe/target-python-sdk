@@ -132,7 +132,7 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS",
+                        "platform": "Mac OS X",
                         "locale": "en",
                         "browserVersion": 80
                       },
@@ -143,14 +143,14 @@
                         "fragment": "",
                         "subdomain": "",
                         "domain": "local-target-test",
-                        "topLevelDomain": "",
+                        "topLevelDomain": "com",
                         "url_lc": "http://local-target-test.com/",
                         "path_lc": "/",
                         "query_lc": "",
                         "fragment_lc": "",
                         "subdomain_lc": "",
                         "domain_lc": "local-target-test",
-                        "topLevelDomain_lc": ""
+                        "topLevelDomain_lc": "com"
                       },
                       "referring": {
                         "url": "",
@@ -280,7 +280,7 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS",
+                        "platform": "Mac OS X",
                         "locale": "en",
                         "browserVersion": 80
                       },
@@ -291,14 +291,14 @@
                         "fragment": "",
                         "subdomain": "",
                         "domain": "local-target-test",
-                        "topLevelDomain": "",
+                        "topLevelDomain": "com",
                         "url_lc": "http://local-target-test.com/",
                         "path_lc": "/",
                         "query_lc": "",
                         "fragment_lc": "",
                         "subdomain_lc": "",
                         "domain_lc": "local-target-test",
-                        "topLevelDomain_lc": ""
+                        "topLevelDomain_lc": "com"
                       },
                       "referring": {
                         "url": "",
@@ -444,7 +444,7 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS",
+                        "platform": "Mac OS X",
                         "locale": "en",
                         "browserVersion": 80
                       },
@@ -455,14 +455,14 @@
                         "fragment": "",
                         "subdomain": "",
                         "domain": "local-target-test",
-                        "topLevelDomain": "",
+                        "topLevelDomain": "com",
                         "url_lc": "http://local-target-test.com/",
                         "path_lc": "/",
                         "query_lc": "",
                         "fragment_lc": "",
                         "subdomain_lc": "",
                         "domain_lc": "local-target-test",
-                        "topLevelDomain_lc": ""
+                        "topLevelDomain_lc": "com"
                       },
                       "referring": {
                         "url": "",
@@ -650,7 +650,7 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS",
+                      "platform": "Mac OS X",
                       "locale": "en",
                       "browserVersion": 80
                     },
@@ -661,14 +661,14 @@
                       "fragment": "",
                       "subdomain": "",
                       "domain": "local-target-test",
-                      "topLevelDomain": "",
+                      "topLevelDomain": "com",
                       "url_lc": "http://local-target-test.com/",
                       "path_lc": "/",
                       "query_lc": "",
                       "fragment_lc": "",
                       "subdomain_lc": "",
                       "domain_lc": "local-target-test",
-                      "topLevelDomain_lc": ""
+                      "topLevelDomain_lc": "com"
                     },
                     "referring": {
                       "url": "",
@@ -716,7 +716,7 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS",
+                      "platform": "Mac OS X",
                       "locale": "en",
                       "browserVersion": 80
                     },
@@ -727,14 +727,14 @@
                       "fragment": "",
                       "subdomain": "",
                       "domain": "local-target-test",
-                      "topLevelDomain": "",
+                      "topLevelDomain": "com",
                       "url_lc": "http://local-target-test.com/",
                       "path_lc": "/",
                       "query_lc": "",
                       "fragment_lc": "",
                       "subdomain_lc": "",
                       "domain_lc": "local-target-test",
-                      "topLevelDomain_lc": ""
+                      "topLevelDomain_lc": "com"
                     },
                     "referring": {
                       "url": "",
@@ -806,7 +806,7 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS",
+                      "platform": "Mac OS X",
                       "locale": "en",
                       "browserVersion": 80
                     },
@@ -817,14 +817,14 @@
                       "fragment": "",
                       "subdomain": "",
                       "domain": "local-target-test",
-                      "topLevelDomain": "",
+                      "topLevelDomain": "com",
                       "url_lc": "http://local-target-test.com/",
                       "path_lc": "/",
                       "query_lc": "",
                       "fragment_lc": "",
                       "subdomain_lc": "",
                       "domain_lc": "local-target-test",
-                      "topLevelDomain_lc": ""
+                      "topLevelDomain_lc": "com"
                     },
                     "referring": {
                       "url": "",
@@ -1034,7 +1034,7 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS",
+                        "platform": "Mac OS X",
                         "locale": "en",
                         "browserVersion": 80
                       },
@@ -1045,14 +1045,14 @@
                         "fragment": "",
                         "subdomain": "",
                         "domain": "local-target-test",
-                        "topLevelDomain": "",
+                        "topLevelDomain": "com",
                         "url_lc": "http://local-target-test.com/",
                         "path_lc": "/",
                         "query_lc": "",
                         "fragment_lc": "",
                         "subdomain_lc": "",
                         "domain_lc": "local-target-test",
-                        "topLevelDomain_lc": ""
+                        "topLevelDomain_lc": "com"
                       },
                       "referring": {
                         "url": "",

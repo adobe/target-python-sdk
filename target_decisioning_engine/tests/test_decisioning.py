@@ -38,11 +38,7 @@ JUST_THIS_TEST = None
 #   "suite": "TEST_SUITE_MACROS",
 #   "test": "no_value_for_template"
 # }
-
-# GA TODO - remove this once all ODD features have been implemented
-EXCLUDE_SUITES = [
-    "TEST_SUITE_TRACE.json"
-]
+EXCLUDE_SUITES = []
 TEST_SUITES = get_test_suites(JUST_THIS_TEST.get("suite") if JUST_THIS_TEST else None, EXCLUDE_SUITES)
 
 

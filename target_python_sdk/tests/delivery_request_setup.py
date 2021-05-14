@@ -272,8 +272,8 @@ def create_notifications(notifications):
 
 def create_trace(trace):
     """Creates Trace object"""
-    return Trace(authorization_token=trace.get("authorizationToken"),
-                 usage=trace.get("usage")) if trace else None
+    return Trace(authorization_token=trace.get("authorizationToken", ""),
+                 usage=trace.get("usage")) if trace is not None else None
 
 
 def create_delivery_request(request_dict):

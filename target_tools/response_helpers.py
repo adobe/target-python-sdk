@@ -8,8 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Helper functions for building out DeliveryResponse"""
-from delivery_api_client import View
-from delivery_api_client import PrefetchMboxResponse
 from delivery_api_client import Action
 from delivery_api_client import MboxResponse
 from delivery_api_client import AnalyticsResponse

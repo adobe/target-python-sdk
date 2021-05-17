@@ -44,7 +44,7 @@ from target_python_sdk.utils import flatten_list
 from target_tools.constants import DEFAULT_GLOBAL_MBOX
 from target_tools.logger import get_logger
 from target_tools.utils import get_property_token
-from target_tools.perf_tool import PerfTool
+from target_tools.perf_tool import get_perf_tool_instance
 
 LOG_TAG = "{}.DecisionProvider".format(LOG_PREFIX)
 PARTIAL_CONTENT = 206
@@ -76,7 +76,7 @@ class DecisionProvider:
         :param trace_provider: (target_decisioning_engine.trace_provider.TraceProvider) trace provider
         """
 
-        self.timing_tool = PerfTool()
+        self.perf_tool = get_perf_tool_instance()
         self.context = context
         self.artifact = artifact
         self.trace_provider = trace_provider
@@ -292,7 +292,7 @@ class DecisionProvider:
         """Public function for executing decisioning logic
         :return: (target_decisioning_engine.types.decision_provider_response.DecisionProviderResponse)
         """
-        self.timing_tool.time_start(TIMING_GET_OFFER)
+        self.perf_tool.time_start(TIMING_GET_OFFER)
         add_response_tokens = create_response_tokens_post_processor(self.context, self.response_tokens)
         common_post_processor = [add_response_tokens, replace_campaign_macros, add_trace]
         response = DecisionProviderResponse(
@@ -306,7 +306,7 @@ class DecisionProvider:
             prefetch=self._get_prefetch_decisions(common_post_processor)
         )
 
-        telemetry_entry = TelemetryEntry(execution=self.timing_tool.time_end(TIMING_GET_OFFER))
+        telemetry_entry = TelemetryEntry(execution=self.perf_tool.time_end(TIMING_GET_OFFER))
         self.notification_provider.add_telemetry_entry(telemetry_entry)
         self.notification_provider.send_notifications()
         logger.debug("{} - REQUEST: {} /n RESPONSE: {}".format(LOG_TAG, self.request, response))

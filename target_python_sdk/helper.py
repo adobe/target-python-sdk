@@ -16,7 +16,6 @@ try:
     from functools import reduce
 except ImportError:
     pass
-import json
 from copy import deepcopy
 import pkg_resources
 from delivery_api_client import ApiClient
@@ -359,7 +358,7 @@ def valid_mbox(mbox):
     """Checks for valid mbox"""
     result = mbox and mbox.name
     if not result:
-        logger.error(MESSAGES.get('MBOX_INVALID'), json.dumps(mbox))
+        logger.error("{}\n{}".format(MESSAGES.get('MBOX_INVALID'), mbox.to_str()))
     return result
 
 
@@ -378,7 +377,7 @@ def valid_notification(notification):
         and notification.type in METRIC_TYPES
 
     if not is_valid:
-        logger.error(MESSAGES.get('NOTIFICATION_INVALID'), notification.to_str())
+        logger.error("{}\n{}".format(MESSAGES.get('NOTIFICATION_INVALID'), notification.to_str()))
 
     return is_valid
 

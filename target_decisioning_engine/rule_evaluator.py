@@ -18,7 +18,6 @@ from target_decisioning_engine.allocation_provider import compute_allocation
 from target_decisioning_engine.constants import ACTIVITY_ID
 from target_decisioning_engine.context_provider import create_page_context
 from target_decisioning_engine.context_provider import create_mbox_context
-from target_tools.response_helpers import create_view_response
 from target_tools.response_helpers import create_mbox_response
 
 
@@ -64,11 +63,8 @@ class RuleEvaluator:
         tracer.trace_rule_evaluated(rule, rule_context, rule_satisfied)
 
         if rule_satisfied:
-            if "key" in rule.get("consequence") or "state" in rule.get("consequence"):
-                create_view_response(deepcopy(rule.get("consequence")))
-            else:
-                consequence = create_mbox_response(deepcopy(rule.get("consequence")))
-                consequence.index = request_detail.index if hasattr(request_detail, "index") else None
+            consequence = create_mbox_response(deepcopy(rule.get("consequence")))
+            consequence.index = request_detail.index if hasattr(request_detail, "index") else None
 
             for post_process_func in post_processors:
                 consequence = post_process_func(rule, consequence, request_type, request_detail, tracer)

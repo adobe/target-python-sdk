@@ -8,7 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Helper functions for building out DeliveryResponse"""
-from delivery_api_client import View
 from delivery_api_client import Action
 from delivery_api_client import MboxResponse
 from delivery_api_client import AnalyticsResponse
@@ -76,19 +75,6 @@ def create_mbox_response(consequence):
                         options=create_options(consequence),
                         metrics=create_metrics(consequence),
                         analytics=create_analytics_response(consequence))
-
-
-def create_view_response(consequence):
-    """Convert view response dict to View instance
-    :param consequence: (dict) decision consequence in form of a view
-    :return: (delivery_api_client.Model.view.View) view response
-    """
-    return View(name=consequence.get("name"),
-                options=create_options(consequence),
-                metrics=create_metrics(consequence),
-                analytics=create_analytics_response(consequence),
-                key=consequence.get("key"),
-                state=consequence.get("state"))
 
 
 def create_action(_action):

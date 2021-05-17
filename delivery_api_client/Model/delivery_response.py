@@ -38,7 +38,7 @@ class DeliveryResponse(object):
         'edge_host': 'str',
         'execute': 'ExecuteResponse',
         'prefetch': 'PrefetchResponse',
-        'notifications': 'NotificationResponse'
+        'notifications': 'list[NotificationResponse]'
     }
 
     attribute_map = {
@@ -241,7 +241,7 @@ class DeliveryResponse(object):
 
 
         :return: The notifications of this DeliveryResponse.  # noqa: E501
-        :rtype: NotificationResponse
+        :rtype: list[NotificationResponse]
         """
         return self._notifications
 
@@ -251,7 +251,7 @@ class DeliveryResponse(object):
 
 
         :param notifications: The notifications of this DeliveryResponse.  # noqa: E501
-        :type: NotificationResponse
+        :type: list[NotificationResponse]
         """
 
         self._notifications = notifications

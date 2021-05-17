@@ -7,18 +7,15 @@
 # the License is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
-
 """Test cases for __init__.py"""
-import json
-import multiprocessing
-import unittest
-from copy import deepcopy
-
 try:
     from unittest.mock import patch
 except ImportError:
     from mock import patch
-
+import json
+import multiprocessing
+import unittest
+from copy import deepcopy
 import six
 from urllib3_mock import Responses
 import delivery_api_client
@@ -28,6 +25,7 @@ from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock
 from target_python_sdk.tests.validation import validate_response
+from target_python_sdk.tests.validation import validate_metrics
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
 from target_python_sdk.tests.helpers import get_client_options
 from target_python_sdk.tests.helpers import spy_decorator
@@ -385,8 +383,23 @@ class TestTargetClient(unittest.TestCase):
 
         result = self.client.get_offers(opts)
 
+        expected_metrics = [{
+            "type": "click",
+            "selector": "#parent",
+            "eventToken": "xydsb1vdkls",
+            "analytics": {
+                "payload": {
+                    "pe": "tnt",
+                    "tnta": "347565:1:0|2,347565:1:0|1"
+                }
+            }
+        }]
         self.assertEqual(len(responses.calls), 1)
         validate_response(self, result)
+
+        delivery_response = result.get("response")
+        validate_metrics(delivery_response.prefetch.metrics, expected_metrics)
+
         response_tokens = result.get('response_tokens')
         self.assertIsNotNone(response_tokens)
         self.assertEqual(len(response_tokens), 2)
@@ -433,3 +446,45 @@ class TestTargetClient(unittest.TestCase):
                 self.fail('Expected prefetch mboxes in DeliveryResponse')
             for mbox in result.get('response').prefetch.mboxes:
                 self.assertIsNotNone(mbox.trace)
+
+    @responses.activate
+    def test_get_offers_with_preview(self):
+        setup_mock('default', responses)
+        opts = deepcopy(self.get_offers_options)
+        opts['request']['preview'] = {
+            'token': 'sdfdlbys3355'
+        }
+        opts['request'] = create_delivery_request(opts['request'])
+
+        request_spy = spy_decorator(ApiClient.request)
+        with patch.object(ApiClient, 'request', request_spy):
+            result = self.client.get_offers(opts)
+
+            # validate Delivery API request
+            expected_req_preview = request_spy.mock.call_args[1]['body']['preview']
+            self.assertEqual(expected_req_preview.get('token'), 'sdfdlbys3355')
+
+            # validate Delivery API response
+            self.assertEqual(len(responses.calls), 1)
+            validate_response(self, result)
+
+    @responses.activate
+    def test_get_offers_with_qa_mode(self):
+        setup_mock('default', responses)
+        opts = deepcopy(self.get_offers_options)
+        opts['request']['qaMode'] = {
+            'token': 'dslblldst455y'
+        }
+        opts['request'] = create_delivery_request(opts['request'])
+
+        request_spy = spy_decorator(ApiClient.request)
+        with patch.object(ApiClient, 'request', request_spy):
+            result = self.client.get_offers(opts)
+
+            # validate Delivery API request
+            expected_req_preview = request_spy.mock.call_args[1]['body']['qaMode']
+            self.assertEqual(expected_req_preview.get('token'), 'dslblldst455y')
+
+            # validate Delivery API response
+            self.assertEqual(len(responses.calls), 1)
+            validate_response(self, result)

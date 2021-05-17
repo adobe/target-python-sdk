@@ -23,8 +23,8 @@ from delivery_api_client import Metric
 from delivery_api_client import MetricType
 from target_python_sdk.utils import to_dict
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
+from target_python_sdk.tests.helpers import expect_to_match_object
 from target_decisioning_engine.notification_provider import NotificationProvider
-from target_decisioning_engine.tests.helpers import expect_to_match_object
 
 
 TARGET_REQUEST = create_delivery_request({

@@ -47,6 +47,17 @@
                "selector": "#parent"
             }]
          }]
+      }],
+      "metrics": [{
+         "type": "click",
+         "selector": "#parent",
+         "eventToken": "xydsb1vdkls",
+         "analytics": {
+            "payload": {
+               "pe": "tnt",
+               "tnta": "347565:1:0|2,347565:1:0|1"
+            }
+         }
       }]
    }
 }

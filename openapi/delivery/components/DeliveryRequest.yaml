@@ -43,3 +43,5 @@ DeliveryRequest:
         $ref: "./Notification.yaml#/Notification"
     qaMode:
       $ref: "../../common/components/QAMode.yaml#/QAMode"
+    preview:
+      $ref: "../../common/components/Preview.yaml#/Preview"

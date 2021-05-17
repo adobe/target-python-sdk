@@ -8,10 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """TargetDecisioningEngine"""
-try:
-    from unittest.mock import MagicMock
-except ImportError:
-    from mock import MagicMock
 from copy import deepcopy
 from target_decisioning_engine import artifact_provider
 from target_decisioning_engine.artifact_provider import ArtifactProvider
@@ -23,6 +19,7 @@ from target_decisioning_engine.utils import match_major_version
 from target_decisioning_engine.utils import has_remote_dependency
 from target_decisioning_engine.decision_provider import DecisionProvider
 from target_decisioning_engine.geo_provider import GeoProvider
+from target_decisioning_engine.trace_provider import TraceProvider
 
 
 class TargetDecisioningEngine:
@@ -33,7 +30,7 @@ class TargetDecisioningEngine:
         :param config: (target_decisioning_engine.types.decisioning_config.DecisioningConfig)
         """
         self.config = config
-        self.artifact_provider = None
+        self._artifact_provider = None
         self.artifact = None
 
     def get_offers(self, target_options):
@@ -51,19 +48,17 @@ class TargetDecisioningEngine:
                 SUPPORTED_ARTIFACT_MAJOR_VERSION)
             )
 
-        geo_provider = GeoProvider(self.config, self.artifact)
+        _geo_provider = GeoProvider(self.config, self.artifact)
         valid_request = valid_delivery_request(request, target_options.target_location_hint,
-                                               geo_provider.valid_geo_request_context)
+                                               _geo_provider.valid_geo_request_context)
 
         options = deepcopy(target_options)
         options.request = valid_request
 
-        # GA TODO - TraceProvider
-        trace_provider = MagicMock()
-        # trace_provider = TraceProvider(self.config, options, artifact_provider.get_trace())
+        _trace_provider = TraceProvider(self.config, options, self._artifact_provider.get_trace())
 
         decisioning = DecisionProvider(self.config, options, create_decisioning_context(valid_request),
-                                       self.artifact, trace_provider)
+                                       self.artifact, _trace_provider)
         return decisioning.run()
 
     def is_ready(self):
@@ -80,7 +75,7 @@ class TargetDecisioningEngine:
 
     def stop_polling(self):
         """Stops artifact polling"""
-        self.artifact_provider.stop_polling()
+        self._artifact_provider.stop_polling()
 
     def has_remote_dependency(self, request):
         """
@@ -92,9 +87,9 @@ class TargetDecisioningEngine:
 
     def initialize(self):
         """Initializes TargetDecisioningEngine.  Must be called in order to start artifact polling"""
-        self.artifact_provider = ArtifactProvider(deepcopy(self.config))
-        self.artifact_provider.initialize()
-        self.artifact = self.artifact_provider.get_artifact()
+        self._artifact_provider = ArtifactProvider(deepcopy(self.config))
+        self._artifact_provider.initialize()
+        self.artifact = self._artifact_provider.get_artifact()
 
         if not self.artifact:
             raise Exception(MESSAGES.get("ARTIFACT_NOT_AVAILABLE"))
@@ -103,4 +98,4 @@ class TargetDecisioningEngine:
             self.artifact = data
 
         # subscribe to new artifacts that are downloaded on the polling interval
-        self.artifact_provider.subscribe(_artifact_subscriber)
+        self._artifact_provider.subscribe(_artifact_subscriber)

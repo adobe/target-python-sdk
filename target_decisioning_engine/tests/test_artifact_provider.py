@@ -140,12 +140,13 @@ class TestArtifactProvider(unittest.TestCase):
         response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)
         with patch.object(self.provider.pool_manager, "request", return_value=response_mock):
             self.provider.initialize()
+            self.assertEqual(self.provider.subscription_count, 2)
             self.assertEqual(subscriber.call_count, 1)
             self.assertEqual(subscriber.call_args[0][0], response_data)
 
         # Test remove_subscription
         self.provider.unsubscribe(subscription_key)
-        self.assertEqual(self.provider.subscription_count, 0)
+        self.assertEqual(self.provider.subscription_count, 1)
 
     def test_remove_subscription_bad_key(self):
         self.provider = ArtifactProvider(self.default_config)
@@ -231,11 +232,11 @@ class TestArtifactProvider(unittest.TestCase):
         }
         expected_geo = {
             "city": "SAN FRANCISCO",
-            "country_code": "US",
-            "ip_address": "12.21.1.40",
+            "countryCode": "US",
+            "ipAddress": "12.21.1.40",
             "latitude": 37.75,
             "longitude": -122.4,
-            "state_code": "CA",
+            "stateCode": "CA",
             "zip": None
         }
         response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)
@@ -267,11 +268,11 @@ class TestArtifactProvider(unittest.TestCase):
         }
         expected_geo = {
             "city": "SAN FRANCISCO",
-            "country_code": "US",
-            "ip_address": "12.21.1.40",
+            "countryCode": "US",
+            "ipAddress": "12.21.1.40",
             "latitude": 37.75,
             "longitude": -122.4,
-            "state_code": "CA",
+            "stateCode": "CA",
             "zip": None
         }
         response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)

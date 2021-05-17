@@ -144,7 +144,7 @@ def add_trace(rule, mbox_response, request_type, request_detail, tracer):
     """
     result = deepcopy(mbox_response)
     result.trace = tracer.get_trace_result()
-    return mbox_response
+    return result
 
 
 def remove_page_load_attributes(rule, mbox_response, request_type, request_detail, tracer):

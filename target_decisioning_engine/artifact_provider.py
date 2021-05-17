@@ -30,10 +30,12 @@ from target_decisioning_engine.timings import TIMING_ARTIFACT_READ_JSON
 from target_decisioning_engine.timings import TIMING_ARTIFACT_DOWNLOADED_TOTAL
 from target_decisioning_engine.timings import TIMING_ARTIFACT_DOWNLOADED_FETCH
 from target_decisioning_engine.timings import TIMING_ARTIFACT_GET_INITIAL
+from target_decisioning_engine.trace_provider import ArtifactTracer
 from target_decisioning_engine.utils import determine_artifact_location
 from target_decisioning_engine.utils import get_http_codes_to_retry
 from target_decisioning_engine.geo_provider import create_or_update_geo_object
 from target_python_sdk.utils import is_number
+from target_python_sdk.utils import to_dict
 from target_python_sdk.utils import is_string
 from target_python_sdk.utils import is_dict
 from target_tools.logger import get_logger
@@ -92,15 +94,14 @@ class ArtifactProvider:
             determine_artifact_location(self.config)
         try:
             self.artifact = self._get_initial_artifact()
-            # GA TODO - ArtifactTracer is a separate ticket
-            # self.artifact_tracer = ArtifactTracer(
-            #     self.artifact_location,
-            #     self.config.artifact_payload,
-            #     self.polling_interval,
-            #     self.polling_halted,
-            #     self.artifact
-            # )
-            # self.add_subscription(self.artifact_tracer_update)
+            self.artifact_tracer = ArtifactTracer(
+                self.artifact_location,
+                self.config.artifact_payload,
+                self.polling_interval,
+                self.polling_halted,
+                self.artifact
+            )
+            self.subscribe(self._artifact_tracer_update)
         finally:
             self._schedule_next_update()
 
@@ -182,7 +183,6 @@ class ArtifactProvider:
 
     def get_trace(self):
         """Returns ArtifactTracer in dict format"""
-        # GA TODO - ArtifactTracer is a separate ticket
         return self.artifact_tracer.to_dict()
 
     def _fetch_artifact(self, artifact_url):
@@ -213,7 +213,7 @@ class ArtifactProvider:
                     self.last_response_etag = etag
 
                 geo = create_or_update_geo_object(geo_data=res.headers)
-                self._emit_new_artifact(response_data, geo.to_dict())
+                self._emit_new_artifact(response_data, to_dict(geo))
 
                 self.perf_tool.time_end(TIMING_ARTIFACT_DOWNLOADED_TOTAL)
                 return response_data

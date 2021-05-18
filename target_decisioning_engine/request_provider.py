@@ -13,9 +13,9 @@ from delivery_api_client import AuthenticatedState
 from delivery_api_client import VisitorId
 from delivery_api_client import Context
 from delivery_api_client import Geo
-from target_python_sdk.utils import is_list
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import create_uuid
+from target_tools.utils import is_list
+from target_tools.utils import is_string
+from target_tools.utils import create_uuid
 
 
 def get_customer_id(visitor_id):

@@ -18,8 +18,8 @@ from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock
 from target_python_sdk.tests.validation import validate_response
-from target_python_sdk.tests.delivery_request_setup import create_delivery_request
-from target_python_sdk.tests.helpers import get_client_options
+from target_tools.tests.delivery_request_setup import create_delivery_request
+from target_tools.tests.helpers import get_client_options
 
 
 responses = Responses('requests.packages.urllib3')

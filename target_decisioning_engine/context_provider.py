@@ -18,8 +18,8 @@ from target_decisioning_engine.types.decisioning_context import GeoContext
 from target_decisioning_engine.types.decisioning_context import DecisioningContext
 from target_decisioning_engine.types.decisioning_context import TimingContext
 from target_decisioning_engine.utils import parse_url
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import get_epoch_time_milliseconds
+from target_tools.utils import is_string
+from target_tools.utils import get_epoch_time_milliseconds
 from target_tools.client_info import browser_from_user_agent
 from target_tools.client_info import operating_system_from_user_agent
 

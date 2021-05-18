@@ -25,8 +25,9 @@ import json
 from copy import deepcopy
 from contextlib import contextmanager
 from urllib3 import HTTPResponse
-from target_python_sdk.tests.helpers import expect_to_match_object
-from target_decisioning_engine import TargetDecisioningEngine, GeoProvider
+from target_tools.tests.helpers import expect_to_match_object
+from target_decisioning_engine import TargetDecisioningEngine
+from target_decisioning_engine import GeoProvider
 from target_decisioning_engine.tests.helpers import get_test_suites
 from target_decisioning_engine.tests.helpers import create_decisioning_config
 from target_decisioning_engine.tests.helpers import create_target_delivery_request

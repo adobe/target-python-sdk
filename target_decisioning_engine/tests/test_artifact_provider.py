@@ -30,7 +30,7 @@ from target_decisioning_engine.constants import NOT_MODIFIED
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED, GEO_LOCATION_UPDATED
 from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_SUCCEEDED
-from target_python_sdk.tests.helpers import spy_decorator
+from target_tools.tests.helpers import spy_decorator
 
 ARTIFACT_URL = "http://my.artifact.com"
 

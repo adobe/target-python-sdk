@@ -21,8 +21,8 @@ from target_decisioning_engine.constants import OFFER_ID
 from target_decisioning_engine.constants import EXPERIENCE_ID
 from target_decisioning_engine.constants import AUDIENCE_IDS
 from target_decisioning_engine.types.decisioning_artifact import DecisioningArtifactMeta
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import to_dict
+from target_tools.utils import is_string
+from target_tools.utils import to_dict
 
 
 def by_order(item):

@@ -40,7 +40,7 @@ from target_decisioning_engine.utils import has_remote_dependency
 from target_decisioning_engine.utils import get_rule_key
 from target_decisioning_engine.notification_provider import NotificationProvider
 from target_decisioning_engine.trace_provider import RequestTracer
-from target_python_sdk.utils import flatten_list
+from target_tools.utils import flatten_list
 from target_tools.constants import DEFAULT_GLOBAL_MBOX
 from target_tools.logger import get_logger
 from target_tools.utils import get_property_token
@@ -220,7 +220,13 @@ class DecisionProvider:
                 preserved["trace"] = mbox_response.trace
                 return mbox_response
 
-            mbox_request = MboxRequest(**request_details.to_dict()) if request_details else MboxRequest()
+            if request_details:
+                mbox_attributes = {attr: getattr(request_details, attr) for attr, val in
+                                   request_details.attribute_map.items()}
+                mbox_request = MboxRequest(**mbox_attributes)
+            else:
+                mbox_request = MboxRequest()
+
             mbox_request.name = self.global_mbox_name
             consequences = _process_mbox_request(mbox_request, [_preserve_trace, remove_page_load_attributes])
             options = flatten_list([consequence.options for consequence in consequences])

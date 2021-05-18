@@ -9,7 +9,7 @@
 # governing permissions and limitations under the License.
 """Helper functions for deriving various info from client"""
 from user_agents import parse
-from target_python_sdk.utils import parse_int
+from target_tools.utils import parse_int
 
 OTHER = "Other"
 UNKNOWN = "Unknown"

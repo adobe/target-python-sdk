@@ -87,7 +87,7 @@ class TargetDecisioningEngine:
 
     def initialize(self):
         """Initializes TargetDecisioningEngine.  Must be called in order to start artifact polling"""
-        self._artifact_provider = ArtifactProvider(deepcopy(self.config))
+        self._artifact_provider = ArtifactProvider(self.config)
         self._artifact_provider.initialize()
         self.artifact = self._artifact_provider.get_artifact()
 

@@ -19,8 +19,8 @@ from delivery_api_client import MetricType
 from delivery_api_client import OptionType
 import target_decisioning_engine.constants as DecisioningConstants
 from target_decisioning_engine.enums import RequestType
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import get_value_from_object
+from target_tools.utils import is_string
+from target_tools.utils import get_value_from_object
 from target_tools.response_helpers import create_action
 
 

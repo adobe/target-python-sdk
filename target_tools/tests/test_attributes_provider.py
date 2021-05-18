@@ -11,7 +11,7 @@
 """Test cases for attributes_provider.py"""
 import unittest
 
-from target_python_sdk.tests.delivery_response_setup import create_delivery_response
+from target_tools.tests.delivery_response_setup import create_delivery_response
 from target_tools.attributes_provider import AttributesProvider
 
 DELIVERY_RESPONSE = create_delivery_response({

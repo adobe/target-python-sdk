@@ -9,7 +9,7 @@
 # governing permissions and limitations under the License.
 """perf tool"""
 import sys
-from target_python_sdk.utils import get_epoch_time_milliseconds
+from target_tools.utils import get_epoch_time_milliseconds
 
 
 this = sys.modules[__name__]

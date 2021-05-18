@@ -8,7 +8,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """filters"""
-from target_python_sdk.utils import is_empty
+from target_tools.utils import is_empty
 
 
 def by_property_token(property_token):

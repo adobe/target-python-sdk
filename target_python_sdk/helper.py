@@ -7,11 +7,10 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
-
 """Helper functions for sending requests to Delivery API"""
 # pylint: disable=too-many-arguments
 # pylint: disable=protected-access
-
+# pylint: disable=broad-except
 try:
     from functools import reduce
 except ImportError:
@@ -41,19 +40,22 @@ from target_python_sdk.cookies import DEVICE_ID_COOKIE
 from target_python_sdk.cookies import SESSION_ID_COOKIE
 from target_python_sdk.cookies import LOCATION_HINT_COOKIE
 from target_python_sdk.cookies import create_target_cookie
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import parse_int
-from target_python_sdk.utils import create_uuid
-from target_python_sdk.utils import is_dict
-from target_python_sdk.utils import is_number
-from target_python_sdk.utils import get_timezone_offset
-from target_python_sdk.utils import get_epoch_time
-from target_python_sdk.utils import flatten_list
-from target_python_sdk.utils import remove_empty_values
-from target_tools.constants import DEFAULT_GLOBAL_MBOX
+from target_python_sdk.local_delivery_api import LocalDeliveryApi
+from target_tools.utils import is_string
+from target_tools.utils import parse_int
+from target_tools.utils import create_uuid
+from target_tools.utils import is_dict
+from target_tools.utils import is_number
+from target_tools.utils import get_timezone_offset
+from target_tools.utils import get_epoch_time
+from target_tools.utils import flatten_list
+from target_tools.utils import remove_empty_values
 from target_tools.utils import requires_decisioning_engine
+from target_tools.constants import DEFAULT_GLOBAL_MBOX
+from target_tools.constants import EMPTY_REQUEST
 from target_tools.logger import get_logger
 from target_tools.enums import DecisioningMethod
+
 
 SDK_VERSION = pkg_resources.require("target_python_sdk")[0].version
 
@@ -158,13 +160,6 @@ def preserve_location_hint(config, response):
     return response
 
 
-def create_local_delivery_api(decisioning_engine,
-                              visitor,
-                              target_location_hint):
-    """Create Delievery API for use with On-Device-Decisioning"""
-    print("{}.{}.{}".format(decisioning_engine, visitor, target_location_hint))
-
-
 def create_delivery_api(
         configuration,
         visitor,
@@ -177,14 +172,10 @@ def create_delivery_api(
     if requires_decisioning_engine(decisioning_method):
         decisioning_dependency = decisioning_engine.has_remote_dependency(delivery_request)
 
-        if decisioning_method == DecisioningMethod.HYBRID.value and decisioning_dependency.remote_needed:
+        if decisioning_method == DecisioningMethod.HYBRID.value and decisioning_dependency.get("remote_needed"):
             return DeliveryApi(api_client=api_client)
 
-        return create_local_delivery_api(
-            decisioning_engine,
-            visitor,
-            target_location_hint
-        )
+        return LocalDeliveryApi(decisioning_engine, visitor, target_location_hint)
 
     return DeliveryApi(api_client=api_client)
 
@@ -488,7 +479,24 @@ def extract_cluster_from_edge_host(host):
     return parts[0].replace(EDGE_CLUSTER_PREFIX, "")
 
 
-def get_target_location_hint_cookie(request_cluster, edge_host):
+def request_location_hint_cookie(target_client, target_location_hint):
+    """Use existing target_location_hint to create cookie otherwise make a get_offers request to get it"""
+    if target_location_hint:
+        return {
+            "target_location_hint_cookie": get_target_location_hint_cookie(target_location_hint)
+        }
+    try:
+        return target_client.get_offers({
+            "session_id": "ping123",
+            "decisioning_method": DecisioningMethod.SERVER_SIDE.value,
+            "request": EMPTY_REQUEST
+        })
+    except Exception as err:
+        logger.error("{}\n{}".format(MESSAGES.get("LOCATION_HINT_REQUEST_FAILED"), str(err)))
+        return None
+
+
+def get_target_location_hint_cookie(request_cluster, edge_host=None):
     """Create location hint cookie"""
     host_cluster = extract_cluster_from_edge_host(edge_host)
     cluster = request_cluster or host_cluster
@@ -516,7 +524,7 @@ def get_analytics_from_list(_list):
     """Get analytics response payload from list within response"""
     if not _list:
         return None
-    return flatten_list([get_analytics_from_object(item) for item in _list])
+    return flatten_list([get_analytics_from_object(item) for item in _list if item and item.analytics])
 
 
 def get_analytics_details(response):
@@ -558,7 +566,7 @@ def get_trace_from_list(_list):
     """Get trace from within list in response payload"""
     if not _list:
         return None
-    return flatten_list([get_trace_from_object(item) for item in _list])
+    return flatten_list([get_trace_from_object(item) for item in _list if item and item.trace])
 
 
 def get_trace_details(response):
@@ -636,8 +644,8 @@ def get_response_meta(request, decisioning_method, decisioning_engine):
 
     if decisioning_engine:
         decisioning_dependency = decisioning_engine.has_remote_dependency(request)
-        remote_mboxes = decisioning_dependency.get('remoteMboxes')
-        remote_views = decisioning_dependency.get('remoteViews')
+        remote_mboxes = decisioning_dependency.get('remote_mboxes')
+        remote_views = decisioning_dependency.get('remote_views')
 
     return {
         'decisioning_method': decisioning_method,
@@ -647,7 +655,7 @@ def get_response_meta(request, decisioning_method, decisioning_engine):
 
 
 def process_response(session_id, cluster, request, response,
-                     decisioning_method=DecisioningMethod.SERVER_SIDE, decisioning_engine=None):
+                     decisioning_method=DecisioningMethod.SERVER_SIDE.value, decisioning_engine=None):
     """Process Delivery API response"""
     _id = response.id or VisitorId()
     edge_host = response.edge_host

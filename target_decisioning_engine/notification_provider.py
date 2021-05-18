@@ -12,13 +12,15 @@
 import threading
 
 from delivery_api_client import Notification
+from delivery_api_client import DeliveryRequest
+from delivery_api_client import Telemetry
 from delivery_api_client import NotificationMbox
 from delivery_api_client import MetricType
 from delivery_api_client import TelemetryFeatures
 from delivery_api_client import DecisioningMethod
 from target_decisioning_engine.constants import LOG_PREFIX
-from target_python_sdk.utils import get_epoch_time_milliseconds
-from target_python_sdk.utils import create_uuid
+from target_tools.utils import get_epoch_time_milliseconds
+from target_tools.utils import create_uuid
 from target_tools.logger import get_logger
 from target_tools.utils import noop
 
@@ -98,24 +100,16 @@ class NotificationProvider:
         context = self.request.context
         experience_cloud = self.request.experience_cloud
 
-        notification = {
-            "request": {
-                "id": _id,
-                "context": context,
-                "experienceCloud": experience_cloud
-            },
+        notifications = self.notifications if self.notifications else None
+        telemetry = Telemetry(entries=self.telemetry_entries) if self.telemetry_entries else None
+        request = DeliveryRequest(id=_id, context=context, experience_cloud=experience_cloud,
+                                  notifications=notifications, telemetry=telemetry)
+        send_notification_opts = {
+            "request": request,
             "visitor": self.visitor
         }
 
-        if self.notifications:
-            notification["request"]["notifications"] = self.notifications
-
-        if self.telemetry_entries:
-            notification["request"]["telemetry"] = {
-                "entries": self.telemetry_entries
-            }
-
-        async_send = threading.Thread(target=self.send_notification_func, args=(notification,))
+        async_send = threading.Thread(target=self.send_notification_func, args=(send_notification_opts,))
         async_send.start()
         self.notifications = []
         self.telemetry_entries = []

@@ -19,7 +19,7 @@ from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.utils import parse_url
 from target_decisioning_engine.utils import determine_artifact_location
 from target_decisioning_engine.utils import has_remote_dependency
-from target_python_sdk.tests.delivery_request_setup import create_delivery_request
+from target_tools.tests.delivery_request_setup import create_delivery_request
 from target_tools.constants import EMPTY_STRING
 from target_tools.constants import ENVIRONMENT_DEV
 from target_tools.constants import ENVIRONMENT_STAGE
@@ -117,8 +117,8 @@ class TestUtils(unittest.TestCase):
         result = has_remote_dependency(artifact, request)
 
         self.assertEqual(result.get("remote_needed"), True)
-        self.assertEqual(result.get("remote_mboxes"), {"mbox1", "mbox3"})
-        self.assertEqual(result.get("remote_views"), {"view1", "view3"})
+        self.assertEqual(set(result.get("remote_mboxes")), set(["mbox1", "mbox3"]))
+        self.assertEqual(set(result.get("remote_views")), set(["view1", "view3"]))
 
     def test_determine_artifact_location(self):
         config = DecisioningConfig("MyClient", "12345@AdobeOrg", environment=ENVIRONMENT_DEV,

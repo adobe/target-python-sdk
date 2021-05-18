@@ -22,7 +22,7 @@ from urllib3_mock import Responses
 from delivery_api_client import ChannelType
 from target_python_sdk import TargetClient
 from target_python_sdk.tests.delivery_api_mock import setup_mock
-from target_python_sdk.tests.delivery_request_setup import create_delivery_request
+from target_tools.tests.delivery_request_setup import create_delivery_request
 
 responses = Responses("requests.packages.urllib3")
 

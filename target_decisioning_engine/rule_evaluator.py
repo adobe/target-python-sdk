@@ -13,12 +13,12 @@
 # pylint: disable=no-self-use
 from copy import deepcopy
 from json_logic import jsonLogic
-from target_python_sdk.utils import to_dict
 from target_decisioning_engine.allocation_provider import compute_allocation
 from target_decisioning_engine.constants import ACTIVITY_ID
 from target_decisioning_engine.context_provider import create_page_context
 from target_decisioning_engine.context_provider import create_mbox_context
 from target_tools.response_helpers import create_mbox_response
+from target_tools.utils import to_dict
 
 
 class RuleEvaluator:

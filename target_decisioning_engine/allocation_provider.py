@@ -9,8 +9,8 @@
 # governing permissions and limitations under the License.
 """Allocation provider"""
 from target_decisioning_engine.constants import CAMPAIGN_BUCKET_SALT
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import create_uuid
+from target_tools.utils import is_string
+from target_tools.utils import create_uuid
 from target_tools.hashing import hash_unencoded_chars
 from target_tools.utils import memoize
 

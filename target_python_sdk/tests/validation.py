@@ -16,8 +16,8 @@ from delivery_api_client import PrefetchResponse
 from delivery_api_client import PageLoadResponse
 from delivery_api_client import MboxResponse
 from delivery_api_client import PrefetchMboxResponse
-from target_python_sdk.tests.helpers import expect_to_match_object
-from target_python_sdk.utils import to_dict
+from target_tools.tests.helpers import expect_to_match_object
+from target_tools.utils import to_dict
 
 
 def validate_option(_self, option):

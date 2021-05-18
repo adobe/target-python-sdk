@@ -25,6 +25,7 @@ import urllib3
 from delivery_api_client import Geo
 from target_tools.logger import get_logger
 from target_tools.utils import noop
+from target_tools.utils import parse_float
 from target_decisioning_engine.constants import HTTP_GET
 from target_decisioning_engine.constants import OK
 from target_decisioning_engine.events import GEO_LOCATION_UPDATED
@@ -35,7 +36,6 @@ from target_decisioning_engine.constants import HTTP_HEADER_GEO_LONGITUDE
 from target_decisioning_engine.constants import HTTP_HEADER_GEO_COUNTRY
 from target_decisioning_engine.constants import HTTP_HEADER_GEO_REGION
 from target_decisioning_engine.constants import HTTP_HEADER_GEO_CITY
-from target_python_sdk.utils import parse_float
 
 
 GEO_MAPPINGS = [

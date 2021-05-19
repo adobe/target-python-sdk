@@ -33,7 +33,7 @@ jobs:
         with:
           parallel: true
           flag-name: Python-${{ matrix.python-version }}
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           debug: true
 
   coveralls_finish:

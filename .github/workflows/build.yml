@@ -29,12 +29,12 @@ jobs:
         run: |
           make pre_build
       - name: generate coveralls coverage
-          uses: AndreMiras/coveralls-python-action@develop
-          with:
-            parallel: true
-            flag-name: Python-${{ matrix.python-version }}
-            github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
-            debug: true
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel: true
+          flag-name: Python-${{ matrix.python-version }}
+          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          debug: true
 
   coveralls_finish:
     name: Report Coverage

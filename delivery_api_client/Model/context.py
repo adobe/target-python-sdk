@@ -58,8 +58,8 @@ class Context(object):
         'beacon': 'beacon'
     }
 
-    def __init__(self, channel=None, mobile_platform=None, application=None, screen=None, window=None, browser=None, address=None, geo=None, time_offset_in_minutes=None, user_agent=None, beacon=False):  # noqa: E501
-        """Context - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, channel=None, mobile_platform=None, application=None, screen=None, window=None, browser=None, address=None, geo=None, time_offset_in_minutes=None, user_agent=None, beacon=False):
+        """Context - a model defined in OpenAPI"""
 
         self._channel = None
         self._mobile_platform = None
@@ -98,10 +98,10 @@ class Context(object):
 
     @property
     def channel(self):
-        """Gets the channel of this Context.  # noqa: E501
+        """Gets the channel of this Context.
 
 
-        :return: The channel of this Context.  # noqa: E501
+        :return: The channel of this Context.
         :rtype: ChannelType
         """
         return self._channel
@@ -111,20 +111,20 @@ class Context(object):
         """Sets the channel of this Context.
 
 
-        :param channel: The channel of this Context.  # noqa: E501
+        :param channel: The channel of this Context.
         :type: ChannelType
         """
         if channel is None:
-            raise ValueError("Invalid value for `channel`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `channel`, must not be `None`")
 
         self._channel = channel
 
     @property
     def mobile_platform(self):
-        """Gets the mobile_platform of this Context.  # noqa: E501
+        """Gets the mobile_platform of this Context.
 
 
-        :return: The mobile_platform of this Context.  # noqa: E501
+        :return: The mobile_platform of this Context.
         :rtype: MobilePlatform
         """
         return self._mobile_platform
@@ -134,7 +134,7 @@ class Context(object):
         """Sets the mobile_platform of this Context.
 
 
-        :param mobile_platform: The mobile_platform of this Context.  # noqa: E501
+        :param mobile_platform: The mobile_platform of this Context.
         :type: MobilePlatform
         """
 
@@ -142,10 +142,10 @@ class Context(object):
 
     @property
     def application(self):
-        """Gets the application of this Context.  # noqa: E501
+        """Gets the application of this Context.
 
 
-        :return: The application of this Context.  # noqa: E501
+        :return: The application of this Context.
         :rtype: Application
         """
         return self._application
@@ -155,7 +155,7 @@ class Context(object):
         """Sets the application of this Context.
 
 
-        :param application: The application of this Context.  # noqa: E501
+        :param application: The application of this Context.
         :type: Application
         """
 
@@ -163,10 +163,10 @@ class Context(object):
 
     @property
     def screen(self):
-        """Gets the screen of this Context.  # noqa: E501
+        """Gets the screen of this Context.
 
 
-        :return: The screen of this Context.  # noqa: E501
+        :return: The screen of this Context.
         :rtype: Screen
         """
         return self._screen
@@ -176,7 +176,7 @@ class Context(object):
         """Sets the screen of this Context.
 
 
-        :param screen: The screen of this Context.  # noqa: E501
+        :param screen: The screen of this Context.
         :type: Screen
         """
 
@@ -184,10 +184,10 @@ class Context(object):
 
     @property
     def window(self):
-        """Gets the window of this Context.  # noqa: E501
+        """Gets the window of this Context.
 
 
-        :return: The window of this Context.  # noqa: E501
+        :return: The window of this Context.
         :rtype: Window
         """
         return self._window
@@ -197,7 +197,7 @@ class Context(object):
         """Sets the window of this Context.
 
 
-        :param window: The window of this Context.  # noqa: E501
+        :param window: The window of this Context.
         :type: Window
         """
 
@@ -205,10 +205,10 @@ class Context(object):
 
     @property
     def browser(self):
-        """Gets the browser of this Context.  # noqa: E501
+        """Gets the browser of this Context.
 
 
-        :return: The browser of this Context.  # noqa: E501
+        :return: The browser of this Context.
         :rtype: Browser
         """
         return self._browser
@@ -218,7 +218,7 @@ class Context(object):
         """Sets the browser of this Context.
 
 
-        :param browser: The browser of this Context.  # noqa: E501
+        :param browser: The browser of this Context.
         :type: Browser
         """
 
@@ -226,10 +226,10 @@ class Context(object):
 
     @property
     def address(self):
-        """Gets the address of this Context.  # noqa: E501
+        """Gets the address of this Context.
 
 
-        :return: The address of this Context.  # noqa: E501
+        :return: The address of this Context.
         :rtype: Address
         """
         return self._address
@@ -239,7 +239,7 @@ class Context(object):
         """Sets the address of this Context.
 
 
-        :param address: The address of this Context.  # noqa: E501
+        :param address: The address of this Context.
         :type: Address
         """
 
@@ -247,10 +247,10 @@ class Context(object):
 
     @property
     def geo(self):
-        """Gets the geo of this Context.  # noqa: E501
+        """Gets the geo of this Context.
 
 
-        :return: The geo of this Context.  # noqa: E501
+        :return: The geo of this Context.
         :rtype: Geo
         """
         return self._geo
@@ -260,7 +260,7 @@ class Context(object):
         """Sets the geo of this Context.
 
 
-        :param geo: The geo of this Context.  # noqa: E501
+        :param geo: The geo of this Context.
         :type: Geo
         """
 
@@ -268,11 +268,11 @@ class Context(object):
 
     @property
     def time_offset_in_minutes(self):
-        """Gets the time_offset_in_minutes of this Context.  # noqa: E501
+        """Gets the time_offset_in_minutes of this Context.
 
-        Specifies minutes from UTC for specific client  # noqa: E501
+        Specifies minutes from UTC for specific client
 
-        :return: The time_offset_in_minutes of this Context.  # noqa: E501
+        :return: The time_offset_in_minutes of this Context.
         :rtype: float
         """
         return self._time_offset_in_minutes
@@ -281,9 +281,9 @@ class Context(object):
     def time_offset_in_minutes(self, time_offset_in_minutes):
         """Sets the time_offset_in_minutes of this Context.
 
-        Specifies minutes from UTC for specific client  # noqa: E501
+        Specifies minutes from UTC for specific client
 
-        :param time_offset_in_minutes: The time_offset_in_minutes of this Context.  # noqa: E501
+        :param time_offset_in_minutes: The time_offset_in_minutes of this Context.
         :type: float
         """
 
@@ -291,11 +291,11 @@ class Context(object):
 
     @property
     def user_agent(self):
-        """Gets the user_agent of this Context.  # noqa: E501
+        """Gets the user_agent of this Context.
 
-        User-Agent should be sent only via this property. HTTP header User-Agent is ignored.  # noqa: E501
+        User-Agent should be sent only via this property. HTTP header User-Agent is ignored.
 
-        :return: The user_agent of this Context.  # noqa: E501
+        :return: The user_agent of this Context.
         :rtype: str
         """
         return self._user_agent
@@ -304,9 +304,9 @@ class Context(object):
     def user_agent(self, user_agent):
         """Sets the user_agent of this Context.
 
-        User-Agent should be sent only via this property. HTTP header User-Agent is ignored.  # noqa: E501
+        User-Agent should be sent only via this property. HTTP header User-Agent is ignored.
 
-        :param user_agent: The user_agent of this Context.  # noqa: E501
+        :param user_agent: The user_agent of this Context.
         :type: str
         """
 
@@ -314,11 +314,11 @@ class Context(object):
 
     @property
     def beacon(self):
-        """Gets the beacon of this Context.  # noqa: E501
+        """Gets the beacon of this Context.
 
-        In case beacon = true is provided in the request, the server will return a 204 No Content response with no response body.   # noqa: E501
+        In case beacon = true is provided in the request, the server will return a 204 No Content response with no response body. 
 
-        :return: The beacon of this Context.  # noqa: E501
+        :return: The beacon of this Context.
         :rtype: bool
         """
         return self._beacon
@@ -327,9 +327,9 @@ class Context(object):
     def beacon(self, beacon):
         """Sets the beacon of this Context.
 
-        In case beacon = true is provided in the request, the server will return a 204 No Content response with no response body.   # noqa: E501
+        In case beacon = true is provided in the request, the server will return a 204 No Content response with no response body. 
 
-        :param beacon: The beacon of this Context.  # noqa: E501
+        :param beacon: The beacon of this Context.
         :type: bool
         """
 

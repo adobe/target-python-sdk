@@ -44,8 +44,8 @@ class AnalyticsRequest(object):
         'tracking_server_secure': 'trackingServerSecure'
     }
 
-    def __init__(self, supplemental_data_id=None, logging=None, tracking_server=None, tracking_server_secure=None):  # noqa: E501
-        """AnalyticsRequest - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, supplemental_data_id=None, logging=None, tracking_server=None, tracking_server_secure=None):
+        """AnalyticsRequest - a model defined in OpenAPI"""
 
         self._supplemental_data_id = None
         self._logging = None
@@ -64,11 +64,11 @@ class AnalyticsRequest(object):
 
     @property
     def supplemental_data_id(self):
-        """Gets the supplemental_data_id of this AnalyticsRequest.  # noqa: E501
+        """Gets the supplemental_data_id of this AnalyticsRequest.
 
-        Supplemental data id, used for **server side** integrations. Format <16 hexadecimal digits>-<16 hexadecimal digits>   # noqa: E501
+        Supplemental data id, used for **server side** integrations. Format <16 hexadecimal digits>-<16 hexadecimal digits> 
 
-        :return: The supplemental_data_id of this AnalyticsRequest.  # noqa: E501
+        :return: The supplemental_data_id of this AnalyticsRequest.
         :rtype: str
         """
         return self._supplemental_data_id
@@ -77,24 +77,24 @@ class AnalyticsRequest(object):
     def supplemental_data_id(self, supplemental_data_id):
         """Sets the supplemental_data_id of this AnalyticsRequest.
 
-        Supplemental data id, used for **server side** integrations. Format <16 hexadecimal digits>-<16 hexadecimal digits>   # noqa: E501
+        Supplemental data id, used for **server side** integrations. Format <16 hexadecimal digits>-<16 hexadecimal digits> 
 
-        :param supplemental_data_id: The supplemental_data_id of this AnalyticsRequest.  # noqa: E501
+        :param supplemental_data_id: The supplemental_data_id of this AnalyticsRequest.
         :type: str
         """
         if supplemental_data_id is not None and len(supplemental_data_id) > 33:
-            raise ValueError("Invalid value for `supplemental_data_id`, length must be less than or equal to `33`")  # noqa: E501
+            raise ValueError("Invalid value for `supplemental_data_id`, length must be less than or equal to `33`")
         if supplemental_data_id is not None and len(supplemental_data_id) < 33:
-            raise ValueError("Invalid value for `supplemental_data_id`, length must be greater than or equal to `33`")  # noqa: E501
+            raise ValueError("Invalid value for `supplemental_data_id`, length must be greater than or equal to `33`")
 
         self._supplemental_data_id = supplemental_data_id
 
     @property
     def logging(self):
-        """Gets the logging of this AnalyticsRequest.  # noqa: E501
+        """Gets the logging of this AnalyticsRequest.
 
 
-        :return: The logging of this AnalyticsRequest.  # noqa: E501
+        :return: The logging of this AnalyticsRequest.
         :rtype: LoggingType
         """
         return self._logging
@@ -104,7 +104,7 @@ class AnalyticsRequest(object):
         """Sets the logging of this AnalyticsRequest.
 
 
-        :param logging: The logging of this AnalyticsRequest.  # noqa: E501
+        :param logging: The logging of this AnalyticsRequest.
         :type: LoggingType
         """
 
@@ -112,11 +112,11 @@ class AnalyticsRequest(object):
 
     @property
     def tracking_server(self):
-        """Gets the tracking_server of this AnalyticsRequest.  # noqa: E501
+        """Gets the tracking_server of this AnalyticsRequest.
 
-        tracking server  # noqa: E501
+        tracking server
 
-        :return: The tracking_server of this AnalyticsRequest.  # noqa: E501
+        :return: The tracking_server of this AnalyticsRequest.
         :rtype: str
         """
         return self._tracking_server
@@ -125,9 +125,9 @@ class AnalyticsRequest(object):
     def tracking_server(self, tracking_server):
         """Sets the tracking_server of this AnalyticsRequest.
 
-        tracking server  # noqa: E501
+        tracking server
 
-        :param tracking_server: The tracking_server of this AnalyticsRequest.  # noqa: E501
+        :param tracking_server: The tracking_server of this AnalyticsRequest.
         :type: str
         """
 
@@ -135,11 +135,11 @@ class AnalyticsRequest(object):
 
     @property
     def tracking_server_secure(self):
-        """Gets the tracking_server_secure of this AnalyticsRequest.  # noqa: E501
+        """Gets the tracking_server_secure of this AnalyticsRequest.
 
-        secure tracking server  # noqa: E501
+        secure tracking server
 
-        :return: The tracking_server_secure of this AnalyticsRequest.  # noqa: E501
+        :return: The tracking_server_secure of this AnalyticsRequest.
         :rtype: str
         """
         return self._tracking_server_secure
@@ -148,9 +148,9 @@ class AnalyticsRequest(object):
     def tracking_server_secure(self, tracking_server_secure):
         """Sets the tracking_server_secure of this AnalyticsRequest.
 
-        secure tracking server  # noqa: E501
+        secure tracking server
 
-        :param tracking_server_secure: The tracking_server_secure of this AnalyticsRequest.  # noqa: E501
+        :param tracking_server_secure: The tracking_server_secure of this AnalyticsRequest.
         :type: str
         """
 

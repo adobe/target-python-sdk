@@ -44,8 +44,8 @@ class MobilePlatform(object):
         'version': 'version'
     }
 
-    def __init__(self, device_name=None, device_type=None, platform_type=None, version=None):  # noqa: E501
-        """MobilePlatform - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, device_name=None, device_type=None, platform_type=None, version=None):
+        """MobilePlatform - a model defined in OpenAPI"""
 
         self._device_name = None
         self._device_type = None
@@ -62,11 +62,11 @@ class MobilePlatform(object):
 
     @property
     def device_name(self):
-        """Gets the device_name of this MobilePlatform.  # noqa: E501
+        """Gets the device_name of this MobilePlatform.
 
-        Optional field, added to help with device detection using device atlas. This is equivalent of a.DeviceName field passed in from Mobile SDK   # noqa: E501
+        Optional field, added to help with device detection using device atlas. This is equivalent of a.DeviceName field passed in from Mobile SDK 
 
-        :return: The device_name of this MobilePlatform.  # noqa: E501
+        :return: The device_name of this MobilePlatform.
         :rtype: str
         """
         return self._device_name
@@ -75,9 +75,9 @@ class MobilePlatform(object):
     def device_name(self, device_name):
         """Sets the device_name of this MobilePlatform.
 
-        Optional field, added to help with device detection using device atlas. This is equivalent of a.DeviceName field passed in from Mobile SDK   # noqa: E501
+        Optional field, added to help with device detection using device atlas. This is equivalent of a.DeviceName field passed in from Mobile SDK 
 
-        :param device_name: The device_name of this MobilePlatform.  # noqa: E501
+        :param device_name: The device_name of this MobilePlatform.
         :type: str
         """
 
@@ -85,10 +85,10 @@ class MobilePlatform(object):
 
     @property
     def device_type(self):
-        """Gets the device_type of this MobilePlatform.  # noqa: E501
+        """Gets the device_type of this MobilePlatform.
 
 
-        :return: The device_type of this MobilePlatform.  # noqa: E501
+        :return: The device_type of this MobilePlatform.
         :rtype: DeviceType
         """
         return self._device_type
@@ -98,20 +98,20 @@ class MobilePlatform(object):
         """Sets the device_type of this MobilePlatform.
 
 
-        :param device_type: The device_type of this MobilePlatform.  # noqa: E501
+        :param device_type: The device_type of this MobilePlatform.
         :type: DeviceType
         """
         if device_type is None:
-            raise ValueError("Invalid value for `device_type`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `device_type`, must not be `None`")
 
         self._device_type = device_type
 
     @property
     def platform_type(self):
-        """Gets the platform_type of this MobilePlatform.  # noqa: E501
+        """Gets the platform_type of this MobilePlatform.
 
 
-        :return: The platform_type of this MobilePlatform.  # noqa: E501
+        :return: The platform_type of this MobilePlatform.
         :rtype: MobilePlatformType
         """
         return self._platform_type
@@ -121,21 +121,21 @@ class MobilePlatform(object):
         """Sets the platform_type of this MobilePlatform.
 
 
-        :param platform_type: The platform_type of this MobilePlatform.  # noqa: E501
+        :param platform_type: The platform_type of this MobilePlatform.
         :type: MobilePlatformType
         """
         if platform_type is None:
-            raise ValueError("Invalid value for `platform_type`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `platform_type`, must not be `None`")
 
         self._platform_type = platform_type
 
     @property
     def version(self):
-        """Gets the version of this MobilePlatform.  # noqa: E501
+        """Gets the version of this MobilePlatform.
 
-        If not specified - all activities with any platformVersion will be evaluated. If specified - only activities with the same platformVersion will be evaluated.   # noqa: E501
+        If not specified - all activities with any platformVersion will be evaluated. If specified - only activities with the same platformVersion will be evaluated. 
 
-        :return: The version of this MobilePlatform.  # noqa: E501
+        :return: The version of this MobilePlatform.
         :rtype: str
         """
         return self._version
@@ -144,13 +144,13 @@ class MobilePlatform(object):
     def version(self, version):
         """Sets the version of this MobilePlatform.
 
-        If not specified - all activities with any platformVersion will be evaluated. If specified - only activities with the same platformVersion will be evaluated.   # noqa: E501
+        If not specified - all activities with any platformVersion will be evaluated. If specified - only activities with the same platformVersion will be evaluated. 
 
-        :param version: The version of this MobilePlatform.  # noqa: E501
+        :param version: The version of this MobilePlatform.
         :type: str
         """
         if version is not None and len(version) > 128:
-            raise ValueError("Invalid value for `version`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `version`, length must be less than or equal to `128`")
 
         self._version = version
 

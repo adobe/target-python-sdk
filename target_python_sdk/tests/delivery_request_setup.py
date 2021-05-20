@@ -9,6 +9,8 @@
 # governing permissions and limitations under the License.
 """Testing helper functions for transforming dicts to DeliveryRequest models"""
 from delivery_api_client import VisitorId
+from delivery_api_client import Preview
+from delivery_api_client import QAMode
 from delivery_api_client import Trace
 from delivery_api_client import CustomerId
 from delivery_api_client import Context
@@ -276,6 +278,16 @@ def create_trace(trace):
                  usage=trace.get("usage")) if trace is not None else None
 
 
+def create_preview(preview):
+    """Creates Preview object"""
+    return Preview(token=preview.get("token")) if preview and preview.get("token") else None
+
+
+def create_qa_mode(qa_mode):
+    """Creates QAMode object"""
+    return QAMode(token=qa_mode.get("token")) if qa_mode and qa_mode.get("token") else None
+
+
 def create_delivery_request(request_dict):
     """Create new DeliveryRequest from request dict"""
     _id = create_visitor_id(request_dict.get('id'))
@@ -287,8 +299,10 @@ def create_delivery_request(request_dict):
     notifications = create_notifications(request_dict.get('notifications'))
     trace = create_trace(request_dict.get('trace'))
     request_id = request_dict.get("requestId")
+    qa_mode = create_qa_mode(request_dict.get("qaMode"))
+    preview = create_preview(request_dict.get("preview"))
     delivery_request = DeliveryRequest(id=_id, _property=_property, context=context,
                                        experience_cloud=experience_cloud, execute=execute,
                                        prefetch=prefetch, notifications=notifications, trace=trace,
-                                       request_id=request_id)
+                                       request_id=request_id, qa_mode=qa_mode, preview=preview)
     return delivery_request

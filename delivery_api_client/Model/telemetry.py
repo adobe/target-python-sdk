@@ -38,8 +38,8 @@ class Telemetry(object):
         'entries': 'entries'
     }
 
-    def __init__(self, entries=None):  # noqa: E501
-        """Telemetry - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, entries=None):
+        """Telemetry - a model defined in OpenAPI"""
 
         self._entries = None
         self.discriminator = None
@@ -49,11 +49,11 @@ class Telemetry(object):
 
     @property
     def entries(self):
-        """Gets the entries of this Telemetry.  # noqa: E501
+        """Gets the entries of this Telemetry.
 
-        An array of Telemetry Entries.  # noqa: E501
+        An array of Telemetry Entries.
 
-        :return: The entries of this Telemetry.  # noqa: E501
+        :return: The entries of this Telemetry.
         :rtype: list[TelemetryEntry]
         """
         return self._entries
@@ -62,9 +62,9 @@ class Telemetry(object):
     def entries(self, entries):
         """Sets the entries of this Telemetry.
 
-        An array of Telemetry Entries.  # noqa: E501
+        An array of Telemetry Entries.
 
-        :param entries: The entries of this Telemetry.  # noqa: E501
+        :param entries: The entries of this Telemetry.
         :type: list[TelemetryEntry]
         """
 

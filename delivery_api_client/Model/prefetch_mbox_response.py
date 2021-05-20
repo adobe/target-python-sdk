@@ -50,8 +50,8 @@ class PrefetchMboxResponse(object):
         'state': 'state'
     }
 
-    def __init__(self, index=None, name=None, options=None, metrics=None, analytics=None, trace=None, state=None):  # noqa: E501
-        """PrefetchMboxResponse - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, index=None, name=None, options=None, metrics=None, analytics=None, trace=None, state=None):
+        """PrefetchMboxResponse - a model defined in OpenAPI"""
 
         self._index = None
         self._name = None
@@ -79,11 +79,11 @@ class PrefetchMboxResponse(object):
 
     @property
     def index(self):
-        """Gets the index of this PrefetchMboxResponse.  # noqa: E501
+        """Gets the index of this PrefetchMboxResponse.
 
-        Indicates that the response is for mbox with the same index, as was specified in the prefetch or execute request.   # noqa: E501
+        Indicates that the response is for mbox with the same index, as was specified in the prefetch or execute request. 
 
-        :return: The index of this PrefetchMboxResponse.  # noqa: E501
+        :return: The index of this PrefetchMboxResponse.
         :rtype: int
         """
         return self._index
@@ -92,9 +92,9 @@ class PrefetchMboxResponse(object):
     def index(self, index):
         """Sets the index of this PrefetchMboxResponse.
 
-        Indicates that the response is for mbox with the same index, as was specified in the prefetch or execute request.   # noqa: E501
+        Indicates that the response is for mbox with the same index, as was specified in the prefetch or execute request. 
 
-        :param index: The index of this PrefetchMboxResponse.  # noqa: E501
+        :param index: The index of this PrefetchMboxResponse.
         :type: int
         """
 
@@ -102,11 +102,11 @@ class PrefetchMboxResponse(object):
 
     @property
     def name(self):
-        """Gets the name of this PrefetchMboxResponse.  # noqa: E501
+        """Gets the name of this PrefetchMboxResponse.
 
-        The name of the mbox. Since the same mbox name can be specified multiple times in the request it should be used in conjunction with the index.   # noqa: E501
+        The name of the mbox. Since the same mbox name can be specified multiple times in the request it should be used in conjunction with the index. 
 
-        :return: The name of this PrefetchMboxResponse.  # noqa: E501
+        :return: The name of this PrefetchMboxResponse.
         :rtype: str
         """
         return self._name
@@ -115,9 +115,9 @@ class PrefetchMboxResponse(object):
     def name(self, name):
         """Sets the name of this PrefetchMboxResponse.
 
-        The name of the mbox. Since the same mbox name can be specified multiple times in the request it should be used in conjunction with the index.   # noqa: E501
+        The name of the mbox. Since the same mbox name can be specified multiple times in the request it should be used in conjunction with the index. 
 
-        :param name: The name of this PrefetchMboxResponse.  # noqa: E501
+        :param name: The name of this PrefetchMboxResponse.
         :type: str
         """
 
@@ -125,11 +125,11 @@ class PrefetchMboxResponse(object):
 
     @property
     def options(self):
-        """Gets the options of this PrefetchMboxResponse.  # noqa: E501
+        """Gets the options of this PrefetchMboxResponse.
 
-        The option that was matched for the current mbox. Cannot be an offer with templates or a visual offer.   # noqa: E501
+        The option that was matched for the current mbox. Cannot be an offer with templates or a visual offer. 
 
-        :return: The options of this PrefetchMboxResponse.  # noqa: E501
+        :return: The options of this PrefetchMboxResponse.
         :rtype: list[Option]
         """
         return self._options
@@ -138,9 +138,9 @@ class PrefetchMboxResponse(object):
     def options(self, options):
         """Sets the options of this PrefetchMboxResponse.
 
-        The option that was matched for the current mbox. Cannot be an offer with templates or a visual offer.   # noqa: E501
+        The option that was matched for the current mbox. Cannot be an offer with templates or a visual offer. 
 
-        :param options: The options of this PrefetchMboxResponse.  # noqa: E501
+        :param options: The options of this PrefetchMboxResponse.
         :type: list[Option]
         """
 
@@ -148,11 +148,11 @@ class PrefetchMboxResponse(object):
 
     @property
     def metrics(self):
-        """Gets the metrics of this PrefetchMboxResponse.  # noqa: E501
+        """Gets the metrics of this PrefetchMboxResponse.
 
-        Click metrics.  # noqa: E501
+        Click metrics.
 
-        :return: The metrics of this PrefetchMboxResponse.  # noqa: E501
+        :return: The metrics of this PrefetchMboxResponse.
         :rtype: list[Metric]
         """
         return self._metrics
@@ -161,9 +161,9 @@ class PrefetchMboxResponse(object):
     def metrics(self, metrics):
         """Sets the metrics of this PrefetchMboxResponse.
 
-        Click metrics.  # noqa: E501
+        Click metrics.
 
-        :param metrics: The metrics of this PrefetchMboxResponse.  # noqa: E501
+        :param metrics: The metrics of this PrefetchMboxResponse.
         :type: list[Metric]
         """
 
@@ -171,10 +171,10 @@ class PrefetchMboxResponse(object):
 
     @property
     def analytics(self):
-        """Gets the analytics of this PrefetchMboxResponse.  # noqa: E501
+        """Gets the analytics of this PrefetchMboxResponse.
 
 
-        :return: The analytics of this PrefetchMboxResponse.  # noqa: E501
+        :return: The analytics of this PrefetchMboxResponse.
         :rtype: AnalyticsResponse
         """
         return self._analytics
@@ -184,7 +184,7 @@ class PrefetchMboxResponse(object):
         """Sets the analytics of this PrefetchMboxResponse.
 
 
-        :param analytics: The analytics of this PrefetchMboxResponse.  # noqa: E501
+        :param analytics: The analytics of this PrefetchMboxResponse.
         :type: AnalyticsResponse
         """
 
@@ -192,11 +192,11 @@ class PrefetchMboxResponse(object):
 
     @property
     def trace(self):
-        """Gets the trace of this PrefetchMboxResponse.  # noqa: E501
+        """Gets the trace of this PrefetchMboxResponse.
 
-        The object containing all trace data for the request, only present if the trace token was provided in the request.   # noqa: E501
+        The object containing all trace data for the request, only present if the trace token was provided in the request. 
 
-        :return: The trace of this PrefetchMboxResponse.  # noqa: E501
+        :return: The trace of this PrefetchMboxResponse.
         :rtype: dict(str, object)
         """
         return self._trace
@@ -205,9 +205,9 @@ class PrefetchMboxResponse(object):
     def trace(self, trace):
         """Sets the trace of this PrefetchMboxResponse.
 
-        The object containing all trace data for the request, only present if the trace token was provided in the request.   # noqa: E501
+        The object containing all trace data for the request, only present if the trace token was provided in the request. 
 
-        :param trace: The trace of this PrefetchMboxResponse.  # noqa: E501
+        :param trace: The trace of this PrefetchMboxResponse.
         :type: dict(str, object)
         """
 
@@ -215,11 +215,11 @@ class PrefetchMboxResponse(object):
 
     @property
     def state(self):
-        """Gets the state of this PrefetchMboxResponse.  # noqa: E501
+        """Gets the state of this PrefetchMboxResponse.
 
-        Mbox state token that must be sent back with display notification for the mbox.  # noqa: E501
+        Mbox state token that must be sent back with display notification for the mbox.
 
-        :return: The state of this PrefetchMboxResponse.  # noqa: E501
+        :return: The state of this PrefetchMboxResponse.
         :rtype: str
         """
         return self._state
@@ -228,9 +228,9 @@ class PrefetchMboxResponse(object):
     def state(self, state):
         """Sets the state of this PrefetchMboxResponse.
 
-        Mbox state token that must be sent back with display notification for the mbox.  # noqa: E501
+        Mbox state token that must be sent back with display notification for the mbox.
 
-        :param state: The state of this PrefetchMboxResponse.  # noqa: E501
+        :param state: The state of this PrefetchMboxResponse.
         :type: str
         """
 

@@ -42,8 +42,8 @@ class ScreenOrientationType(object):
     attribute_map = {
     }
 
-    def __init__(self):  # noqa: E501
-        """ScreenOrientationType - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self):
+        """ScreenOrientationType - a model defined in OpenAPI"""
         self.discriminator = None
 
     def to_dict(self):

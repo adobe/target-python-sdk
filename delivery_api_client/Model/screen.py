@@ -46,8 +46,8 @@ class Screen(object):
         'orientation': 'orientation'
     }
 
-    def __init__(self, width=None, height=None, color_depth=None, pixel_ratio=None, orientation=None):  # noqa: E501
-        """Screen - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, width=None, height=None, color_depth=None, pixel_ratio=None, orientation=None):
+        """Screen - a model defined in OpenAPI"""
 
         self._width = None
         self._height = None
@@ -69,11 +69,11 @@ class Screen(object):
 
     @property
     def width(self):
-        """Gets the width of this Screen.  # noqa: E501
+        """Gets the width of this Screen.
 
-        width  # noqa: E501
+        width
 
-        :return: The width of this Screen.  # noqa: E501
+        :return: The width of this Screen.
         :rtype: float
         """
         return self._width
@@ -82,9 +82,9 @@ class Screen(object):
     def width(self, width):
         """Sets the width of this Screen.
 
-        width  # noqa: E501
+        width
 
-        :param width: The width of this Screen.  # noqa: E501
+        :param width: The width of this Screen.
         :type: float
         """
 
@@ -92,11 +92,11 @@ class Screen(object):
 
     @property
     def height(self):
-        """Gets the height of this Screen.  # noqa: E501
+        """Gets the height of this Screen.
 
-        height  # noqa: E501
+        height
 
-        :return: The height of this Screen.  # noqa: E501
+        :return: The height of this Screen.
         :rtype: float
         """
         return self._height
@@ -105,9 +105,9 @@ class Screen(object):
     def height(self, height):
         """Sets the height of this Screen.
 
-        height  # noqa: E501
+        height
 
-        :param height: The height of this Screen.  # noqa: E501
+        :param height: The height of this Screen.
         :type: float
         """
 
@@ -115,11 +115,11 @@ class Screen(object):
 
     @property
     def color_depth(self):
-        """Gets the color_depth of this Screen.  # noqa: E501
+        """Gets the color_depth of this Screen.
 
-        color depth  # noqa: E501
+        color depth
 
-        :return: The color_depth of this Screen.  # noqa: E501
+        :return: The color_depth of this Screen.
         :rtype: float
         """
         return self._color_depth
@@ -128,9 +128,9 @@ class Screen(object):
     def color_depth(self, color_depth):
         """Sets the color_depth of this Screen.
 
-        color depth  # noqa: E501
+        color depth
 
-        :param color_depth: The color_depth of this Screen.  # noqa: E501
+        :param color_depth: The color_depth of this Screen.
         :type: float
         """
 
@@ -138,11 +138,11 @@ class Screen(object):
 
     @property
     def pixel_ratio(self):
-        """Gets the pixel_ratio of this Screen.  # noqa: E501
+        """Gets the pixel_ratio of this Screen.
 
-        Optional, Used for device detection using the device atlas  # noqa: E501
+        Optional, Used for device detection using the device atlas
 
-        :return: The pixel_ratio of this Screen.  # noqa: E501
+        :return: The pixel_ratio of this Screen.
         :rtype: float
         """
         return self._pixel_ratio
@@ -151,9 +151,9 @@ class Screen(object):
     def pixel_ratio(self, pixel_ratio):
         """Sets the pixel_ratio of this Screen.
 
-        Optional, Used for device detection using the device atlas  # noqa: E501
+        Optional, Used for device detection using the device atlas
 
-        :param pixel_ratio: The pixel_ratio of this Screen.  # noqa: E501
+        :param pixel_ratio: The pixel_ratio of this Screen.
         :type: float
         """
 
@@ -161,10 +161,10 @@ class Screen(object):
 
     @property
     def orientation(self):
-        """Gets the orientation of this Screen.  # noqa: E501
+        """Gets the orientation of this Screen.
 
 
-        :return: The orientation of this Screen.  # noqa: E501
+        :return: The orientation of this Screen.
         :rtype: ScreenOrientationType
         """
         return self._orientation
@@ -174,7 +174,7 @@ class Screen(object):
         """Sets the orientation of this Screen.
 
 
-        :param orientation: The orientation of this Screen.  # noqa: E501
+        :param orientation: The orientation of this Screen.
         :type: ScreenOrientationType
         """
 

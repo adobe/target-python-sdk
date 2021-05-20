@@ -50,8 +50,8 @@ class Order(object):
         'outlier': 'outlier'
     }
 
-    def __init__(self, id=None, total=None, purchased_product_ids=None, time=None, experience_local_id=None, duplicate=None, outlier=None):  # noqa: E501
-        """Order - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, id=None, total=None, purchased_product_ids=None, time=None, experience_local_id=None, duplicate=None, outlier=None):
+        """Order - a model defined in OpenAPI"""
 
         self._id = None
         self._total = None
@@ -79,11 +79,11 @@ class Order(object):
 
     @property
     def id(self):
-        """Gets the id of this Order.  # noqa: E501
+        """Gets the id of this Order.
 
-        Order Id.  # noqa: E501
+        Order Id.
 
-        :return: The id of this Order.  # noqa: E501
+        :return: The id of this Order.
         :rtype: str
         """
         return self._id
@@ -92,23 +92,23 @@ class Order(object):
     def id(self, id):
         """Sets the id of this Order.
 
-        Order Id.  # noqa: E501
+        Order Id.
 
-        :param id: The id of this Order.  # noqa: E501
+        :param id: The id of this Order.
         :type: str
         """
         if id is not None and len(id) > 250:
-            raise ValueError("Invalid value for `id`, length must be less than or equal to `250`")  # noqa: E501
+            raise ValueError("Invalid value for `id`, length must be less than or equal to `250`")
 
         self._id = id
 
     @property
     def total(self):
-        """Gets the total of this Order.  # noqa: E501
+        """Gets the total of this Order.
 
-        Order Total. The amount of money in the current order.   # noqa: E501
+        Order Total. The amount of money in the current order. 
 
-        :return: The total of this Order.  # noqa: E501
+        :return: The total of this Order.
         :rtype: float
         """
         return self._total
@@ -117,23 +117,23 @@ class Order(object):
     def total(self, total):
         """Sets the total of this Order.
 
-        Order Total. The amount of money in the current order.   # noqa: E501
+        Order Total. The amount of money in the current order. 
 
-        :param total: The total of this Order.  # noqa: E501
+        :param total: The total of this Order.
         :type: float
         """
-        if total is not None and total < 0:  # noqa: E501
-            raise ValueError("Invalid value for `total`, must be a value greater than or equal to `0`")  # noqa: E501
+        if total is not None and total < 0:
+            raise ValueError("Invalid value for `total`, must be a value greater than or equal to `0`")
 
         self._total = total
 
     @property
     def purchased_product_ids(self):
-        """Gets the purchased_product_ids of this Order.  # noqa: E501
+        """Gets the purchased_product_ids of this Order.
 
-        Order's product ids. Validation   * No blank values allowed.   * Each product Id max length 50.   * Product ids, separated by commas and concatenated, total length should not exceed 250.   # noqa: E501
+        Order's product ids. Validation   * No blank values allowed.   * Each product Id max length 50.   * Product ids, separated by commas and concatenated, total length should not exceed 250. 
 
-        :return: The purchased_product_ids of this Order.  # noqa: E501
+        :return: The purchased_product_ids of this Order.
         :rtype: list[str]
         """
         return self._purchased_product_ids
@@ -142,9 +142,9 @@ class Order(object):
     def purchased_product_ids(self, purchased_product_ids):
         """Sets the purchased_product_ids of this Order.
 
-        Order's product ids. Validation   * No blank values allowed.   * Each product Id max length 50.   * Product ids, separated by commas and concatenated, total length should not exceed 250.   # noqa: E501
+        Order's product ids. Validation   * No blank values allowed.   * Each product Id max length 50.   * Product ids, separated by commas and concatenated, total length should not exceed 250. 
 
-        :param purchased_product_ids: The purchased_product_ids of this Order.  # noqa: E501
+        :param purchased_product_ids: The purchased_product_ids of this Order.
         :type: list[str]
         """
 
@@ -152,11 +152,11 @@ class Order(object):
 
     @property
     def time(self):
-        """Gets the time of this Order.  # noqa: E501
+        """Gets the time of this Order.
 
-        Time in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) format   # noqa: E501
+        Time in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) format 
 
-        :return: The time of this Order.  # noqa: E501
+        :return: The time of this Order.
         :rtype: datetime
         """
         return self._time
@@ -165,9 +165,9 @@ class Order(object):
     def time(self, time):
         """Sets the time of this Order.
 
-        Time in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) format   # noqa: E501
+        Time in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) format 
 
-        :param time: The time of this Order.  # noqa: E501
+        :param time: The time of this Order.
         :type: datetime
         """
 
@@ -175,11 +175,11 @@ class Order(object):
 
     @property
     def experience_local_id(self):
-        """Gets the experience_local_id of this Order.  # noqa: E501
+        """Gets the experience_local_id of this Order.
 
-        Id used to track the experience across POST/PUT requests  # noqa: E501
+        Id used to track the experience across POST/PUT requests
 
-        :return: The experience_local_id of this Order.  # noqa: E501
+        :return: The experience_local_id of this Order.
         :rtype: int
         """
         return self._experience_local_id
@@ -188,25 +188,25 @@ class Order(object):
     def experience_local_id(self, experience_local_id):
         """Sets the experience_local_id of this Order.
 
-        Id used to track the experience across POST/PUT requests  # noqa: E501
+        Id used to track the experience across POST/PUT requests
 
-        :param experience_local_id: The experience_local_id of this Order.  # noqa: E501
+        :param experience_local_id: The experience_local_id of this Order.
         :type: int
         """
-        if experience_local_id is not None and experience_local_id > 2147483647:  # noqa: E501
-            raise ValueError("Invalid value for `experience_local_id`, must be a value less than or equal to `2147483647`")  # noqa: E501
-        if experience_local_id is not None and experience_local_id < 0:  # noqa: E501
-            raise ValueError("Invalid value for `experience_local_id`, must be a value greater than or equal to `0`")  # noqa: E501
+        if experience_local_id is not None and experience_local_id > 2147483647:
+            raise ValueError("Invalid value for `experience_local_id`, must be a value less than or equal to `2147483647`")
+        if experience_local_id is not None and experience_local_id < 0:
+            raise ValueError("Invalid value for `experience_local_id`, must be a value greater than or equal to `0`")
 
         self._experience_local_id = experience_local_id
 
     @property
     def duplicate(self):
-        """Gets the duplicate of this Order.  # noqa: E501
+        """Gets the duplicate of this Order.
 
-        Whether or not the order is a duplicate  # noqa: E501
+        Whether or not the order is a duplicate
 
-        :return: The duplicate of this Order.  # noqa: E501
+        :return: The duplicate of this Order.
         :rtype: bool
         """
         return self._duplicate
@@ -215,9 +215,9 @@ class Order(object):
     def duplicate(self, duplicate):
         """Sets the duplicate of this Order.
 
-        Whether or not the order is a duplicate  # noqa: E501
+        Whether or not the order is a duplicate
 
-        :param duplicate: The duplicate of this Order.  # noqa: E501
+        :param duplicate: The duplicate of this Order.
         :type: bool
         """
 
@@ -225,11 +225,11 @@ class Order(object):
 
     @property
     def outlier(self):
-        """Gets the outlier of this Order.  # noqa: E501
+        """Gets the outlier of this Order.
 
-        Whether or not the order is abnormally different from the rest in volume  # noqa: E501
+        Whether or not the order is abnormally different from the rest in volume
 
-        :return: The outlier of this Order.  # noqa: E501
+        :return: The outlier of this Order.
         :rtype: bool
         """
         return self._outlier
@@ -238,9 +238,9 @@ class Order(object):
     def outlier(self, outlier):
         """Sets the outlier of this Order.
 
-        Whether or not the order is abnormally different from the rest in volume  # noqa: E501
+        Whether or not the order is abnormally different from the rest in volume
 
-        :param outlier: The outlier of this Order.  # noqa: E501
+        :param outlier: The outlier of this Order.
         :type: bool
         """
 

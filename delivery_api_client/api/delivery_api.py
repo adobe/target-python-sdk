@@ -36,8 +36,8 @@ class DeliveryApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def execute(self, ims_org_id, session_id, delivery_request, **kwargs):  # noqa: E501
-        """Retrieve Target offers  # noqa: E501
+    def execute(self, ims_org_id, session_id, delivery_request, **kwargs):
+        """Retrieve Target offers
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -69,10 +69,10 @@ class DeliveryApi(object):
         :rtype: DeliveryResponse
         """
         kwargs['_return_http_data_only'] = True
-        return self.execute_with_http_info(ims_org_id, session_id, delivery_request, **kwargs)  # noqa: E501
+        return self.execute_with_http_info(ims_org_id, session_id, delivery_request, **kwargs)
 
-    def execute_with_http_info(self, ims_org_id, session_id, delivery_request, **kwargs):  # noqa: E501
-        """Retrieve Target offers  # noqa: E501
+    def execute_with_http_info(self, ims_org_id, session_id, delivery_request, **kwargs):
+        """Retrieve Target offers
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -141,29 +141,29 @@ class DeliveryApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'ims_org_id' is set
-        if self.api_client.client_side_validation and ('ims_org_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['ims_org_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `ims_org_id` when calling `execute`")  # noqa: E501
+        if self.api_client.client_side_validation and ('ims_org_id' not in local_var_params or
+                                                        local_var_params['ims_org_id'] is None):
+            raise ApiValueError("Missing the required parameter `ims_org_id` when calling `execute`")
         # verify the required parameter 'session_id' is set
-        if self.api_client.client_side_validation and ('session_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['session_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `session_id` when calling `execute`")  # noqa: E501
+        if self.api_client.client_side_validation and ('session_id' not in local_var_params or
+                                                        local_var_params['session_id'] is None):
+            raise ApiValueError("Missing the required parameter `session_id` when calling `execute`")
         # verify the required parameter 'delivery_request' is set
-        if self.api_client.client_side_validation and ('delivery_request' not in local_var_params or  # noqa: E501
-                                                        local_var_params['delivery_request'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `delivery_request` when calling `execute`")  # noqa: E501
+        if self.api_client.client_side_validation and ('delivery_request' not in local_var_params or
+                                                        local_var_params['delivery_request'] is None):
+            raise ApiValueError("Missing the required parameter `delivery_request` when calling `execute`")
 
         collection_formats = {}
 
         path_params = {}
 
         query_params = []
-        if 'ims_org_id' in local_var_params and local_var_params['ims_org_id'] is not None:  # noqa: E501
-            query_params.append(('imsOrgId', local_var_params['ims_org_id']))  # noqa: E501
-        if 'session_id' in local_var_params and local_var_params['session_id'] is not None:  # noqa: E501
-            query_params.append(('sessionId', local_var_params['session_id']))  # noqa: E501
-        if 'version' in local_var_params and local_var_params['version'] is not None:  # noqa: E501
-            query_params.append(('version', local_var_params['version']))  # noqa: E501
+        if 'ims_org_id' in local_var_params and local_var_params['ims_org_id'] is not None:
+            query_params.append(('imsOrgId', local_var_params['ims_org_id']))
+        if 'session_id' in local_var_params and local_var_params['session_id'] is not None:
+            query_params.append(('sessionId', local_var_params['session_id']))
+        if 'version' in local_var_params and local_var_params['version'] is not None:
+            query_params.append(('version', local_var_params['version']))
 
         header_params = local_var_params.get('headers', {})
 
@@ -175,14 +175,14 @@ class DeliveryApi(object):
             body_params = local_var_params['delivery_request']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['application/json'])
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params['Content-Type'] = self.api_client.select_header_content_type(
+            ['application/json'])
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = []
         
         response_types_map = {
             200: "DeliveryResponse",
@@ -200,7 +200,7 @@ class DeliveryApi(object):
             response_types_map=response_types_map,
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),
             _preload_content=local_var_params.get('_preload_content', True),
             _request_timeout=local_var_params.get('_all_params =request_timeout'),
             collection_formats=collection_formats,

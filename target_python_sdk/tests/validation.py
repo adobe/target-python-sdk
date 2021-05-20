@@ -16,6 +16,8 @@ from delivery_api_client import PrefetchResponse
 from delivery_api_client import PageLoadResponse
 from delivery_api_client import MboxResponse
 from delivery_api_client import PrefetchMboxResponse
+from target_python_sdk.tests.helpers import expect_to_match_object
+from target_python_sdk.utils import to_dict
 
 
 def validate_option(_self, option):
@@ -84,6 +86,20 @@ def validate_prefetch(_self, prefetch_resp, prefetch_req):
         validate_views(_self, prefetch_resp.views, prefetch_req.views)
 
 
+def validate_metrics(result_metrics, expected_metrics):
+    """Validate metrics"""
+    result_metrics = to_dict(result_metrics)
+    for index, expected_metric in enumerate(expected_metrics):
+        expect_to_match_object(result_metrics[index], expected_metric)
+
+
+def validate_notifications(_self, notifications_resp, notifications_req):
+    """Validate notifications"""
+    _self.assertEqual(len(notifications_resp), len(notifications_req))
+    for index, notification in enumerate(notifications_resp):
+        _self.assertEqual(notification.id, notifications_req[index].id)
+
+
 def validate_visitor_id(_self, visitor_id_resp, visitor_id_req):
     """Simple VisitorId validation"""
     if visitor_id_req.tnt_id:
@@ -112,6 +128,8 @@ def validate_delivery_response(_self, get_offers_resp, get_offers_req):
         validate_execute(_self, get_offers_resp.execute, get_offers_req.execute)
     if get_offers_req.prefetch:
         validate_prefetch(_self, get_offers_resp.prefetch, get_offers_req.prefetch)
+    if get_offers_req.notifications:
+        validate_notifications(_self, get_offers_resp.notifications, get_offers_req.notifications)
 
 
 def validate_response(_self, result):

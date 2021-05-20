@@ -491,7 +491,7 @@ class ApiClient(object):
         new_params = []
         if collection_formats is None:
             collection_formats = {}
-        for k, v in six.iteritems(params) if isinstance(params, dict) else params:  # noqa: E501
+        for k, v in six.iteritems(params) if isinstance(params, dict) else params:
             if k in collection_formats:
                 collection_format = collection_formats[k]
                 if collection_format == 'multi':

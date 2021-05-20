@@ -40,8 +40,8 @@ class QAModePreviewIndex(object):
         'experience_index': 'experienceIndex'
     }
 
-    def __init__(self, activity_index=None, experience_index=None):  # noqa: E501
-        """QAModePreviewIndex - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, activity_index=None, experience_index=None):
+        """QAModePreviewIndex - a model defined in OpenAPI"""
 
         self._activity_index = None
         self._experience_index = None
@@ -54,11 +54,11 @@ class QAModePreviewIndex(object):
 
     @property
     def activity_index(self):
-        """Gets the activity_index of this QAModePreviewIndex.  # noqa: E501
+        """Gets the activity_index of this QAModePreviewIndex.
 
-        Index references the activity in the activity list (from the encrypted token). Validation   * If the activity list index is out of boundaries of the activities list in the token or if it is null it will  be ignored.   * Activity list index starts with 1.   * Should be at least one activity index, and should reference an activity specified in the token.   # noqa: E501
+        Index references the activity in the activity list (from the encrypted token). Validation   * If the activity list index is out of boundaries of the activities list in the token or if it is null it will  be ignored.   * Activity list index starts with 1.   * Should be at least one activity index, and should reference an activity specified in the token. 
 
-        :return: The activity_index of this QAModePreviewIndex.  # noqa: E501
+        :return: The activity_index of this QAModePreviewIndex.
         :rtype: int
         """
         return self._activity_index
@@ -67,23 +67,23 @@ class QAModePreviewIndex(object):
     def activity_index(self, activity_index):
         """Sets the activity_index of this QAModePreviewIndex.
 
-        Index references the activity in the activity list (from the encrypted token). Validation   * If the activity list index is out of boundaries of the activities list in the token or if it is null it will  be ignored.   * Activity list index starts with 1.   * Should be at least one activity index, and should reference an activity specified in the token.   # noqa: E501
+        Index references the activity in the activity list (from the encrypted token). Validation   * If the activity list index is out of boundaries of the activities list in the token or if it is null it will  be ignored.   * Activity list index starts with 1.   * Should be at least one activity index, and should reference an activity specified in the token. 
 
-        :param activity_index: The activity_index of this QAModePreviewIndex.  # noqa: E501
+        :param activity_index: The activity_index of this QAModePreviewIndex.
         :type: int
         """
-        if activity_index is not None and activity_index < 1:  # noqa: E501
-            raise ValueError("Invalid value for `activity_index`, must be a value greater than or equal to `1`")  # noqa: E501
+        if activity_index is not None and activity_index < 1:
+            raise ValueError("Invalid value for `activity_index`, must be a value greater than or equal to `1`")
 
         self._activity_index = activity_index
 
     @property
     def experience_index(self):
-        """Gets the experience_index of this QAModePreviewIndex.  # noqa: E501
+        """Gets the experience_index of this QAModePreviewIndex.
 
-        When specified, the experience with this index in the activity definition will be selected. Validation   * Can be null (unspecified)   * If index is not specified or out of bounds, the experience will be selected via activity experience selector strategy.   * Experience index starts with 1.   # noqa: E501
+        When specified, the experience with this index in the activity definition will be selected. Validation   * Can be null (unspecified)   * If index is not specified or out of bounds, the experience will be selected via activity experience selector strategy.   * Experience index starts with 1. 
 
-        :return: The experience_index of this QAModePreviewIndex.  # noqa: E501
+        :return: The experience_index of this QAModePreviewIndex.
         :rtype: int
         """
         return self._experience_index
@@ -92,13 +92,13 @@ class QAModePreviewIndex(object):
     def experience_index(self, experience_index):
         """Sets the experience_index of this QAModePreviewIndex.
 
-        When specified, the experience with this index in the activity definition will be selected. Validation   * Can be null (unspecified)   * If index is not specified or out of bounds, the experience will be selected via activity experience selector strategy.   * Experience index starts with 1.   # noqa: E501
+        When specified, the experience with this index in the activity definition will be selected. Validation   * Can be null (unspecified)   * If index is not specified or out of bounds, the experience will be selected via activity experience selector strategy.   * Experience index starts with 1. 
 
-        :param experience_index: The experience_index of this QAModePreviewIndex.  # noqa: E501
+        :param experience_index: The experience_index of this QAModePreviewIndex.
         :type: int
         """
-        if experience_index is not None and experience_index < 1:  # noqa: E501
-            raise ValueError("Invalid value for `experience_index`, must be a value greater than or equal to `1`")  # noqa: E501
+        if experience_index is not None and experience_index < 1:
+            raise ValueError("Invalid value for `experience_index`, must be a value greater than or equal to `1`")
 
         self._experience_index = experience_index
 

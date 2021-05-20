@@ -8,13 +8,10 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Util functions for testing decisioning engine"""
-# pylint: disable=unused-argument
 import os
-from target_python_sdk.utils import is_dict
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import is_number
-from target_python_sdk.utils import is_list
 from target_python_sdk.tests.helpers import read_json_file
+from target_python_sdk.tests.helpers import is_json
+from target_python_sdk.tests.helpers import traverse_object
 from target_python_sdk.tests.delivery_request_setup import create_delivery_request
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.types.target_delivery_request import TargetDeliveryRequest
@@ -23,115 +20,6 @@ from target_decisioning_engine.types.target_delivery_request import TargetDelive
 CURRENT_DIR = os.path.dirname(__file__)
 TEST_ARTIFACTS_FOLDER = os.path.join(CURRENT_DIR, "schema/artifacts")
 TEST_MODELS_FOLDER = os.path.join(CURRENT_DIR, "schema/models")
-
-
-def _default_parse_handler(key, value):
-    """Default parse handler for object traversal"""
-    return value
-
-
-def _traverse_object(obj=None, result=None, parse_handler=_default_parse_handler):
-    """Traverses dict obj and constructs a new dict by executing parse_handler for each dict entry"""
-    if is_dict(result):
-        for key, val in obj.items():
-            if is_list(val) or is_dict(val):
-                result[key] = _traverse_object(val, [] if is_list(val) else {}, parse_handler)
-            else:
-                result[key] = parse_handler(key, val)
-    elif is_list(result):
-        for key, val in enumerate(obj):
-            if is_list(val) or is_dict(val):
-                result.append(_traverse_object(val, [] if is_list(val) else {}, parse_handler))
-            else:
-                result.append(parse_handler(key, val))
-
-    return result
-
-
-def assert_object(value):
-    """Throws AssertionError if value is not an object"""
-    assert isinstance(value, object), "'{}' is not an object".format(value)
-
-
-def assert_string(value):
-    """Throws AssertionError if value is not a str"""
-    assert is_string(value), "'{}' is not a string".format(value)
-
-
-def assert_number(value):
-    """Throws AssertionError if value is not an int"""
-    assert is_number(value), "'{}' is not a number".format(value)
-
-
-def prepare_test_response(response=None):
-    """Traverses expected response and sets custom matchers for dynamic values"""
-    if not response:
-        response = {}
-
-    specials = {
-        "expect.any(Object)": assert_object,
-        "expect.any(String)": assert_string,
-        "expect.any(Number)": assert_number
-    }
-
-    def _special_value_handler(key, value):
-        """Gets custom matcher function"""
-        return specials.get(value, value)
-
-    return _traverse_object(response, {}, _special_value_handler)
-
-
-def _hydrate_artifacts(artifact_folder, artifact_list, test_obj=None):
-    """Traverses test_obj and replaces artifact name with actual artifact json"""
-    if not test_obj:
-        test_obj = {}
-
-    def _artifact_handler(key, value):
-        """Replaces artifact name with actual artifact json"""
-        if key == "artifact":
-            artifact_filename = "{}.json".format(value)
-            if artifact_filename not in artifact_list:
-                return value
-
-            return read_json_file(artifact_folder, artifact_filename)
-
-        return value
-
-    return _traverse_object(test_obj, {}, _artifact_handler)
-
-
-def expect_to_match_object(received, expected):
-    """Validates received response against expected response"""
-    expected = prepare_test_response(expected)
-
-    if received is None:
-        assert expected is None, "None value received, but expected '{}'".format(expected)
-
-    for key, value in expected.items():
-        if callable(value):
-            value(received.get(key))
-        elif is_dict(value):
-            expect_to_match_object(received.get(key), value)
-        elif is_list(value):
-            for index, item in enumerate(value):
-                received_item = received.get(key)[index] if received.get(key) else None
-                if callable(item):
-                    item(received_item)
-                elif is_dict(item):
-                    expect_to_match_object(received_item, item or {})
-                else:
-                    assert item == received_item, \
-                        "Received list item '{}' does not equal expected list item '{}'" \
-                        .format(str(received_item), str(item))
-        else:
-            assert value == received.get(key), \
-                "Received value '{}' for key '{}' does not equal expected value '{}'" \
-                .format(received.get(key), key, value)
-
-
-def is_json(filename):
-    """Predicate for checking if a filename is .json"""
-    return filename.lower().endswith(".json")
 
 
 def get_files_in_dir(directory):
@@ -151,6 +39,25 @@ def get_test_models():
     :return (iterable<str>)
     """
     return filter(is_json, get_files_in_dir(TEST_MODELS_FOLDER))
+
+
+def _hydrate_artifacts(artifact_folder, artifact_list, test_obj=None):
+    """Traverses test_obj and replaces artifact name with actual artifact json"""
+    if not test_obj:
+        test_obj = {}
+
+    def _artifact_handler(key, value):
+        """Replaces artifact name with actual artifact json"""
+        if key == "artifact":
+            artifact_filename = "{}.json".format(value)
+            if artifact_filename not in artifact_list:
+                return value
+
+            return read_json_file(artifact_folder, artifact_filename)
+
+        return value
+
+    return traverse_object(test_obj, {}, _artifact_handler)
 
 
 def get_test_suites(test_suite_name, exclude_suites):

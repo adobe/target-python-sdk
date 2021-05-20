@@ -38,8 +38,8 @@ class TelemetryFeatures(object):
         'decisioning_method': 'decisioningMethod'
     }
 
-    def __init__(self, decisioning_method=None):  # noqa: E501
-        """TelemetryFeatures - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, decisioning_method=None):
+        """TelemetryFeatures - a model defined in OpenAPI"""
 
         self._decisioning_method = None
         self.discriminator = None
@@ -49,10 +49,10 @@ class TelemetryFeatures(object):
 
     @property
     def decisioning_method(self):
-        """Gets the decisioning_method of this TelemetryFeatures.  # noqa: E501
+        """Gets the decisioning_method of this TelemetryFeatures.
 
 
-        :return: The decisioning_method of this TelemetryFeatures.  # noqa: E501
+        :return: The decisioning_method of this TelemetryFeatures.
         :rtype: DecisioningMethod
         """
         return self._decisioning_method
@@ -62,7 +62,7 @@ class TelemetryFeatures(object):
         """Sets the decisioning_method of this TelemetryFeatures.
 
 
-        :param decisioning_method: The decisioning_method of this TelemetryFeatures.  # noqa: E501
+        :param decisioning_method: The decisioning_method of this TelemetryFeatures.
         :type: DecisioningMethod
         """
 

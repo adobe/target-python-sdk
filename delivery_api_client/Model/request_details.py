@@ -46,8 +46,8 @@ class RequestDetails(object):
         'product': 'product'
     }
 
-    def __init__(self, address=None, parameters=None, profile_parameters=None, order=None, product=None):  # noqa: E501
-        """RequestDetails - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, address=None, parameters=None, profile_parameters=None, order=None, product=None):
+        """RequestDetails - a model defined in OpenAPI"""
 
         self._address = None
         self._parameters = None
@@ -69,10 +69,10 @@ class RequestDetails(object):
 
     @property
     def address(self):
-        """Gets the address of this RequestDetails.  # noqa: E501
+        """Gets the address of this RequestDetails.
 
 
-        :return: The address of this RequestDetails.  # noqa: E501
+        :return: The address of this RequestDetails.
         :rtype: Address
         """
         return self._address
@@ -82,7 +82,7 @@ class RequestDetails(object):
         """Sets the address of this RequestDetails.
 
 
-        :param address: The address of this RequestDetails.  # noqa: E501
+        :param address: The address of this RequestDetails.
         :type: Address
         """
 
@@ -90,11 +90,11 @@ class RequestDetails(object):
 
     @property
     def parameters(self):
-        """Gets the parameters of this RequestDetails.  # noqa: E501
+        """Gets the parameters of this RequestDetails.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :return: The parameters of this RequestDetails.  # noqa: E501
+        :return: The parameters of this RequestDetails.
         :rtype: dict(str, str)
         """
         return self._parameters
@@ -103,9 +103,9 @@ class RequestDetails(object):
     def parameters(self, parameters):
         """Sets the parameters of this RequestDetails.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :param parameters: The parameters of this RequestDetails.  # noqa: E501
+        :param parameters: The parameters of this RequestDetails.
         :type: dict(str, str)
         """
 
@@ -113,11 +113,11 @@ class RequestDetails(object):
 
     @property
     def profile_parameters(self):
-        """Gets the profile_parameters of this RequestDetails.  # noqa: E501
+        """Gets the profile_parameters of this RequestDetails.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :return: The profile_parameters of this RequestDetails.  # noqa: E501
+        :return: The profile_parameters of this RequestDetails.
         :rtype: dict(str, str)
         """
         return self._profile_parameters
@@ -126,9 +126,9 @@ class RequestDetails(object):
     def profile_parameters(self, profile_parameters):
         """Sets the profile_parameters of this RequestDetails.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :param profile_parameters: The profile_parameters of this RequestDetails.  # noqa: E501
+        :param profile_parameters: The profile_parameters of this RequestDetails.
         :type: dict(str, str)
         """
 
@@ -136,10 +136,10 @@ class RequestDetails(object):
 
     @property
     def order(self):
-        """Gets the order of this RequestDetails.  # noqa: E501
+        """Gets the order of this RequestDetails.
 
 
-        :return: The order of this RequestDetails.  # noqa: E501
+        :return: The order of this RequestDetails.
         :rtype: Order
         """
         return self._order
@@ -149,7 +149,7 @@ class RequestDetails(object):
         """Sets the order of this RequestDetails.
 
 
-        :param order: The order of this RequestDetails.  # noqa: E501
+        :param order: The order of this RequestDetails.
         :type: Order
         """
 
@@ -157,10 +157,10 @@ class RequestDetails(object):
 
     @property
     def product(self):
-        """Gets the product of this RequestDetails.  # noqa: E501
+        """Gets the product of this RequestDetails.
 
 
-        :return: The product of this RequestDetails.  # noqa: E501
+        :return: The product of this RequestDetails.
         :rtype: Product
         """
         return self._product
@@ -170,7 +170,7 @@ class RequestDetails(object):
         """Sets the product of this RequestDetails.
 
 
-        :param product: The product of this RequestDetails.  # noqa: E501
+        :param product: The product of this RequestDetails.
         :type: Product
         """
 

@@ -10,3 +10,6 @@ Metric:
     eventToken:
       description: The event token that should be sent with the notifications in case the click occurred.
       type: string
+    analytics:
+      description: Analytics payload for A4T integration
+      $ref: "./AnalyticsResponse.yaml#/AnalyticsResponse"

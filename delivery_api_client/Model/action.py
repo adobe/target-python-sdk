@@ -44,8 +44,8 @@ class Action(object):
         'content': 'content'
     }
 
-    def __init__(self, type=None, selector=None, css_selector=None, content=None):  # noqa: E501
-        """Action - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, type=None, selector=None, css_selector=None, content=None):
+        """Action - a model defined in OpenAPI"""
 
         self._type = None
         self._selector = None
@@ -64,10 +64,10 @@ class Action(object):
 
     @property
     def type(self):
-        """Gets the type of this Action.  # noqa: E501
+        """Gets the type of this Action.
 
 
-        :return: The type of this Action.  # noqa: E501
+        :return: The type of this Action.
         :rtype: str
         """
         return self._type
@@ -77,7 +77,7 @@ class Action(object):
         """Sets the type of this Action.
 
 
-        :param type: The type of this Action.  # noqa: E501
+        :param type: The type of this Action.
         :type: str
         """
 
@@ -85,10 +85,10 @@ class Action(object):
 
     @property
     def selector(self):
-        """Gets the selector of this Action.  # noqa: E501
+        """Gets the selector of this Action.
 
 
-        :return: The selector of this Action.  # noqa: E501
+        :return: The selector of this Action.
         :rtype: str
         """
         return self._selector
@@ -98,7 +98,7 @@ class Action(object):
         """Sets the selector of this Action.
 
 
-        :param selector: The selector of this Action.  # noqa: E501
+        :param selector: The selector of this Action.
         :type: str
         """
 
@@ -106,10 +106,10 @@ class Action(object):
 
     @property
     def css_selector(self):
-        """Gets the css_selector of this Action.  # noqa: E501
+        """Gets the css_selector of this Action.
 
 
-        :return: The css_selector of this Action.  # noqa: E501
+        :return: The css_selector of this Action.
         :rtype: str
         """
         return self._css_selector
@@ -119,7 +119,7 @@ class Action(object):
         """Sets the css_selector of this Action.
 
 
-        :param css_selector: The css_selector of this Action.  # noqa: E501
+        :param css_selector: The css_selector of this Action.
         :type: str
         """
 
@@ -127,10 +127,10 @@ class Action(object):
 
     @property
     def content(self):
-        """Gets the content of this Action.  # noqa: E501
+        """Gets the content of this Action.
 
 
-        :return: The content of this Action.  # noqa: E501
+        :return: The content of this Action.
         :rtype: OneOfstringobject
         """
         return self._content
@@ -140,7 +140,7 @@ class Action(object):
         """Sets the content of this Action.
 
 
-        :param content: The content of this Action.  # noqa: E501
+        :param content: The content of this Action.
         :type: OneOfstringobject
         """
 

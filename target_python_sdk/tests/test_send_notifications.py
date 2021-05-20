@@ -128,5 +128,4 @@ class TestSendNotifications(unittest.TestCase):
         result = self.client.send_notifications(opts)
 
         self.assertEqual(len(responses.calls), 1)
-        # generated DeliveryResponse doesn't have notifications field, so no specific validation
         validate_response(self, result)

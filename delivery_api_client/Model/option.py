@@ -44,8 +44,8 @@ class Option(object):
         'response_tokens': 'responseTokens'
     }
 
-    def __init__(self, type=None, content=None, event_token=None, response_tokens=None):  # noqa: E501
-        """Option - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, type=None, content=None, event_token=None, response_tokens=None):
+        """Option - a model defined in OpenAPI"""
 
         self._type = None
         self._content = None
@@ -64,10 +64,10 @@ class Option(object):
 
     @property
     def type(self):
-        """Gets the type of this Option.  # noqa: E501
+        """Gets the type of this Option.
 
 
-        :return: The type of this Option.  # noqa: E501
+        :return: The type of this Option.
         :rtype: OptionType
         """
         return self._type
@@ -77,7 +77,7 @@ class Option(object):
         """Sets the type of this Option.
 
 
-        :param type: The type of this Option.  # noqa: E501
+        :param type: The type of this Option.
         :type: OptionType
         """
 
@@ -85,11 +85,11 @@ class Option(object):
 
     @property
     def content(self):
-        """Gets the content of this Option.  # noqa: E501
+        """Gets the content of this Option.
 
-        Content that should be applied/displayed/replaced etc, based on the option type. Content can be one of:   * html   * redirect link   * link for a dynamic offer   * raw json   * one or more actions (json - from offers with templates and visual offers) Actions format is specific for delivery API.   # noqa: E501
+        Content that should be applied/displayed/replaced etc, based on the option type. Content can be one of:   * html   * redirect link   * link for a dynamic offer   * raw json   * one or more actions (json - from offers with templates and visual offers) Actions format is specific for delivery API. 
 
-        :return: The content of this Option.  # noqa: E501
+        :return: The content of this Option.
         :rtype: OneOfstringobjectarray
         """
         return self._content
@@ -98,9 +98,9 @@ class Option(object):
     def content(self, content):
         """Sets the content of this Option.
 
-        Content that should be applied/displayed/replaced etc, based on the option type. Content can be one of:   * html   * redirect link   * link for a dynamic offer   * raw json   * one or more actions (json - from offers with templates and visual offers) Actions format is specific for delivery API.   # noqa: E501
+        Content that should be applied/displayed/replaced etc, based on the option type. Content can be one of:   * html   * redirect link   * link for a dynamic offer   * raw json   * one or more actions (json - from offers with templates and visual offers) Actions format is specific for delivery API. 
 
-        :param content: The content of this Option.  # noqa: E501
+        :param content: The content of this Option.
         :type: OneOfstringobjectarray
         """
 
@@ -108,11 +108,11 @@ class Option(object):
 
     @property
     def event_token(self):
-        """Gets the event_token of this Option.  # noqa: E501
+        """Gets the event_token of this Option.
 
-        Will be present only in response of a prefetch request. After the content is displayed the event token should be sent via notifications to the edge server so that visit/visitor/impression events could be logged.   # noqa: E501
+        Will be present only in response of a prefetch request. After the content is displayed the event token should be sent via notifications to the edge server so that visit/visitor/impression events could be logged. 
 
-        :return: The event_token of this Option.  # noqa: E501
+        :return: The event_token of this Option.
         :rtype: str
         """
         return self._event_token
@@ -121,9 +121,9 @@ class Option(object):
     def event_token(self, event_token):
         """Sets the event_token of this Option.
 
-        Will be present only in response of a prefetch request. After the content is displayed the event token should be sent via notifications to the edge server so that visit/visitor/impression events could be logged.   # noqa: E501
+        Will be present only in response of a prefetch request. After the content is displayed the event token should be sent via notifications to the edge server so that visit/visitor/impression events could be logged. 
 
-        :param event_token: The event_token of this Option.  # noqa: E501
+        :param event_token: The event_token of this Option.
         :type: str
         """
 
@@ -131,11 +131,11 @@ class Option(object):
 
     @property
     def response_tokens(self):
-        """Gets the response_tokens of this Option.  # noqa: E501
+        """Gets the response_tokens of this Option.
 
-        List of the response tokens and their values for the given option. Response tokens can be defined via the /v1/responsetokens API. The values for the tokens are computed for every option returned by a activity and represented as a dictionary:   * Key - the response token name.   * Value - the response token value. The value is usually a string, but it can be a list of string in case of   'category affinity' response token.   # noqa: E501
+        List of the response tokens and their values for the given option. Response tokens can be defined via the /v1/responsetokens API. The values for the tokens are computed for every option returned by a activity and represented as a dictionary:   * Key - the response token name.   * Value - the response token value. The value is usually a string, but it can be a list of string in case of   'category affinity' response token. 
 
-        :return: The response_tokens of this Option.  # noqa: E501
+        :return: The response_tokens of this Option.
         :rtype: dict(str, object)
         """
         return self._response_tokens
@@ -144,9 +144,9 @@ class Option(object):
     def response_tokens(self, response_tokens):
         """Sets the response_tokens of this Option.
 
-        List of the response tokens and their values for the given option. Response tokens can be defined via the /v1/responsetokens API. The values for the tokens are computed for every option returned by a activity and represented as a dictionary:   * Key - the response token name.   * Value - the response token value. The value is usually a string, but it can be a list of string in case of   'category affinity' response token.   # noqa: E501
+        List of the response tokens and their values for the given option. Response tokens can be defined via the /v1/responsetokens API. The values for the tokens are computed for every option returned by a activity and represented as a dictionary:   * Key - the response token name.   * Value - the response token value. The value is usually a string, but it can be a list of string in case of   'category affinity' response token. 
 
-        :param response_tokens: The response_tokens of this Option.  # noqa: E501
+        :param response_tokens: The response_tokens of this Option.
         :type: dict(str, object)
         """
 

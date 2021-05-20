@@ -40,8 +40,8 @@ class MboxRequestAllOf(object):
         'name': 'name'
     }
 
-    def __init__(self, index=None, name=None):  # noqa: E501
-        """MboxRequestAllOf - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, index=None, name=None):
+        """MboxRequestAllOf - a model defined in OpenAPI"""
 
         self._index = None
         self._name = None
@@ -54,11 +54,11 @@ class MboxRequestAllOf(object):
 
     @property
     def index(self):
-        """Gets the index of this MboxRequestAllOf.  # noqa: E501
+        """Gets the index of this MboxRequestAllOf.
 
-        An index for the mboxes to be executed or prefetched. Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or execute responses. Index should be unique in the mbox list.   # noqa: E501
+        An index for the mboxes to be executed or prefetched. Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or execute responses. Index should be unique in the mbox list. 
 
-        :return: The index of this MboxRequestAllOf.  # noqa: E501
+        :return: The index of this MboxRequestAllOf.
         :rtype: int
         """
         return self._index
@@ -67,9 +67,9 @@ class MboxRequestAllOf(object):
     def index(self, index):
         """Sets the index of this MboxRequestAllOf.
 
-        An index for the mboxes to be executed or prefetched. Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or execute responses. Index should be unique in the mbox list.   # noqa: E501
+        An index for the mboxes to be executed or prefetched. Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or execute responses. Index should be unique in the mbox list. 
 
-        :param index: The index of this MboxRequestAllOf.  # noqa: E501
+        :param index: The index of this MboxRequestAllOf.
         :type: int
         """
 
@@ -77,11 +77,11 @@ class MboxRequestAllOf(object):
 
     @property
     def name(self):
-        """Gets the name of this MboxRequestAllOf.  # noqa: E501
+        """Gets the name of this MboxRequestAllOf.
 
-        The name of the regional mbox to be evaluated.   # noqa: E501
+        The name of the regional mbox to be evaluated. 
 
-        :return: The name of this MboxRequestAllOf.  # noqa: E501
+        :return: The name of this MboxRequestAllOf.
         :rtype: str
         """
         return self._name
@@ -90,9 +90,9 @@ class MboxRequestAllOf(object):
     def name(self, name):
         """Sets the name of this MboxRequestAllOf.
 
-        The name of the regional mbox to be evaluated.   # noqa: E501
+        The name of the regional mbox to be evaluated. 
 
-        :param name: The name of this MboxRequestAllOf.  # noqa: E501
+        :param name: The name of this MboxRequestAllOf.
         :type: str
         """
 

@@ -52,8 +52,8 @@ class NotificationAllOf(object):
         'page_load': 'pageLoad'
     }
 
-    def __init__(self, id=None, impression_id=None, type=None, timestamp=None, tokens=None, mbox=None, view=None, page_load=None):  # noqa: E501
-        """NotificationAllOf - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, id=None, impression_id=None, type=None, timestamp=None, tokens=None, mbox=None, view=None, page_load=None):
+        """NotificationAllOf - a model defined in OpenAPI"""
 
         self._id = None
         self._impression_id = None
@@ -84,11 +84,11 @@ class NotificationAllOf(object):
 
     @property
     def id(self):
-        """Gets the id of this NotificationAllOf.  # noqa: E501
+        """Gets the id of this NotificationAllOf.
 
-        Notification id will be returned in response and will indicate that the notification was processed successfully.   # noqa: E501
+        Notification id will be returned in response and will indicate that the notification was processed successfully. 
 
-        :return: The id of this NotificationAllOf.  # noqa: E501
+        :return: The id of this NotificationAllOf.
         :rtype: str
         """
         return self._id
@@ -97,23 +97,23 @@ class NotificationAllOf(object):
     def id(self, id):
         """Sets the id of this NotificationAllOf.
 
-        Notification id will be returned in response and will indicate that the notification was processed successfully.   # noqa: E501
+        Notification id will be returned in response and will indicate that the notification was processed successfully. 
 
-        :param id: The id of this NotificationAllOf.  # noqa: E501
+        :param id: The id of this NotificationAllOf.
         :type: str
         """
         if id is not None and len(id) > 200:
-            raise ValueError("Invalid value for `id`, length must be less than or equal to `200`")  # noqa: E501
+            raise ValueError("Invalid value for `id`, length must be less than or equal to `200`")
 
         self._id = id
 
     @property
     def impression_id(self):
-        """Gets the impression_id of this NotificationAllOf.  # noqa: E501
+        """Gets the impression_id of this NotificationAllOf.
 
-        Impression id is used to stitch (link) the current notification with a previous notification or execute request. In case they both of them match, the second and other subsequent requests will not generate a new impression to the activity, experience etc.   # noqa: E501
+        Impression id is used to stitch (link) the current notification with a previous notification or execute request. In case they both of them match, the second and other subsequent requests will not generate a new impression to the activity, experience etc. 
 
-        :return: The impression_id of this NotificationAllOf.  # noqa: E501
+        :return: The impression_id of this NotificationAllOf.
         :rtype: str
         """
         return self._impression_id
@@ -122,22 +122,22 @@ class NotificationAllOf(object):
     def impression_id(self, impression_id):
         """Sets the impression_id of this NotificationAllOf.
 
-        Impression id is used to stitch (link) the current notification with a previous notification or execute request. In case they both of them match, the second and other subsequent requests will not generate a new impression to the activity, experience etc.   # noqa: E501
+        Impression id is used to stitch (link) the current notification with a previous notification or execute request. In case they both of them match, the second and other subsequent requests will not generate a new impression to the activity, experience etc. 
 
-        :param impression_id: The impression_id of this NotificationAllOf.  # noqa: E501
+        :param impression_id: The impression_id of this NotificationAllOf.
         :type: str
         """
         if impression_id is not None and len(impression_id) > 128:
-            raise ValueError("Invalid value for `impression_id`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `impression_id`, length must be less than or equal to `128`")
 
         self._impression_id = impression_id
 
     @property
     def type(self):
-        """Gets the type of this NotificationAllOf.  # noqa: E501
+        """Gets the type of this NotificationAllOf.
 
 
-        :return: The type of this NotificationAllOf.  # noqa: E501
+        :return: The type of this NotificationAllOf.
         :rtype: MetricType
         """
         return self._type
@@ -147,7 +147,7 @@ class NotificationAllOf(object):
         """Sets the type of this NotificationAllOf.
 
 
-        :param type: The type of this NotificationAllOf.  # noqa: E501
+        :param type: The type of this NotificationAllOf.
         :type: MetricType
         """
 
@@ -155,11 +155,11 @@ class NotificationAllOf(object):
 
     @property
     def timestamp(self):
-        """Gets the timestamp of this NotificationAllOf.  # noqa: E501
+        """Gets the timestamp of this NotificationAllOf.
 
-        Timestamp of the notification, in milliseconds elapsed since UNIX epoch.  # noqa: E501
+        Timestamp of the notification, in milliseconds elapsed since UNIX epoch.
 
-        :return: The timestamp of this NotificationAllOf.  # noqa: E501
+        :return: The timestamp of this NotificationAllOf.
         :rtype: int
         """
         return self._timestamp
@@ -168,9 +168,9 @@ class NotificationAllOf(object):
     def timestamp(self, timestamp):
         """Sets the timestamp of this NotificationAllOf.
 
-        Timestamp of the notification, in milliseconds elapsed since UNIX epoch.  # noqa: E501
+        Timestamp of the notification, in milliseconds elapsed since UNIX epoch.
 
-        :param timestamp: The timestamp of this NotificationAllOf.  # noqa: E501
+        :param timestamp: The timestamp of this NotificationAllOf.
         :type: int
         """
 
@@ -178,11 +178,11 @@ class NotificationAllOf(object):
 
     @property
     def tokens(self):
-        """Gets the tokens of this NotificationAllOf.  # noqa: E501
+        """Gets the tokens of this NotificationAllOf.
 
-        A list of tokens for displayed content or clicked selectors, based on the type of notification.  # noqa: E501
+        A list of tokens for displayed content or clicked selectors, based on the type of notification.
 
-        :return: The tokens of this NotificationAllOf.  # noqa: E501
+        :return: The tokens of this NotificationAllOf.
         :rtype: list[str]
         """
         return self._tokens
@@ -191,9 +191,9 @@ class NotificationAllOf(object):
     def tokens(self, tokens):
         """Sets the tokens of this NotificationAllOf.
 
-        A list of tokens for displayed content or clicked selectors, based on the type of notification.  # noqa: E501
+        A list of tokens for displayed content or clicked selectors, based on the type of notification.
 
-        :param tokens: The tokens of this NotificationAllOf.  # noqa: E501
+        :param tokens: The tokens of this NotificationAllOf.
         :type: list[str]
         """
 
@@ -201,10 +201,10 @@ class NotificationAllOf(object):
 
     @property
     def mbox(self):
-        """Gets the mbox of this NotificationAllOf.  # noqa: E501
+        """Gets the mbox of this NotificationAllOf.
 
 
-        :return: The mbox of this NotificationAllOf.  # noqa: E501
+        :return: The mbox of this NotificationAllOf.
         :rtype: NotificationMbox
         """
         return self._mbox
@@ -214,7 +214,7 @@ class NotificationAllOf(object):
         """Sets the mbox of this NotificationAllOf.
 
 
-        :param mbox: The mbox of this NotificationAllOf.  # noqa: E501
+        :param mbox: The mbox of this NotificationAllOf.
         :type: NotificationMbox
         """
 
@@ -222,10 +222,10 @@ class NotificationAllOf(object):
 
     @property
     def view(self):
-        """Gets the view of this NotificationAllOf.  # noqa: E501
+        """Gets the view of this NotificationAllOf.
 
 
-        :return: The view of this NotificationAllOf.  # noqa: E501
+        :return: The view of this NotificationAllOf.
         :rtype: NotificationView
         """
         return self._view
@@ -235,7 +235,7 @@ class NotificationAllOf(object):
         """Sets the view of this NotificationAllOf.
 
 
-        :param view: The view of this NotificationAllOf.  # noqa: E501
+        :param view: The view of this NotificationAllOf.
         :type: NotificationView
         """
 
@@ -243,10 +243,10 @@ class NotificationAllOf(object):
 
     @property
     def page_load(self):
-        """Gets the page_load of this NotificationAllOf.  # noqa: E501
+        """Gets the page_load of this NotificationAllOf.
 
 
-        :return: The page_load of this NotificationAllOf.  # noqa: E501
+        :return: The page_load of this NotificationAllOf.
         :rtype: NotificationPageLoad
         """
         return self._page_load
@@ -256,7 +256,7 @@ class NotificationAllOf(object):
         """Sets the page_load of this NotificationAllOf.
 
 
-        :param page_load: The page_load of this NotificationAllOf.  # noqa: E501
+        :param page_load: The page_load of this NotificationAllOf.
         :type: NotificationPageLoad
         """
 

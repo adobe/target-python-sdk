@@ -42,8 +42,8 @@ class Application(object):
         'version': 'version'
     }
 
-    def __init__(self, id=None, name=None, version=None):  # noqa: E501
-        """Application - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, id=None, name=None, version=None):
+        """Application - a model defined in OpenAPI"""
 
         self._id = None
         self._name = None
@@ -59,11 +59,11 @@ class Application(object):
 
     @property
     def id(self):
-        """Gets the id of this Application.  # noqa: E501
+        """Gets the id of this Application.
 
-        Application ID. If not specified - all activities with any applicationId will be evaluated. If specified - only activities with the matching applicationId will be evaluated.   # noqa: E501
+        Application ID. If not specified - all activities with any applicationId will be evaluated. If specified - only activities with the matching applicationId will be evaluated. 
 
-        :return: The id of this Application.  # noqa: E501
+        :return: The id of this Application.
         :rtype: str
         """
         return self._id
@@ -72,23 +72,23 @@ class Application(object):
     def id(self, id):
         """Sets the id of this Application.
 
-        Application ID. If not specified - all activities with any applicationId will be evaluated. If specified - only activities with the matching applicationId will be evaluated.   # noqa: E501
+        Application ID. If not specified - all activities with any applicationId will be evaluated. If specified - only activities with the matching applicationId will be evaluated. 
 
-        :param id: The id of this Application.  # noqa: E501
+        :param id: The id of this Application.
         :type: str
         """
         if id is not None and len(id) > 250:
-            raise ValueError("Invalid value for `id`, length must be less than or equal to `250`")  # noqa: E501
+            raise ValueError("Invalid value for `id`, length must be less than or equal to `250`")
 
         self._id = id
 
     @property
     def name(self):
-        """Gets the name of this Application.  # noqa: E501
+        """Gets the name of this Application.
 
-        Application name. If not specified - all activities with any applicationName will be evaluated. If specified - only activities with specified applicationName will be evaluated.   # noqa: E501
+        Application name. If not specified - all activities with any applicationName will be evaluated. If specified - only activities with specified applicationName will be evaluated. 
 
-        :return: The name of this Application.  # noqa: E501
+        :return: The name of this Application.
         :rtype: str
         """
         return self._name
@@ -97,23 +97,23 @@ class Application(object):
     def name(self, name):
         """Sets the name of this Application.
 
-        Application name. If not specified - all activities with any applicationName will be evaluated. If specified - only activities with specified applicationName will be evaluated.   # noqa: E501
+        Application name. If not specified - all activities with any applicationName will be evaluated. If specified - only activities with specified applicationName will be evaluated. 
 
-        :param name: The name of this Application.  # noqa: E501
+        :param name: The name of this Application.
         :type: str
         """
         if name is not None and len(name) > 250:
-            raise ValueError("Invalid value for `name`, length must be less than or equal to `250`")  # noqa: E501
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `250`")
 
         self._name = name
 
     @property
     def version(self):
-        """Gets the version of this Application.  # noqa: E501
+        """Gets the version of this Application.
 
-        Application version If not specified - all activities with any applicationVersion will not be evaluated. If specified - only activities with specific applicationVersion will be evaluated.   # noqa: E501
+        Application version If not specified - all activities with any applicationVersion will not be evaluated. If specified - only activities with specific applicationVersion will be evaluated. 
 
-        :return: The version of this Application.  # noqa: E501
+        :return: The version of this Application.
         :rtype: str
         """
         return self._version
@@ -122,13 +122,13 @@ class Application(object):
     def version(self, version):
         """Sets the version of this Application.
 
-        Application version If not specified - all activities with any applicationVersion will not be evaluated. If specified - only activities with specific applicationVersion will be evaluated.   # noqa: E501
+        Application version If not specified - all activities with any applicationVersion will not be evaluated. If specified - only activities with specific applicationVersion will be evaluated. 
 
-        :param version: The version of this Application.  # noqa: E501
+        :param version: The version of this Application.
         :type: str
         """
         if version is not None and len(version) > 128:
-            raise ValueError("Invalid value for `version`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `version`, length must be less than or equal to `128`")
 
         self._version = version
 

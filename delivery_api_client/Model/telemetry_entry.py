@@ -44,8 +44,8 @@ class TelemetryEntry(object):
         'features': 'features'
     }
 
-    def __init__(self, request_id=None, timestamp=None, execution=None, features=None):  # noqa: E501
-        """TelemetryEntry - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, request_id=None, timestamp=None, execution=None, features=None):
+        """TelemetryEntry - a model defined in OpenAPI"""
 
         self._request_id = None
         self._timestamp = None
@@ -64,11 +64,11 @@ class TelemetryEntry(object):
 
     @property
     def request_id(self):
-        """Gets the request_id of this TelemetryEntry.  # noqa: E501
+        """Gets the request_id of this TelemetryEntry.
 
-        Request Id  # noqa: E501
+        Request Id
 
-        :return: The request_id of this TelemetryEntry.  # noqa: E501
+        :return: The request_id of this TelemetryEntry.
         :rtype: str
         """
         return self._request_id
@@ -77,9 +77,9 @@ class TelemetryEntry(object):
     def request_id(self, request_id):
         """Sets the request_id of this TelemetryEntry.
 
-        Request Id  # noqa: E501
+        Request Id
 
-        :param request_id: The request_id of this TelemetryEntry.  # noqa: E501
+        :param request_id: The request_id of this TelemetryEntry.
         :type: str
         """
 
@@ -87,11 +87,11 @@ class TelemetryEntry(object):
 
     @property
     def timestamp(self):
-        """Gets the timestamp of this TelemetryEntry.  # noqa: E501
+        """Gets the timestamp of this TelemetryEntry.
 
-        Timestamp of the entry, in milliseconds elapsed since UNIX epoch.  # noqa: E501
+        Timestamp of the entry, in milliseconds elapsed since UNIX epoch.
 
-        :return: The timestamp of this TelemetryEntry.  # noqa: E501
+        :return: The timestamp of this TelemetryEntry.
         :rtype: int
         """
         return self._timestamp
@@ -100,9 +100,9 @@ class TelemetryEntry(object):
     def timestamp(self, timestamp):
         """Sets the timestamp of this TelemetryEntry.
 
-        Timestamp of the entry, in milliseconds elapsed since UNIX epoch.  # noqa: E501
+        Timestamp of the entry, in milliseconds elapsed since UNIX epoch.
 
-        :param timestamp: The timestamp of this TelemetryEntry.  # noqa: E501
+        :param timestamp: The timestamp of this TelemetryEntry.
         :type: int
         """
 
@@ -110,11 +110,11 @@ class TelemetryEntry(object):
 
     @property
     def execution(self):
-        """Gets the execution of this TelemetryEntry.  # noqa: E501
+        """Gets the execution of this TelemetryEntry.
 
-        Execution time in milliseconds.  # noqa: E501
+        Execution time in milliseconds.
 
-        :return: The execution of this TelemetryEntry.  # noqa: E501
+        :return: The execution of this TelemetryEntry.
         :rtype: int
         """
         return self._execution
@@ -123,9 +123,9 @@ class TelemetryEntry(object):
     def execution(self, execution):
         """Sets the execution of this TelemetryEntry.
 
-        Execution time in milliseconds.  # noqa: E501
+        Execution time in milliseconds.
 
-        :param execution: The execution of this TelemetryEntry.  # noqa: E501
+        :param execution: The execution of this TelemetryEntry.
         :type: int
         """
 
@@ -133,10 +133,10 @@ class TelemetryEntry(object):
 
     @property
     def features(self):
-        """Gets the features of this TelemetryEntry.  # noqa: E501
+        """Gets the features of this TelemetryEntry.
 
 
-        :return: The features of this TelemetryEntry.  # noqa: E501
+        :return: The features of this TelemetryEntry.
         :rtype: TelemetryFeatures
         """
         return self._features
@@ -146,7 +146,7 @@ class TelemetryEntry(object):
         """Sets the features of this TelemetryEntry.
 
 
-        :param features: The features of this TelemetryEntry.  # noqa: E501
+        :param features: The features of this TelemetryEntry.
         :type: TelemetryFeatures
         """
 

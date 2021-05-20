@@ -40,8 +40,8 @@ class Trace(object):
         'usage': 'usage'
     }
 
-    def __init__(self, authorization_token=None, usage=None):  # noqa: E501
-        """Trace - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, authorization_token=None, usage=None):
+        """Trace - a model defined in OpenAPI"""
 
         self._authorization_token = None
         self._usage = None
@@ -53,10 +53,10 @@ class Trace(object):
 
     @property
     def authorization_token(self):
-        """Gets the authorization_token of this Trace.  # noqa: E501
+        """Gets the authorization_token of this Trace.
 
 
-        :return: The authorization_token of this Trace.  # noqa: E501
+        :return: The authorization_token of this Trace.
         :rtype: str
         """
         return self._authorization_token
@@ -66,21 +66,21 @@ class Trace(object):
         """Sets the authorization_token of this Trace.
 
 
-        :param authorization_token: The authorization_token of this Trace.  # noqa: E501
+        :param authorization_token: The authorization_token of this Trace.
         :type: str
         """
         if authorization_token is None:
-            raise ValueError("Invalid value for `authorization_token`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `authorization_token`, must not be `None`")
 
         self._authorization_token = authorization_token
 
     @property
     def usage(self):
-        """Gets the usage of this Trace.  # noqa: E501
+        """Gets the usage of this Trace.
 
-        A String dictionary of client SDK usage tracking and internal diagnostics metadata.   # noqa: E501
+        A String dictionary of client SDK usage tracking and internal diagnostics metadata. 
 
-        :return: The usage of this Trace.  # noqa: E501
+        :return: The usage of this Trace.
         :rtype: dict(str, str)
         """
         return self._usage
@@ -89,9 +89,9 @@ class Trace(object):
     def usage(self, usage):
         """Sets the usage of this Trace.
 
-        A String dictionary of client SDK usage tracking and internal diagnostics metadata.   # noqa: E501
+        A String dictionary of client SDK usage tracking and internal diagnostics metadata. 
 
-        :param usage: The usage of this Trace.  # noqa: E501
+        :param usage: The usage of this Trace.
         :type: dict(str, str)
         """
 

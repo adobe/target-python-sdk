@@ -9,7 +9,6 @@
 # governing permissions and limitations under the License.
 """Unit tests for target_decisioning_engine.artifact_provider module"""
 # pylint: disable=too-many-public-methods
-
 try:
     from unittest.mock import patch, Mock
 except ImportError:
@@ -21,14 +20,10 @@ import urllib3
 from urllib3.exceptions import MaxRetryError
 from urllib3.response import HTTPResponse
 from target_decisioning_engine.artifact_provider import ArtifactProvider
-from target_decisioning_engine.constants import MINIMUM_POLLING_INTERVAL, HTTP_HEADER_FORWARDED_FOR, \
-    HTTP_HEADER_GEO_LATITUDE, HTTP_HEADER_GEO_LONGITUDE, HTTP_HEADER_GEO_COUNTRY, HTTP_HEADER_GEO_REGION, \
-    HTTP_HEADER_GEO_CITY
-from target_decisioning_engine.constants import DEFAULT_POLLING_INTERVAL
-from target_decisioning_engine.constants import OK
-from target_decisioning_engine.constants import NOT_MODIFIED
+import target_decisioning_engine.constants as DecisioningEngineConstants
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
-from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED, GEO_LOCATION_UPDATED
+from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED
+from target_decisioning_engine.events import GEO_LOCATION_UPDATED
 from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_SUCCEEDED
 from target_tools.tests.helpers import spy_decorator
 
@@ -59,7 +54,7 @@ class TestArtifactProvider(unittest.TestCase):
 
         with patch.object(self.provider.pool_manager, "request", return_value=HTTPResponse()):
             self.provider.initialize()
-            self.assertEqual(self.provider.polling_interval, MINIMUM_POLLING_INTERVAL)
+            self.assertEqual(self.provider.polling_interval, DecisioningEngineConstants.MINIMUM_POLLING_INTERVAL)
 
     def test_get_polling_interval_above_minimum(self):
         config = DecisioningConfig(None, None, polling_interval=350)
@@ -75,7 +70,7 @@ class TestArtifactProvider(unittest.TestCase):
 
         with patch.object(self.provider.pool_manager, "request", return_value=HTTPResponse()):
             self.provider.initialize()
-            self.assertEqual(self.provider.polling_interval, DEFAULT_POLLING_INTERVAL)
+            self.assertEqual(self.provider.polling_interval, DecisioningEngineConstants.DEFAULT_POLLING_INTERVAL)
 
     def test_polling_works(self):
         config = DecisioningConfig("client123", "org999", polling_interval=1, artifact_location=None)
@@ -137,7 +132,8 @@ class TestArtifactProvider(unittest.TestCase):
 
         response_data = {"y": 88, "q": 14}
         response_headers = {}
-        response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)
+        response_mock = Mock(status=DecisioningEngineConstants.OK, data=json.dumps(response_data),
+                             headers=response_headers)
         with patch.object(self.provider.pool_manager, "request", return_value=response_mock):
             self.provider.initialize()
             self.assertEqual(self.provider.subscription_count, 2)
@@ -210,7 +206,7 @@ class TestArtifactProvider(unittest.TestCase):
             self.assertTrue(isinstance(emitter_mock.call_args[0][1].get("error"), MaxRetryError))
 
     def test_fetch_artifact_response_status_not_modified(self):
-        response_mock = Mock(status=NOT_MODIFIED)
+        response_mock = Mock(status=DecisioningEngineConstants.NOT_MODIFIED)
         self.provider = ArtifactProvider(self.default_config)
         self.provider.last_response_data = {"z": 99}
         with patch.object(self.provider.pool_manager, "request", return_value=response_mock):
@@ -223,12 +219,12 @@ class TestArtifactProvider(unittest.TestCase):
         response_data = {"y": 88, "q": 14}
         response_headers = {
             "Etag": "12345",
-            HTTP_HEADER_FORWARDED_FOR: "12.21.1.40",
-            HTTP_HEADER_GEO_LATITUDE: 37.75,
-            HTTP_HEADER_GEO_LONGITUDE: -122.4,
-            HTTP_HEADER_GEO_COUNTRY: "US",
-            HTTP_HEADER_GEO_REGION: "CA",
-            HTTP_HEADER_GEO_CITY: "SAN FRANCISCO"
+            DecisioningEngineConstants.HTTP_HEADER_FORWARDED_FOR: "12.21.1.40",
+            DecisioningEngineConstants.HTTP_HEADER_GEO_LATITUDE: 37.75,
+            DecisioningEngineConstants.HTTP_HEADER_GEO_LONGITUDE: -122.4,
+            DecisioningEngineConstants.HTTP_HEADER_GEO_COUNTRY: "US",
+            DecisioningEngineConstants.HTTP_HEADER_GEO_REGION: "CA",
+            DecisioningEngineConstants.HTTP_HEADER_GEO_CITY: "SAN FRANCISCO"
         }
         expected_geo = {
             "city": "SAN FRANCISCO",
@@ -239,7 +235,8 @@ class TestArtifactProvider(unittest.TestCase):
             "stateCode": "CA",
             "zip": None
         }
-        response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)
+        response_mock = Mock(status=DecisioningEngineConstants.OK, data=json.dumps(response_data),
+                             headers=response_headers)
         self.provider = ArtifactProvider(self.default_config)
         with patch.object(self.provider.pool_manager, "request", return_value=response_mock):
             self.provider.initialize()
@@ -259,12 +256,12 @@ class TestArtifactProvider(unittest.TestCase):
         response_data = {"y": 88, "q": 14}
         response_headers = {
             "Etag": None,
-            HTTP_HEADER_FORWARDED_FOR: "12.21.1.40",
-            HTTP_HEADER_GEO_LATITUDE: 37.75,
-            HTTP_HEADER_GEO_LONGITUDE: -122.4,
-            HTTP_HEADER_GEO_COUNTRY: "US",
-            HTTP_HEADER_GEO_REGION: "CA",
-            HTTP_HEADER_GEO_CITY: "SAN FRANCISCO"
+            DecisioningEngineConstants.HTTP_HEADER_FORWARDED_FOR: "12.21.1.40",
+            DecisioningEngineConstants.HTTP_HEADER_GEO_LATITUDE: 37.75,
+            DecisioningEngineConstants.HTTP_HEADER_GEO_LONGITUDE: -122.4,
+            DecisioningEngineConstants.HTTP_HEADER_GEO_COUNTRY: "US",
+            DecisioningEngineConstants.HTTP_HEADER_GEO_REGION: "CA",
+            DecisioningEngineConstants.HTTP_HEADER_GEO_CITY: "SAN FRANCISCO"
         }
         expected_geo = {
             "city": "SAN FRANCISCO",
@@ -275,7 +272,8 @@ class TestArtifactProvider(unittest.TestCase):
             "stateCode": "CA",
             "zip": None
         }
-        response_mock = Mock(status=OK, data=json.dumps(response_data), headers=response_headers)
+        response_mock = Mock(status=DecisioningEngineConstants.OK, data=json.dumps(response_data),
+                             headers=response_headers)
         self.provider = ArtifactProvider(self.default_config)
         with patch.object(self.provider.pool_manager, "request", return_value=response_mock):
             self.provider.initialize()

@@ -41,6 +41,7 @@ from target_python_sdk.cookies import SESSION_ID_COOKIE
 from target_python_sdk.cookies import LOCATION_HINT_COOKIE
 from target_python_sdk.cookies import create_target_cookie
 from target_python_sdk.local_delivery_api import LocalDeliveryApi
+from target_python_sdk.types.target_delivery_response import TargetDeliveryResponse
 from target_tools.utils import is_string
 from target_tools.utils import parse_int
 from target_tools.utils import create_uuid
@@ -656,22 +657,23 @@ def get_response_meta(request, decisioning_method, decisioning_engine):
 
 def process_response(session_id, cluster, request, response,
                      decisioning_method=DecisioningMethod.SERVER_SIDE.value, decisioning_engine=None):
-    """Process Delivery API response"""
+    """Process Delivery API response
+       :return (TargetDeliveryResponse) Returns response envelope
+    """
     _id = response.id or VisitorId()
     edge_host = response.edge_host
 
-    result = {
-        'target_cookie': get_target_cookie(session_id, _id),
-        'target_location_hint_cookie': get_target_location_hint_cookie(cluster, edge_host),
-        'analytics_details': get_analytics_details(response),
-        'trace': get_trace_details(response),
-        'response_tokens': get_response_tokens(response),
-        'meta': get_response_meta(
+    result = TargetDeliveryResponse(
+        target_cookie=get_target_cookie(session_id, _id),
+        target_location_hint_cookie=get_target_location_hint_cookie(cluster, edge_host),
+        analytics_details=get_analytics_details(response),
+        trace=get_trace_details(response),
+        response_tokens=get_response_tokens(response),
+        meta=get_response_meta(
             request,
             decisioning_method,
             decisioning_engine
         ),
-        'response': response
-    }
+        response=response)
 
     return remove_empty_values(result)

@@ -11,7 +11,7 @@
 # pylint: disable=super-init-not-called
 import unittest
 
-from target_decisioning_engine.types.limited_key_dict import LimitedKeyDict
+from target_tools.types.limited_key_dict import LimitedKeyDict
 
 
 class DictImpl(LimitedKeyDict):

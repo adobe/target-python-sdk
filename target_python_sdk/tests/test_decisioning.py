@@ -226,7 +226,7 @@ class TestTargetClientDecisioning(unittest.TestCase):
         client_opts = dict(CONFIG)
         client_opts["decisioning_method"] = DecisioningMethod.ON_DEVICE.value
         client_opts["events"] = {
-            "clientReady": client_ready_mock
+            "client_ready": client_ready_mock
         }
 
         with patch("target_decisioning_engine.artifact_provider.urllib3.PoolManager") as mock_pool_manager:
@@ -245,7 +245,7 @@ class TestTargetClientDecisioning(unittest.TestCase):
         client_opts = dict(CONFIG)
         client_opts["decisioning_method"] = DecisioningMethod.SERVER_SIDE.value
         client_opts["events"] = {
-            "clientReady": client_ready_mock
+            "client_ready": client_ready_mock
         }
 
         client = TargetClient.create(client_opts)
@@ -262,9 +262,9 @@ class TestTargetClientDecisioning(unittest.TestCase):
         client_opts = dict(CONFIG)
         client_opts["decisioning_method"] = DecisioningMethod.ON_DEVICE.value
         client_opts["events"] = {
-            "clientReady": client_ready_mock,
-            "artifactDownloadFailed": artifact_failed_mock,
-            "artifactDownloadSucceeded": artifact_success_mock
+            "client_ready": client_ready_mock,
+            "artifact_download_failed": artifact_failed_mock,
+            "artifact_download_succeeded": artifact_success_mock
         }
 
         with patch("target_decisioning_engine.artifact_provider.urllib3.PoolManager") as mock_pool_manager:
@@ -278,7 +278,7 @@ class TestTargetClientDecisioning(unittest.TestCase):
                 self.assertEqual(client_ready_mock.call_count, 0)
                 self.assertEqual(artifact_success_mock.call_count, 0)
                 self.assertEqual(artifact_failed_mock.call_count, 1)
-                self.assertEqual(artifact_failed_mock.call_args[0][0].get("type"), "artifactDownloadFailed")
+                self.assertEqual(artifact_failed_mock.call_args[0][0].get("type"), "artifact_download_failed")
                 self.assertIsNotNone(artifact_failed_mock.call_args[0][0].get("artifact_location"))
                 self.assertIsNotNone(artifact_failed_mock.call_args[0][0].get("error"))
 

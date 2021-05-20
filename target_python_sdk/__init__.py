@@ -35,7 +35,7 @@ from target_tools.utils import compose_functions
 from target_tools.utils import add_mboxes_to_request
 from target_tools.utils import requires_decisioning_engine
 
-CLIENT_READY = "clientReady"
+CLIENT_READY = "client_ready"
 CLIENT_READY_DELAY = .1
 DEFAULT_TIMEOUT = 3000
 DEFAULT_OPTS = {
@@ -55,7 +55,7 @@ class TargetClient:
         self.config = dict(options)
         self.config['timeout'] = options.get('timeout') if options.get('timeout') \
             else DEFAULT_TIMEOUT
-        self.logger = options.get('logger', get_logger())
+        self.logger = get_logger(options.get('logger'))
         self.event_emitter = EventProvider(self.config.get('events')).emit
         self.decisioning_engine = None
 
@@ -82,6 +82,7 @@ class TargetClient:
             except Exception as err:
                 self.logger.error("Unable to initialize TargetDecisioningEngine: \n {}".format(str(err)))
         else:
+            # Should emit client_ready event after client gets returned by TargetClient.create
             timer = Timer(CLIENT_READY_DELAY, self.event_emitter, [CLIENT_READY])
             timer.start()
 
@@ -102,7 +103,7 @@ class TargetClient:
 
         options.secure: (bool) Unset to enforce HTTP scheme, default: true
 
-        options.logger: (dict) Replaces the default noop logger, optional
+        options.logger: (dict) Replaces the default INFO level logger, optional
 
         options.decisioning_method: ('on-device'|'server-side'|'hybrid')
             The decisioning method, defaults to remote, optional
@@ -176,8 +177,9 @@ class TargetClient:
 
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
             is raised
-        :return (dict|AsyncResult) Returns response synchronously if no options.callback provided,
-        otherwise returns AsyncResult. If callback was provided then a DeliveryResponse will be returned through that
+        :return (target_python_sdk.types.target_delivery_response.TargetDeliveryResponse)
+            Returns response synchronously if no options.callback provided, otherwise returns AsyncResult.
+            If callback was provided then a DeliveryResponse will be returned through that.
         """
 
         error = validate_get_offers_options(options)
@@ -193,8 +195,7 @@ class TargetClient:
         config = deepcopy(self.config)
         config['decisioning_method'] = options.get('decisioning_method') or self.config.get('decisioning_method')
         target_options = {
-            'config': config,
-            'logger': self.logger
+            'config': config
         }
         target_options.update(options)
         return execute_delivery(self.config, target_options, self.decisioning_engine)
@@ -225,9 +226,9 @@ class TargetClient:
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
             is raised
 
-
-        :return (dict|AsyncResult) Returns response synchronously if no options.callback provided,
-        otherwise returns AsyncResult. If callback was provided then a DeliveryResponse will be returned through that
+        :return (target_python_sdk.types.target_delivery_response.TargetDeliveryResponse)
+            Returns response synchronously if no options.callback provided, otherwise returns AsyncResult.
+            If callback was provided then a DeliveryResponse will be returned through that.
         """
 
         error = validate_send_notifications_options(options)
@@ -243,8 +244,7 @@ class TargetClient:
         # execution mode for sending notifications must always be remote
         config['decisioning_method'] = DecisioningMethod.SERVER_SIDE.value
         target_options = {
-            'config': config,
-            'logger': self.logger
+            'config': config
         }
         target_options.update(options)
         return execute_delivery(self.config, target_options)

@@ -38,8 +38,8 @@ class ModelProperty(object):
         'token': 'token'
     }
 
-    def __init__(self, token=None):  # noqa: E501
-        """ModelProperty - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, token=None):
+        """ModelProperty - a model defined in OpenAPI"""
 
         self._token = None
         self.discriminator = None
@@ -48,11 +48,11 @@ class ModelProperty(object):
 
     @property
     def token(self):
-        """Gets the token of this ModelProperty.  # noqa: E501
+        """Gets the token of this ModelProperty.
 
-        The at_property token  Validation * Required if the property is specified.   # noqa: E501
+        The at_property token  Validation * Required if the property is specified. 
 
-        :return: The token of this ModelProperty.  # noqa: E501
+        :return: The token of this ModelProperty.
         :rtype: str
         """
         return self._token
@@ -61,13 +61,13 @@ class ModelProperty(object):
     def token(self, token):
         """Sets the token of this ModelProperty.
 
-        The at_property token  Validation * Required if the property is specified.   # noqa: E501
+        The at_property token  Validation * Required if the property is specified. 
 
-        :param token: The token of this ModelProperty.  # noqa: E501
+        :param token: The token of this ModelProperty.
         :type: str
         """
         if token is None:
-            raise ValueError("Invalid value for `token`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `token`, must not be `None`")
 
         self._token = token
 

@@ -40,8 +40,8 @@ class ExecuteRequest(object):
         'mboxes': 'mboxes'
     }
 
-    def __init__(self, page_load=None, mboxes=None):  # noqa: E501
-        """ExecuteRequest - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, page_load=None, mboxes=None):
+        """ExecuteRequest - a model defined in OpenAPI"""
 
         self._page_load = None
         self._mboxes = None
@@ -54,10 +54,10 @@ class ExecuteRequest(object):
 
     @property
     def page_load(self):
-        """Gets the page_load of this ExecuteRequest.  # noqa: E501
+        """Gets the page_load of this ExecuteRequest.
 
 
-        :return: The page_load of this ExecuteRequest.  # noqa: E501
+        :return: The page_load of this ExecuteRequest.
         :rtype: RequestDetails
         """
         return self._page_load
@@ -67,7 +67,7 @@ class ExecuteRequest(object):
         """Sets the page_load of this ExecuteRequest.
 
 
-        :param page_load: The page_load of this ExecuteRequest.  # noqa: E501
+        :param page_load: The page_load of this ExecuteRequest.
         :type: RequestDetails
         """
 
@@ -75,11 +75,11 @@ class ExecuteRequest(object):
 
     @property
     def mboxes(self):
-        """Gets the mboxes of this ExecuteRequest.  # noqa: E501
+        """Gets the mboxes of this ExecuteRequest.
 
-        An array of mboxes other than global mbox.  # noqa: E501
+        An array of mboxes other than global mbox.
 
-        :return: The mboxes of this ExecuteRequest.  # noqa: E501
+        :return: The mboxes of this ExecuteRequest.
         :rtype: list[MboxRequest]
         """
         return self._mboxes
@@ -88,9 +88,9 @@ class ExecuteRequest(object):
     def mboxes(self, mboxes):
         """Sets the mboxes of this ExecuteRequest.
 
-        An array of mboxes other than global mbox.  # noqa: E501
+        An array of mboxes other than global mbox.
 
-        :param mboxes: The mboxes of this ExecuteRequest.  # noqa: E501
+        :param mboxes: The mboxes of this ExecuteRequest.
         :type: list[MboxRequest]
         """
 

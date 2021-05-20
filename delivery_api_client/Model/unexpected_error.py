@@ -40,8 +40,8 @@ class UnexpectedError(object):
         'message': 'message'
     }
 
-    def __init__(self, status=None, message=None):  # noqa: E501
-        """UnexpectedError - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, status=None, message=None):
+        """UnexpectedError - a model defined in OpenAPI"""
 
         self._status = None
         self._message = None
@@ -52,11 +52,11 @@ class UnexpectedError(object):
 
     @property
     def status(self):
-        """Gets the status of this UnexpectedError.  # noqa: E501
+        """Gets the status of this UnexpectedError.
 
-        HTTP response codes: * `400` - Validation error (ex. invalid token) * `500` - An internal server error during processing   # noqa: E501
+        HTTP response codes: * `400` - Validation error (ex. invalid token) * `500` - An internal server error during processing 
 
-        :return: The status of this UnexpectedError.  # noqa: E501
+        :return: The status of this UnexpectedError.
         :rtype: int
         """
         return self._status
@@ -65,23 +65,23 @@ class UnexpectedError(object):
     def status(self, status):
         """Sets the status of this UnexpectedError.
 
-        HTTP response codes: * `400` - Validation error (ex. invalid token) * `500` - An internal server error during processing   # noqa: E501
+        HTTP response codes: * `400` - Validation error (ex. invalid token) * `500` - An internal server error during processing 
 
-        :param status: The status of this UnexpectedError.  # noqa: E501
+        :param status: The status of this UnexpectedError.
         :type: int
         """
         if status is None:
-            raise ValueError("Invalid value for `status`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `status`, must not be `None`")
 
         self._status = status
 
     @property
     def message(self):
-        """Gets the message of this UnexpectedError.  # noqa: E501
+        """Gets the message of this UnexpectedError.
 
-        error message  # noqa: E501
+        error message
 
-        :return: The message of this UnexpectedError.  # noqa: E501
+        :return: The message of this UnexpectedError.
         :rtype: str
         """
         return self._message
@@ -90,13 +90,13 @@ class UnexpectedError(object):
     def message(self, message):
         """Sets the message of this UnexpectedError.
 
-        error message  # noqa: E501
+        error message
 
-        :param message: The message of this UnexpectedError.  # noqa: E501
+        :param message: The message of this UnexpectedError.
         :type: str
         """
         if message is None:
-            raise ValueError("Invalid value for `message`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `message`, must not be `None`")
 
         self._message = message
 

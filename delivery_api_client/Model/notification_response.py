@@ -40,8 +40,8 @@ class NotificationResponse(object):
         'trace': 'trace'
     }
 
-    def __init__(self, id=None, trace=None):  # noqa: E501
-        """NotificationResponse - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, id=None, trace=None):
+        """NotificationResponse - a model defined in OpenAPI"""
 
         self._id = None
         self._trace = None
@@ -54,11 +54,11 @@ class NotificationResponse(object):
 
     @property
     def id(self):
-        """Gets the id of this NotificationResponse.  # noqa: E501
+        """Gets the id of this NotificationResponse.
 
-        Notification id which indicates that the notification was processed successfully.   # noqa: E501
+        Notification id which indicates that the notification was processed successfully. 
 
-        :return: The id of this NotificationResponse.  # noqa: E501
+        :return: The id of this NotificationResponse.
         :rtype: str
         """
         return self._id
@@ -67,9 +67,9 @@ class NotificationResponse(object):
     def id(self, id):
         """Sets the id of this NotificationResponse.
 
-        Notification id which indicates that the notification was processed successfully.   # noqa: E501
+        Notification id which indicates that the notification was processed successfully. 
 
-        :param id: The id of this NotificationResponse.  # noqa: E501
+        :param id: The id of this NotificationResponse.
         :type: str
         """
 
@@ -77,11 +77,11 @@ class NotificationResponse(object):
 
     @property
     def trace(self):
-        """Gets the trace of this NotificationResponse.  # noqa: E501
+        """Gets the trace of this NotificationResponse.
 
-        The object containing all trace data for the request, only present if the trace token was provided in the request.   # noqa: E501
+        The object containing all trace data for the request, only present if the trace token was provided in the request. 
 
-        :return: The trace of this NotificationResponse.  # noqa: E501
+        :return: The trace of this NotificationResponse.
         :rtype: dict(str, object)
         """
         return self._trace
@@ -90,9 +90,9 @@ class NotificationResponse(object):
     def trace(self, trace):
         """Sets the trace of this NotificationResponse.
 
-        The object containing all trace data for the request, only present if the trace token was provided in the request.   # noqa: E501
+        The object containing all trace data for the request, only present if the trace token was provided in the request. 
 
-        :param trace: The trace of this NotificationResponse.  # noqa: E501
+        :param trace: The trace of this NotificationResponse.
         :type: dict(str, object)
         """
 

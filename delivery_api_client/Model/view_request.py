@@ -50,8 +50,8 @@ class ViewRequest(object):
         'key': 'key'
     }
 
-    def __init__(self, address=None, parameters=None, profile_parameters=None, order=None, product=None, name=None, key=None):  # noqa: E501
-        """ViewRequest - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, address=None, parameters=None, profile_parameters=None, order=None, product=None, name=None, key=None):
+        """ViewRequest - a model defined in OpenAPI"""
 
         self._address = None
         self._parameters = None
@@ -79,10 +79,10 @@ class ViewRequest(object):
 
     @property
     def address(self):
-        """Gets the address of this ViewRequest.  # noqa: E501
+        """Gets the address of this ViewRequest.
 
 
-        :return: The address of this ViewRequest.  # noqa: E501
+        :return: The address of this ViewRequest.
         :rtype: Address
         """
         return self._address
@@ -92,7 +92,7 @@ class ViewRequest(object):
         """Sets the address of this ViewRequest.
 
 
-        :param address: The address of this ViewRequest.  # noqa: E501
+        :param address: The address of this ViewRequest.
         :type: Address
         """
 
@@ -100,11 +100,11 @@ class ViewRequest(object):
 
     @property
     def parameters(self):
-        """Gets the parameters of this ViewRequest.  # noqa: E501
+        """Gets the parameters of this ViewRequest.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :return: The parameters of this ViewRequest.  # noqa: E501
+        :return: The parameters of this ViewRequest.
         :rtype: dict(str, str)
         """
         return self._parameters
@@ -113,9 +113,9 @@ class ViewRequest(object):
     def parameters(self, parameters):
         """Sets the parameters of this ViewRequest.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :param parameters: The parameters of this ViewRequest.  # noqa: E501
+        :param parameters: The parameters of this ViewRequest.
         :type: dict(str, str)
         """
 
@@ -123,11 +123,11 @@ class ViewRequest(object):
 
     @property
     def profile_parameters(self):
-        """Gets the profile_parameters of this ViewRequest.  # noqa: E501
+        """Gets the profile_parameters of this ViewRequest.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :return: The profile_parameters of this ViewRequest.  # noqa: E501
+        :return: The profile_parameters of this ViewRequest.
         :rtype: dict(str, str)
         """
         return self._profile_parameters
@@ -136,9 +136,9 @@ class ViewRequest(object):
     def profile_parameters(self, profile_parameters):
         """Sets the profile_parameters of this ViewRequest.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :param profile_parameters: The profile_parameters of this ViewRequest.  # noqa: E501
+        :param profile_parameters: The profile_parameters of this ViewRequest.
         :type: dict(str, str)
         """
 
@@ -146,10 +146,10 @@ class ViewRequest(object):
 
     @property
     def order(self):
-        """Gets the order of this ViewRequest.  # noqa: E501
+        """Gets the order of this ViewRequest.
 
 
-        :return: The order of this ViewRequest.  # noqa: E501
+        :return: The order of this ViewRequest.
         :rtype: Order
         """
         return self._order
@@ -159,7 +159,7 @@ class ViewRequest(object):
         """Sets the order of this ViewRequest.
 
 
-        :param order: The order of this ViewRequest.  # noqa: E501
+        :param order: The order of this ViewRequest.
         :type: Order
         """
 
@@ -167,10 +167,10 @@ class ViewRequest(object):
 
     @property
     def product(self):
-        """Gets the product of this ViewRequest.  # noqa: E501
+        """Gets the product of this ViewRequest.
 
 
-        :return: The product of this ViewRequest.  # noqa: E501
+        :return: The product of this ViewRequest.
         :rtype: Product
         """
         return self._product
@@ -180,7 +180,7 @@ class ViewRequest(object):
         """Sets the product of this ViewRequest.
 
 
-        :param product: The product of this ViewRequest.  # noqa: E501
+        :param product: The product of this ViewRequest.
         :type: Product
         """
 
@@ -188,11 +188,11 @@ class ViewRequest(object):
 
     @property
     def name(self):
-        """Gets the name of this ViewRequest.  # noqa: E501
+        """Gets the name of this ViewRequest.
 
-        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched.   # noqa: E501
+        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched. 
 
-        :return: The name of this ViewRequest.  # noqa: E501
+        :return: The name of this ViewRequest.
         :rtype: str
         """
         return self._name
@@ -201,23 +201,23 @@ class ViewRequest(object):
     def name(self, name):
         """Sets the name of this ViewRequest.
 
-        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched.   # noqa: E501
+        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched. 
 
-        :param name: The name of this ViewRequest.  # noqa: E501
+        :param name: The name of this ViewRequest.
         :type: str
         """
         if name is not None and len(name) > 128:
-            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 
     @property
     def key(self):
-        """Gets the key of this ViewRequest.  # noqa: E501
+        """Gets the key of this ViewRequest.
 
-        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name.   # noqa: E501
+        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name. 
 
-        :return: The key of this ViewRequest.  # noqa: E501
+        :return: The key of this ViewRequest.
         :rtype: str
         """
         return self._key
@@ -226,13 +226,13 @@ class ViewRequest(object):
     def key(self, key):
         """Sets the key of this ViewRequest.
 
-        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name.   # noqa: E501
+        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name. 
 
-        :param key: The key of this ViewRequest.  # noqa: E501
+        :param key: The key of this ViewRequest.
         :type: str
         """
         if key is not None and len(key) > 512:
-            raise ValueError("Invalid value for `key`, length must be less than or equal to `512`")  # noqa: E501
+            raise ValueError("Invalid value for `key`, length must be less than or equal to `512`")
 
         self._key = key
 

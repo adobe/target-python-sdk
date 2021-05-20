@@ -40,8 +40,8 @@ class Address(object):
         'referring_url': 'referringUrl'
     }
 
-    def __init__(self, url=None, referring_url=None):  # noqa: E501
-        """Address - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, url=None, referring_url=None):
+        """Address - a model defined in OpenAPI"""
 
         self._url = None
         self._referring_url = None
@@ -54,11 +54,11 @@ class Address(object):
 
     @property
     def url(self):
-        """Gets the url of this Address.  # noqa: E501
+        """Gets the url of this Address.
 
-        URL  # noqa: E501
+        URL
 
-        :return: The url of this Address.  # noqa: E501
+        :return: The url of this Address.
         :rtype: str
         """
         return self._url
@@ -67,23 +67,23 @@ class Address(object):
     def url(self, url):
         """Sets the url of this Address.
 
-        URL  # noqa: E501
+        URL
 
-        :param url: The url of this Address.  # noqa: E501
+        :param url: The url of this Address.
         :type: str
         """
         if url is not None and len(url) > 4096:
-            raise ValueError("Invalid value for `url`, length must be less than or equal to `4096`")  # noqa: E501
+            raise ValueError("Invalid value for `url`, length must be less than or equal to `4096`")
 
         self._url = url
 
     @property
     def referring_url(self):
-        """Gets the referring_url of this Address.  # noqa: E501
+        """Gets the referring_url of this Address.
 
-        referral URL  # noqa: E501
+        referral URL
 
-        :return: The referring_url of this Address.  # noqa: E501
+        :return: The referring_url of this Address.
         :rtype: str
         """
         return self._referring_url
@@ -92,13 +92,13 @@ class Address(object):
     def referring_url(self, referring_url):
         """Sets the referring_url of this Address.
 
-        referral URL  # noqa: E501
+        referral URL
 
-        :param referring_url: The referring_url of this Address.  # noqa: E501
+        :param referring_url: The referring_url of this Address.
         :type: str
         """
         if referring_url is not None and len(referring_url) > 4096:
-            raise ValueError("Invalid value for `referring_url`, length must be less than or equal to `4096`")  # noqa: E501
+            raise ValueError("Invalid value for `referring_url`, length must be less than or equal to `4096`")
 
         self._referring_url = referring_url
 

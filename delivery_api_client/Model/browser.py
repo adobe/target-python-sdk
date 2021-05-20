@@ -42,8 +42,8 @@ class Browser(object):
         'web_gl_renderer': 'webGLRenderer'
     }
 
-    def __init__(self, host=None, language=None, web_gl_renderer=None):  # noqa: E501
-        """Browser - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, host=None, language=None, web_gl_renderer=None):
+        """Browser - a model defined in OpenAPI"""
 
         self._host = None
         self._language = None
@@ -59,11 +59,11 @@ class Browser(object):
 
     @property
     def host(self):
-        """Gets the host of this Browser.  # noqa: E501
+        """Gets the host of this Browser.
 
-        Current web page host  # noqa: E501
+        Current web page host
 
-        :return: The host of this Browser.  # noqa: E501
+        :return: The host of this Browser.
         :rtype: str
         """
         return self._host
@@ -72,9 +72,9 @@ class Browser(object):
     def host(self, host):
         """Sets the host of this Browser.
 
-        Current web page host  # noqa: E501
+        Current web page host
 
-        :param host: The host of this Browser.  # noqa: E501
+        :param host: The host of this Browser.
         :type: str
         """
 
@@ -82,11 +82,11 @@ class Browser(object):
 
     @property
     def language(self):
-        """Gets the language of this Browser.  # noqa: E501
+        """Gets the language of this Browser.
 
-        Language in Accept-Language header format, see RFC 7231 sec. 5.3.5  # noqa: E501
+        Language in Accept-Language header format, see RFC 7231 sec. 5.3.5
 
-        :return: The language of this Browser.  # noqa: E501
+        :return: The language of this Browser.
         :rtype: str
         """
         return self._language
@@ -95,9 +95,9 @@ class Browser(object):
     def language(self, language):
         """Sets the language of this Browser.
 
-        Language in Accept-Language header format, see RFC 7231 sec. 5.3.5  # noqa: E501
+        Language in Accept-Language header format, see RFC 7231 sec. 5.3.5
 
-        :param language: The language of this Browser.  # noqa: E501
+        :param language: The language of this Browser.
         :type: str
         """
 
@@ -105,11 +105,11 @@ class Browser(object):
 
     @property
     def web_gl_renderer(self):
-        """Gets the web_gl_renderer of this Browser.  # noqa: E501
+        """Gets the web_gl_renderer of this Browser.
 
-        This is an optional field, added to help with device detection using device atlas   # noqa: E501
+        This is an optional field, added to help with device detection using device atlas 
 
-        :return: The web_gl_renderer of this Browser.  # noqa: E501
+        :return: The web_gl_renderer of this Browser.
         :rtype: str
         """
         return self._web_gl_renderer
@@ -118,9 +118,9 @@ class Browser(object):
     def web_gl_renderer(self, web_gl_renderer):
         """Sets the web_gl_renderer of this Browser.
 
-        This is an optional field, added to help with device detection using device atlas   # noqa: E501
+        This is an optional field, added to help with device detection using device atlas 
 
-        :param web_gl_renderer: The web_gl_renderer of this Browser.  # noqa: E501
+        :param web_gl_renderer: The web_gl_renderer of this Browser.
         :type: str
         """
 

@@ -50,8 +50,8 @@ class Geo(object):
         'zip': 'zip'
     }
 
-    def __init__(self, ip_address=None, latitude=None, longitude=None, country_code=None, state_code=None, city=None, zip=None):  # noqa: E501
-        """Geo - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, ip_address=None, latitude=None, longitude=None, country_code=None, state_code=None, city=None, zip=None):
+        """Geo - a model defined in OpenAPI"""
 
         self._ip_address = None
         self._latitude = None
@@ -79,11 +79,11 @@ class Geo(object):
 
     @property
     def ip_address(self):
-        """Gets the ip_address of this Geo.  # noqa: E501
+        """Gets the ip_address of this Geo.
 
-        IPv4 or IPv6 address for Geo resolution  # noqa: E501
+        IPv4 or IPv6 address for Geo resolution
 
-        :return: The ip_address of this Geo.  # noqa: E501
+        :return: The ip_address of this Geo.
         :rtype: str
         """
         return self._ip_address
@@ -92,23 +92,23 @@ class Geo(object):
     def ip_address(self, ip_address):
         """Sets the ip_address of this Geo.
 
-        IPv4 or IPv6 address for Geo resolution  # noqa: E501
+        IPv4 or IPv6 address for Geo resolution
 
-        :param ip_address: The ip_address of this Geo.  # noqa: E501
+        :param ip_address: The ip_address of this Geo.
         :type: str
         """
-        if ip_address is not None and not re.search(r'((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))', ip_address):  # noqa: E501
-            raise ValueError(r"Invalid value for `ip_address`, must be a follow pattern or equal to `/((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/`")  # noqa: E501
+        if ip_address is not None and not re.search(r'((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))', ip_address):
+            raise ValueError(r"Invalid value for `ip_address`, must be a follow pattern or equal to `/((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/`")
 
         self._ip_address = ip_address
 
     @property
     def latitude(self):
-        """Gets the latitude of this Geo.  # noqa: E501
+        """Gets the latitude of this Geo.
 
-        Latitude  # noqa: E501
+        Latitude
 
-        :return: The latitude of this Geo.  # noqa: E501
+        :return: The latitude of this Geo.
         :rtype: float
         """
         return self._latitude
@@ -117,9 +117,9 @@ class Geo(object):
     def latitude(self, latitude):
         """Sets the latitude of this Geo.
 
-        Latitude  # noqa: E501
+        Latitude
 
-        :param latitude: The latitude of this Geo.  # noqa: E501
+        :param latitude: The latitude of this Geo.
         :type: float
         """
 
@@ -127,11 +127,11 @@ class Geo(object):
 
     @property
     def longitude(self):
-        """Gets the longitude of this Geo.  # noqa: E501
+        """Gets the longitude of this Geo.
 
-        Longitude  # noqa: E501
+        Longitude
 
-        :return: The longitude of this Geo.  # noqa: E501
+        :return: The longitude of this Geo.
         :rtype: float
         """
         return self._longitude
@@ -140,9 +140,9 @@ class Geo(object):
     def longitude(self, longitude):
         """Sets the longitude of this Geo.
 
-        Longitude  # noqa: E501
+        Longitude
 
-        :param longitude: The longitude of this Geo.  # noqa: E501
+        :param longitude: The longitude of this Geo.
         :type: float
         """
 
@@ -150,11 +150,11 @@ class Geo(object):
 
     @property
     def country_code(self):
-        """Gets the country_code of this Geo.  # noqa: E501
+        """Gets the country_code of this Geo.
 
-        Country code in ISO 3166-1 alpha-2 format  # noqa: E501
+        Country code in ISO 3166-1 alpha-2 format
 
-        :return: The country_code of this Geo.  # noqa: E501
+        :return: The country_code of this Geo.
         :rtype: str
         """
         return self._country_code
@@ -163,25 +163,25 @@ class Geo(object):
     def country_code(self, country_code):
         """Sets the country_code of this Geo.
 
-        Country code in ISO 3166-1 alpha-2 format  # noqa: E501
+        Country code in ISO 3166-1 alpha-2 format
 
-        :param country_code: The country_code of this Geo.  # noqa: E501
+        :param country_code: The country_code of this Geo.
         :type: str
         """
         if country_code is not None and len(country_code) > 2:
-            raise ValueError("Invalid value for `country_code`, length must be less than or equal to `2`")  # noqa: E501
+            raise ValueError("Invalid value for `country_code`, length must be less than or equal to `2`")
         if country_code is not None and len(country_code) < 2:
-            raise ValueError("Invalid value for `country_code`, length must be greater than or equal to `2`")  # noqa: E501
+            raise ValueError("Invalid value for `country_code`, length must be greater than or equal to `2`")
 
         self._country_code = country_code
 
     @property
     def state_code(self):
-        """Gets the state_code of this Geo.  # noqa: E501
+        """Gets the state_code of this Geo.
 
-        Alphanumeric characters representing the subdivision part from ISO 3166-2  # noqa: E501
+        Alphanumeric characters representing the subdivision part from ISO 3166-2
 
-        :return: The state_code of this Geo.  # noqa: E501
+        :return: The state_code of this Geo.
         :rtype: str
         """
         return self._state_code
@@ -190,25 +190,25 @@ class Geo(object):
     def state_code(self, state_code):
         """Sets the state_code of this Geo.
 
-        Alphanumeric characters representing the subdivision part from ISO 3166-2  # noqa: E501
+        Alphanumeric characters representing the subdivision part from ISO 3166-2
 
-        :param state_code: The state_code of this Geo.  # noqa: E501
+        :param state_code: The state_code of this Geo.
         :type: str
         """
         if state_code is not None and len(state_code) > 3:
-            raise ValueError("Invalid value for `state_code`, length must be less than or equal to `3`")  # noqa: E501
+            raise ValueError("Invalid value for `state_code`, length must be less than or equal to `3`")
         if state_code is not None and len(state_code) < 1:
-            raise ValueError("Invalid value for `state_code`, length must be greater than or equal to `1`")  # noqa: E501
+            raise ValueError("Invalid value for `state_code`, length must be greater than or equal to `1`")
 
         self._state_code = state_code
 
     @property
     def city(self):
-        """Gets the city of this Geo.  # noqa: E501
+        """Gets the city of this Geo.
 
-        City  # noqa: E501
+        City
 
-        :return: The city of this Geo.  # noqa: E501
+        :return: The city of this Geo.
         :rtype: str
         """
         return self._city
@@ -217,23 +217,23 @@ class Geo(object):
     def city(self, city):
         """Sets the city of this Geo.
 
-        City  # noqa: E501
+        City
 
-        :param city: The city of this Geo.  # noqa: E501
+        :param city: The city of this Geo.
         :type: str
         """
         if city is not None and len(city) > 50:
-            raise ValueError("Invalid value for `city`, length must be less than or equal to `50`")  # noqa: E501
+            raise ValueError("Invalid value for `city`, length must be less than or equal to `50`")
 
         self._city = city
 
     @property
     def zip(self):
-        """Gets the zip of this Geo.  # noqa: E501
+        """Gets the zip of this Geo.
 
-        Zip/Postal Code  # noqa: E501
+        Zip/Postal Code
 
-        :return: The zip of this Geo.  # noqa: E501
+        :return: The zip of this Geo.
         :rtype: str
         """
         return self._zip
@@ -242,13 +242,13 @@ class Geo(object):
     def zip(self, zip):
         """Sets the zip of this Geo.
 
-        Zip/Postal Code  # noqa: E501
+        Zip/Postal Code
 
-        :param zip: The zip of this Geo.  # noqa: E501
+        :param zip: The zip of this Geo.
         :type: str
         """
         if zip is not None and len(zip) > 12:
-            raise ValueError("Invalid value for `zip`, length must be less than or equal to `12`")  # noqa: E501
+            raise ValueError("Invalid value for `zip`, length must be less than or equal to `12`")
 
         self._zip = zip
 

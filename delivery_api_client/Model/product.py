@@ -40,8 +40,8 @@ class Product(object):
         'category_id': 'categoryId'
     }
 
-    def __init__(self, id=None, category_id=None):  # noqa: E501
-        """Product - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, id=None, category_id=None):
+        """Product - a model defined in OpenAPI"""
 
         self._id = None
         self._category_id = None
@@ -54,11 +54,11 @@ class Product(object):
 
     @property
     def id(self):
-        """Gets the id of this Product.  # noqa: E501
+        """Gets the id of this Product.
 
-        Product id. Should not be blank.  # noqa: E501
+        Product id. Should not be blank.
 
-        :return: The id of this Product.  # noqa: E501
+        :return: The id of this Product.
         :rtype: str
         """
         return self._id
@@ -67,23 +67,23 @@ class Product(object):
     def id(self, id):
         """Sets the id of this Product.
 
-        Product id. Should not be blank.  # noqa: E501
+        Product id. Should not be blank.
 
-        :param id: The id of this Product.  # noqa: E501
+        :param id: The id of this Product.
         :type: str
         """
         if id is not None and len(id) > 128:
-            raise ValueError("Invalid value for `id`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `id`, length must be less than or equal to `128`")
 
         self._id = id
 
     @property
     def category_id(self):
-        """Gets the category_id of this Product.  # noqa: E501
+        """Gets the category_id of this Product.
 
-        Category id. Should not be blank.  # noqa: E501
+        Category id. Should not be blank.
 
-        :return: The category_id of this Product.  # noqa: E501
+        :return: The category_id of this Product.
         :rtype: str
         """
         return self._category_id
@@ -92,13 +92,13 @@ class Product(object):
     def category_id(self, category_id):
         """Sets the category_id of this Product.
 
-        Category id. Should not be blank.  # noqa: E501
+        Category id. Should not be blank.
 
-        :param category_id: The category_id of this Product.  # noqa: E501
+        :param category_id: The category_id of this Product.
         :type: str
         """
         if category_id is not None and len(category_id) > 128:
-            raise ValueError("Invalid value for `category_id`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `category_id`, length must be less than or equal to `128`")
 
         self._category_id = category_id
 

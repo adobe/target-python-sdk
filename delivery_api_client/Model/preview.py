@@ -38,8 +38,8 @@ class Preview(object):
         'token': 'token'
     }
 
-    def __init__(self, token=None):  # noqa: E501
-        """Preview - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, token=None):
+        """Preview - a model defined in OpenAPI"""
 
         self._token = None
         self.discriminator = None
@@ -49,11 +49,11 @@ class Preview(object):
 
     @property
     def token(self):
-        """Gets the token of this Preview.  # noqa: E501
+        """Gets the token of this Preview.
 
-        The token for the Preview mode. Validation   * Verify that the token belongs to the client provided in request.   # noqa: E501
+        The token for the Preview mode. Validation   * Verify that the token belongs to the client provided in request. 
 
-        :return: The token of this Preview.  # noqa: E501
+        :return: The token of this Preview.
         :rtype: str
         """
         return self._token
@@ -62,9 +62,9 @@ class Preview(object):
     def token(self, token):
         """Sets the token of this Preview.
 
-        The token for the Preview mode. Validation   * Verify that the token belongs to the client provided in request.   # noqa: E501
+        The token for the Preview mode. Validation   * Verify that the token belongs to the client provided in request. 
 
-        :param token: The token of this Preview.  # noqa: E501
+        :param token: The token of this Preview.
         :type: str
         """
 

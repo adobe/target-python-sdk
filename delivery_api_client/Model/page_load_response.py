@@ -46,8 +46,8 @@ class PageLoadResponse(object):
         'trace': 'trace'
     }
 
-    def __init__(self, options=None, metrics=None, analytics=None, state=None, trace=None):  # noqa: E501
-        """PageLoadResponse - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, options=None, metrics=None, analytics=None, state=None, trace=None):
+        """PageLoadResponse - a model defined in OpenAPI"""
 
         self._options = None
         self._metrics = None
@@ -69,11 +69,11 @@ class PageLoadResponse(object):
 
     @property
     def options(self):
-        """Gets the options of this PageLoadResponse.  # noqa: E501
+        """Gets the options of this PageLoadResponse.
 
-        List of options that should be applied. Note: options that have been set on selectors assigned to views will not be included here.   # noqa: E501
+        List of options that should be applied. Note: options that have been set on selectors assigned to views will not be included here. 
 
-        :return: The options of this PageLoadResponse.  # noqa: E501
+        :return: The options of this PageLoadResponse.
         :rtype: list[Option]
         """
         return self._options
@@ -82,9 +82,9 @@ class PageLoadResponse(object):
     def options(self, options):
         """Sets the options of this PageLoadResponse.
 
-        List of options that should be applied. Note: options that have been set on selectors assigned to views will not be included here.   # noqa: E501
+        List of options that should be applied. Note: options that have been set on selectors assigned to views will not be included here. 
 
-        :param options: The options of this PageLoadResponse.  # noqa: E501
+        :param options: The options of this PageLoadResponse.
         :type: list[Option]
         """
 
@@ -92,11 +92,11 @@ class PageLoadResponse(object):
 
     @property
     def metrics(self):
-        """Gets the metrics of this PageLoadResponse.  # noqa: E501
+        """Gets the metrics of this PageLoadResponse.
 
-        Click track metrics. Note that click metrics for selectors set with views will not be included here. In case the same activity is serving content for selectors both assinged to a view and selectors without any views, and having click track metrics that are not assotiated with any view within the activity, then:   * in case of a prefetch only request, these metrics (tokens) will be set in the Prefetch response's metrics.   * in case of an execute only request, the metrics will be set in the page load response's metrics.   * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's     metrics only.   # noqa: E501
+        Click track metrics. Note that click metrics for selectors set with views will not be included here. In case the same activity is serving content for selectors both assinged to a view and selectors without any views, and having click track metrics that are not assotiated with any view within the activity, then:   * in case of a prefetch only request, these metrics (tokens) will be set in the Prefetch response's metrics.   * in case of an execute only request, the metrics will be set in the page load response's metrics.   * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's     metrics only. 
 
-        :return: The metrics of this PageLoadResponse.  # noqa: E501
+        :return: The metrics of this PageLoadResponse.
         :rtype: list[Metric]
         """
         return self._metrics
@@ -105,9 +105,9 @@ class PageLoadResponse(object):
     def metrics(self, metrics):
         """Sets the metrics of this PageLoadResponse.
 
-        Click track metrics. Note that click metrics for selectors set with views will not be included here. In case the same activity is serving content for selectors both assinged to a view and selectors without any views, and having click track metrics that are not assotiated with any view within the activity, then:   * in case of a prefetch only request, these metrics (tokens) will be set in the Prefetch response's metrics.   * in case of an execute only request, the metrics will be set in the page load response's metrics.   * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's     metrics only.   # noqa: E501
+        Click track metrics. Note that click metrics for selectors set with views will not be included here. In case the same activity is serving content for selectors both assinged to a view and selectors without any views, and having click track metrics that are not assotiated with any view within the activity, then:   * in case of a prefetch only request, these metrics (tokens) will be set in the Prefetch response's metrics.   * in case of an execute only request, the metrics will be set in the page load response's metrics.   * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's     metrics only. 
 
-        :param metrics: The metrics of this PageLoadResponse.  # noqa: E501
+        :param metrics: The metrics of this PageLoadResponse.
         :type: list[Metric]
         """
 
@@ -115,10 +115,10 @@ class PageLoadResponse(object):
 
     @property
     def analytics(self):
-        """Gets the analytics of this PageLoadResponse.  # noqa: E501
+        """Gets the analytics of this PageLoadResponse.
 
 
-        :return: The analytics of this PageLoadResponse.  # noqa: E501
+        :return: The analytics of this PageLoadResponse.
         :rtype: AnalyticsResponse
         """
         return self._analytics
@@ -128,7 +128,7 @@ class PageLoadResponse(object):
         """Sets the analytics of this PageLoadResponse.
 
 
-        :param analytics: The analytics of this PageLoadResponse.  # noqa: E501
+        :param analytics: The analytics of this PageLoadResponse.
         :type: AnalyticsResponse
         """
 
@@ -136,11 +136,11 @@ class PageLoadResponse(object):
 
     @property
     def state(self):
-        """Gets the state of this PageLoadResponse.  # noqa: E501
+        """Gets the state of this PageLoadResponse.
 
-        View state token that must be sent back with display notification for the view. May only be present for prefetch requests.   # noqa: E501
+        View state token that must be sent back with display notification for the view. May only be present for prefetch requests. 
 
-        :return: The state of this PageLoadResponse.  # noqa: E501
+        :return: The state of this PageLoadResponse.
         :rtype: str
         """
         return self._state
@@ -149,9 +149,9 @@ class PageLoadResponse(object):
     def state(self, state):
         """Sets the state of this PageLoadResponse.
 
-        View state token that must be sent back with display notification for the view. May only be present for prefetch requests.   # noqa: E501
+        View state token that must be sent back with display notification for the view. May only be present for prefetch requests. 
 
-        :param state: The state of this PageLoadResponse.  # noqa: E501
+        :param state: The state of this PageLoadResponse.
         :type: str
         """
 
@@ -159,11 +159,11 @@ class PageLoadResponse(object):
 
     @property
     def trace(self):
-        """Gets the trace of this PageLoadResponse.  # noqa: E501
+        """Gets the trace of this PageLoadResponse.
 
-        The object containing all trace data for the request, only present if the trace token was provided in the request.   # noqa: E501
+        The object containing all trace data for the request, only present if the trace token was provided in the request. 
 
-        :return: The trace of this PageLoadResponse.  # noqa: E501
+        :return: The trace of this PageLoadResponse.
         :rtype: dict(str, object)
         """
         return self._trace
@@ -172,9 +172,9 @@ class PageLoadResponse(object):
     def trace(self, trace):
         """Sets the trace of this PageLoadResponse.
 
-        The object containing all trace data for the request, only present if the trace token was provided in the request.   # noqa: E501
+        The object containing all trace data for the request, only present if the trace token was provided in the request. 
 
-        :param trace: The trace of this PageLoadResponse.  # noqa: E501
+        :param trace: The trace of this PageLoadResponse.
         :type: dict(str, object)
         """
 

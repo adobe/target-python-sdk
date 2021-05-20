@@ -44,8 +44,8 @@ class PrefetchResponse(object):
         'metrics': 'metrics'
     }
 
-    def __init__(self, views=None, page_load=None, mboxes=None, metrics=None):  # noqa: E501
-        """PrefetchResponse - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, views=None, page_load=None, mboxes=None, metrics=None):
+        """PrefetchResponse - a model defined in OpenAPI"""
 
         self._views = None
         self._page_load = None
@@ -64,11 +64,11 @@ class PrefetchResponse(object):
 
     @property
     def views(self):
-        """Gets the views of this PrefetchResponse.  # noqa: E501
+        """Gets the views of this PrefetchResponse.
 
-        Contains all the views matching the request.   # noqa: E501
+        Contains all the views matching the request. 
 
-        :return: The views of this PrefetchResponse.  # noqa: E501
+        :return: The views of this PrefetchResponse.
         :rtype: list[View]
         """
         return self._views
@@ -77,9 +77,9 @@ class PrefetchResponse(object):
     def views(self, views):
         """Sets the views of this PrefetchResponse.
 
-        Contains all the views matching the request.   # noqa: E501
+        Contains all the views matching the request. 
 
-        :param views: The views of this PrefetchResponse.  # noqa: E501
+        :param views: The views of this PrefetchResponse.
         :type: list[View]
         """
 
@@ -87,10 +87,10 @@ class PrefetchResponse(object):
 
     @property
     def page_load(self):
-        """Gets the page_load of this PrefetchResponse.  # noqa: E501
+        """Gets the page_load of this PrefetchResponse.
 
 
-        :return: The page_load of this PrefetchResponse.  # noqa: E501
+        :return: The page_load of this PrefetchResponse.
         :rtype: PageLoadResponse
         """
         return self._page_load
@@ -100,7 +100,7 @@ class PrefetchResponse(object):
         """Sets the page_load of this PrefetchResponse.
 
 
-        :param page_load: The page_load of this PrefetchResponse.  # noqa: E501
+        :param page_load: The page_load of this PrefetchResponse.
         :type: PageLoadResponse
         """
 
@@ -108,11 +108,11 @@ class PrefetchResponse(object):
 
     @property
     def mboxes(self):
-        """Gets the mboxes of this PrefetchResponse.  # noqa: E501
+        """Gets the mboxes of this PrefetchResponse.
 
-        Prefetched mboxes, including content and notification tokens to be sent back when the mboxes are displayed.   # noqa: E501
+        Prefetched mboxes, including content and notification tokens to be sent back when the mboxes are displayed. 
 
-        :return: The mboxes of this PrefetchResponse.  # noqa: E501
+        :return: The mboxes of this PrefetchResponse.
         :rtype: list[PrefetchMboxResponse]
         """
         return self._mboxes
@@ -121,9 +121,9 @@ class PrefetchResponse(object):
     def mboxes(self, mboxes):
         """Sets the mboxes of this PrefetchResponse.
 
-        Prefetched mboxes, including content and notification tokens to be sent back when the mboxes are displayed.   # noqa: E501
+        Prefetched mboxes, including content and notification tokens to be sent back when the mboxes are displayed. 
 
-        :param mboxes: The mboxes of this PrefetchResponse.  # noqa: E501
+        :param mboxes: The mboxes of this PrefetchResponse.
         :type: list[PrefetchMboxResponse]
         """
 
@@ -131,11 +131,11 @@ class PrefetchResponse(object):
 
     @property
     def metrics(self):
-        """Gets the metrics of this PrefetchResponse.  # noqa: E501
+        """Gets the metrics of this PrefetchResponse.
 
-        The click track metrics that are not assigned to a view but are present in activites that have views, except in case the same activity is serving content for selectors both assinged to a view and selectors without any views, and having click track metrics that are not assotiated with any view within the activity, then:   * in case of a prefetch only request, these metrics (tokens) will be set in the prefetch response's metrics.   * in case of an execute only request, the metrics will be set in the page load response's metrics.   * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's     metrics only.   # noqa: E501
+        The click track metrics that are not assigned to a view but are present in activites that have views, except in case the same activity is serving content for selectors both assinged to a view and selectors without any views, and having click track metrics that are not assotiated with any view within the activity, then:   * in case of a prefetch only request, these metrics (tokens) will be set in the prefetch response's metrics.   * in case of an execute only request, the metrics will be set in the page load response's metrics.   * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's     metrics only. 
 
-        :return: The metrics of this PrefetchResponse.  # noqa: E501
+        :return: The metrics of this PrefetchResponse.
         :rtype: list[Metric]
         """
         return self._metrics
@@ -144,9 +144,9 @@ class PrefetchResponse(object):
     def metrics(self, metrics):
         """Sets the metrics of this PrefetchResponse.
 
-        The click track metrics that are not assigned to a view but are present in activites that have views, except in case the same activity is serving content for selectors both assinged to a view and selectors without any views, and having click track metrics that are not assotiated with any view within the activity, then:   * in case of a prefetch only request, these metrics (tokens) will be set in the prefetch response's metrics.   * in case of an execute only request, the metrics will be set in the page load response's metrics.   * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's     metrics only.   # noqa: E501
+        The click track metrics that are not assigned to a view but are present in activites that have views, except in case the same activity is serving content for selectors both assinged to a view and selectors without any views, and having click track metrics that are not assotiated with any view within the activity, then:   * in case of a prefetch only request, these metrics (tokens) will be set in the prefetch response's metrics.   * in case of an execute only request, the metrics will be set in the page load response's metrics.   * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's     metrics only. 
 
-        :param metrics: The metrics of this PrefetchResponse.  # noqa: E501
+        :param metrics: The metrics of this PrefetchResponse.
         :type: list[Metric]
         """
 

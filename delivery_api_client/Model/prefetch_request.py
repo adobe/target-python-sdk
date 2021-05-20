@@ -42,8 +42,8 @@ class PrefetchRequest(object):
         'mboxes': 'mboxes'
     }
 
-    def __init__(self, views=None, page_load=None, mboxes=None):  # noqa: E501
-        """PrefetchRequest - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, views=None, page_load=None, mboxes=None):
+        """PrefetchRequest - a model defined in OpenAPI"""
 
         self._views = None
         self._page_load = None
@@ -59,11 +59,11 @@ class PrefetchRequest(object):
 
     @property
     def views(self):
-        """Gets the views of this PrefetchRequest.  # noqa: E501
+        """Gets the views of this PrefetchRequest.
 
-        An array of views   # noqa: E501
+        An array of views 
 
-        :return: The views of this PrefetchRequest.  # noqa: E501
+        :return: The views of this PrefetchRequest.
         :rtype: list[ViewRequest]
         """
         return self._views
@@ -72,9 +72,9 @@ class PrefetchRequest(object):
     def views(self, views):
         """Sets the views of this PrefetchRequest.
 
-        An array of views   # noqa: E501
+        An array of views 
 
-        :param views: The views of this PrefetchRequest.  # noqa: E501
+        :param views: The views of this PrefetchRequest.
         :type: list[ViewRequest]
         """
 
@@ -82,10 +82,10 @@ class PrefetchRequest(object):
 
     @property
     def page_load(self):
-        """Gets the page_load of this PrefetchRequest.  # noqa: E501
+        """Gets the page_load of this PrefetchRequest.
 
 
-        :return: The page_load of this PrefetchRequest.  # noqa: E501
+        :return: The page_load of this PrefetchRequest.
         :rtype: RequestDetails
         """
         return self._page_load
@@ -95,7 +95,7 @@ class PrefetchRequest(object):
         """Sets the page_load of this PrefetchRequest.
 
 
-        :param page_load: The page_load of this PrefetchRequest.  # noqa: E501
+        :param page_load: The page_load of this PrefetchRequest.
         :type: RequestDetails
         """
 
@@ -103,11 +103,11 @@ class PrefetchRequest(object):
 
     @property
     def mboxes(self):
-        """Gets the mboxes of this PrefetchRequest.  # noqa: E501
+        """Gets the mboxes of this PrefetchRequest.
 
-        Prefetch the content for the regional mbox.  # noqa: E501
+        Prefetch the content for the regional mbox.
 
-        :return: The mboxes of this PrefetchRequest.  # noqa: E501
+        :return: The mboxes of this PrefetchRequest.
         :rtype: list[MboxRequest]
         """
         return self._mboxes
@@ -116,9 +116,9 @@ class PrefetchRequest(object):
     def mboxes(self, mboxes):
         """Sets the mboxes of this PrefetchRequest.
 
-        Prefetch the content for the regional mbox.  # noqa: E501
+        Prefetch the content for the regional mbox.
 
-        :param mboxes: The mboxes of this PrefetchRequest.  # noqa: E501
+        :param mboxes: The mboxes of this PrefetchRequest.
         :type: list[MboxRequest]
         """
 

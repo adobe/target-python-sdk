@@ -38,8 +38,8 @@ class AnalyticsResponse(object):
         'payload': 'payload'
     }
 
-    def __init__(self, payload=None):  # noqa: E501
-        """AnalyticsResponse - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, payload=None):
+        """AnalyticsResponse - a model defined in OpenAPI"""
 
         self._payload = None
         self.discriminator = None
@@ -49,10 +49,10 @@ class AnalyticsResponse(object):
 
     @property
     def payload(self):
-        """Gets the payload of this AnalyticsResponse.  # noqa: E501
+        """Gets the payload of this AnalyticsResponse.
 
 
-        :return: The payload of this AnalyticsResponse.  # noqa: E501
+        :return: The payload of this AnalyticsResponse.
         :rtype: AnalyticsPayload
         """
         return self._payload
@@ -62,7 +62,7 @@ class AnalyticsResponse(object):
         """Sets the payload of this AnalyticsResponse.
 
 
-        :param payload: The payload of this AnalyticsResponse.  # noqa: E501
+        :param payload: The payload of this AnalyticsResponse.
         :type: AnalyticsPayload
         """
 

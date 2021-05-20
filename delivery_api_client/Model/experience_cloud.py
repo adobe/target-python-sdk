@@ -40,8 +40,8 @@ class ExperienceCloud(object):
         'analytics': 'analytics'
     }
 
-    def __init__(self, audience_manager=None, analytics=None):  # noqa: E501
-        """ExperienceCloud - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, audience_manager=None, analytics=None):
+        """ExperienceCloud - a model defined in OpenAPI"""
 
         self._audience_manager = None
         self._analytics = None
@@ -54,10 +54,10 @@ class ExperienceCloud(object):
 
     @property
     def audience_manager(self):
-        """Gets the audience_manager of this ExperienceCloud.  # noqa: E501
+        """Gets the audience_manager of this ExperienceCloud.
 
 
-        :return: The audience_manager of this ExperienceCloud.  # noqa: E501
+        :return: The audience_manager of this ExperienceCloud.
         :rtype: AudienceManager
         """
         return self._audience_manager
@@ -67,7 +67,7 @@ class ExperienceCloud(object):
         """Sets the audience_manager of this ExperienceCloud.
 
 
-        :param audience_manager: The audience_manager of this ExperienceCloud.  # noqa: E501
+        :param audience_manager: The audience_manager of this ExperienceCloud.
         :type: AudienceManager
         """
 
@@ -75,10 +75,10 @@ class ExperienceCloud(object):
 
     @property
     def analytics(self):
-        """Gets the analytics of this ExperienceCloud.  # noqa: E501
+        """Gets the analytics of this ExperienceCloud.
 
 
-        :return: The analytics of this ExperienceCloud.  # noqa: E501
+        :return: The analytics of this ExperienceCloud.
         :rtype: AnalyticsRequest
         """
         return self._analytics
@@ -88,7 +88,7 @@ class ExperienceCloud(object):
         """Sets the analytics of this ExperienceCloud.
 
 
-        :param analytics: The analytics of this ExperienceCloud.  # noqa: E501
+        :param analytics: The analytics of this ExperienceCloud.
         :type: AnalyticsRequest
         """
 

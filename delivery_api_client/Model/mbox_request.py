@@ -50,8 +50,8 @@ class MboxRequest(object):
         'name': 'name'
     }
 
-    def __init__(self, address=None, parameters=None, profile_parameters=None, order=None, product=None, index=None, name=None):  # noqa: E501
-        """MboxRequest - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, address=None, parameters=None, profile_parameters=None, order=None, product=None, index=None, name=None):
+        """MboxRequest - a model defined in OpenAPI"""
 
         self._address = None
         self._parameters = None
@@ -79,10 +79,10 @@ class MboxRequest(object):
 
     @property
     def address(self):
-        """Gets the address of this MboxRequest.  # noqa: E501
+        """Gets the address of this MboxRequest.
 
 
-        :return: The address of this MboxRequest.  # noqa: E501
+        :return: The address of this MboxRequest.
         :rtype: Address
         """
         return self._address
@@ -92,7 +92,7 @@ class MboxRequest(object):
         """Sets the address of this MboxRequest.
 
 
-        :param address: The address of this MboxRequest.  # noqa: E501
+        :param address: The address of this MboxRequest.
         :type: Address
         """
 
@@ -100,11 +100,11 @@ class MboxRequest(object):
 
     @property
     def parameters(self):
-        """Gets the parameters of this MboxRequest.  # noqa: E501
+        """Gets the parameters of this MboxRequest.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :return: The parameters of this MboxRequest.  # noqa: E501
+        :return: The parameters of this MboxRequest.
         :rtype: dict(str, str)
         """
         return self._parameters
@@ -113,9 +113,9 @@ class MboxRequest(object):
     def parameters(self, parameters):
         """Sets the parameters of this MboxRequest.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :param parameters: The parameters of this MboxRequest.  # noqa: E501
+        :param parameters: The parameters of this MboxRequest.
         :type: dict(str, str)
         """
 
@@ -123,11 +123,11 @@ class MboxRequest(object):
 
     @property
     def profile_parameters(self):
-        """Gets the profile_parameters of this MboxRequest.  # noqa: E501
+        """Gets the profile_parameters of this MboxRequest.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :return: The profile_parameters of this MboxRequest.  # noqa: E501
+        :return: The profile_parameters of this MboxRequest.
         :rtype: dict(str, str)
         """
         return self._profile_parameters
@@ -136,9 +136,9 @@ class MboxRequest(object):
     def profile_parameters(self, profile_parameters):
         """Sets the profile_parameters of this MboxRequest.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :param profile_parameters: The profile_parameters of this MboxRequest.  # noqa: E501
+        :param profile_parameters: The profile_parameters of this MboxRequest.
         :type: dict(str, str)
         """
 
@@ -146,10 +146,10 @@ class MboxRequest(object):
 
     @property
     def order(self):
-        """Gets the order of this MboxRequest.  # noqa: E501
+        """Gets the order of this MboxRequest.
 
 
-        :return: The order of this MboxRequest.  # noqa: E501
+        :return: The order of this MboxRequest.
         :rtype: Order
         """
         return self._order
@@ -159,7 +159,7 @@ class MboxRequest(object):
         """Sets the order of this MboxRequest.
 
 
-        :param order: The order of this MboxRequest.  # noqa: E501
+        :param order: The order of this MboxRequest.
         :type: Order
         """
 
@@ -167,10 +167,10 @@ class MboxRequest(object):
 
     @property
     def product(self):
-        """Gets the product of this MboxRequest.  # noqa: E501
+        """Gets the product of this MboxRequest.
 
 
-        :return: The product of this MboxRequest.  # noqa: E501
+        :return: The product of this MboxRequest.
         :rtype: Product
         """
         return self._product
@@ -180,7 +180,7 @@ class MboxRequest(object):
         """Sets the product of this MboxRequest.
 
 
-        :param product: The product of this MboxRequest.  # noqa: E501
+        :param product: The product of this MboxRequest.
         :type: Product
         """
 
@@ -188,11 +188,11 @@ class MboxRequest(object):
 
     @property
     def index(self):
-        """Gets the index of this MboxRequest.  # noqa: E501
+        """Gets the index of this MboxRequest.
 
-        An index for the mboxes to be executed or prefetched. Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or execute responses. Index should be unique in the mbox list.   # noqa: E501
+        An index for the mboxes to be executed or prefetched. Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or execute responses. Index should be unique in the mbox list. 
 
-        :return: The index of this MboxRequest.  # noqa: E501
+        :return: The index of this MboxRequest.
         :rtype: int
         """
         return self._index
@@ -201,9 +201,9 @@ class MboxRequest(object):
     def index(self, index):
         """Sets the index of this MboxRequest.
 
-        An index for the mboxes to be executed or prefetched. Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or execute responses. Index should be unique in the mbox list.   # noqa: E501
+        An index for the mboxes to be executed or prefetched. Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or execute responses. Index should be unique in the mbox list. 
 
-        :param index: The index of this MboxRequest.  # noqa: E501
+        :param index: The index of this MboxRequest.
         :type: int
         """
 
@@ -211,11 +211,11 @@ class MboxRequest(object):
 
     @property
     def name(self):
-        """Gets the name of this MboxRequest.  # noqa: E501
+        """Gets the name of this MboxRequest.
 
-        The name of the regional mbox to be evaluated.   # noqa: E501
+        The name of the regional mbox to be evaluated. 
 
-        :return: The name of this MboxRequest.  # noqa: E501
+        :return: The name of this MboxRequest.
         :rtype: str
         """
         return self._name
@@ -224,9 +224,9 @@ class MboxRequest(object):
     def name(self, name):
         """Sets the name of this MboxRequest.
 
-        The name of the regional mbox to be evaluated.   # noqa: E501
+        The name of the regional mbox to be evaluated. 
 
-        :param name: The name of this MboxRequest.  # noqa: E501
+        :param name: The name of this MboxRequest.
         :type: str
         """
 

@@ -44,8 +44,8 @@ class Metric(object):
         'analytics': 'analytics'
     }
 
-    def __init__(self, type=None, selector=None, event_token=None, analytics=None):  # noqa: E501
-        """Metric - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, type=None, selector=None, event_token=None, analytics=None):
+        """Metric - a model defined in OpenAPI"""
 
         self._type = None
         self._selector = None
@@ -64,10 +64,10 @@ class Metric(object):
 
     @property
     def type(self):
-        """Gets the type of this Metric.  # noqa: E501
+        """Gets the type of this Metric.
 
 
-        :return: The type of this Metric.  # noqa: E501
+        :return: The type of this Metric.
         :rtype: MetricType
         """
         return self._type
@@ -77,7 +77,7 @@ class Metric(object):
         """Sets the type of this Metric.
 
 
-        :param type: The type of this Metric.  # noqa: E501
+        :param type: The type of this Metric.
         :type: MetricType
         """
 
@@ -85,11 +85,11 @@ class Metric(object):
 
     @property
     def selector(self):
-        """Gets the selector of this Metric.  # noqa: E501
+        """Gets the selector of this Metric.
 
-        The selector  # noqa: E501
+        The selector
 
-        :return: The selector of this Metric.  # noqa: E501
+        :return: The selector of this Metric.
         :rtype: str
         """
         return self._selector
@@ -98,9 +98,9 @@ class Metric(object):
     def selector(self, selector):
         """Sets the selector of this Metric.
 
-        The selector  # noqa: E501
+        The selector
 
-        :param selector: The selector of this Metric.  # noqa: E501
+        :param selector: The selector of this Metric.
         :type: str
         """
 
@@ -108,11 +108,11 @@ class Metric(object):
 
     @property
     def event_token(self):
-        """Gets the event_token of this Metric.  # noqa: E501
+        """Gets the event_token of this Metric.
 
-        The event token that should be sent with the notifications in case the click occurred.  # noqa: E501
+        The event token that should be sent with the notifications in case the click occurred.
 
-        :return: The event_token of this Metric.  # noqa: E501
+        :return: The event_token of this Metric.
         :rtype: str
         """
         return self._event_token
@@ -121,9 +121,9 @@ class Metric(object):
     def event_token(self, event_token):
         """Sets the event_token of this Metric.
 
-        The event token that should be sent with the notifications in case the click occurred.  # noqa: E501
+        The event token that should be sent with the notifications in case the click occurred.
 
-        :param event_token: The event_token of this Metric.  # noqa: E501
+        :param event_token: The event_token of this Metric.
         :type: str
         """
 
@@ -131,10 +131,10 @@ class Metric(object):
 
     @property
     def analytics(self):
-        """Gets the analytics of this Metric.  # noqa: E501
+        """Gets the analytics of this Metric.
 
 
-        :return: The analytics of this Metric.  # noqa: E501
+        :return: The analytics of this Metric.
         :rtype: AnalyticsResponse
         """
         return self._analytics
@@ -144,7 +144,7 @@ class Metric(object):
         """Sets the analytics of this Metric.
 
 
-        :param analytics: The analytics of this Metric.  # noqa: E501
+        :param analytics: The analytics of this Metric.
         :type: AnalyticsResponse
         """
 

@@ -50,8 +50,8 @@ class View(object):
         'trace': 'trace'
     }
 
-    def __init__(self, name=None, key=None, options=None, metrics=None, analytics=None, state=None, trace=None):  # noqa: E501
-        """View - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, name=None, key=None, options=None, metrics=None, analytics=None, state=None, trace=None):
+        """View - a model defined in OpenAPI"""
 
         self._name = None
         self._key = None
@@ -79,11 +79,11 @@ class View(object):
 
     @property
     def name(self):
-        """Gets the name of this View.  # noqa: E501
+        """Gets the name of this View.
 
-        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched.   # noqa: E501
+        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched. 
 
-        :return: The name of this View.  # noqa: E501
+        :return: The name of this View.
         :rtype: str
         """
         return self._name
@@ -92,23 +92,23 @@ class View(object):
     def name(self, name):
         """Sets the name of this View.
 
-        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched.   # noqa: E501
+        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched. 
 
-        :param name: The name of this View.  # noqa: E501
+        :param name: The name of this View.
         :type: str
         """
         if name is not None and len(name) > 128:
-            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 
     @property
     def key(self):
-        """Gets the key of this View.  # noqa: E501
+        """Gets the key of this View.
 
-        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name.   # noqa: E501
+        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name. 
 
-        :return: The key of this View.  # noqa: E501
+        :return: The key of this View.
         :rtype: str
         """
         return self._key
@@ -117,23 +117,23 @@ class View(object):
     def key(self, key):
         """Sets the key of this View.
 
-        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name.   # noqa: E501
+        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name. 
 
-        :param key: The key of this View.  # noqa: E501
+        :param key: The key of this View.
         :type: str
         """
         if key is not None and len(key) > 512:
-            raise ValueError("Invalid value for `key`, length must be less than or equal to `512`")  # noqa: E501
+            raise ValueError("Invalid value for `key`, length must be less than or equal to `512`")
 
         self._key = key
 
     @property
     def options(self):
-        """Gets the options of this View.  # noqa: E501
+        """Gets the options of this View.
 
-        The prefetched content (options) to be displayed for the current view.   # noqa: E501
+        The prefetched content (options) to be displayed for the current view. 
 
-        :return: The options of this View.  # noqa: E501
+        :return: The options of this View.
         :rtype: list[Option]
         """
         return self._options
@@ -142,9 +142,9 @@ class View(object):
     def options(self, options):
         """Sets the options of this View.
 
-        The prefetched content (options) to be displayed for the current view.   # noqa: E501
+        The prefetched content (options) to be displayed for the current view. 
 
-        :param options: The options of this View.  # noqa: E501
+        :param options: The options of this View.
         :type: list[Option]
         """
 
@@ -152,11 +152,11 @@ class View(object):
 
     @property
     def metrics(self):
-        """Gets the metrics of this View.  # noqa: E501
+        """Gets the metrics of this View.
 
-        Click track metrics for the current view.   # noqa: E501
+        Click track metrics for the current view. 
 
-        :return: The metrics of this View.  # noqa: E501
+        :return: The metrics of this View.
         :rtype: list[Metric]
         """
         return self._metrics
@@ -165,9 +165,9 @@ class View(object):
     def metrics(self, metrics):
         """Sets the metrics of this View.
 
-        Click track metrics for the current view.   # noqa: E501
+        Click track metrics for the current view. 
 
-        :param metrics: The metrics of this View.  # noqa: E501
+        :param metrics: The metrics of this View.
         :type: list[Metric]
         """
 
@@ -175,10 +175,10 @@ class View(object):
 
     @property
     def analytics(self):
-        """Gets the analytics of this View.  # noqa: E501
+        """Gets the analytics of this View.
 
 
-        :return: The analytics of this View.  # noqa: E501
+        :return: The analytics of this View.
         :rtype: AnalyticsResponse
         """
         return self._analytics
@@ -188,7 +188,7 @@ class View(object):
         """Sets the analytics of this View.
 
 
-        :param analytics: The analytics of this View.  # noqa: E501
+        :param analytics: The analytics of this View.
         :type: AnalyticsResponse
         """
 
@@ -196,11 +196,11 @@ class View(object):
 
     @property
     def state(self):
-        """Gets the state of this View.  # noqa: E501
+        """Gets the state of this View.
 
-        View state token that must be sent back with display notification for the view.  # noqa: E501
+        View state token that must be sent back with display notification for the view.
 
-        :return: The state of this View.  # noqa: E501
+        :return: The state of this View.
         :rtype: str
         """
         return self._state
@@ -209,9 +209,9 @@ class View(object):
     def state(self, state):
         """Sets the state of this View.
 
-        View state token that must be sent back with display notification for the view.  # noqa: E501
+        View state token that must be sent back with display notification for the view.
 
-        :param state: The state of this View.  # noqa: E501
+        :param state: The state of this View.
         :type: str
         """
 
@@ -219,11 +219,11 @@ class View(object):
 
     @property
     def trace(self):
-        """Gets the trace of this View.  # noqa: E501
+        """Gets the trace of this View.
 
-        The object containing all trace data for the request, only present if the trace token was provided in the request.   # noqa: E501
+        The object containing all trace data for the request, only present if the trace token was provided in the request. 
 
-        :return: The trace of this View.  # noqa: E501
+        :return: The trace of this View.
         :rtype: dict(str, object)
         """
         return self._trace
@@ -232,9 +232,9 @@ class View(object):
     def trace(self, trace):
         """Sets the trace of this View.
 
-        The object containing all trace data for the request, only present if the trace token was provided in the request.   # noqa: E501
+        The object containing all trace data for the request, only present if the trace token was provided in the request. 
 
-        :param trace: The trace of this View.  # noqa: E501
+        :param trace: The trace of this View.
         :type: dict(str, object)
         """
 

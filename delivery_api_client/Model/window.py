@@ -40,8 +40,8 @@ class Window(object):
         'height': 'height'
     }
 
-    def __init__(self, width=None, height=None):  # noqa: E501
-        """Window - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, width=None, height=None):
+        """Window - a model defined in OpenAPI"""
 
         self._width = None
         self._height = None
@@ -54,11 +54,11 @@ class Window(object):
 
     @property
     def width(self):
-        """Gets the width of this Window.  # noqa: E501
+        """Gets the width of this Window.
 
-        width  # noqa: E501
+        width
 
-        :return: The width of this Window.  # noqa: E501
+        :return: The width of this Window.
         :rtype: float
         """
         return self._width
@@ -67,9 +67,9 @@ class Window(object):
     def width(self, width):
         """Sets the width of this Window.
 
-        width  # noqa: E501
+        width
 
-        :param width: The width of this Window.  # noqa: E501
+        :param width: The width of this Window.
         :type: float
         """
 
@@ -77,11 +77,11 @@ class Window(object):
 
     @property
     def height(self):
-        """Gets the height of this Window.  # noqa: E501
+        """Gets the height of this Window.
 
-        height  # noqa: E501
+        height
 
-        :return: The height of this Window.  # noqa: E501
+        :return: The height of this Window.
         :rtype: float
         """
         return self._height
@@ -90,9 +90,9 @@ class Window(object):
     def height(self, height):
         """Sets the height of this Window.
 
-        height  # noqa: E501
+        height
 
-        :param height: The height of this Window.  # noqa: E501
+        :param height: The height of this Window.
         :type: float
         """
 

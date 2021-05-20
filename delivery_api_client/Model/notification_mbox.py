@@ -40,8 +40,8 @@ class NotificationMbox(object):
         'state': 'state'
     }
 
-    def __init__(self, name=None, state=None):  # noqa: E501
-        """NotificationMbox - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, name=None, state=None):
+        """NotificationMbox - a model defined in OpenAPI"""
 
         self._name = None
         self._state = None
@@ -54,11 +54,11 @@ class NotificationMbox(object):
 
     @property
     def name(self):
-        """Gets the name of this NotificationMbox.  # noqa: E501
+        """Gets the name of this NotificationMbox.
 
-        Mbox name. Validation   * No blank values allowed.   * A '-clicked' suffix or the following names are not allowed for mbox names: ** display mboxes **, ** any mbox **, ** click from display mbox **   * Allowed chars: - '-, ./=`:;&!@#$%^&*()+|?~[]{}'   # noqa: E501
+        Mbox name. Validation   * No blank values allowed.   * A '-clicked' suffix or the following names are not allowed for mbox names: ** display mboxes **, ** any mbox **, ** click from display mbox **   * Allowed chars: - '-, ./=`:;&!@#$%^&*()+|?~[]{}' 
 
-        :return: The name of this NotificationMbox.  # noqa: E501
+        :return: The name of this NotificationMbox.
         :rtype: str
         """
         return self._name
@@ -67,23 +67,23 @@ class NotificationMbox(object):
     def name(self, name):
         """Sets the name of this NotificationMbox.
 
-        Mbox name. Validation   * No blank values allowed.   * A '-clicked' suffix or the following names are not allowed for mbox names: ** display mboxes **, ** any mbox **, ** click from display mbox **   * Allowed chars: - '-, ./=`:;&!@#$%^&*()+|?~[]{}'   # noqa: E501
+        Mbox name. Validation   * No blank values allowed.   * A '-clicked' suffix or the following names are not allowed for mbox names: ** display mboxes **, ** any mbox **, ** click from display mbox **   * Allowed chars: - '-, ./=`:;&!@#$%^&*()+|?~[]{}' 
 
-        :param name: The name of this NotificationMbox.  # noqa: E501
+        :param name: The name of this NotificationMbox.
         :type: str
         """
         if name is not None and len(name) > 250:
-            raise ValueError("Invalid value for `name`, length must be less than or equal to `250`")  # noqa: E501
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `250`")
 
         self._name = name
 
     @property
     def state(self):
-        """Gets the state of this NotificationMbox.  # noqa: E501
+        """Gets the state of this NotificationMbox.
 
-        Mbox state token  # noqa: E501
+        Mbox state token
 
-        :return: The state of this NotificationMbox.  # noqa: E501
+        :return: The state of this NotificationMbox.
         :rtype: str
         """
         return self._state
@@ -92,9 +92,9 @@ class NotificationMbox(object):
     def state(self, state):
         """Sets the state of this NotificationMbox.
 
-        Mbox state token  # noqa: E501
+        Mbox state token
 
-        :param state: The state of this NotificationMbox.  # noqa: E501
+        :param state: The state of this NotificationMbox.
         :type: str
         """
 

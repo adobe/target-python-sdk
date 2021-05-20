@@ -40,8 +40,8 @@ class ViewRequestAllOf(object):
         'key': 'key'
     }
 
-    def __init__(self, name=None, key=None):  # noqa: E501
-        """ViewRequestAllOf - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, name=None, key=None):
+        """ViewRequestAllOf - a model defined in OpenAPI"""
 
         self._name = None
         self._key = None
@@ -54,11 +54,11 @@ class ViewRequestAllOf(object):
 
     @property
     def name(self):
-        """Gets the name of this ViewRequestAllOf.  # noqa: E501
+        """Gets the name of this ViewRequestAllOf.
 
-        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched.   # noqa: E501
+        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched. 
 
-        :return: The name of this ViewRequestAllOf.  # noqa: E501
+        :return: The name of this ViewRequestAllOf.
         :rtype: str
         """
         return self._name
@@ -67,23 +67,23 @@ class ViewRequestAllOf(object):
     def name(self, name):
         """Sets the name of this ViewRequestAllOf.
 
-        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched.   # noqa: E501
+        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched, providing the Key matches as well or is null and view and metric targeting is matched. 
 
-        :param name: The name of this ViewRequestAllOf.  # noqa: E501
+        :param name: The name of this ViewRequestAllOf.
         :type: str
         """
         if name is not None and len(name) > 128:
-            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `name`, length must be less than or equal to `128`")
 
         self._name = name
 
     @property
     def key(self):
-        """Gets the key of this ViewRequestAllOf.  # noqa: E501
+        """Gets the key of this ViewRequestAllOf.
 
-        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name.   # noqa: E501
+        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name. 
 
-        :return: The key of this ViewRequestAllOf.  # noqa: E501
+        :return: The key of this ViewRequestAllOf.
         :rtype: str
         """
         return self._key
@@ -92,13 +92,13 @@ class ViewRequestAllOf(object):
     def key(self, key):
         """Sets the key of this ViewRequestAllOf.
 
-        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name.   # noqa: E501
+        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting. Same matching conditions as for View Name. 
 
-        :param key: The key of this ViewRequestAllOf.  # noqa: E501
+        :param key: The key of this ViewRequestAllOf.
         :type: str
         """
         if key is not None and len(key) > 512:
-            raise ValueError("Invalid value for `key`, length must be less than or equal to `512`")  # noqa: E501
+            raise ValueError("Invalid value for `key`, length must be less than or equal to `512`")
 
         self._key = key
 

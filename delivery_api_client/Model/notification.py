@@ -62,8 +62,8 @@ class Notification(object):
         'page_load': 'pageLoad'
     }
 
-    def __init__(self, address=None, parameters=None, profile_parameters=None, order=None, product=None, id=None, impression_id=None, type=None, timestamp=None, tokens=None, mbox=None, view=None, page_load=None):  # noqa: E501
-        """Notification - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, address=None, parameters=None, profile_parameters=None, order=None, product=None, id=None, impression_id=None, type=None, timestamp=None, tokens=None, mbox=None, view=None, page_load=None):
+        """Notification - a model defined in OpenAPI"""
 
         self._address = None
         self._parameters = None
@@ -109,10 +109,10 @@ class Notification(object):
 
     @property
     def address(self):
-        """Gets the address of this Notification.  # noqa: E501
+        """Gets the address of this Notification.
 
 
-        :return: The address of this Notification.  # noqa: E501
+        :return: The address of this Notification.
         :rtype: Address
         """
         return self._address
@@ -122,7 +122,7 @@ class Notification(object):
         """Sets the address of this Notification.
 
 
-        :param address: The address of this Notification.  # noqa: E501
+        :param address: The address of this Notification.
         :type: Address
         """
 
@@ -130,11 +130,11 @@ class Notification(object):
 
     @property
     def parameters(self):
-        """Gets the parameters of this Notification.  # noqa: E501
+        """Gets the parameters of this Notification.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :return: The parameters of this Notification.  # noqa: E501
+        :return: The parameters of this Notification.
         :rtype: dict(str, str)
         """
         return self._parameters
@@ -143,9 +143,9 @@ class Notification(object):
     def parameters(self, parameters):
         """Sets the parameters of this Notification.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :param parameters: The parameters of this Notification.  # noqa: E501
+        :param parameters: The parameters of this Notification.
         :type: dict(str, str)
         """
 
@@ -153,11 +153,11 @@ class Notification(object):
 
     @property
     def profile_parameters(self):
-        """Gets the profile_parameters of this Notification.  # noqa: E501
+        """Gets the profile_parameters of this Notification.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :return: The profile_parameters of this Notification.  # noqa: E501
+        :return: The profile_parameters of this Notification.
         :rtype: dict(str, str)
         """
         return self._profile_parameters
@@ -166,9 +166,9 @@ class Notification(object):
     def profile_parameters(self, profile_parameters):
         """Sets the profile_parameters of this Notification.
 
-        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000.   # noqa: E501
+        Parameters map. Same object is reused for mbox or profile parameters with slight validation differences. Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds' Validation (for both mbox and profile parameters):   * Max 50 parameters limit.   * Parameter name should not be blank.   * Parameter name max length 128.   * Parameter name should not start with 'profile.'   * Parameter value length max 5000. 
 
-        :param profile_parameters: The profile_parameters of this Notification.  # noqa: E501
+        :param profile_parameters: The profile_parameters of this Notification.
         :type: dict(str, str)
         """
 
@@ -176,10 +176,10 @@ class Notification(object):
 
     @property
     def order(self):
-        """Gets the order of this Notification.  # noqa: E501
+        """Gets the order of this Notification.
 
 
-        :return: The order of this Notification.  # noqa: E501
+        :return: The order of this Notification.
         :rtype: Order
         """
         return self._order
@@ -189,7 +189,7 @@ class Notification(object):
         """Sets the order of this Notification.
 
 
-        :param order: The order of this Notification.  # noqa: E501
+        :param order: The order of this Notification.
         :type: Order
         """
 
@@ -197,10 +197,10 @@ class Notification(object):
 
     @property
     def product(self):
-        """Gets the product of this Notification.  # noqa: E501
+        """Gets the product of this Notification.
 
 
-        :return: The product of this Notification.  # noqa: E501
+        :return: The product of this Notification.
         :rtype: Product
         """
         return self._product
@@ -210,7 +210,7 @@ class Notification(object):
         """Sets the product of this Notification.
 
 
-        :param product: The product of this Notification.  # noqa: E501
+        :param product: The product of this Notification.
         :type: Product
         """
 
@@ -218,11 +218,11 @@ class Notification(object):
 
     @property
     def id(self):
-        """Gets the id of this Notification.  # noqa: E501
+        """Gets the id of this Notification.
 
-        Notification id will be returned in response and will indicate that the notification was processed successfully.   # noqa: E501
+        Notification id will be returned in response and will indicate that the notification was processed successfully. 
 
-        :return: The id of this Notification.  # noqa: E501
+        :return: The id of this Notification.
         :rtype: str
         """
         return self._id
@@ -231,23 +231,23 @@ class Notification(object):
     def id(self, id):
         """Sets the id of this Notification.
 
-        Notification id will be returned in response and will indicate that the notification was processed successfully.   # noqa: E501
+        Notification id will be returned in response and will indicate that the notification was processed successfully. 
 
-        :param id: The id of this Notification.  # noqa: E501
+        :param id: The id of this Notification.
         :type: str
         """
         if id is not None and len(id) > 200:
-            raise ValueError("Invalid value for `id`, length must be less than or equal to `200`")  # noqa: E501
+            raise ValueError("Invalid value for `id`, length must be less than or equal to `200`")
 
         self._id = id
 
     @property
     def impression_id(self):
-        """Gets the impression_id of this Notification.  # noqa: E501
+        """Gets the impression_id of this Notification.
 
-        Impression id is used to stitch (link) the current notification with a previous notification or execute request. In case they both of them match, the second and other subsequent requests will not generate a new impression to the activity, experience etc.   # noqa: E501
+        Impression id is used to stitch (link) the current notification with a previous notification or execute request. In case they both of them match, the second and other subsequent requests will not generate a new impression to the activity, experience etc. 
 
-        :return: The impression_id of this Notification.  # noqa: E501
+        :return: The impression_id of this Notification.
         :rtype: str
         """
         return self._impression_id
@@ -256,22 +256,22 @@ class Notification(object):
     def impression_id(self, impression_id):
         """Sets the impression_id of this Notification.
 
-        Impression id is used to stitch (link) the current notification with a previous notification or execute request. In case they both of them match, the second and other subsequent requests will not generate a new impression to the activity, experience etc.   # noqa: E501
+        Impression id is used to stitch (link) the current notification with a previous notification or execute request. In case they both of them match, the second and other subsequent requests will not generate a new impression to the activity, experience etc. 
 
-        :param impression_id: The impression_id of this Notification.  # noqa: E501
+        :param impression_id: The impression_id of this Notification.
         :type: str
         """
         if impression_id is not None and len(impression_id) > 128:
-            raise ValueError("Invalid value for `impression_id`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `impression_id`, length must be less than or equal to `128`")
 
         self._impression_id = impression_id
 
     @property
     def type(self):
-        """Gets the type of this Notification.  # noqa: E501
+        """Gets the type of this Notification.
 
 
-        :return: The type of this Notification.  # noqa: E501
+        :return: The type of this Notification.
         :rtype: MetricType
         """
         return self._type
@@ -281,7 +281,7 @@ class Notification(object):
         """Sets the type of this Notification.
 
 
-        :param type: The type of this Notification.  # noqa: E501
+        :param type: The type of this Notification.
         :type: MetricType
         """
 
@@ -289,11 +289,11 @@ class Notification(object):
 
     @property
     def timestamp(self):
-        """Gets the timestamp of this Notification.  # noqa: E501
+        """Gets the timestamp of this Notification.
 
-        Timestamp of the notification, in milliseconds elapsed since UNIX epoch.  # noqa: E501
+        Timestamp of the notification, in milliseconds elapsed since UNIX epoch.
 
-        :return: The timestamp of this Notification.  # noqa: E501
+        :return: The timestamp of this Notification.
         :rtype: int
         """
         return self._timestamp
@@ -302,9 +302,9 @@ class Notification(object):
     def timestamp(self, timestamp):
         """Sets the timestamp of this Notification.
 
-        Timestamp of the notification, in milliseconds elapsed since UNIX epoch.  # noqa: E501
+        Timestamp of the notification, in milliseconds elapsed since UNIX epoch.
 
-        :param timestamp: The timestamp of this Notification.  # noqa: E501
+        :param timestamp: The timestamp of this Notification.
         :type: int
         """
 
@@ -312,11 +312,11 @@ class Notification(object):
 
     @property
     def tokens(self):
-        """Gets the tokens of this Notification.  # noqa: E501
+        """Gets the tokens of this Notification.
 
-        A list of tokens for displayed content or clicked selectors, based on the type of notification.  # noqa: E501
+        A list of tokens for displayed content or clicked selectors, based on the type of notification.
 
-        :return: The tokens of this Notification.  # noqa: E501
+        :return: The tokens of this Notification.
         :rtype: list[str]
         """
         return self._tokens
@@ -325,9 +325,9 @@ class Notification(object):
     def tokens(self, tokens):
         """Sets the tokens of this Notification.
 
-        A list of tokens for displayed content or clicked selectors, based on the type of notification.  # noqa: E501
+        A list of tokens for displayed content or clicked selectors, based on the type of notification.
 
-        :param tokens: The tokens of this Notification.  # noqa: E501
+        :param tokens: The tokens of this Notification.
         :type: list[str]
         """
 
@@ -335,10 +335,10 @@ class Notification(object):
 
     @property
     def mbox(self):
-        """Gets the mbox of this Notification.  # noqa: E501
+        """Gets the mbox of this Notification.
 
 
-        :return: The mbox of this Notification.  # noqa: E501
+        :return: The mbox of this Notification.
         :rtype: NotificationMbox
         """
         return self._mbox
@@ -348,7 +348,7 @@ class Notification(object):
         """Sets the mbox of this Notification.
 
 
-        :param mbox: The mbox of this Notification.  # noqa: E501
+        :param mbox: The mbox of this Notification.
         :type: NotificationMbox
         """
 
@@ -356,10 +356,10 @@ class Notification(object):
 
     @property
     def view(self):
-        """Gets the view of this Notification.  # noqa: E501
+        """Gets the view of this Notification.
 
 
-        :return: The view of this Notification.  # noqa: E501
+        :return: The view of this Notification.
         :rtype: NotificationView
         """
         return self._view
@@ -369,7 +369,7 @@ class Notification(object):
         """Sets the view of this Notification.
 
 
-        :param view: The view of this Notification.  # noqa: E501
+        :param view: The view of this Notification.
         :type: NotificationView
         """
 
@@ -377,10 +377,10 @@ class Notification(object):
 
     @property
     def page_load(self):
-        """Gets the page_load of this Notification.  # noqa: E501
+        """Gets the page_load of this Notification.
 
 
-        :return: The page_load of this Notification.  # noqa: E501
+        :return: The page_load of this Notification.
         :rtype: NotificationPageLoad
         """
         return self._page_load
@@ -390,7 +390,7 @@ class Notification(object):
         """Sets the page_load of this Notification.
 
 
-        :param page_load: The page_load of this Notification.  # noqa: E501
+        :param page_load: The page_load of this Notification.
         :type: NotificationPageLoad
         """
 

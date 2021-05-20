@@ -64,8 +64,8 @@ class DeliveryRequest(object):
         'preview': 'preview'
     }
 
-    def __init__(self, request_id=None, impression_id=None, id=None, environment_id=None, _property=None, trace=None, context=None, experience_cloud=None, execute=None, prefetch=None, telemetry=None, notifications=None, qa_mode=None, preview=None):  # noqa: E501
-        """DeliveryRequest - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, request_id=None, impression_id=None, id=None, environment_id=None, _property=None, trace=None, context=None, experience_cloud=None, execute=None, prefetch=None, telemetry=None, notifications=None, qa_mode=None, preview=None):
+        """DeliveryRequest - a model defined in OpenAPI"""
 
         self._request_id = None
         self._impression_id = None
@@ -113,11 +113,11 @@ class DeliveryRequest(object):
 
     @property
     def request_id(self):
-        """Gets the request_id of this DeliveryRequest.  # noqa: E501
+        """Gets the request_id of this DeliveryRequest.
 
-        The request ID that will be returned in the response. In case it is not provided, an UUID is generated and returned automatically.   # noqa: E501
+        The request ID that will be returned in the response. In case it is not provided, an UUID is generated and returned automatically. 
 
-        :return: The request_id of this DeliveryRequest.  # noqa: E501
+        :return: The request_id of this DeliveryRequest.
         :rtype: str
         """
         return self._request_id
@@ -126,23 +126,23 @@ class DeliveryRequest(object):
     def request_id(self, request_id):
         """Sets the request_id of this DeliveryRequest.
 
-        The request ID that will be returned in the response. In case it is not provided, an UUID is generated and returned automatically.   # noqa: E501
+        The request ID that will be returned in the response. In case it is not provided, an UUID is generated and returned automatically. 
 
-        :param request_id: The request_id of this DeliveryRequest.  # noqa: E501
+        :param request_id: The request_id of this DeliveryRequest.
         :type: str
         """
         if request_id is not None and len(request_id) > 128:
-            raise ValueError("Invalid value for `request_id`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `request_id`, length must be less than or equal to `128`")
 
         self._request_id = request_id
 
     @property
     def impression_id(self):
-        """Gets the impression_id of this DeliveryRequest.  # noqa: E501
+        """Gets the impression_id of this DeliveryRequest.
 
-        If not present it will be automatically generated (UUID). If present,  second and subsequent requests with the same id will not increment impressions to activities/metrics. Similar to page id.   # noqa: E501
+        If not present it will be automatically generated (UUID). If present,  second and subsequent requests with the same id will not increment impressions to activities/metrics. Similar to page id. 
 
-        :return: The impression_id of this DeliveryRequest.  # noqa: E501
+        :return: The impression_id of this DeliveryRequest.
         :rtype: str
         """
         return self._impression_id
@@ -151,22 +151,22 @@ class DeliveryRequest(object):
     def impression_id(self, impression_id):
         """Sets the impression_id of this DeliveryRequest.
 
-        If not present it will be automatically generated (UUID). If present,  second and subsequent requests with the same id will not increment impressions to activities/metrics. Similar to page id.   # noqa: E501
+        If not present it will be automatically generated (UUID). If present,  second and subsequent requests with the same id will not increment impressions to activities/metrics. Similar to page id. 
 
-        :param impression_id: The impression_id of this DeliveryRequest.  # noqa: E501
+        :param impression_id: The impression_id of this DeliveryRequest.
         :type: str
         """
         if impression_id is not None and len(impression_id) > 128:
-            raise ValueError("Invalid value for `impression_id`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `impression_id`, length must be less than or equal to `128`")
 
         self._impression_id = impression_id
 
     @property
     def id(self):
-        """Gets the id of this DeliveryRequest.  # noqa: E501
+        """Gets the id of this DeliveryRequest.
 
 
-        :return: The id of this DeliveryRequest.  # noqa: E501
+        :return: The id of this DeliveryRequest.
         :rtype: VisitorId
         """
         return self._id
@@ -176,7 +176,7 @@ class DeliveryRequest(object):
         """Sets the id of this DeliveryRequest.
 
 
-        :param id: The id of this DeliveryRequest.  # noqa: E501
+        :param id: The id of this DeliveryRequest.
         :type: VisitorId
         """
 
@@ -184,11 +184,11 @@ class DeliveryRequest(object):
 
     @property
     def environment_id(self):
-        """Gets the environment_id of this DeliveryRequest.  # noqa: E501
+        """Gets the environment_id of this DeliveryRequest.
 
-        Valid client environment id. If not specified host will be determined base on the provided host.  # noqa: E501
+        Valid client environment id. If not specified host will be determined base on the provided host.
 
-        :return: The environment_id of this DeliveryRequest.  # noqa: E501
+        :return: The environment_id of this DeliveryRequest.
         :rtype: int
         """
         return self._environment_id
@@ -197,9 +197,9 @@ class DeliveryRequest(object):
     def environment_id(self, environment_id):
         """Sets the environment_id of this DeliveryRequest.
 
-        Valid client environment id. If not specified host will be determined base on the provided host.  # noqa: E501
+        Valid client environment id. If not specified host will be determined base on the provided host.
 
-        :param environment_id: The environment_id of this DeliveryRequest.  # noqa: E501
+        :param environment_id: The environment_id of this DeliveryRequest.
         :type: int
         """
 
@@ -207,10 +207,10 @@ class DeliveryRequest(object):
 
     @property
     def _property(self):
-        """Gets the _property of this DeliveryRequest.  # noqa: E501
+        """Gets the _property of this DeliveryRequest.
 
 
-        :return: The _property of this DeliveryRequest.  # noqa: E501
+        :return: The _property of this DeliveryRequest.
         :rtype: ModelProperty
         """
         return self.__property
@@ -220,7 +220,7 @@ class DeliveryRequest(object):
         """Sets the _property of this DeliveryRequest.
 
 
-        :param _property: The _property of this DeliveryRequest.  # noqa: E501
+        :param _property: The _property of this DeliveryRequest.
         :type: ModelProperty
         """
 
@@ -228,10 +228,10 @@ class DeliveryRequest(object):
 
     @property
     def trace(self):
-        """Gets the trace of this DeliveryRequest.  # noqa: E501
+        """Gets the trace of this DeliveryRequest.
 
 
-        :return: The trace of this DeliveryRequest.  # noqa: E501
+        :return: The trace of this DeliveryRequest.
         :rtype: Trace
         """
         return self._trace
@@ -241,7 +241,7 @@ class DeliveryRequest(object):
         """Sets the trace of this DeliveryRequest.
 
 
-        :param trace: The trace of this DeliveryRequest.  # noqa: E501
+        :param trace: The trace of this DeliveryRequest.
         :type: Trace
         """
 
@@ -249,10 +249,10 @@ class DeliveryRequest(object):
 
     @property
     def context(self):
-        """Gets the context of this DeliveryRequest.  # noqa: E501
+        """Gets the context of this DeliveryRequest.
 
 
-        :return: The context of this DeliveryRequest.  # noqa: E501
+        :return: The context of this DeliveryRequest.
         :rtype: Context
         """
         return self._context
@@ -262,20 +262,20 @@ class DeliveryRequest(object):
         """Sets the context of this DeliveryRequest.
 
 
-        :param context: The context of this DeliveryRequest.  # noqa: E501
+        :param context: The context of this DeliveryRequest.
         :type: Context
         """
         if context is None:
-            raise ValueError("Invalid value for `context`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `context`, must not be `None`")
 
         self._context = context
 
     @property
     def experience_cloud(self):
-        """Gets the experience_cloud of this DeliveryRequest.  # noqa: E501
+        """Gets the experience_cloud of this DeliveryRequest.
 
 
-        :return: The experience_cloud of this DeliveryRequest.  # noqa: E501
+        :return: The experience_cloud of this DeliveryRequest.
         :rtype: ExperienceCloud
         """
         return self._experience_cloud
@@ -285,7 +285,7 @@ class DeliveryRequest(object):
         """Sets the experience_cloud of this DeliveryRequest.
 
 
-        :param experience_cloud: The experience_cloud of this DeliveryRequest.  # noqa: E501
+        :param experience_cloud: The experience_cloud of this DeliveryRequest.
         :type: ExperienceCloud
         """
 
@@ -293,10 +293,10 @@ class DeliveryRequest(object):
 
     @property
     def execute(self):
-        """Gets the execute of this DeliveryRequest.  # noqa: E501
+        """Gets the execute of this DeliveryRequest.
 
 
-        :return: The execute of this DeliveryRequest.  # noqa: E501
+        :return: The execute of this DeliveryRequest.
         :rtype: ExecuteRequest
         """
         return self._execute
@@ -306,7 +306,7 @@ class DeliveryRequest(object):
         """Sets the execute of this DeliveryRequest.
 
 
-        :param execute: The execute of this DeliveryRequest.  # noqa: E501
+        :param execute: The execute of this DeliveryRequest.
         :type: ExecuteRequest
         """
 
@@ -314,10 +314,10 @@ class DeliveryRequest(object):
 
     @property
     def prefetch(self):
-        """Gets the prefetch of this DeliveryRequest.  # noqa: E501
+        """Gets the prefetch of this DeliveryRequest.
 
 
-        :return: The prefetch of this DeliveryRequest.  # noqa: E501
+        :return: The prefetch of this DeliveryRequest.
         :rtype: PrefetchRequest
         """
         return self._prefetch
@@ -327,7 +327,7 @@ class DeliveryRequest(object):
         """Sets the prefetch of this DeliveryRequest.
 
 
-        :param prefetch: The prefetch of this DeliveryRequest.  # noqa: E501
+        :param prefetch: The prefetch of this DeliveryRequest.
         :type: PrefetchRequest
         """
 
@@ -335,10 +335,10 @@ class DeliveryRequest(object):
 
     @property
     def telemetry(self):
-        """Gets the telemetry of this DeliveryRequest.  # noqa: E501
+        """Gets the telemetry of this DeliveryRequest.
 
 
-        :return: The telemetry of this DeliveryRequest.  # noqa: E501
+        :return: The telemetry of this DeliveryRequest.
         :rtype: Telemetry
         """
         return self._telemetry
@@ -348,7 +348,7 @@ class DeliveryRequest(object):
         """Sets the telemetry of this DeliveryRequest.
 
 
-        :param telemetry: The telemetry of this DeliveryRequest.  # noqa: E501
+        :param telemetry: The telemetry of this DeliveryRequest.
         :type: Telemetry
         """
 
@@ -356,11 +356,11 @@ class DeliveryRequest(object):
 
     @property
     def notifications(self):
-        """Gets the notifications of this DeliveryRequest.  # noqa: E501
+        """Gets the notifications of this DeliveryRequest.
 
-        Notifications for the displayed content, clicked selectors, and/or visited views or mboxes.  # noqa: E501
+        Notifications for the displayed content, clicked selectors, and/or visited views or mboxes.
 
-        :return: The notifications of this DeliveryRequest.  # noqa: E501
+        :return: The notifications of this DeliveryRequest.
         :rtype: list[Notification]
         """
         return self._notifications
@@ -369,9 +369,9 @@ class DeliveryRequest(object):
     def notifications(self, notifications):
         """Sets the notifications of this DeliveryRequest.
 
-        Notifications for the displayed content, clicked selectors, and/or visited views or mboxes.  # noqa: E501
+        Notifications for the displayed content, clicked selectors, and/or visited views or mboxes.
 
-        :param notifications: The notifications of this DeliveryRequest.  # noqa: E501
+        :param notifications: The notifications of this DeliveryRequest.
         :type: list[Notification]
         """
 
@@ -379,10 +379,10 @@ class DeliveryRequest(object):
 
     @property
     def qa_mode(self):
-        """Gets the qa_mode of this DeliveryRequest.  # noqa: E501
+        """Gets the qa_mode of this DeliveryRequest.
 
 
-        :return: The qa_mode of this DeliveryRequest.  # noqa: E501
+        :return: The qa_mode of this DeliveryRequest.
         :rtype: QAMode
         """
         return self._qa_mode
@@ -392,7 +392,7 @@ class DeliveryRequest(object):
         """Sets the qa_mode of this DeliveryRequest.
 
 
-        :param qa_mode: The qa_mode of this DeliveryRequest.  # noqa: E501
+        :param qa_mode: The qa_mode of this DeliveryRequest.
         :type: QAMode
         """
 
@@ -400,10 +400,10 @@ class DeliveryRequest(object):
 
     @property
     def preview(self):
-        """Gets the preview of this DeliveryRequest.  # noqa: E501
+        """Gets the preview of this DeliveryRequest.
 
 
-        :return: The preview of this DeliveryRequest.  # noqa: E501
+        :return: The preview of this DeliveryRequest.
         :rtype: Preview
         """
         return self._preview
@@ -413,7 +413,7 @@ class DeliveryRequest(object):
         """Sets the preview of this DeliveryRequest.
 
 
-        :param preview: The preview of this DeliveryRequest.  # noqa: E501
+        :param preview: The preview of this DeliveryRequest.
         :type: Preview
         """
 

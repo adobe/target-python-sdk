@@ -52,8 +52,8 @@ class DeliveryResponse(object):
         'notifications': 'notifications'
     }
 
-    def __init__(self, status=None, request_id=None, id=None, client=None, edge_host=None, execute=None, prefetch=None, notifications=None):  # noqa: E501
-        """DeliveryResponse - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, status=None, request_id=None, id=None, client=None, edge_host=None, execute=None, prefetch=None, notifications=None):
+        """DeliveryResponse - a model defined in OpenAPI"""
 
         self._status = None
         self._request_id = None
@@ -84,10 +84,10 @@ class DeliveryResponse(object):
 
     @property
     def status(self):
-        """Gets the status of this DeliveryResponse.  # noqa: E501
+        """Gets the status of this DeliveryResponse.
 
 
-        :return: The status of this DeliveryResponse.  # noqa: E501
+        :return: The status of this DeliveryResponse.
         :rtype: int
         """
         return self._status
@@ -97,7 +97,7 @@ class DeliveryResponse(object):
         """Sets the status of this DeliveryResponse.
 
 
-        :param status: The status of this DeliveryResponse.  # noqa: E501
+        :param status: The status of this DeliveryResponse.
         :type: int
         """
 
@@ -105,11 +105,11 @@ class DeliveryResponse(object):
 
     @property
     def request_id(self):
-        """Gets the request_id of this DeliveryResponse.  # noqa: E501
+        """Gets the request_id of this DeliveryResponse.
 
-        ID of the processed request. If it's not sent in the request, a random ID (UUID) is generated and returned with the response.   # noqa: E501
+        ID of the processed request. If it's not sent in the request, a random ID (UUID) is generated and returned with the response. 
 
-        :return: The request_id of this DeliveryResponse.  # noqa: E501
+        :return: The request_id of this DeliveryResponse.
         :rtype: str
         """
         return self._request_id
@@ -118,9 +118,9 @@ class DeliveryResponse(object):
     def request_id(self, request_id):
         """Sets the request_id of this DeliveryResponse.
 
-        ID of the processed request. If it's not sent in the request, a random ID (UUID) is generated and returned with the response.   # noqa: E501
+        ID of the processed request. If it's not sent in the request, a random ID (UUID) is generated and returned with the response. 
 
-        :param request_id: The request_id of this DeliveryResponse.  # noqa: E501
+        :param request_id: The request_id of this DeliveryResponse.
         :type: str
         """
 
@@ -128,10 +128,10 @@ class DeliveryResponse(object):
 
     @property
     def id(self):
-        """Gets the id of this DeliveryResponse.  # noqa: E501
+        """Gets the id of this DeliveryResponse.
 
 
-        :return: The id of this DeliveryResponse.  # noqa: E501
+        :return: The id of this DeliveryResponse.
         :rtype: VisitorId
         """
         return self._id
@@ -141,7 +141,7 @@ class DeliveryResponse(object):
         """Sets the id of this DeliveryResponse.
 
 
-        :param id: The id of this DeliveryResponse.  # noqa: E501
+        :param id: The id of this DeliveryResponse.
         :type: VisitorId
         """
 
@@ -149,11 +149,11 @@ class DeliveryResponse(object):
 
     @property
     def client(self):
-        """Gets the client of this DeliveryResponse.  # noqa: E501
+        """Gets the client of this DeliveryResponse.
 
-        Client's code. The one which was sent in the request's path.  # noqa: E501
+        Client's code. The one which was sent in the request's path.
 
-        :return: The client of this DeliveryResponse.  # noqa: E501
+        :return: The client of this DeliveryResponse.
         :rtype: str
         """
         return self._client
@@ -162,9 +162,9 @@ class DeliveryResponse(object):
     def client(self, client):
         """Sets the client of this DeliveryResponse.
 
-        Client's code. The one which was sent in the request's path.  # noqa: E501
+        Client's code. The one which was sent in the request's path.
 
-        :param client: The client of this DeliveryResponse.  # noqa: E501
+        :param client: The client of this DeliveryResponse.
         :type: str
         """
 
@@ -172,11 +172,11 @@ class DeliveryResponse(object):
 
     @property
     def edge_host(self):
-        """Gets the edge_host of this DeliveryResponse.  # noqa: E501
+        """Gets the edge_host of this DeliveryResponse.
 
-        Cluster host name that served the response. Ideally, all subsequent requests should be made to that host.  # noqa: E501
+        Cluster host name that served the response. Ideally, all subsequent requests should be made to that host.
 
-        :return: The edge_host of this DeliveryResponse.  # noqa: E501
+        :return: The edge_host of this DeliveryResponse.
         :rtype: str
         """
         return self._edge_host
@@ -185,9 +185,9 @@ class DeliveryResponse(object):
     def edge_host(self, edge_host):
         """Sets the edge_host of this DeliveryResponse.
 
-        Cluster host name that served the response. Ideally, all subsequent requests should be made to that host.  # noqa: E501
+        Cluster host name that served the response. Ideally, all subsequent requests should be made to that host.
 
-        :param edge_host: The edge_host of this DeliveryResponse.  # noqa: E501
+        :param edge_host: The edge_host of this DeliveryResponse.
         :type: str
         """
 
@@ -195,10 +195,10 @@ class DeliveryResponse(object):
 
     @property
     def execute(self):
-        """Gets the execute of this DeliveryResponse.  # noqa: E501
+        """Gets the execute of this DeliveryResponse.
 
 
-        :return: The execute of this DeliveryResponse.  # noqa: E501
+        :return: The execute of this DeliveryResponse.
         :rtype: ExecuteResponse
         """
         return self._execute
@@ -208,7 +208,7 @@ class DeliveryResponse(object):
         """Sets the execute of this DeliveryResponse.
 
 
-        :param execute: The execute of this DeliveryResponse.  # noqa: E501
+        :param execute: The execute of this DeliveryResponse.
         :type: ExecuteResponse
         """
 
@@ -216,10 +216,10 @@ class DeliveryResponse(object):
 
     @property
     def prefetch(self):
-        """Gets the prefetch of this DeliveryResponse.  # noqa: E501
+        """Gets the prefetch of this DeliveryResponse.
 
 
-        :return: The prefetch of this DeliveryResponse.  # noqa: E501
+        :return: The prefetch of this DeliveryResponse.
         :rtype: PrefetchResponse
         """
         return self._prefetch
@@ -229,7 +229,7 @@ class DeliveryResponse(object):
         """Sets the prefetch of this DeliveryResponse.
 
 
-        :param prefetch: The prefetch of this DeliveryResponse.  # noqa: E501
+        :param prefetch: The prefetch of this DeliveryResponse.
         :type: PrefetchResponse
         """
 
@@ -237,10 +237,10 @@ class DeliveryResponse(object):
 
     @property
     def notifications(self):
-        """Gets the notifications of this DeliveryResponse.  # noqa: E501
+        """Gets the notifications of this DeliveryResponse.
 
 
-        :return: The notifications of this DeliveryResponse.  # noqa: E501
+        :return: The notifications of this DeliveryResponse.
         :rtype: list[NotificationResponse]
         """
         return self._notifications
@@ -250,7 +250,7 @@ class DeliveryResponse(object):
         """Sets the notifications of this DeliveryResponse.
 
 
-        :param notifications: The notifications of this DeliveryResponse.  # noqa: E501
+        :param notifications: The notifications of this DeliveryResponse.
         :type: list[NotificationResponse]
         """
 

@@ -38,8 +38,8 @@ class NotificationPageLoad(object):
         'state': 'state'
     }
 
-    def __init__(self, state=None):  # noqa: E501
-        """NotificationPageLoad - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, state=None):
+        """NotificationPageLoad - a model defined in OpenAPI"""
 
         self._state = None
         self.discriminator = None
@@ -49,11 +49,11 @@ class NotificationPageLoad(object):
 
     @property
     def state(self):
-        """Gets the state of this NotificationPageLoad.  # noqa: E501
+        """Gets the state of this NotificationPageLoad.
 
-        Page Load state token  # noqa: E501
+        Page Load state token
 
-        :return: The state of this NotificationPageLoad.  # noqa: E501
+        :return: The state of this NotificationPageLoad.
         :rtype: str
         """
         return self._state
@@ -62,9 +62,9 @@ class NotificationPageLoad(object):
     def state(self, state):
         """Sets the state of this NotificationPageLoad.
 
-        Page Load state token  # noqa: E501
+        Page Load state token
 
-        :param state: The state of this NotificationPageLoad.  # noqa: E501
+        :param state: The state of this NotificationPageLoad.
         :type: str
         """
 

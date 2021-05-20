@@ -42,8 +42,8 @@ class CustomerId(object):
         'authenticated_state': 'authenticatedState'
     }
 
-    def __init__(self, id=None, integration_code=None, authenticated_state=None):  # noqa: E501
-        """CustomerId - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, id=None, integration_code=None, authenticated_state=None):
+        """CustomerId - a model defined in OpenAPI"""
 
         self._id = None
         self._integration_code = None
@@ -56,10 +56,10 @@ class CustomerId(object):
 
     @property
     def id(self):
-        """Gets the id of this CustomerId.  # noqa: E501
+        """Gets the id of this CustomerId.
 
 
-        :return: The id of this CustomerId.  # noqa: E501
+        :return: The id of this CustomerId.
         :rtype: str
         """
         return self._id
@@ -69,23 +69,23 @@ class CustomerId(object):
         """Sets the id of this CustomerId.
 
 
-        :param id: The id of this CustomerId.  # noqa: E501
+        :param id: The id of this CustomerId.
         :type: str
         """
         if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `id`, must not be `None`")
         if id is not None and len(id) > 128:
-            raise ValueError("Invalid value for `id`, length must be less than or equal to `128`")  # noqa: E501
+            raise ValueError("Invalid value for `id`, length must be less than or equal to `128`")
 
         self._id = id
 
     @property
     def integration_code(self):
-        """Gets the integration_code of this CustomerId.  # noqa: E501
+        """Gets the integration_code of this CustomerId.
 
-        This is the **alias** used when setting up a CRS datasource in the Marketing Cloud UI.  # noqa: E501
+        This is the **alias** used when setting up a CRS datasource in the Marketing Cloud UI.
 
-        :return: The integration_code of this CustomerId.  # noqa: E501
+        :return: The integration_code of this CustomerId.
         :rtype: str
         """
         return self._integration_code
@@ -94,24 +94,24 @@ class CustomerId(object):
     def integration_code(self, integration_code):
         """Sets the integration_code of this CustomerId.
 
-        This is the **alias** used when setting up a CRS datasource in the Marketing Cloud UI.  # noqa: E501
+        This is the **alias** used when setting up a CRS datasource in the Marketing Cloud UI.
 
-        :param integration_code: The integration_code of this CustomerId.  # noqa: E501
+        :param integration_code: The integration_code of this CustomerId.
         :type: str
         """
         if integration_code is None:
-            raise ValueError("Invalid value for `integration_code`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `integration_code`, must not be `None`")
         if integration_code is not None and len(integration_code) > 50:
-            raise ValueError("Invalid value for `integration_code`, length must be less than or equal to `50`")  # noqa: E501
+            raise ValueError("Invalid value for `integration_code`, length must be less than or equal to `50`")
 
         self._integration_code = integration_code
 
     @property
     def authenticated_state(self):
-        """Gets the authenticated_state of this CustomerId.  # noqa: E501
+        """Gets the authenticated_state of this CustomerId.
 
 
-        :return: The authenticated_state of this CustomerId.  # noqa: E501
+        :return: The authenticated_state of this CustomerId.
         :rtype: AuthenticatedState
         """
         return self._authenticated_state
@@ -121,11 +121,11 @@ class CustomerId(object):
         """Sets the authenticated_state of this CustomerId.
 
 
-        :param authenticated_state: The authenticated_state of this CustomerId.  # noqa: E501
+        :param authenticated_state: The authenticated_state of this CustomerId.
         :type: AuthenticatedState
         """
         if authenticated_state is None:
-            raise ValueError("Invalid value for `authenticated_state`, must not be `None`")  # noqa: E501
+            raise ValueError("Invalid value for `authenticated_state`, must not be `None`")
 
         self._authenticated_state = authenticated_state
 

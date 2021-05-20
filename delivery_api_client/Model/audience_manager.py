@@ -40,8 +40,8 @@ class AudienceManager(object):
         'blob': 'blob'
     }
 
-    def __init__(self, location_hint=None, blob=None):  # noqa: E501
-        """AudienceManager - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, location_hint=None, blob=None):
+        """AudienceManager - a model defined in OpenAPI"""
 
         self._location_hint = None
         self._blob = None
@@ -54,11 +54,11 @@ class AudienceManager(object):
 
     @property
     def location_hint(self):
-        """Gets the location_hint of this AudienceManager.  # noqa: E501
+        """Gets the location_hint of this AudienceManager.
 
-        DCS location hint. Used to determine which AAM DCS Endpoint to hit in order to retrieve the profile.   # noqa: E501
+        DCS location hint. Used to determine which AAM DCS Endpoint to hit in order to retrieve the profile. 
 
-        :return: The location_hint of this AudienceManager.  # noqa: E501
+        :return: The location_hint of this AudienceManager.
         :rtype: int
         """
         return self._location_hint
@@ -67,23 +67,23 @@ class AudienceManager(object):
     def location_hint(self, location_hint):
         """Sets the location_hint of this AudienceManager.
 
-        DCS location hint. Used to determine which AAM DCS Endpoint to hit in order to retrieve the profile.   # noqa: E501
+        DCS location hint. Used to determine which AAM DCS Endpoint to hit in order to retrieve the profile. 
 
-        :param location_hint: The location_hint of this AudienceManager.  # noqa: E501
+        :param location_hint: The location_hint of this AudienceManager.
         :type: int
         """
-        if location_hint is not None and location_hint < 1:  # noqa: E501
-            raise ValueError("Invalid value for `location_hint`, must be a value greater than or equal to `1`")  # noqa: E501
+        if location_hint is not None and location_hint < 1:
+            raise ValueError("Invalid value for `location_hint`, must be a value greater than or equal to `1`")
 
         self._location_hint = location_hint
 
     @property
     def blob(self):
-        """Gets the blob of this AudienceManager.  # noqa: E501
+        """Gets the blob of this AudienceManager.
 
-        AAM Blob. Used to send additional data to AAM. Validation   * Cannot be blank.   # noqa: E501
+        AAM Blob. Used to send additional data to AAM. Validation   * Cannot be blank. 
 
-        :return: The blob of this AudienceManager.  # noqa: E501
+        :return: The blob of this AudienceManager.
         :rtype: str
         """
         return self._blob
@@ -92,15 +92,15 @@ class AudienceManager(object):
     def blob(self, blob):
         """Sets the blob of this AudienceManager.
 
-        AAM Blob. Used to send additional data to AAM. Validation   * Cannot be blank.   # noqa: E501
+        AAM Blob. Used to send additional data to AAM. Validation   * Cannot be blank. 
 
-        :param blob: The blob of this AudienceManager.  # noqa: E501
+        :param blob: The blob of this AudienceManager.
         :type: str
         """
         if blob is not None and len(blob) > 1024:
-            raise ValueError("Invalid value for `blob`, length must be less than or equal to `1024`")  # noqa: E501
+            raise ValueError("Invalid value for `blob`, length must be less than or equal to `1024`")
         if blob is not None and len(blob) < 1:
-            raise ValueError("Invalid value for `blob`, length must be greater than or equal to `1`")  # noqa: E501
+            raise ValueError("Invalid value for `blob`, length must be greater than or equal to `1`")
 
         self._blob = blob
 

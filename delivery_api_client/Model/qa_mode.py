@@ -46,8 +46,8 @@ class QAMode(object):
         'preview_indexes': 'previewIndexes'
     }
 
-    def __init__(self, token=None, listed_activities_only=None, evaluate_as_true_audience_ids=None, evaluate_as_false_audience_ids=None, preview_indexes=None):  # noqa: E501
-        """QAMode - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, token=None, listed_activities_only=None, evaluate_as_true_audience_ids=None, evaluate_as_false_audience_ids=None, preview_indexes=None):
+        """QAMode - a model defined in OpenAPI"""
 
         self._token = None
         self._listed_activities_only = None
@@ -69,11 +69,11 @@ class QAMode(object):
 
     @property
     def token(self):
-        """Gets the token of this QAMode.  # noqa: E501
+        """Gets the token of this QAMode.
 
-        The encrypted token for the QA mode. It contains the list of the activity ids that are allowed to be executed in QA mode. Validation   * After decryption, the client code from the token should match the one from the request.   * After decryption, activities with the ids specified in the token should belong to the client.   # noqa: E501
+        The encrypted token for the QA mode. It contains the list of the activity ids that are allowed to be executed in QA mode. Validation   * After decryption, the client code from the token should match the one from the request.   * After decryption, activities with the ids specified in the token should belong to the client. 
 
-        :return: The token of this QAMode.  # noqa: E501
+        :return: The token of this QAMode.
         :rtype: str
         """
         return self._token
@@ -82,9 +82,9 @@ class QAMode(object):
     def token(self, token):
         """Sets the token of this QAMode.
 
-        The encrypted token for the QA mode. It contains the list of the activity ids that are allowed to be executed in QA mode. Validation   * After decryption, the client code from the token should match the one from the request.   * After decryption, activities with the ids specified in the token should belong to the client.   # noqa: E501
+        The encrypted token for the QA mode. It contains the list of the activity ids that are allowed to be executed in QA mode. Validation   * After decryption, the client code from the token should match the one from the request.   * After decryption, activities with the ids specified in the token should belong to the client. 
 
-        :param token: The token of this QAMode.  # noqa: E501
+        :param token: The token of this QAMode.
         :type: str
         """
 
@@ -92,11 +92,11 @@ class QAMode(object):
 
     @property
     def listed_activities_only(self):
-        """Gets the listed_activities_only of this QAMode.  # noqa: E501
+        """Gets the listed_activities_only of this QAMode.
 
-        Specifies whether qa_mode campaigns should be executed in isolation or if they should be evaluated along other active campaigns for current environment.   # noqa: E501
+        Specifies whether qa_mode campaigns should be executed in isolation or if they should be evaluated along other active campaigns for current environment. 
 
-        :return: The listed_activities_only of this QAMode.  # noqa: E501
+        :return: The listed_activities_only of this QAMode.
         :rtype: bool
         """
         return self._listed_activities_only
@@ -105,9 +105,9 @@ class QAMode(object):
     def listed_activities_only(self, listed_activities_only):
         """Sets the listed_activities_only of this QAMode.
 
-        Specifies whether qa_mode campaigns should be executed in isolation or if they should be evaluated along other active campaigns for current environment.   # noqa: E501
+        Specifies whether qa_mode campaigns should be executed in isolation or if they should be evaluated along other active campaigns for current environment. 
 
-        :param listed_activities_only: The listed_activities_only of this QAMode.  # noqa: E501
+        :param listed_activities_only: The listed_activities_only of this QAMode.
         :type: bool
         """
 
@@ -115,11 +115,11 @@ class QAMode(object):
 
     @property
     def evaluate_as_true_audience_ids(self):
-        """Gets the evaluate_as_true_audience_ids of this QAMode.  # noqa: E501
+        """Gets the evaluate_as_true_audience_ids of this QAMode.
 
-        List of audience ids that should be always evaluated as TRUE in the scope of the delivery request   # noqa: E501
+        List of audience ids that should be always evaluated as TRUE in the scope of the delivery request 
 
-        :return: The evaluate_as_true_audience_ids of this QAMode.  # noqa: E501
+        :return: The evaluate_as_true_audience_ids of this QAMode.
         :rtype: list[int]
         """
         return self._evaluate_as_true_audience_ids
@@ -128,9 +128,9 @@ class QAMode(object):
     def evaluate_as_true_audience_ids(self, evaluate_as_true_audience_ids):
         """Sets the evaluate_as_true_audience_ids of this QAMode.
 
-        List of audience ids that should be always evaluated as TRUE in the scope of the delivery request   # noqa: E501
+        List of audience ids that should be always evaluated as TRUE in the scope of the delivery request 
 
-        :param evaluate_as_true_audience_ids: The evaluate_as_true_audience_ids of this QAMode.  # noqa: E501
+        :param evaluate_as_true_audience_ids: The evaluate_as_true_audience_ids of this QAMode.
         :type: list[int]
         """
 
@@ -138,11 +138,11 @@ class QAMode(object):
 
     @property
     def evaluate_as_false_audience_ids(self):
-        """Gets the evaluate_as_false_audience_ids of this QAMode.  # noqa: E501
+        """Gets the evaluate_as_false_audience_ids of this QAMode.
 
-        List of audience ids that should be always evaluated as FALSE in the scope of the delivery request   # noqa: E501
+        List of audience ids that should be always evaluated as FALSE in the scope of the delivery request 
 
-        :return: The evaluate_as_false_audience_ids of this QAMode.  # noqa: E501
+        :return: The evaluate_as_false_audience_ids of this QAMode.
         :rtype: list[int]
         """
         return self._evaluate_as_false_audience_ids
@@ -151,9 +151,9 @@ class QAMode(object):
     def evaluate_as_false_audience_ids(self, evaluate_as_false_audience_ids):
         """Sets the evaluate_as_false_audience_ids of this QAMode.
 
-        List of audience ids that should be always evaluated as FALSE in the scope of the delivery request   # noqa: E501
+        List of audience ids that should be always evaluated as FALSE in the scope of the delivery request 
 
-        :param evaluate_as_false_audience_ids: The evaluate_as_false_audience_ids of this QAMode.  # noqa: E501
+        :param evaluate_as_false_audience_ids: The evaluate_as_false_audience_ids of this QAMode.
         :type: list[int]
         """
 
@@ -161,11 +161,11 @@ class QAMode(object):
 
     @property
     def preview_indexes(self):
-        """Gets the preview_indexes of this QAMode.  # noqa: E501
+        """Gets the preview_indexes of this QAMode.
 
-        List of preview indexes. If present, the list cannot be empty.   # noqa: E501
+        List of preview indexes. If present, the list cannot be empty. 
 
-        :return: The preview_indexes of this QAMode.  # noqa: E501
+        :return: The preview_indexes of this QAMode.
         :rtype: list[QAModePreviewIndex]
         """
         return self._preview_indexes
@@ -174,9 +174,9 @@ class QAMode(object):
     def preview_indexes(self, preview_indexes):
         """Sets the preview_indexes of this QAMode.
 
-        List of preview indexes. If present, the list cannot be empty.   # noqa: E501
+        List of preview indexes. If present, the list cannot be empty. 
 
-        :param preview_indexes: The preview_indexes of this QAMode.  # noqa: E501
+        :param preview_indexes: The preview_indexes of this QAMode.
         :type: list[QAModePreviewIndex]
         """
 

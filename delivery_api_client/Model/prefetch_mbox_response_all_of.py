@@ -38,8 +38,8 @@ class PrefetchMboxResponseAllOf(object):
         'state': 'state'
     }
 
-    def __init__(self, state=None):  # noqa: E501
-        """PrefetchMboxResponseAllOf - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, state=None):
+        """PrefetchMboxResponseAllOf - a model defined in OpenAPI"""
 
         self._state = None
         self.discriminator = None
@@ -49,11 +49,11 @@ class PrefetchMboxResponseAllOf(object):
 
     @property
     def state(self):
-        """Gets the state of this PrefetchMboxResponseAllOf.  # noqa: E501
+        """Gets the state of this PrefetchMboxResponseAllOf.
 
-        Mbox state token that must be sent back with display notification for the mbox.  # noqa: E501
+        Mbox state token that must be sent back with display notification for the mbox.
 
-        :return: The state of this PrefetchMboxResponseAllOf.  # noqa: E501
+        :return: The state of this PrefetchMboxResponseAllOf.
         :rtype: str
         """
         return self._state
@@ -62,9 +62,9 @@ class PrefetchMboxResponseAllOf(object):
     def state(self, state):
         """Sets the state of this PrefetchMboxResponseAllOf.
 
-        Mbox state token that must be sent back with display notification for the mbox.  # noqa: E501
+        Mbox state token that must be sent back with display notification for the mbox.
 
-        :param state: The state of this PrefetchMboxResponseAllOf.  # noqa: E501
+        :param state: The state of this PrefetchMboxResponseAllOf.
         :type: str
         """
 

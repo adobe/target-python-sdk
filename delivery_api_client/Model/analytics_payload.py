@@ -40,8 +40,8 @@ class AnalyticsPayload(object):
         'tnta': 'tnta'
     }
 
-    def __init__(self, pe=None, tnta=None):  # noqa: E501
-        """AnalyticsPayload - a model defined in OpenAPI"""  # noqa: E501
+    def __init__(self, pe=None, tnta=None):
+        """AnalyticsPayload - a model defined in OpenAPI"""
 
         self._pe = None
         self._tnta = None
@@ -54,11 +54,11 @@ class AnalyticsPayload(object):
 
     @property
     def pe(self):
-        """Gets the pe of this AnalyticsPayload.  # noqa: E501
+        """Gets the pe of this AnalyticsPayload.
 
-        Indicates to Adobe Analytics that the payload is an Adobe Target type  # noqa: E501
+        Indicates to Adobe Analytics that the payload is an Adobe Target type
 
-        :return: The pe of this AnalyticsPayload.  # noqa: E501
+        :return: The pe of this AnalyticsPayload.
         :rtype: str
         """
         return self._pe
@@ -67,9 +67,9 @@ class AnalyticsPayload(object):
     def pe(self, pe):
         """Sets the pe of this AnalyticsPayload.
 
-        Indicates to Adobe Analytics that the payload is an Adobe Target type  # noqa: E501
+        Indicates to Adobe Analytics that the payload is an Adobe Target type
 
-        :param pe: The pe of this AnalyticsPayload.  # noqa: E501
+        :param pe: The pe of this AnalyticsPayload.
         :type: str
         """
 
@@ -77,11 +77,11 @@ class AnalyticsPayload(object):
 
     @property
     def tnta(self):
-        """Gets the tnta of this AnalyticsPayload.  # noqa: E501
+        """Gets the tnta of this AnalyticsPayload.
 
-        Contains Target metadata that describes the activity and experience  # noqa: E501
+        Contains Target metadata that describes the activity and experience
 
-        :return: The tnta of this AnalyticsPayload.  # noqa: E501
+        :return: The tnta of this AnalyticsPayload.
         :rtype: str
         """
         return self._tnta
@@ -90,9 +90,9 @@ class AnalyticsPayload(object):
     def tnta(self, tnta):
         """Sets the tnta of this AnalyticsPayload.
 
-        Contains Target metadata that describes the activity and experience  # noqa: E501
+        Contains Target metadata that describes the activity and experience
 
-        :param tnta: The tnta of this AnalyticsPayload.  # noqa: E501
+        :param tnta: The tnta of this AnalyticsPayload.
         :type: str
         """
 

@@ -27,8 +27,8 @@ from target_decisioning_engine import MESSAGES
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.events import ARTIFACT_DOWNLOAD_FAILED
 from target_decisioning_engine.types.target_delivery_request import TargetDeliveryRequest
-from target_python_sdk.tests.delivery_request_setup import create_delivery_request
-from target_python_sdk.tests.helpers import read_json_file
+from target_tools.tests.delivery_request_setup import create_delivery_request
+from target_tools.tests.helpers import read_json_file
 
 CURRENT_DIR = os.path.dirname(__file__)
 ARTIFACT_BLANK = read_json_file(CURRENT_DIR, "schema/artifacts/TEST_ARTIFACT_BLANK.json")

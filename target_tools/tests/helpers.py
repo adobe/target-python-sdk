@@ -15,10 +15,10 @@ except ImportError:
     from mock import MagicMock
 import json
 import os
-from target_python_sdk.utils import is_dict
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import is_number
-from target_python_sdk.utils import is_list
+from target_tools.utils import is_dict
+from target_tools.utils import is_string
+from target_tools.utils import is_int
+from target_tools.utils import is_list
 
 
 def get_client_options():
@@ -85,7 +85,7 @@ def assert_string(value):
 
 def assert_number(value):
     """Throws AssertionError if value is not an int"""
-    assert is_number(value), "'{}' is not a number".format(value)
+    assert is_int(value), "'{}' is not a number".format(value)
 
 
 def prepare_test_response(response=None):

@@ -25,7 +25,7 @@ from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.constants import HTTP_HEADER_FORWARDED_FOR
 from target_decisioning_engine.constants import BAD_REQUEST
 from target_decisioning_engine.constants import OK
-from target_python_sdk.tests.helpers import read_json_file
+from target_tools.tests.helpers import read_json_file
 
 CURRENT_DIR = os.path.dirname(__file__)
 ARTIFACT_BLANK = read_json_file(CURRENT_DIR, "schema/artifacts/TEST_ARTIFACT_BLANK.json")

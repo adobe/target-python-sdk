@@ -9,7 +9,7 @@
 # governing permissions and limitations under the License.
 """DecisioningContext model"""
 # pylint: disable=super-init-not-called
-from target_decisioning_engine.types.limited_key_dict import LimitedKeyDict
+from target_tools.types.limited_key_dict import LimitedKeyDict
 
 
 class GeoContext(LimitedKeyDict):

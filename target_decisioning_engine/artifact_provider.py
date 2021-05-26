@@ -16,6 +16,7 @@ from threading import Timer
 import urllib3
 from urllib3 import Retry
 from target_decisioning_engine.constants import LOG_PREFIX
+from target_decisioning_engine.constants import FORBIDDEN
 from target_decisioning_engine.constants import HTTP_GET
 from target_decisioning_engine.constants import NOT_MODIFIED
 from target_decisioning_engine.constants import OK
@@ -34,10 +35,10 @@ from target_decisioning_engine.trace_provider import ArtifactTracer
 from target_decisioning_engine.utils import determine_artifact_location
 from target_decisioning_engine.utils import get_http_codes_to_retry
 from target_decisioning_engine.geo_provider import create_or_update_geo_object
-from target_python_sdk.utils import is_number
-from target_python_sdk.utils import to_dict
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import is_dict
+from target_tools.utils import is_int
+from target_tools.utils import to_dict
+from target_tools.utils import is_string
+from target_tools.utils import is_dict
 from target_tools.logger import get_logger
 from target_tools.perf_tool import get_perf_tool_instance
 from target_tools.utils import noop
@@ -84,7 +85,7 @@ class ArtifactProvider:
 
         return max(
             get_min_polling_interval(),
-            self.config.polling_interval if is_number(self.config.polling_interval) else DEFAULT_POLLING_INTERVAL
+            self.config.polling_interval if is_int(self.config.polling_interval) else DEFAULT_POLLING_INTERVAL
         )
 
     def initialize(self):
@@ -203,20 +204,26 @@ class ArtifactProvider:
             if res.status == NOT_MODIFIED and self.last_response_data:
                 return self.last_response_data
 
-            if res.status == OK:
-                self.perf_tool.time_start(TIMING_ARTIFACT_READ_JSON)
-                response_data = json.loads(res.data)
-                self.perf_tool.time_end(TIMING_ARTIFACT_READ_JSON)
-                etag = res.headers.get("Etag")
-                if etag:
-                    self.last_response_data = response_data
-                    self.last_response_etag = etag
+            if res.status == FORBIDDEN:
+                raise Exception("Artifact request is not authorized. This is likely due to On-Device-Decisioning "
+                                "being disabled in Admin settings.  Please enable and try again.")
 
-                geo = create_or_update_geo_object(geo_data=res.headers)
-                self._emit_new_artifact(response_data, to_dict(geo))
+            if res.status != OK:
+                raise Exception("Non-200 status code response from artifact request: {}".format(res.status))
 
-                self.perf_tool.time_end(TIMING_ARTIFACT_DOWNLOADED_TOTAL)
-                return response_data
+            self.perf_tool.time_start(TIMING_ARTIFACT_READ_JSON)
+            response_data = json.loads(res.data)
+            self.perf_tool.time_end(TIMING_ARTIFACT_READ_JSON)
+            etag = res.headers.get("Etag")
+            if etag:
+                self.last_response_data = response_data
+                self.last_response_etag = etag
+
+            geo = create_or_update_geo_object(geo_data=res.headers)
+            self._emit_new_artifact(response_data, to_dict(geo))
+
+            self.perf_tool.time_end(TIMING_ARTIFACT_DOWNLOADED_TOTAL)
+            return response_data
         except Exception as err:
             self.logger.error(MESSAGES.get("ARTIFACT_FETCH_ERROR")(str(err)))
             failure_event = {

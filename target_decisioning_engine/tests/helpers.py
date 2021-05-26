@@ -9,10 +9,10 @@
 # governing permissions and limitations under the License.
 """Util functions for testing decisioning engine"""
 import os
-from target_python_sdk.tests.helpers import read_json_file
-from target_python_sdk.tests.helpers import is_json
-from target_python_sdk.tests.helpers import traverse_object
-from target_python_sdk.tests.delivery_request_setup import create_delivery_request
+from target_tools.tests.helpers import is_json
+from target_tools.tests.helpers import traverse_object
+from target_tools.tests.helpers import read_json_file
+from target_tools.tests.delivery_request_setup import create_delivery_request
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.types.target_delivery_request import TargetDeliveryRequest
 

@@ -11,27 +11,31 @@
 """
 This module includes the TargetClient for making personalization requests
 """
-# pylint: disable=cyclic-import
+# pylint: disable=broad-except
 from copy import deepcopy
 from threading import Timer
+
+from target_decisioning_engine import TargetDecisioningEngine
+from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_python_sdk.messages import MESSAGES
-from target_python_sdk.events import CLIENT_READY
 from target_python_sdk.validators import validate_client_options
 from target_python_sdk.validators import validate_send_notifications_options
 from target_python_sdk.validators import validate_get_offers_options
 from target_python_sdk.helper import preserve_location_hint
-from target_python_sdk.utils import compose_functions
-from target_python_sdk.utils import create_visitor
+from target_python_sdk.helper import request_location_hint_cookie
 from target_python_sdk.target import execute_delivery
 from target_python_sdk.target import handle_delivery_response
 from target_tools.constants import EMPTY_REQUEST
-from target_tools.utils import add_mboxes_to_request
 from target_tools.attributes_provider import AttributesProvider
 from target_tools.attributes_provider import get_attributes_callback
 from target_tools.logger import get_logger
 from target_tools.event_provider import EventProvider
 from target_tools.enums import DecisioningMethod
+from target_tools.utils import compose_functions
+from target_tools.utils import add_mboxes_to_request
+from target_tools.utils import requires_decisioning_engine
 
+CLIENT_READY = "client_ready"
 CLIENT_READY_DELAY = .1
 DEFAULT_TIMEOUT = 3000
 DEFAULT_OPTS = {
@@ -44,20 +48,43 @@ class TargetClient:
     """External-facing Target client for handling personalization"""
 
     def __init__(self, options):
-        """Initialize TargetClient"""
+        """TargetClient constructor"""
         if not options or not options.get('internal'):
             raise Exception(MESSAGES.get('PRIVATE_CONSTRUCTOR'))
 
-        self.config = deepcopy(options)
+        self.config = dict(options)
         self.config['timeout'] = options.get('timeout') if options.get('timeout') \
             else DEFAULT_TIMEOUT
-
-        self.logger = options.get('logger', get_logger())
-        event_emitter = EventProvider(self.config.get('events')).emit
+        self.logger = get_logger(options.get('logger'))
+        self.event_emitter = EventProvider(self.config.get('events')).emit
         self.decisioning_engine = None
 
-        timer = Timer(CLIENT_READY_DELAY, event_emitter, [CLIENT_READY])
-        timer.start()
+    def initialize(self):
+        """Initialize TargetClient"""
+        if requires_decisioning_engine(self.config.get("decisioning_method")):
+            try:
+                request_location_hint_cookie(self, self.config.get("target_location_hint"))
+                decisioning_config = DecisioningConfig(self.config.get("client"),
+                                                       self.config.get("organization_id"),
+                                                       polling_interval=self.config.get("polling_interval"),
+                                                       artifact_location=self.config.get("artifact_location"),
+                                                       artifact_payload=self.config.get("artifact_payload"),
+                                                       environment=self.config.get("environment"),
+                                                       cdn_environment=self.config.get("cdn_environment"),
+                                                       cdn_base_path=self.config.get("cdn_base_path"),
+                                                       send_notification_func=self.send_notifications,
+                                                       telemetry_enabled=self.config.get("telemetry_enabled"),
+                                                       event_emitter=self.event_emitter,
+                                                       maximum_wait_ready=self.config.get("maximum_wait_ready"))
+                self.decisioning_engine = TargetDecisioningEngine(decisioning_config)
+                self.decisioning_engine.initialize()
+                self.event_emitter(CLIENT_READY)
+            except Exception as err:
+                self.logger.error("Unable to initialize TargetDecisioningEngine: \n {}".format(str(err)))
+        else:
+            # Should emit client_ready event after client gets returned by TargetClient.create
+            timer = Timer(CLIENT_READY_DELAY, self.event_emitter, [CLIENT_READY])
+            timer.start()
 
     @staticmethod
     def create(options=None):
@@ -76,7 +103,7 @@ class TargetClient:
 
         options.secure: (bool) Unset to enforce HTTP scheme, default: true
 
-        options.logger: (dict) Replaces the default noop logger, optional
+        options.logger: (dict) Replaces the default INFO level logger, optional
 
         options.decisioning_method: ('on-device'|'server-side'|'hybrid')
             The decisioning method, defaults to remote, optional
@@ -119,7 +146,9 @@ class TargetClient:
 
         opts = dict(DEFAULT_OPTS)
         opts.update(options)
-        return TargetClient(opts)
+        client = TargetClient(opts)
+        client.initialize()
+        return client
 
     def get_offers(self, options):
         """Fetches personalization offers
@@ -148,8 +177,9 @@ class TargetClient:
 
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
             is raised
-        :return (dict|AsyncResult) Returns response synchronously if no options.callback provided,
-        otherwise returns AsyncResult. If callback was provided then a DeliveryResponse will be returned through that
+        :return (target_python_sdk.types.target_delivery_response.TargetDeliveryResponse)
+            Returns response synchronously if no options.callback provided, otherwise returns AsyncResult.
+            If callback was provided then a DeliveryResponse will be returned through that.
         """
 
         error = validate_get_offers_options(options)
@@ -157,16 +187,10 @@ class TargetClient:
         if error:
             raise Exception(error)
 
-        # if not options.get('visitor'):
-        # options['visitor'] = create_visitor(self.config,
-        #                                     visitor_cookie=options.get('visitor_cookie'),
-        #                                     customer_ids=options.get('customer_ids'))
-
         config = deepcopy(self.config)
         config['decisioning_method'] = options.get('decisioning_method') or self.config.get('decisioning_method')
         target_options = {
-            'config': config,
-            'logger': self.logger
+            'config': config
         }
         target_options.update(options)
         return execute_delivery(self.config, target_options, self.decisioning_engine)
@@ -197,9 +221,9 @@ class TargetClient:
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
             is raised
 
-
-        :return (dict|AsyncResult) Returns response synchronously if no options.callback provided,
-        otherwise returns AsyncResult. If callback was provided then a DeliveryResponse will be returned through that
+        :return (target_python_sdk.types.target_delivery_response.TargetDeliveryResponse)
+            Returns response synchronously if no options.callback provided, otherwise returns AsyncResult.
+            If callback was provided, then a DeliveryResponse will be returned through that.
         """
 
         error = validate_send_notifications_options(options)
@@ -207,16 +231,11 @@ class TargetClient:
         if error:
             raise Exception(error)
 
-        # options['visitor'] = create_visitor(self.config,
-        #                                     visitor_cookie=options.get('visitor_cookie'),
-        #                                     customer_ids=options.get('customer_ids'))
-
         config = deepcopy(self.config)
         # execution mode for sending notifications must always be remote
-        config['decisioning_method'] = DecisioningMethod.SERVER_SIDE
+        config['decisioning_method'] = DecisioningMethod.SERVER_SIDE.value
         target_options = {
-            'config': config,
-            'logger': self.logger
+            'config': config
         }
         target_options.update(options)
         return execute_delivery(self.config, target_options)

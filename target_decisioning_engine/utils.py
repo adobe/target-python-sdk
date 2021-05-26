@@ -15,8 +15,6 @@ from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
 from target_decisioning_engine.messages import MESSAGES
-from target_python_sdk.utils import is_string
-from target_python_sdk.utils import parse_int
 from target_tools.constants import POSSIBLE_ENVIRONMENTS
 from target_tools.constants import EMPTY_STRING
 from target_tools.constants import ENVIRONMENT_PROD
@@ -24,6 +22,8 @@ from target_tools.logger import get_logger
 from target_tools.utils import get_mbox_names
 from target_tools.utils import get_view_names
 from target_tools.utils import has_requested_views
+from target_tools.utils import is_string
+from target_tools.utils import parse_int
 
 
 logger = get_logger()
@@ -113,8 +113,8 @@ def has_remote_dependency(artifact, request):
 
     return {
         "remote_needed": bool(mboxes_that_require_remote or views_that_require_remote),
-        "remote_mboxes": mboxes_that_require_remote,
-        "remote_views": views_that_require_remote
+        "remote_mboxes": list(mboxes_that_require_remote),
+        "remote_views": list(views_that_require_remote)
     }
 
 

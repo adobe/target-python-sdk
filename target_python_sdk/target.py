@@ -16,7 +16,6 @@
 import json
 from functools import partial
 
-from target_python_sdk import compose_functions
 from target_python_sdk.messages import MESSAGES
 from target_python_sdk.cookies import parse_cookies
 from target_python_sdk.helper import create_delivery_api
@@ -33,8 +32,10 @@ from target_tools.logger import get_logger
 from target_tools.utils import requires_decisioning_engine
 from target_tools.utils import decisioning_engine_ready
 from target_tools.utils import get_property
+from target_tools.utils import compose_functions
 from target_tools.messages import DECISIONING_ENGINE_NOT_READY
 from target_tools.enums import DecisioningMethod
+
 
 logger = get_logger()
 
@@ -46,7 +47,7 @@ def execute_delivery(client_config, options, decisioning_engine=None):
     if _property:
         options['request']._property = _property
 
-    target_location_hint = options.get('target_location_hint') or opts_config.get('targetLocationHint')
+    target_location_hint = options.get('target_location_hint') or opts_config.get('target_location_hint')
 
     if requires_decisioning_engine(opts_config.get('decisioning_method')) and \
             not decisioning_engine_ready(decisioning_engine):
@@ -81,9 +82,9 @@ def execute_delivery(client_config, options, decisioning_engine=None):
         configuration,
         options.get('visitor'),
         opts_config.get('decisioning_method'),
-        target_location_hint,
-        delivery_request,
-        decisioning_engine
+        target_location_hint=target_location_hint,
+        delivery_request=delivery_request,
+        decisioning_engine=decisioning_engine
     )
 
     logger.debug(
@@ -134,6 +135,7 @@ def handle_delivery_response(delivery_request, visitor, session_id,
         'visitor_state': visitor.get_state() if visitor else None,
         'request': delivery_request
     })
+
     result.update(process_response(
         session_id,
         cluster,

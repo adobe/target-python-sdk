@@ -9,6 +9,7 @@
 # governing permissions and limitations under the License.
 """Testing helper functions for transforming dicts to DeliveryResponse models"""
 from delivery_api_client import DeliveryResponse
+from delivery_api_client import VisitorId
 from delivery_api_client import ExecuteResponse
 from delivery_api_client import PrefetchResponse
 from delivery_api_client import MboxResponse
@@ -48,9 +49,25 @@ def create_execute_response(execute):
     return ExecuteResponse(mboxes=mboxes)
 
 
+def create_id_response(_id):
+    """Create VisitorId"""
+    if not _id:
+        return None
+
+    return VisitorId(tnt_id=_id.get("tntId"),
+                     third_party_id=_id.get("thirdPartyId"),
+                     marketing_cloud_visitor_id=_id.get("marketingCloudVisitorId"))
+
+
 def create_delivery_response(response_dict):
     """Convert dict to DeliveryResponse instance"""
     execute_response = create_execute_response(response_dict.get('execute'))
     prefetch_response = create_prefetch_response(response_dict.get('prefetch'))
-    delivery_response = DeliveryResponse(execute=execute_response, prefetch=prefetch_response)
+    delivery_response = DeliveryResponse(execute=execute_response,
+                                         prefetch=prefetch_response,
+                                         request_id=response_dict.get("requestId"),
+                                         client=response_dict.get("client"),
+                                         edge_host=response_dict.get("edgeHost"),
+                                         id=create_id_response(response_dict.get("id")),
+                                         status=response_dict.get("status"))
     return delivery_response

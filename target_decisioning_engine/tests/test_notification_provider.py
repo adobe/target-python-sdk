@@ -21,9 +21,9 @@ from delivery_api_client import OptionType
 from delivery_api_client import VisitorId
 from delivery_api_client import Metric
 from delivery_api_client import MetricType
-from target_python_sdk.utils import to_dict
-from target_python_sdk.tests.delivery_request_setup import create_delivery_request
-from target_python_sdk.tests.helpers import expect_to_match_object
+from target_tools.utils import to_dict
+from target_tools.tests.helpers import expect_to_match_object
+from target_tools.tests.delivery_request_setup import create_delivery_request
 from target_decisioning_engine.notification_provider import NotificationProvider
 
 
@@ -67,8 +67,8 @@ class TestNotificationProvider(unittest.TestCase):
 
         time.sleep(1)
         self.assertEqual(self.mock_notify.call_count, 1)
-        self.assertEqual(len(self.mock_notify.call_args[0][0]["request"]["notifications"]), 1)
-        received = to_dict(self.mock_notify.call_args[0][0]["request"]["notifications"][0])
+        self.assertEqual(len(self.mock_notify.call_args[0][0]["request"].notifications), 1)
+        received = to_dict(self.mock_notify.call_args[0][0]["request"].notifications[0])
         expected = {
             "id": "expect.any(String)",
             "impressionId": "expect.any(String)",
@@ -107,8 +107,8 @@ class TestNotificationProvider(unittest.TestCase):
 
         time.sleep(1)
         self.assertEqual(self.mock_notify.call_count, 1)
-        self.assertEqual(len(self.mock_notify.call_args[0][0]["request"]["notifications"]), 1)
-        received = to_dict(self.mock_notify.call_args[0][0]["request"]["notifications"][0])
+        self.assertEqual(len(self.mock_notify.call_args[0][0]["request"].notifications), 1)
+        received = to_dict(self.mock_notify.call_args[0][0]["request"].notifications[0])
         expected = {
             "id": "expect.any(String)",
             "impressionId": "expect.any(String)",
@@ -149,8 +149,8 @@ class TestNotificationProvider(unittest.TestCase):
 
         time.sleep(1)
         self.assertEqual(self.mock_notify.call_count, 1)
-        self.assertEqual(len(self.mock_notify.call_args[0][0]["request"]["notifications"]), 2)
-        first_received = to_dict(self.mock_notify.call_args[0][0]["request"]["notifications"][0])
+        self.assertEqual(len(self.mock_notify.call_args[0][0]["request"].notifications), 2)
+        first_received = to_dict(self.mock_notify.call_args[0][0]["request"].notifications[0])
         expected = {
             "id": "expect.any(String)",
             "impressionId": "expect.any(String)",
@@ -165,7 +165,7 @@ class TestNotificationProvider(unittest.TestCase):
         first_expected["mbox"]["name"] = "my-mbox"
         expect_to_match_object(first_received, first_expected)
 
-        second_received = to_dict(self.mock_notify.call_args[0][0]["request"]["notifications"][1])
+        second_received = to_dict(self.mock_notify.call_args[0][0]["request"].notifications[1])
         second_expected = dict(expected)
         second_expected["mbox"]["name"] = "another-mbox"
         expect_to_match_object(second_received, second_expected)

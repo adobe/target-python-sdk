@@ -12,7 +12,7 @@
 import json
 import os
 
-from target_python_sdk.tests.helpers import read_json_file
+from target_tools.tests.helpers import read_json_file
 
 CURRENT_DIR = os.path.dirname(__file__)
 

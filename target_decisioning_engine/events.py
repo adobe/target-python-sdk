@@ -9,6 +9,6 @@
 # governing permissions and limitations under the License.
 """Events used by target_decisioning_engine module"""
 
-ARTIFACT_DOWNLOAD_SUCCEEDED = "artifactDownloadSucceeded"
-ARTIFACT_DOWNLOAD_FAILED = "artifactDownloadFailed"
-GEO_LOCATION_UPDATED = "geoLocationUpdated"
+ARTIFACT_DOWNLOAD_SUCCEEDED = "artifact_download_succeeded"
+ARTIFACT_DOWNLOAD_FAILED = "artifact_download_failed"
+GEO_LOCATION_UPDATED = "geo_location_updated"

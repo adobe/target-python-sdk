@@ -8,9 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Helper functions for sending requests to Delivery API"""
-# pylint: disable=too-many-arguments
-# pylint: disable=protected-access
-# pylint: disable=broad-except
 try:
     from functools import reduce
 except ImportError:
@@ -60,14 +57,14 @@ from target_tools.enums import DecisioningMethod
 SDK_VERSION = pkg_resources.require("target_python_sdk")[0].version
 
 SCHEME = {
-    'HTTP': "http://",
-    'HTTPS': "https://"
+    "HTTP": "http://",
+    "HTTPS": "https://"
 }
 
 AUTH_STATE = {
-    '0': AuthenticatedState.UNKNOWN,
-    '1': AuthenticatedState.AUTHENTICATED,
-    '2': AuthenticatedState.LOGGED_OUT
+    "0": AuthenticatedState.UNKNOWN,
+    "1": AuthenticatedState.AUTHENTICATED,
+    "2": AuthenticatedState.LOGGED_OUT
 }
 
 EDGE_CLUSTER_PREFIX = "mboxedge"
@@ -88,17 +85,17 @@ logger = get_logger()
 def create_headers(uuid_method=create_uuid):
     """Create request headers to send to Delivery API"""
     return {
-        'Content-Type': "application/json",
-        'X-EXC-SDK': "AdobeTargetPython",
-        'X-EXC-SDK-Version': SDK_VERSION,
-        'X-Request-Id': uuid_method()
+        "Content-Type": "application/json",
+        "X-EXC-SDK": "AdobeTargetPython",
+        "X-EXC-SDK-Version": SDK_VERSION,
+        "X-Request-Id": uuid_method()
     }
 
 
 def get_session_id(cookies, user_session_id, uuid_method=create_uuid):
     """Get session ID from cookie"""
     cookie = cookies.get(SESSION_ID_COOKIE, {})
-    value = cookie.get('value')
+    value = cookie.get("value")
 
     if is_string(value):
         return value
@@ -111,7 +108,7 @@ def get_session_id(cookies, user_session_id, uuid_method=create_uuid):
 
 def get_target_host(server_domain, cluster, client, secure):
     """Construct Target server hostname"""
-    scheme_prefix = SCHEME.get('HTTP') if secure is False else SCHEME.get('HTTPS')
+    scheme_prefix = SCHEME.get("HTTP") if secure is False else SCHEME.get("HTTPS")
 
     if is_string(cluster):
         return "{}{}{}.{}".format(scheme_prefix, EDGE_CLUSTER_PREFIX, cluster, HOST)
@@ -143,7 +140,7 @@ def extract_cluster_from_device_id(_id):
 def get_device_id(cookies):
     """Get device ID from cookie"""
     cookie = cookies.get(DEVICE_ID_COOKIE, {})
-    value = cookie.get('value')
+    value = cookie.get("value")
     return value
 
 
@@ -155,8 +152,8 @@ def get_cluster(device_id, cluster):
 
 def preserve_location_hint(config, response):
     """Preserve location hint in client config for subsequent requests"""
-    if response and response.get('target_location_hint_cookie'):
-        config['target_location_hint'] = response.get('target_location_hint_cookie').get('value')
+    if response and response.get("target_location_hint_cookie"):
+        config["target_location_hint"] = response.get("target_location_hint_cookie").get("value")
     return response
 
 
@@ -185,7 +182,7 @@ def get_marketing_cloud_visitor_id(visitor):
     if not visitor:
         return None
     visitor_values = visitor.get_visitor_values()
-    return visitor_values.get('MCMID')
+    return visitor_values.get("MCMID")
 
 
 def get_visitor_customer_ids(visitor):
@@ -195,7 +192,7 @@ def get_visitor_customer_ids(visitor):
     visitor_state = visitor.get_state()
     states = list(visitor_state.keys())
     first_organization_state = visitor_state[states[0]] if states else {}
-    return first_organization_state.get('customer_ids')
+    return first_organization_state.get("customer_ids")
 
 
 def customer_ids_accumulator(result, customer_id_tuple):
@@ -208,15 +205,15 @@ def customer_ids_accumulator(result, customer_id_tuple):
 
     if is_dict(customer_id_value):
         item = CustomerId(
-            id=customer_id_value.get('id'),
+            id=customer_id_value.get("id"),
             integration_code=customer_id_key,
-            authenticated_state=AUTH_STATE.get(customer_id_value.get('authState'))
+            authenticated_state=AUTH_STATE.get(customer_id_value.get("authState"))
         )
     else:
         item = CustomerId(
             id=customer_id_value,
             integration_code=customer_id_key,
-            authenticated_state=AUTH_STATE.get('0')
+            authenticated_state=AUTH_STATE.get("0")
         )
 
     result.append(item)
@@ -243,8 +240,8 @@ def create_visitor_id(visitor_id, options):
     if not options:
         options = {}
 
-    device_id = options.get('device_id')
-    visitor = options.get('visitor')
+    device_id = options.get("device_id")
+    visitor = options.get("visitor")
 
     if not visitor_id.tnt_id:
         visitor_id.tnt_id = device_id
@@ -282,10 +279,10 @@ def create_audience_manager(audience_manager, options):
     if not audience_manager:
         audience_manager = AudienceManager()
 
-    visitor = options.get('visitor')
+    visitor = options.get("visitor")
     visitor_values = visitor.get_visitor_values() if visitor and visitor.get_visitor_values() else {}
-    location_hint = audience_manager.location_hint or get_location_hint(visitor_values.get('MCAAMLH'))
-    blob = audience_manager.blob or visitor_values.get('MCAAMB')
+    location_hint = audience_manager.location_hint or get_location_hint(visitor_values.get("MCAAMLH"))
+    blob = audience_manager.blob or visitor_values.get("MCAAMB")
 
     if not location_hint and not blob:
         return None
@@ -300,17 +297,17 @@ def is_current_supplemental_data_id(supplemental_data_id, visitor):
     visitor_state = visitor.get_state() if visitor else {}
     states = list(visitor_state.keys())
     first_organization_state = visitor_state[states[0]] if states else {}
-    return first_organization_state.get('sdid') and \
-           first_organization_state.get('sdid').get('supplemental_data_id_current') == supplemental_data_id
+    return first_organization_state.get("sdid") and \
+           first_organization_state.get("sdid").get("supplemental_data_id_current") == supplemental_data_id
 
 
 def create_supplemental_data_id(analytics, options):
     """Retrieves up-to-date SDID"""
-    visitor = options.get('visitor')
+    visitor = options.get("visitor")
     if not visitor:
         return None
 
-    consumer_id = options.get('consumer_id', DEFAULT_GLOBAL_MBOX)
+    consumer_id = options.get("consumer_id", DEFAULT_GLOBAL_MBOX)
     supplemental_data_id = analytics.supplemental_data_id
 
     if is_current_supplemental_data_id(supplemental_data_id, visitor):
@@ -349,7 +346,7 @@ def valid_mbox(mbox):
     """Checks for valid mbox"""
     result = mbox and mbox.name
     if not result:
-        logger.error("{}\n{}".format(MESSAGES.get('MBOX_INVALID'), mbox.to_str()))
+        logger.error("{}\n{}".format(MESSAGES.get("MBOX_INVALID"), mbox.to_str()))
     return result
 
 
@@ -368,7 +365,7 @@ def valid_notification(notification):
                and notification.type in METRIC_TYPES
 
     if not is_valid:
-        logger.error("{}\n{}".format(MESSAGES.get('NOTIFICATION_INVALID'), notification.to_str()))
+        logger.error("{}\n{}".format(MESSAGES.get("NOTIFICATION_INVALID"), notification.to_str()))
 
     return is_valid
 
@@ -425,10 +422,10 @@ def create_property(_property):
 
 def create_delivery_request(incoming_request, options):
     """Update incoming DeliveryRequest"""
-    uuid_method = options.get('uuid_method', create_uuid)
+    uuid_method = options.get("uuid_method", create_uuid)
     delivery_request = deepcopy(incoming_request)
     delivery_request.request_id = uuid_method()
-    delivery_request.environment_id = options.get('environment_id')
+    delivery_request.environment_id = options.get("environment_id")
     delivery_request.id = create_visitor_id(incoming_request.id, options)
     delivery_request._property = create_property(incoming_request._property)
     delivery_request.trace = incoming_request.trace
@@ -451,16 +448,16 @@ def get_target_cookie(session_id, _id):
     tnt_id = _id.tnt_id
 
     cookies.append({
-        'name': SESSION_ID_COOKIE,
-        'value': session_id,
-        'expires': now_in_seconds + SESSION_ID_MAX_AGE
+        "name": SESSION_ID_COOKIE,
+        "value": session_id,
+        "expires": now_in_seconds + SESSION_ID_MAX_AGE
     })
 
     if tnt_id:
         cookies.append({
-            'name': DEVICE_ID_COOKIE,
-            'value': tnt_id,
-            'expires': now_in_seconds + DEVICE_ID_MAX_AGE
+            "name": DEVICE_ID_COOKIE,
+            "value": tnt_id,
+            "expires": now_in_seconds + DEVICE_ID_MAX_AGE
         })
 
     return create_target_cookie(cookies)
@@ -505,9 +502,9 @@ def get_target_location_hint_cookie(request_cluster, edge_host=None):
         return None
 
     return {
-        'name': LOCATION_HINT_COOKIE,
-        'value': cluster,
-        'maxAge': LOCATION_HINT_MAX_AGE
+        "name": LOCATION_HINT_COOKIE,
+        "value": cluster,
+        "maxAge": LOCATION_HINT_MAX_AGE
     }
 
 
@@ -644,13 +641,13 @@ def get_response_meta(request, decisioning_method, decisioning_engine):
 
     if decisioning_engine:
         decisioning_dependency = decisioning_engine.has_remote_dependency(request)
-        remote_mboxes = decisioning_dependency.get('remote_mboxes')
-        remote_views = decisioning_dependency.get('remote_views')
+        remote_mboxes = decisioning_dependency.get("remote_mboxes")
+        remote_views = decisioning_dependency.get("remote_views")
 
     return {
-        'decisioning_method': decisioning_method,
-        'remote_mboxes': remote_mboxes,
-        'remote_views': remote_views
+        "decisioning_method": decisioning_method,
+        "remote_mboxes": remote_mboxes,
+        "remote_views": remote_views
     }
 
 

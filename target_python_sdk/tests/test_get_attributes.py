@@ -200,11 +200,11 @@ class TestGetAttributes(unittest.TestCase):
         opts["request"]["execute"] = None
         opts["request"] = create_delivery_request(opts["request"])
 
-        shared = {'has_response': False}
+        shared = {"has_response": False}
 
         def verify_callback(attributes_provider):
             self.assertEqual(len(responses.calls), 1)
-            shared['has_response'] = True
+            shared["has_response"] = True
             self.assertTrue(attributes_provider.get_value(
                 "feature-flag-b", "show_feature_y"))
 
@@ -222,4 +222,4 @@ class TestGetAttributes(unittest.TestCase):
             thread.get(timeout=5)  # Blocks current thread to keep test runner alive
         except multiprocessing.context.TimeoutError:
             self.fail("Test case timed out waiting for callback to be invoked")
-        self.assertTrue(shared.get('has_response'))
+        self.assertTrue(shared.get("has_response"))

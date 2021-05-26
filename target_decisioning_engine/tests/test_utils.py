@@ -8,7 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Unit tests for target_decisioning_engine.utils module"""
-# pylint: disable=too-many-arguments
 import unittest
 try:
     from unittest.mock import patch, Mock

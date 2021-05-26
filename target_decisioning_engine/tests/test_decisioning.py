@@ -11,9 +11,7 @@
     By default this file runs all suites.  But, you can isolate just one suite or even a single test within the suite
     by uncommenting the line below. Simply specify a suite filename (without extension), and a (optional) test key.
 """
-# pylint: disable=cell-var-from-loop
 # pylint: disable=too-many-locals
-# pylint: disable=invalid-name
 try:
     from unittest.mock import Mock, patch
 except ImportError:
@@ -80,8 +78,8 @@ def geo_mock(mock_geo):
 @contextmanager
 def artifact_mock(artifact):
     """ArtifactProvider http mock"""
-    with patch("target_decisioning_engine.artifact_provider.urllib3.PoolManager") as MockPoolManager:
-        instance = MockPoolManager.return_value
+    with patch("target_decisioning_engine.artifact_provider.urllib3.PoolManager") as mock_pool_manaager:
+        instance = mock_pool_manaager.return_value
         mock_response = HTTPResponse(status=200, body=json.dumps(artifact))
         instance.request.return_value = mock_response
         yield mock_response
@@ -118,7 +116,7 @@ class TestDecisioning(unittest.TestCase):
         self.assertGreaterEqual(len(TEST_SUITES), 1)
 
     def test_run_all_tests_on_ci(self):
-        if os.getenv('CI'):
+        if os.getenv("CI"):
             self.assertIsNone(JUST_THIS_TEST)
 
 
@@ -162,7 +160,7 @@ def test_generator(_test):
 
 
 for test_suite in TEST_SUITES:
-    SUITE_DESCRIPTION = 'test_{}'.format(test_suite.get("description"))
+    SUITE_DESCRIPTION = "test_{}".format(test_suite.get("description"))
     for test_key in test_suite.get("test").keys():
         if should_execute_test(test_key):
             test = get_test(test_key, test_suite)

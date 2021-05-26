@@ -8,17 +8,11 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """DecisionProvider for on-device decisioning"""
-# pylint: disable=unused-argument
-# pylint: disable=too-few-public-methods
 # pylint: disable=too-many-statements
-# pylint: disable=too-many-instance-attributes
-# pylint: disable=too-many-arguments
-
 try:
     from functools import reduce
 except ImportError:
     pass
-
 from delivery_api_client import MboxResponse
 from delivery_api_client import TelemetryEntry
 from delivery_api_client import MboxRequest
@@ -80,7 +74,7 @@ class DecisionProvider:
         self.context = context
         self.artifact = artifact
         self.trace_provider = trace_provider
-        self.response_tokens = artifact.get('responseTokens')
+        self.response_tokens = artifact.get("responseTokens")
         self.rules = artifact.get("rules")
         self.global_mbox_name = artifact.get("globalMbox", DEFAULT_GLOBAL_MBOX)
         self.client_id = config.client

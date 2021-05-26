@@ -26,7 +26,7 @@ class TestEventsProvider(unittest.TestCase):
         def aloha(event):
             called["was_called"] = True
             self.assertEqual(event, {
-                'type': "aloha"
+                "type": "aloha"
             })
 
         event_provider = EventProvider({
@@ -41,21 +41,21 @@ class TestEventsProvider(unittest.TestCase):
         def aloha(event):
             called["was_called"] = True
             self.assertEqual(event, {
-                'type': "aloha",
-                'data': {
-                    'value': "hello"
+                "type": "aloha",
+                "data": {
+                    "value": "hello"
                 },
-                'code': 11
+                "code": 11
             })
 
         event_provider = EventProvider({
             "aloha": aloha
         })
         event_provider.emit("aloha", {
-            'data': {
-                'value': "hello"
+            "data": {
+                "value": "hello"
             },
-            'code': 11
+            "code": 11
         })
         self.assertTrue(called["was_called"])
 
@@ -65,7 +65,7 @@ class TestEventsProvider(unittest.TestCase):
         def aloha(event):
             called["was_called"] = True
             self.assertEqual(event, {
-                'type': "aloha"
+                "type": "aloha"
             })
 
         event_provider = EventProvider()

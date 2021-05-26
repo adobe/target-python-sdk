@@ -8,7 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Helper functions for testing"""
-# pylint: disable=unused-argument
 try:
     from unittest.mock import MagicMock
 except ImportError:
@@ -24,8 +23,8 @@ from target_tools.utils import is_list
 def get_client_options():
     """Returns mock options for TargetClient.create"""
     return {
-        'client': 'testingclient',
-        'organization_id': '11D1C9L459CE0AD80A495CBE@AdobeOrg'
+        "client": "testingclient",
+        "organization_id": "11D1C9L459CE0AD80A495CBE@AdobeOrg"
     }
 
 

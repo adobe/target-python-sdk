@@ -17,19 +17,19 @@ from target_tools.enums import DecisioningMethod
 def validate_client_options(options):
     """Validates options for TargetClient"""
     if not options:
-        return MESSAGES.get('OPTIONS_REQUIRED')
+        return MESSAGES.get("OPTIONS_REQUIRED")
 
     client, organization_id, decisioning_method = \
-        [options.get(k) for k in ('client', 'organization_id', 'decisioning_method')]
+        [options.get(k) for k in ("client", "organization_id", "decisioning_method")]
 
     if not client:
-        return MESSAGES.get('CLIENT_REQUIRED')
+        return MESSAGES.get("CLIENT_REQUIRED")
 
     if not organization_id:
-        return MESSAGES.get('ORG_ID_REQUIRED')
+        return MESSAGES.get("ORG_ID_REQUIRED")
 
     if decisioning_method and decisioning_method not in [e.value for e in DecisioningMethod]:
-        return MESSAGES.get('DECISIONING_METHOD_INVALID')
+        return MESSAGES.get("DECISIONING_METHOD_INVALID")
 
     return None
 
@@ -37,26 +37,26 @@ def validate_client_options(options):
 def validate_get_offers_options(options):
     """Validates options for get_offers"""
     if not options:
-        return MESSAGES.get('OPTIONS_REQUIRED')
+        return MESSAGES.get("OPTIONS_REQUIRED")
 
-    request = options.get('request')
+    request = options.get("request")
     if not request or not isinstance(request, DeliveryRequest):
-        return MESSAGES.get('REQUEST_REQUIRED')
+        return MESSAGES.get("REQUEST_REQUIRED")
 
     execute = request.execute
     if execute and not execute.page_load \
             and not execute.mboxes:
-        return MESSAGES.get('EXECUTE_FIELDS_REQUIRED')
+        return MESSAGES.get("EXECUTE_FIELDS_REQUIRED")
 
     prefetch = request.prefetch
     if prefetch and not prefetch.page_load \
             and not prefetch.views \
             and not prefetch.mboxes:
-        return MESSAGES.get('PREFETCH_FIELDS_REQUIRED')
+        return MESSAGES.get("PREFETCH_FIELDS_REQUIRED")
 
-    callback = options.get('callback')
+    callback = options.get("callback")
     if callback and not callable(callback):
-        return MESSAGES.get('INVALID_CALLBACK')
+        return MESSAGES.get("INVALID_CALLBACK")
 
     return None
 
@@ -64,17 +64,17 @@ def validate_get_offers_options(options):
 def validate_send_notifications_options(options):
     """Validates options for send_notifications"""
     if not options:
-        return MESSAGES.get('OPTIONS_REQUIRED')
+        return MESSAGES.get("OPTIONS_REQUIRED")
 
-    request = options.get('request')
+    request = options.get("request")
     if not request:
-        return MESSAGES.get('REQUEST_REQUIRED')
+        return MESSAGES.get("REQUEST_REQUIRED")
 
     if not request.notifications and not request.telemetry:
-        return MESSAGES.get('NOTIFICATIONS_REQUIRED')
+        return MESSAGES.get("NOTIFICATIONS_REQUIRED")
 
-    callback = options.get('callback')
+    callback = options.get("callback")
     if callback and not callable(callback):
-        return MESSAGES.get('INVALID_CALLBACK')
+        return MESSAGES.get("INVALID_CALLBACK")
 
     return None

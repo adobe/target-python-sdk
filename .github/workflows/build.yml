@@ -29,9 +29,19 @@ jobs:
         run: |
           make pre_build
       - name: generate coveralls coverage
-        if: matrix.python-version == 3.9
-        run: coveralls --service=github
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_PARALLEL: false
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel: true
+          flag-name: Python-${{ matrix.python-version }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          debug: true
+
+  coveralls_finish:
+    name: Report Coverage
+    needs: build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Coveralls Finished
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel-finished: true

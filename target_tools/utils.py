@@ -14,7 +14,6 @@ try:
     from functools import reduce
 except ImportError:
     pass
-import json
 import datetime
 import operator
 import uuid
@@ -200,7 +199,7 @@ def is_string(value):
     return isinstance(value, string_types)
 
 
-def is_number(value):
+def is_int(value):
     """Checks if value is numeric"""
     try:
         int(value)
@@ -270,11 +269,6 @@ def flatten_list(_list):
 def remove_empty_values(_dict):
     """Removes Nonetype dict values"""
     return {k: v for k, v in list(_dict.items()) if v is not None}
-
-
-def create_visitor(config, visitor_cookie=None, customer_ids=None):
-    """Create visitor"""
-    print("{}.{}.{}".format(json.dumps(config), visitor_cookie, json.dumps(customer_ids)))
 
 
 def is_empty(val):

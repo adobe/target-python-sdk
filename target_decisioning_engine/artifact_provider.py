@@ -35,7 +35,7 @@ from target_decisioning_engine.trace_provider import ArtifactTracer
 from target_decisioning_engine.utils import determine_artifact_location
 from target_decisioning_engine.utils import get_http_codes_to_retry
 from target_decisioning_engine.geo_provider import create_or_update_geo_object
-from target_tools.utils import is_number
+from target_tools.utils import is_int
 from target_tools.utils import to_dict
 from target_tools.utils import is_string
 from target_tools.utils import is_dict
@@ -85,7 +85,7 @@ class ArtifactProvider:
 
         return max(
             get_min_polling_interval(),
-            self.config.polling_interval if is_number(self.config.polling_interval) else DEFAULT_POLLING_INTERVAL
+            self.config.polling_interval if is_int(self.config.polling_interval) else DEFAULT_POLLING_INTERVAL
         )
 
     def initialize(self):

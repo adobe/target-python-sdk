@@ -187,11 +187,6 @@ class TargetClient:
         if error:
             raise Exception(error)
 
-        # if not options.get('visitor'):
-        # options['visitor'] = create_visitor(self.config,
-        #                                     visitor_cookie=options.get('visitor_cookie'),
-        #                                     customer_ids=options.get('customer_ids'))
-
         config = deepcopy(self.config)
         config['decisioning_method'] = options.get('decisioning_method') or self.config.get('decisioning_method')
         target_options = {
@@ -228,17 +223,13 @@ class TargetClient:
 
         :return (target_python_sdk.types.target_delivery_response.TargetDeliveryResponse)
             Returns response synchronously if no options.callback provided, otherwise returns AsyncResult.
-            If callback was provided then a DeliveryResponse will be returned through that.
+            If callback was provided, then a DeliveryResponse will be returned through that.
         """
 
         error = validate_send_notifications_options(options)
 
         if error:
             raise Exception(error)
-
-        # options['visitor'] = create_visitor(self.config,
-        #                                     visitor_cookie=options.get('visitor_cookie'),
-        #                                     customer_ids=options.get('customer_ids'))
 
         config = deepcopy(self.config)
         # execution mode for sending notifications must always be remote

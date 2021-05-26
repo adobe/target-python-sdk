@@ -46,7 +46,7 @@ from target_tools.utils import is_string
 from target_tools.utils import parse_int
 from target_tools.utils import create_uuid
 from target_tools.utils import is_dict
-from target_tools.utils import is_number
+from target_tools.utils import is_int
 from target_tools.utils import get_timezone_offset
 from target_tools.utils import get_epoch_time
 from target_tools.utils import flatten_list
@@ -56,7 +56,6 @@ from target_tools.constants import DEFAULT_GLOBAL_MBOX
 from target_tools.constants import EMPTY_REQUEST
 from target_tools.logger import get_logger
 from target_tools.enums import DecisioningMethod
-
 
 SDK_VERSION = pkg_resources.require("target_python_sdk")[0].version
 
@@ -365,8 +364,8 @@ def create_mboxes(mboxes):
 def valid_notification(notification):
     """Checks for valid notification"""
     is_valid = notification and is_string(notification.id) \
-        and is_number(notification.timestamp) \
-        and notification.type in METRIC_TYPES
+               and is_int(notification.timestamp) \
+               and notification.type in METRIC_TYPES
 
     if not is_valid:
         logger.error("{}\n{}".format(MESSAGES.get('NOTIFICATION_INVALID'), notification.to_str()))
@@ -481,7 +480,7 @@ def extract_cluster_from_edge_host(host):
 
 
 def request_location_hint_cookie(target_client, target_location_hint):
-    """Use existing target_location_hint to create cookie otherwise make a get_offers request to get it"""
+    """Use existing target_location_hint to create cookie, otherwise make a get_offers request to get it"""
     if target_location_hint:
         return {
             "target_location_hint_cookie": get_target_location_hint_cookie(target_location_hint)

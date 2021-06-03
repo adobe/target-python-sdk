@@ -11,7 +11,6 @@
 """
 This module includes the TargetClient for making personalization requests
 """
-# pylint: disable=broad-except
 from copy import deepcopy
 from threading import Timer
 
@@ -39,8 +38,8 @@ CLIENT_READY = "client_ready"
 CLIENT_READY_DELAY = .1
 DEFAULT_TIMEOUT = 3000
 DEFAULT_OPTS = {
-    'internal': True,
-    'decisioning_method': DecisioningMethod.SERVER_SIDE.value
+    "internal": True,
+    "decisioning_method": DecisioningMethod.SERVER_SIDE.value
 }
 
 
@@ -49,14 +48,14 @@ class TargetClient:
 
     def __init__(self, options):
         """TargetClient constructor"""
-        if not options or not options.get('internal'):
-            raise Exception(MESSAGES.get('PRIVATE_CONSTRUCTOR'))
+        if not options or not options.get("internal"):
+            raise Exception(MESSAGES.get("PRIVATE_CONSTRUCTOR"))
 
         self.config = dict(options)
-        self.config['timeout'] = options.get('timeout') if options.get('timeout') \
+        self.config["timeout"] = options.get("timeout") if options.get("timeout") \
             else DEFAULT_TIMEOUT
-        self.logger = get_logger(options.get('logger'))
-        self.event_emitter = EventProvider(self.config.get('events')).emit
+        self.logger = get_logger(options.get("logger"))
+        self.event_emitter = EventProvider(self.config.get("events")).emit
         self.decisioning_engine = None
 
     def initialize(self):
@@ -105,7 +104,7 @@ class TargetClient:
 
         options.logger: (dict) Replaces the default INFO level logger, optional
 
-        options.decisioning_method: ('on-device'|'server-side'|'hybrid')
+        options.decisioning_method: ("on-device"|"server-side"|"hybrid")
             The decisioning method, defaults to remote, optional
 
         options.polling_interval: (int) Local Decisioning -
@@ -171,7 +170,7 @@ class TargetClient:
 
         options.visitor: (dict) Supply an external VisitorId instance, optional
 
-        options.decisioning_method: ('on-device'|'server-side'|'hybrid') Execution mode, defaults to remote, optional
+        options.decisioning_method: ("on-device"|"server-side"|"hybrid") Execution mode, defaults to remote, optional
 
         options.callback: (callable) If handling request asynchronously, the callback is invoked when response is ready
 
@@ -188,9 +187,9 @@ class TargetClient:
             raise Exception(error)
 
         config = deepcopy(self.config)
-        config['decisioning_method'] = options.get('decisioning_method') or self.config.get('decisioning_method')
+        config["decisioning_method"] = options.get("decisioning_method") or self.config.get("decisioning_method")
         target_options = {
-            'config': config
+            "config": config
         }
         target_options.update(options)
         return execute_delivery(self.config, target_options, self.decisioning_engine)
@@ -233,9 +232,9 @@ class TargetClient:
 
         config = deepcopy(self.config)
         # execution mode for sending notifications must always be remote
-        config['decisioning_method'] = DecisioningMethod.SERVER_SIDE.value
+        config["decisioning_method"] = DecisioningMethod.SERVER_SIDE.value
         target_options = {
-            'config': config
+            "config": config
         }
         target_options.update(options)
         return execute_delivery(self.config, target_options)
@@ -254,7 +253,7 @@ class TargetClient:
         options.customer_ids: (list) A list of Customer Ids in VisitorId-compatible format, optional
         options.session_id: (str) Session Id, used for linking multiple requests, optional
         options.visitor: (dict) Supply an external VisitorId instance, optional
-        options.decisioning_method: ('on-device'|'server-side'|'hybrid') Execution mode, defaults to remote, optional
+        options.decisioning_method: ("on-device"|"server-side"|"hybrid") Execution mode, defaults to remote, optional
         options.callback: (callable) If handling request asynchronously, the callback is invoked when response is ready
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
             is raised
@@ -263,15 +262,15 @@ class TargetClient:
             If callback was provided then an AttributesProvider will be returned through that
         """
 
-        if not options or not options.get('request'):
-            options = {'request': EMPTY_REQUEST}
+        if not options or not options.get("request"):
+            options = {"request": EMPTY_REQUEST}
 
         add_mboxes_to_request(
-            mbox_names, options.get('request'), "execute")
+            mbox_names, options.get("request"), "execute")
 
-        if options.get('callback'):
-            wrapped_callback = compose_functions(options.get('callback'), get_attributes_callback)
-            options['callback'] = wrapped_callback
+        if options.get("callback"):
+            wrapped_callback = compose_functions(options.get("callback"), get_attributes_callback)
+            options["callback"] = wrapped_callback
             return self.get_offers(options)
 
         response = self.get_offers(options)

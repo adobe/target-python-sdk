@@ -12,7 +12,7 @@
 import logging
 import sys
 
-LOGGER_NAME = 'adobe.target'
+LOGGER_NAME = "adobe.target"
 
 this = sys.modules[__name__]
 this.LOG = None

@@ -8,9 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """rule evaluator"""
-# pylint: disable=too-few-public-methods
-# pylint: disable=too-many-arguments
-# pylint: disable=no-self-use
 from copy import deepcopy
 from json_logic import jsonLogic
 from target_decisioning_engine.allocation_provider import compute_allocation

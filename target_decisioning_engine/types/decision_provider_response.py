@@ -8,7 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Response model for DecisionProvider"""
-# pylint: disable=too-many-arguments
 from delivery_api_client import DeliveryResponse
 
 

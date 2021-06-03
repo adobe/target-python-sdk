@@ -17,14 +17,14 @@ from target_tools.tests.helpers import read_json_file
 CURRENT_DIR = os.path.dirname(__file__)
 
 MOCK_RESPONSES = {
-    'default': './responses/default.json',
-    'prefetch': './responses/prefetch.json',
-    'execute': './responses/execute.json',
-    'customer_ids': './responses/customer_ids.json',
-    'invalid_request': './responses/invalid_request_error.json',
-    'get_attributes': './responses/get_attributes.json',
-    'notifications': './responses/notifications.json',
-    'debug_trace': './responses/debug_trace.json'
+    "default": "./responses/default.json",
+    "prefetch": "./responses/prefetch.json",
+    "execute": "./responses/execute.json",
+    "customer_ids": "./responses/customer_ids.json",
+    "invalid_request": "./responses/invalid_request_error.json",
+    "get_attributes": "./responses/get_attributes.json",
+    "notifications": "./responses/notifications.json",
+    "debug_trace": "./responses/debug_trace.json"
 }
 
 
@@ -35,6 +35,6 @@ def setup_mock(response_key, responses, status=200):
         return
     data = read_json_file(CURRENT_DIR, filename)
 
-    responses.add('POST', '/rest/v1/delivery',
+    responses.add("POST", "/rest/v1/delivery",
                   body=json.dumps(data), status=status,
-                  content_type='application/json')
+                  content_type="application/json")

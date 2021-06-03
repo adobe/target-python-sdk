@@ -20,18 +20,18 @@ from target_tools.utils import get_epoch_time_milliseconds
 from target_tools.utils import parse_int
 from target_tools.constants import MILLISECONDS_IN_SECOND
 
-TARGET_COOKIE = 'mbox'
-SESSION_ID_COOKIE = 'session'
-DEVICE_ID_COOKIE = 'PC'
-LOCATION_HINT_COOKIE = 'mboxEdgeCluster'
+TARGET_COOKIE = "mbox"
+SESSION_ID_COOKIE = "session"
+DEVICE_ID_COOKIE = "PC"
+LOCATION_HINT_COOKIE = "mboxEdgeCluster"
 
 
 def create_internal_cookie(name, value, expires):
     """Create individual cookie to be stored inside Target cookie"""
     return {
-        'name': name,
-        'value': value,
-        'expires': expires
+        "name": name,
+        "value": value,
+        "expires": expires
     }
 
 
@@ -61,15 +61,15 @@ def deserialize_cookie(string):
 def serialize_cookie(cookie):
     """Serialize cookie"""
     return "#".join([
-        quote(cookie.get('name')),
-        quote(cookie.get('value')),
-        str(cookie.get('expires'))
+        quote(cookie.get("name")),
+        quote(cookie.get("value")),
+        str(cookie.get("expires"))
     ])
 
 
 def get_expires(cookie):
     """Get expiration time from cookie"""
-    return cookie.get('expires')
+    return cookie.get("expires")
 
 
 def get_max_expires(cookies):
@@ -86,8 +86,8 @@ def parse_cookies(target_cookie):
     now_in_seconds = math.ceil(time.time())
     valid_cookies = [deserialized for deserialized in
                      (deserialize_cookie(cookie) for cookie in raw_internal_cookies) if
-                     deserialized and now_in_seconds <= deserialized.get('expires')]
-    return {cookie.get('name'): cookie for cookie in valid_cookies}
+                     deserialized and now_in_seconds <= deserialized.get("expires")]
+    return {cookie.get("name"): cookie for cookie in valid_cookies}
 
 
 def create_target_cookie(cookies):
@@ -97,7 +97,7 @@ def create_target_cookie(cookies):
     serialized_cookies = [serialize_cookie(cookie) for cookie in cookies]
 
     return {
-        'name': TARGET_COOKIE,
-        'value': "|".join(serialized_cookies),
-        'maxAge': math.ceil(float(max_age) / MILLISECONDS_IN_SECOND)
+        "name": TARGET_COOKIE,
+        "value": "|".join(serialized_cookies),
+        "maxAge": math.ceil(float(max_age) / MILLISECONDS_IN_SECOND)
     }

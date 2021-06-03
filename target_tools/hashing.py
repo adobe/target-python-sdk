@@ -9,8 +9,6 @@
 # governing permissions and limitations under the License.
 """Hashing functions"""
 # pylint: disable=invalid-name
-# pylint: disable=unused-argument
-
 import ctypes
 from target_tools.utils import memoize
 

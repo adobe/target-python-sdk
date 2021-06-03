@@ -90,7 +90,7 @@ def has_remote_dependency(artifact, request):
     requested_views = get_view_names(request)
 
     remote_mboxes, local_mboxes, remote_views, local_views = \
-        [artifact.get(k, []) for k in ('remoteMboxes', 'localMboxes', 'remoteViews', 'localViews')]
+        [artifact.get(k, []) for k in ("remoteMboxes", "localMboxes", "remoteViews", "localViews")]
 
     mboxes_that_require_remote = set()
     for mbox_name in remote_mboxes:

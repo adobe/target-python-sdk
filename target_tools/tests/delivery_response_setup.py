@@ -36,7 +36,7 @@ def create_prefetch_response(prefetch):
     if not prefetch:
         return None
 
-    mboxes = create_mboxes(prefetch.get('mboxes'))
+    mboxes = create_mboxes(prefetch.get("mboxes"))
     return PrefetchResponse(mboxes=mboxes)
 
 
@@ -45,7 +45,7 @@ def create_execute_response(execute):
     if not execute:
         return None
 
-    mboxes = create_mboxes(execute.get('mboxes'))
+    mboxes = create_mboxes(execute.get("mboxes"))
     return ExecuteResponse(mboxes=mboxes)
 
 
@@ -61,8 +61,8 @@ def create_id_response(_id):
 
 def create_delivery_response(response_dict):
     """Convert dict to DeliveryResponse instance"""
-    execute_response = create_execute_response(response_dict.get('execute'))
-    prefetch_response = create_prefetch_response(response_dict.get('prefetch'))
+    execute_response = create_execute_response(response_dict.get("execute"))
+    prefetch_response = create_prefetch_response(response_dict.get("prefetch"))
     delivery_response = DeliveryResponse(execute=execute_response,
                                          prefetch=prefetch_response,
                                          request_id=response_dict.get("requestId"),

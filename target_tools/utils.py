@@ -8,8 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Assorted utility functions for target_tools package"""
-# pylint: disable=protected-access
-# pylint: disable=unused-argument
 try:
     from functools import reduce
 except ImportError:
@@ -62,7 +60,7 @@ def get_property(config, request):
     if not config:
         config = {}
 
-    config_property_token = config.get('property_token')
+    config_property_token = config.get("property_token")
     request_property_token = get_property_token(request._property) if request else None
     property_token = request_property_token or config_property_token
 
@@ -104,7 +102,7 @@ def has_requested_views(delivery_request):
 
 def get_names_for_requested(items_key, delivery_request):
     """
-    :param items_key: ('mboxes' | 'views')
+    :param items_key: ("mboxes" | "views")
     :param delivery_request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
         Target View Delivery API request, required
     :return (set) Set of mbox names
@@ -134,7 +132,7 @@ def add_mboxes_to_request(mbox_names, request, request_type="execute"):
     :param mbox_names: (list) A list of mbox names that contain JSON content attributes, required
     :param request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
         Target View Delivery API request, required
-    :param request_type: ('execute'|'prefetch')
+    :param request_type: ("execute"|"prefetch")
     """
     requested_mboxes = get_mbox_names(request)
     mboxes = []

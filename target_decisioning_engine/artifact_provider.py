@@ -8,9 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """On Device Decisioning Artifact Provider"""
-# pylint: disable=too-many-instance-attributes
-# pylint: disable=broad-except
-
 import json
 from threading import Timer
 import urllib3

@@ -8,7 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """DecisioningArtifact model"""
-# pylint: disable=super-init-not-called
 from target_tools.types.limited_key_dict import LimitedKeyDict
 
 

@@ -90,8 +90,8 @@ class TestNotificationProvider(unittest.TestCase):
             "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
             "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
             "content":
-                '<p id="action_insert_15882850825432970">Better to remain silent and be thought a fool \
-                    than to speak out and remove all doubt.</p>'
+                "<p id='action_insert_15882850825432970'>Better to remain silent and be thought a fool \
+                    than to speak out and remove all doubt.</p>"
         }]
         options = [Option(content=content,
                           type=OptionType.ACTIONS,
@@ -130,8 +130,8 @@ class TestNotificationProvider(unittest.TestCase):
             "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
             "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
             "content":
-                '<p id="action_insert_15882850825432970">Better to remain silent and be thought a fool \
-                    than to speak out and remove all doubt.</p>'
+                "<p id='action_insert_15882850825432970'>Better to remain silent and be thought a fool \
+                    than to speak out and remove all doubt.</p>"
         }]
         options = [Option(content=content,
                           type=OptionType.ACTIONS,

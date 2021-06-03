@@ -137,8 +137,8 @@ def validate_response(_self, result):
     :param _self (unittest.TestCase) required
     :param result (dict) Wrapper around DeliveryResponse payload
     """
-    get_offers_resp = result.get('response')
-    get_offers_req = result.get('request')
+    get_offers_resp = result.get("response")
+    get_offers_req = result.get("request")
     _self.assertIsNotNone(get_offers_resp)
     _self.assertIsNotNone(get_offers_req)
     _self.assertTrue(isinstance(get_offers_resp, DeliveryResponse))

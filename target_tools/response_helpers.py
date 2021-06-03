@@ -22,8 +22,8 @@ def create_options(mbox):
         return None
 
     result_options = []
-    if mbox.get('options'):
-        for _option in mbox.get('options'):
+    if mbox.get("options"):
+        for _option in mbox.get("options"):
             option = Option(type=_option.get("type"),
                             content=_option.get("content"),
                             event_token=_option.get("eventToken"),
@@ -39,8 +39,8 @@ def create_metrics(mbox):
         return None
 
     result_metrics = []
-    if mbox.get('metrics'):
-        for _metric in mbox.get('metrics'):
+    if mbox.get("metrics"):
+        for _metric in mbox.get("metrics"):
             metric = Metric(type=_metric.get("type"),
                             selector=_metric.get("selector"),
                             event_token=_metric.get("eventToken"))

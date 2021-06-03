@@ -16,6 +16,8 @@
     "@openapitools/openapi-generator-cli": "^2.1.4",
     "shx": "^0.3.3",
     "y18n": ">=4.0.1",
-    "axios": ">=0.21.1"
+    "axios": ">=0.21.1",
+    "lodash": ">=4.17.21",
+    "hosted-git-info": ">=2.8.9"
   }
 }

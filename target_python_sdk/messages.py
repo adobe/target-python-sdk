@@ -12,23 +12,23 @@
 from target_tools.enums import DecisioningMethod
 
 MESSAGES = {
-    'PRIVATE_CONSTRUCTOR': "Please use TargetClient.create static method instead",
-    'ORG_ID_REQUIRED': "Organization Id is required",
-    'DECISIONING_METHOD_INVALID': "Invalid Decisioning Method.  Must be set to one of: {}".format(
+    "PRIVATE_CONSTRUCTOR": "Please use TargetClient.create static method instead",
+    "ORG_ID_REQUIRED": "Organization Id is required",
+    "DECISIONING_METHOD_INVALID": "Invalid Decisioning Method.  Must be set to one of: {}".format(
         ",".join([e.value for e in DecisioningMethod])),
-    'FETCH_API_REQUIRED': "Fetch API is required",
-    'REQUEST_REQUIRED': "Request object of type DeliveryRequest is required",
-    'EXECUTE_FIELDS_REQUIRED': "Either pageLoad or mboxes is required in execute",
-    'PREFETCH_FIELDS_REQUIRED': "Either views, pageLoad or mboxes is required in prefetch",
-    'NOTIFICATIONS_REQUIRED': "Notifications list is required in request",
-    'MBOX_INVALID': "Mbox validation failed for: ",
-    'NOTIFICATION_INVALID': "Notification validation failed for: ",
-    'CLIENT_REQUIRED': "Client is required",
-    'OPTIONS_REQUIRED': "Options are required",
-    'REQUEST_SENT': "Request sent",
-    'RESPONSE_RECEIVED': "Response received",
-    'FETCH_UNDEFINED': "Fetch is not defined!",
-    'DECISIONING_ENGINE_UNDEFINED': "Decisioning Engine is undefined",
-    'LOCATION_HINT_REQUEST_FAILED': "Unable to retrieve location hint cookie.",
-    'INVALID_CALLBACK': "Callback must be a callable function"
+    "FETCH_API_REQUIRED": "Fetch API is required",
+    "REQUEST_REQUIRED": "Request object of type DeliveryRequest is required",
+    "EXECUTE_FIELDS_REQUIRED": "Either pageLoad or mboxes is required in execute",
+    "PREFETCH_FIELDS_REQUIRED": "Either views, pageLoad or mboxes is required in prefetch",
+    "NOTIFICATIONS_REQUIRED": "Notifications list is required in request",
+    "MBOX_INVALID": "Mbox validation failed for: ",
+    "NOTIFICATION_INVALID": "Notification validation failed for: ",
+    "CLIENT_REQUIRED": "Client is required",
+    "OPTIONS_REQUIRED": "Options are required",
+    "REQUEST_SENT": "Request sent",
+    "RESPONSE_RECEIVED": "Response received",
+    "FETCH_UNDEFINED": "Fetch is not defined!",
+    "DECISIONING_ENGINE_UNDEFINED": "Decisioning Engine is undefined",
+    "LOCATION_HINT_REQUEST_FAILED": "Unable to retrieve location hint cookie.",
+    "INVALID_CALLBACK": "Callback must be a callable function"
 }

@@ -8,7 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Unit tests for target_decisioning_engine.artifact_provider module"""
-# pylint: disable=too-many-public-methods
 try:
     from unittest.mock import patch, Mock
 except ImportError:
@@ -194,7 +193,7 @@ class TestArtifactProvider(unittest.TestCase):
             self.assertEqual(self.provider.http_retry.backoff_factor, 0)
 
         request_spy = spy_decorator(urllib3.connectionpool.HTTPConnectionPool.urlopen)
-        with patch.object(urllib3.connectionpool.HTTPConnectionPool, 'urlopen', request_spy):
+        with patch.object(urllib3.connectionpool.HTTPConnectionPool, "urlopen", request_spy):
             self.provider.initialize()
             self.assertIsNone(self.provider.artifact)
             self.assertIsNone(self.provider.last_response_data)

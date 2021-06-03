@@ -8,7 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Post-processing functions for DecisionProvider"""
-# pylint: disable=unused-argument
 try:
     from functools import reduce
 except ImportError:

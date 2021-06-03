@@ -8,8 +8,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """LocalDeliveryApi for ODD"""
-# pylint: disable=too-few-public-methods
-# pylint: disable=unused-argument
 from target_decisioning_engine.types.target_delivery_request import TargetDeliveryRequest
 from target_tools.messages import DECISIONING_ENGINE_NOT_READY
 

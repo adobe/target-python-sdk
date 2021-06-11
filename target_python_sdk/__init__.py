@@ -156,8 +156,6 @@ class TargetClient:
         options.request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
             Target View Delivery API request, required
 
-        options.visitor_cookie: (str) VisitorId cookie, optional
-
         options.target_cookie: (str) Target cookie, optional
 
         options.target_location_hint: (str) Target Location Hint, optional
@@ -200,8 +198,6 @@ class TargetClient:
 
         options.request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
             Target View Delivery API request, required
-
-        options.visitor_cookie: (str) VisitorId cookie, optional
 
         options.target_cookie: (str) Target cookie, optional
 
@@ -246,7 +242,6 @@ class TargetClient:
         :param options: (dict) Request options
         options.request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
             Target View Delivery API request, required
-        options.visitor_cookie: (str) VisitorId cookie, optional
         options.target_cookie: (str) Target cookie, optional
         options.target_location_hint: (str) Target Location Hint, optional
         options.consumer_id: (str) When stitching multiple calls, different consumerIds should be provided, optional

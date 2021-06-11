@@ -420,7 +420,7 @@ def create_property(_property):
     return _property if _property and _property.token and is_string(_property.token) else None
 
 
-def create_delivery_request(incoming_request, options):
+def create_request(incoming_request, options):
     """Update incoming DeliveryRequest"""
     uuid_method = options.get("uuid_method", create_uuid)
     delivery_request = deepcopy(incoming_request)

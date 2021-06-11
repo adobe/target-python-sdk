@@ -8,11 +8,11 @@
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
 """Unit tests for target_decisioning_engine.utils module"""
-import unittest
 try:
     from unittest.mock import patch, Mock
 except ImportError:
     from mock import patch, Mock
+import unittest
 from target_decisioning_engine.types.decisioning_artifact import DecisioningArtifact
 from target_decisioning_engine.types.decisioning_config import DecisioningConfig
 from target_decisioning_engine.utils import parse_url

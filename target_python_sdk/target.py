@@ -21,7 +21,7 @@ from target_python_sdk.helper import get_cluster
 from target_python_sdk.helper import get_target_host
 from target_python_sdk.helper import get_session_id
 from target_python_sdk.helper import create_headers
-from target_python_sdk.helper import create_delivery_request
+from target_python_sdk.helper import create_request
 from target_python_sdk.helper import create_configuration
 from target_python_sdk.helper import process_response
 from target_python_sdk.helper import preserve_location_hint
@@ -91,7 +91,7 @@ def execute_delivery(client_config, options, decisioning_engine=None):
 
     request_context = _create_request_context(options, opts_config, target_location_hint)
 
-    delivery_request = create_delivery_request(options.get("request"), request_context.get("request_options"))
+    delivery_request = create_request(options.get("request"), request_context.get("request_options"))
 
     delivery_method = create_delivery_api(
         request_context.get("configuration"),

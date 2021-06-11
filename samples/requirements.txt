@@ -1,0 +1,2 @@
+flask>=2.0.1
+target_python_sdk>=0.0.1

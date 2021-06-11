@@ -166,8 +166,6 @@ class TargetClient:
 
         options.session_id: (str) Session Id, used for linking multiple requests, optional
 
-        options.visitor: (dict) Supply an external VisitorId instance, optional
-
         options.decisioning_method: ("on-device"|"server-side"|"hybrid") Execution mode, defaults to remote, optional
 
         options.callback: (callable) If handling request asynchronously, the callback is invoked when response is ready
@@ -209,8 +207,6 @@ class TargetClient:
 
         options.session_id: (str) Session Id, used for linking multiple requests, optional
 
-        options.visitor: (dict) Supply an external VisitorId instance, optional
-
         options.callback: (callable) If handling request asynchronously, the callback is invoked when response is ready
 
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception
@@ -247,7 +243,6 @@ class TargetClient:
         options.consumer_id: (str) When stitching multiple calls, different consumerIds should be provided, optional
         options.customer_ids: (list) A list of Customer Ids in VisitorId-compatible format, optional
         options.session_id: (str) Session Id, used for linking multiple requests, optional
-        options.visitor: (dict) Supply an external VisitorId instance, optional
         options.decisioning_method: ("on-device"|"server-side"|"hybrid") Execution mode, defaults to remote, optional
         options.callback: (callable) If handling request asynchronously, the callback is invoked when response is ready
         options.err_callback: (callable) If handling request asynchronously, error callback is invoked when exception

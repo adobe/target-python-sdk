@@ -35,6 +35,7 @@ def client_ready_callback(ready_event):
 client_options = {
     "client": "acmeclient",
     "organization_id": "1234567890@AdobeOrg",
+    "decisioning_method": "on-device",
     "events": {
         "client_ready": client_ready_callback
     }

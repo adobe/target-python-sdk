@@ -29,7 +29,7 @@ jobs:
     - name: Build and publish new version
       env:
         TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        TWINE_PASSWORD: ${{ secrets.ADOBE_BOT_PYPI_TOKEN }}
         CI: true
         PYTHON_PATH: python
       run: |

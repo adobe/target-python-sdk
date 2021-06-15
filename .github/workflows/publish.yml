@@ -20,17 +20,29 @@ jobs:
       with:
         python-version: '^3.9'
     - name: Install dependencies
+      env:
+        CI: true
+        PYTHON_PATH: python
+        PYTHON_VERSION: 3.9
       run: |
-        make ci
         make pre_build
+    - name: Bump version
+      env:
+        PYTHON_PATH: python
+      run: |
+        git config user.email "Grp-opensourceoffice@adobe.com"
+        git config user.name "Adobe Release Bot"
+        make version_bump part=${{ github.event.inputs.bump }}
     - name: Build and publish new version
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GH_TOKEN: ${{ secrets.ADOBE_BOT_GITHUB_TOKEN }}
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.ADOBE_BOT_PYPI_TOKEN }}
         CI: true
+        PYTHON_PATH: python
       run: |
-        make version_bump part=${{ github.event.inputs.bump }}
         make build
         make publish
+    - name: Push updated version and tag
+      run: |
+        git push origin main
+        git push --tags origin

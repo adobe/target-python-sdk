@@ -60,7 +60,7 @@ def get_address(request):
 
 def get_context(request):
     return Context(channel=ChannelType.WEB,
-                   time_offset_in_minutes=330.0,
+                   time_offset_in_minutes=0,
                    address=get_address(request))
 
 

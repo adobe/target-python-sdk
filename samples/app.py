@@ -46,7 +46,7 @@ target_service = TargetClientService(target_client)
 results = {}
 
 
-@app.route('/executePageload', methods=['GET'])
+@app.route('/executePageLoad', methods=['GET'])
 def execute_page_load():
     """
     Make an execute pageload request to get all initial offers at page load time, get cookies for request if they exist,

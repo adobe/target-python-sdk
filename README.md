@@ -3,10 +3,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/adobe/target-python-sdk/badge.svg?branch=main)](https://coveralls.io/github/adobe/target-python-sdk?branch=main)
 
 ### Requirements
-
-```
 All currently maintained versions of Python are supported, see [Python Releases](https://www.python.org/downloads/).
 Older Python releases may likely work too, but are not officially supported.
+```
 NPM 6+ (required by openapi-generator-cli)
 Java 8+ (required by openapi-generator)
 GNU Make

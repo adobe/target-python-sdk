@@ -32,7 +32,7 @@ jobs:
       run: |
         git config user.email "Grp-opensourceoffice@adobe.com"
         git config user.name "Adobe Release Bot"
-        make version_bump part=${{ github.event.inputs.bump }} --verbose
+        make version_bump part=${{ github.event.inputs.bump }}
     - name: Build and publish new version
       env:
         TWINE_USERNAME: __token__

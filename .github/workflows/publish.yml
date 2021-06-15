@@ -20,6 +20,10 @@ jobs:
       with:
         python-version: '^3.9'
     - name: Install dependencies
+      env:
+        CI: true
+        PYTHON_PATH: python
+        PYTHON_VERSION: 3.9
       run: |
         make pre_build
     - name: Build and publish new version
@@ -27,6 +31,7 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
         CI: true
+        PYTHON_PATH: python
       run: |
         make version_bump part=${{ github.event.inputs.bump }}
         make build

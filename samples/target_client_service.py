@@ -7,14 +7,16 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
+import asyncio
+
 from delivery_api_client import DeliveryRequest
 from delivery_api_client import ExecuteRequest
 from delivery_api_client import PrefetchRequest
 from delivery_api_client import RequestDetails
 from delivery_api_client import CustomerId
 from delivery_api_client import AuthenticatedState
-from example.target_request_utils import get_context
-from example.target_request_utils import get_visitor_id
+from samples.target_request_utils import get_context
+from samples.target_request_utils import get_visitor_id
 
 
 def _get_prefetch_views_request(http_request, get_offers_options, views, request_id=None):
@@ -71,11 +73,11 @@ class TargetClientService:
         get_offers_options = _get_prefetch_views_request(http_request, get_offers_options, views, request_id=request_id)
         return self.target_client.get_offers(get_offers_options)
 
-    # For use with Python 3.5+/asyncio
+    # For use with Python 3.9+/asyncio
     async def prefetch_views_target_delivery_response_asyncio(self, http_request, request_id, get_offers_options,
                                                               views):
         get_offers_options = _get_prefetch_views_request(http_request, get_offers_options, views, request_id=request_id)
-        return self.target_client.get_offers(get_offers_options)
+        return await asyncio.to_thread(self.target_client.get_offers, get_offers_options)
 
     def send_notifications(self, http_request, get_offers_options, notifications):
         context = get_context(http_request)

@@ -12,10 +12,10 @@ import asyncio
 from flask import Flask
 from flask import request
 from flask import Response
-from example.target_client_service import TargetClientService
-from example.target_request_utils import set_target_cookies
-from example.target_request_utils import get_uuid
-from example.target_request_utils import initialize_options
+from samples.target_client_service import TargetClientService
+from samples.target_request_utils import set_target_cookies
+from samples.target_request_utils import get_uuid
+from samples.target_request_utils import initialize_options
 from delivery_api_client import MboxRequest
 from delivery_api_client import ViewRequest
 from delivery_api_client import Notification

@@ -13,12 +13,11 @@
 class TargetDeliveryRequest:
     """TargetDeliveryRequest"""
 
-    def __init__(self, request, visitor_cookie=None, target_cookie=None, target_location_hint=None,
+    def __init__(self, request, target_cookie=None, target_location_hint=None,
                  consumer_id=None, customer_ids=None, session_id=None, visitor=None, trace=None):
         """
         :param request: (delivery_api_client.Model.delivery_request.DeliveryRequest)
             Target View Delivery API request, required
-        :param visitor_cookie: (str) VisitorId cookie, optional
         :param target_cookie: (str) Target cookie, optional
         :param target_location_hint: (str) Target Location Hint, optional
         :param consumer_id: (str) When stitching multiple calls, different consumerIds should be provided, optional
@@ -28,7 +27,6 @@ class TargetDeliveryRequest:
         :param trace: (delivery_api_client.Model.trace.Trace) Target trace, optional
         """
         self.request = request
-        self.visitor_cookie = visitor_cookie
         self.target_cookie = target_cookie
         self.target_location_hint = target_location_hint
         self.consumer_id = consumer_id

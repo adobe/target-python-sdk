@@ -97,7 +97,6 @@ def create_decisioning_config(config_dict):
 def create_target_delivery_request(get_offers_opts):
     """Converts dict representation of get_offers options to TargetDeliveryRequest object"""
     return TargetDeliveryRequest(request=create_delivery_request(get_offers_opts.get("request")),
-                                 visitor_cookie=get_offers_opts.get("visitorCookie"),
                                  target_cookie=get_offers_opts.get("targetCookie"),
                                  target_location_hint=get_offers_opts.get("targetLocationHint"),
                                  consumer_id=get_offers_opts.get("consumerId"),

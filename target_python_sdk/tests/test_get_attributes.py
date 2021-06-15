@@ -7,16 +7,13 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
 # OF ANY KIND, either express or implied. See the License for the specific language
 # governing permissions and limitations under the License.
-
 """Test cases for get_attributes"""
-import multiprocessing
-import unittest
-
 try:
     from unittest.mock import patch
 except ImportError:
     from mock import patch
-
+import multiprocessing
+import unittest
 from copy import deepcopy
 from urllib3_mock import Responses
 from delivery_api_client import ChannelType

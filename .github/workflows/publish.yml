@@ -21,7 +21,6 @@ jobs:
         python-version: '^3.9'
     - name: Install dependencies
       run: |
-        make ci
         make pre_build
     - name: Build and publish new version
       env:

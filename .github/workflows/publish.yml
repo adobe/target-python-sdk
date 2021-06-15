@@ -25,10 +25,8 @@ jobs:
         make pre_build
     - name: Build and publish new version
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GH_TOKEN: ${{ secrets.ADOBE_BOT_GITHUB_TOKEN }}
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
         CI: true
       run: |
         make version_bump part=${{ github.event.inputs.bump }}

@@ -21,7 +21,7 @@ install: env
 ifneq (,$(filter $(PYTHON_VERSION),2.7))
 		curl https://bootstrap.pypa.io/pip/${PYTHON_VERSION}/get-pip.py | python
 endif
-	python -m pip install --upgrade pip "setuptools>=38.3.0,<=44.1.x" wheel pep517 pylint "twine==1.7.0" bump2version coverage
+	python -m pip install --upgrade pip "setuptools>=38.3.0,<=44.1.x" wheel build pylint "twine==1.7.0" bump2version coverage
 	python -m pip install -r requirements.txt
 	python -m pip install -r test-requirements.txt
 
@@ -49,8 +49,8 @@ codegen:
 pre_build: new_env clean install format test
 
 # Create build package
-build: env
-	python -m pep517.build .
+build: env clean
+	python -m build
 
 # Publish package to Pypi
 publish: env

@@ -33,8 +33,8 @@ jobs:
         CI: true
         PYTHON_PATH: python
       run: |
-        git config --global user.email "target-python-sdk-release@adobe.com"
-        git config --global user.name "target-python-sdk release bot"
+        git config user.email "Grp-opensourceoffice@adobe.com"
+        git config user.name "Adobe Release Bot"
         make version_bump part=${{ github.event.inputs.bump }}
         make build
         make publish

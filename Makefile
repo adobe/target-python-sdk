@@ -59,4 +59,4 @@ publish: env
 
 # Bump version for next release - i.e. make version_bump part=[patch, minor, major]
 version_bump: env
-	bump2version ${part}
+	bump2version --verbose ${part}

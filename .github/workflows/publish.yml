@@ -15,6 +15,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Bump version
+      env:
+        PYTHON_PATH: python
+      run: |
+        git config user.email "Grp-opensourceoffice@adobe.com"
+        git config user.name "Adobe Release Bot"
+        make version_bump part=${{ github.event.inputs.bump }}
+
+    - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -26,13 +35,6 @@ jobs:
         PYTHON_VERSION: 3.9
       run: |
         make pre_build
-    - name: Bump version
-      env:
-        PYTHON_PATH: python
-      run: |
-        git config user.email "Grp-opensourceoffice@adobe.com"
-        git config user.name "Adobe Release Bot"
-        make version_bump part=${{ github.event.inputs.bump }}
     - name: Build and publish new version
       env:
         TWINE_USERNAME: __token__

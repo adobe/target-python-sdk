@@ -42,3 +42,7 @@ jobs:
       run: |
         make build
         make publish
+    - name: Push updated version and tag
+      run: |
+        git push origin main
+        git push --tags origin

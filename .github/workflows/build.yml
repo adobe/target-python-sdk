@@ -34,7 +34,6 @@ jobs:
           parallel: true
           flag-name: Python-${{ matrix.python-version }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          debug: true
 
   coveralls_finish:
     name: Report Coverage

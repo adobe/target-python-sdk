@@ -20,7 +20,7 @@ if six.PY3:
         import importlib
         reload = importlib.reload
     except ImportError:
-        import imp
+        import imp # pylint: disable=deprecated-module
         reload = imp.reload
 # else use builtin reload() for Python 2.7
 

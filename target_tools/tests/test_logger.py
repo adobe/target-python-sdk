@@ -9,6 +9,7 @@
 # governing permissions and limitations under the License.
 """Test cases for logger"""
 import logging
+import six
 import unittest
 
 import target_tools

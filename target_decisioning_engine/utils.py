@@ -188,6 +188,7 @@ def determine_artifact_location(config):
         config.client,
         target_environment,
         "v{}".format(SUPPORTED_ARTIFACT_MAJOR_VERSION),
+        config.property_token,
         ARTIFACT_FILENAME
     ]
     filtered = filter(None, location_parts)

@@ -74,7 +74,8 @@ class TargetClient:
                                                        send_notification_func=self.send_notifications,
                                                        telemetry_enabled=self.config.get("telemetry_enabled"),
                                                        event_emitter=self.event_emitter,
-                                                       maximum_wait_ready=self.config.get("maximum_wait_ready"))
+                                                       maximum_wait_ready=self.config.get("maximum_wait_ready"),
+                                                       property_token=self.config.get("property_token"))
                 self.decisioning_engine = TargetDecisioningEngine(decisioning_config)
                 self.decisioning_engine.initialize()
                 self.event_emitter(CLIENT_READY)

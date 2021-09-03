@@ -132,8 +132,8 @@ class TestUtils(unittest.TestCase):
                                    property_token="693de2cd-ac92-d2c7-59fc-a3c0f2bce646")
         artifact_location = determine_artifact_location(config)
         self.assertEqual(artifact_location,
-                         "https://assets.staging.adobetarget.com/MyClient/development/v1/ \
-                         693de2cd-ac92-d2c7-59fc-a3c0f2bce646/rules.json")
+                         """https://assets.staging.adobetarget.com/MyClient/development/v1/
+                         693de2cd-ac92-d2c7-59fc-a3c0f2bce646/rules.json""")
 
     def test_determine_artifact_location_invalid_env(self):
         config = DecisioningConfig("MyClient", "12345@AdobeOrg", environment="bad")

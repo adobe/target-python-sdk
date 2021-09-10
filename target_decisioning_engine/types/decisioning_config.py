@@ -16,7 +16,7 @@ class DecisioningConfig:
     def __init__(self, client, organization_id, polling_interval=None,
                  artifact_location=None, artifact_payload=None, environment=None,
                  cdn_environment=None, cdn_base_path=None, send_notification_func=None,
-                 telemetry_enabled=True, event_emitter=None, maximum_wait_ready=None):
+                 telemetry_enabled=True, event_emitter=None, maximum_wait_ready=None, property_token=None):
         """
         :param client: (str) Target Client Id
         :param organization_id: (str) Target Organization Id
@@ -31,6 +31,7 @@ class DecisioningConfig:
         :param event_emitter: (callable) Function used to emit events
         :param maximum_wait_ready: (int) The maximum amount of time (in seconds) to wait for decisioning engine to
             become ready.  Default is to wait indefinitely.
+        :param property_token: (str) A property token used to limit the scope of evaluated target activities
         """
         self.client = client
         self.organization_id = organization_id
@@ -45,3 +46,4 @@ class DecisioningConfig:
         self.event_emitter = event_emitter if event_emitter and callable(event_emitter) else \
             lambda event_name, payload: None
         self.maximum_wait_ready = maximum_wait_ready
+        self.property_token = property_token

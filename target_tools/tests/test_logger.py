@@ -10,20 +10,19 @@
 """Test cases for logger"""
 import logging
 import unittest
-
+import six
 import target_tools
 from target_tools.logger import get_logger
 from target_tools.logger import LOGGER_NAME
 
-try:
-    import imp
-    reload = imp.reload
-except ImportError:
+if six.PY3:
     try:
         import importlib
         reload = importlib.reload
     except ImportError:
-        pass  # use builtin reload()
+        import imp # pylint: disable=deprecated-module
+        reload = imp.reload
+# else use builtin reload() for Python 2.7
 
 
 def clear_logger_import_cache():

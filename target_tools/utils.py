@@ -174,7 +174,7 @@ def noop(*args, **kwargs):
 
 def memoize(func, args_resolver=None):
     """Function memoization for better performance"""
-    cache = dict()
+    cache = {}
 
     def memoized_func(*args, **kwargs):
         key = args_resolver(args, kwargs) if args_resolver else (args, frozenset(kwargs.items()))

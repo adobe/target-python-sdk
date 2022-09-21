@@ -754,7 +754,7 @@ However, when an experience is delivered to the user from the `mbox`, a `notific
 
 ## Prefetch Views
 
-Adobe Target introduced a new concept called Views in order to support Single Page Applications (SPA) and Mobile Applications more seamlessly. Views can be seen as a logical group of visual elements that together make up a SPA or Mobile experience. Now, through the Delivery API, VEC created AB & XT activities with modifications on [Views for SPA](https://docs.adobe.com/content/help/en/target/using/implement-target/client-side/deploy-at-js/target-atjs-single-page-application.html) can now be prefetched.
+Adobe Target introduced a new concept called Views in order to support Single Page Applications (SPA) and Mobile Applications more seamlessly. Views can be seen as a logical group of visual elements that together make up a SPA or Mobile experience. Now, through the Delivery API, VEC created activities with modifications on [Views for SPA](https://docs.adobe.com/content/help/en/target/using/implement-target/client-side/deploy-at-js/target-atjs-single-page-application.html) can now be prefetched.
 
 ```
 curl -X POST \
@@ -784,7 +784,7 @@ curl -X POST \
 }'
 ```
 
-The example call above will prefetch all the Views created thru the SPA VEC for AB and XT activities to display for the web `channel`. Notice in the call that we want to prefetch all the Views from the AB or XT activities that a visitor with `tntId`:`84e8d0e211054f18af365d65f45e902b.28_131` who is visiting the `url`:`https://target.enablementadobe.com/react/demo/#/` qualifies for.
+The example call above will prefetch all the Views created thru the SPA VEC for activities to display for the web `channel`. Notice in the call that we want to prefetch all the Views from the activities that a visitor with `tntId`:`84e8d0e211054f18af365d65f45e902b.28_131` who is visiting the `url`:`https://target.enablementadobe.com/react/demo/#/` qualifies for.
 
 ```
 {
@@ -1286,5 +1286,3 @@ curl -X POST \
 # Known Limitations
 1. There is no authentication for Target Delivery APIs.
 2. This API does not process cookies or redirect calls.
-3. Support for AP and Recs Activities: This API has two modes for fetching content - execute and prefetch mode. The prefetch mode can only be used for AB and XT activities. Don’t use the prefetch mode for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types. 
-

@@ -46,7 +46,7 @@ class TestLogger(unittest.TestCase):
         self.assertIsNotNone(logger)
         self.assertEqual(logger.name, LOGGER_NAME)
         self.assertEqual(logger.level, logging.INFO)
-        logger.info("Something bad happened")
+        logger.info("Nothing bad happened - just testing logger output")
         self.assertEqual(logger, get_logger())
 
     def test_get_logger_custom(self):
@@ -58,5 +58,5 @@ class TestLogger(unittest.TestCase):
         self.assertEqual(logger.name, "custom")
         self.assertEqual(logger.level, logging.ERROR)
 
-        logger.error("Something bad happened")
+        logger.error("Nothing bad happened - just testing logger output")
         self.assertEqual(logger, get_logger())

@@ -138,6 +138,29 @@ class TestContextProvider(unittest.TestCase):
         self.assertEqual(result.get("b_lc"), "secondone")
         self.assertEqual(result.get("c_lc"), "third")
 
+    def test_create_mbox_context_dot_notation(self):
+        params = {
+            "favorite_actor" : "dennehy",
+            "dot.notation.is_now_in" : True,
+            "dot.notation.threshold" : 1000,
+            "dot.notation.declaration" : "All YOUR BASE ARE BELONG TO US",
+            ".dont_support_this" : True,
+            "nor_this." : True,
+            "even..this..is..bad": True
+        }
+        mbox = MboxRequest(parameters=params)
+        result = create_mbox_context(mbox)
+        self.assertEqual(result, {
+            ".dont_support_this": True,
+            "dot": {"notation": {"is_now_in": True,
+                                "threshold": 1000,
+                                "declaration": "All YOUR BASE ARE BELONG TO US",
+                                "declaration_lc": "all your base are belong to us"}},
+            "even..this..is..bad": True,
+            "favorite_actor": "dennehy",
+            "favorite_actor_lc": "dennehy",
+            "nor_this.": True})
+
     def test_create_geo_context_no_geo(self):
         result = create_geo_context(None)
         for val in result.__dict__.values():

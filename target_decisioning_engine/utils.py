@@ -11,6 +11,7 @@
 # pylint: disable=protected-access
 import requests
 from tld import get_tld
+from copy import copy
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
@@ -208,3 +209,53 @@ def get_http_codes_to_retry():
     :return: set of http codes that should be retried
     """
     return set(x for x in requests.status_codes._codes if should_retry_http_code(x))
+
+
+def with_lowercase_string_values(obj):
+    """Puts lowercase attributes for string values into a nested dictionary and returns the outcome
+    :param obj: (dict)
+    :return: (dict)
+    """
+    result = copy(obj)
+    for key in obj.keys():
+        if type(obj[key]) == str:
+            result[f"{key}_lc"] = result[key].lower()
+        if type(obj[key]) == dict:
+            result[key] = with_lowercase_string_values(result[key])
+    return result
+
+def setNestedValue(obj, keys, value):
+    """Places a value in the given dictionary with the path given by the keys.
+    Creates new sub-dictionaries if the path is not already present.
+    :param obj: (dict) the dictionary to add the value to
+    :param keys: (list<str>) the series of keys representing the value's path in the dictionary
+    :param value: (any) the value to place in the dictionary
+    """
+    curentObj = obj
+    for i in range(len(keys) - 1):
+        if keys[i] not in curentObj:
+            curentObj[keys[i]] = {}
+        curentObj = curentObj[keys[i]]
+    curentObj[keys[len(keys) - 1]] = value
+
+def is_expandable_key(key):
+    """Determines if the given key can be expanded by containing proper dot notation
+    :param key: (str) the key to check
+    :return: (bool) returns the result of the check
+    """
+    return "." in key and ".." not in key and key[0] != "." and key[len(key) - 1] != "."
+
+
+def unflatten(obj):
+    """Transformers a dictionary with dot notation into a nested dictionary
+    :param obj: (dict) the dictionary to transform
+    :return: (dict) the transformed dictionary
+    """
+    result = {}
+    for key in obj.keys():
+        if is_expandable_key(key):
+            setNestedValue(result, key.split("."), obj[key])
+        else:
+            result[key] = obj[key]
+    return result
+

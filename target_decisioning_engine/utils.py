@@ -9,9 +9,9 @@
 # governing permissions and limitations under the License.
 """On Device Decisioning util functions"""
 # pylint: disable=protected-access
+from copy import copy
 import requests
 from tld import get_tld
-from copy import copy
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
@@ -218,25 +218,25 @@ def with_lowercase_string_values(obj):
     """
     result = copy(obj)
     for key in obj.keys():
-        if type(obj[key]) == str:
+        if isinstance(obj[key], str):
             result["{0}_lc".format(key)] = result[key].lower()
-        if type(obj[key]) == dict:
+        if isinstance(obj[key], dict):
             result[key] = with_lowercase_string_values(result[key])
     return result
 
-def setNestedValue(obj, keys, value):
+def set_nested_value(obj, keys, value):
     """Places a value in the given dictionary with the path given by the keys.
     Creates new sub-dictionaries if the path is not already present.
     :param obj: (dict) the dictionary to add the value to
     :param keys: (list<str>) the series of keys representing the value's path in the dictionary
     :param value: (any) the value to place in the dictionary
     """
-    curentObj = obj
+    current_obj = obj
     for i in range(len(keys) - 1):
-        if keys[i] not in curentObj:
-            curentObj[keys[i]] = {}
-        curentObj = curentObj[keys[i]]
-    curentObj[keys[len(keys) - 1]] = value
+        if keys[i] not in current_obj:
+            current_obj[keys[i]] = {}
+        current_obj = current_obj[keys[i]]
+    current_obj[keys[len(keys) - 1]] = value
 
 def is_expandable_key(key):
     """Determines if the given key can be expanded by containing proper dot notation
@@ -254,8 +254,7 @@ def unflatten(obj):
     result = {}
     for key in obj.keys():
         if is_expandable_key(key):
-            setNestedValue(result, key.split("."), obj[key])
+            set_nested_value(result, key.split("."), obj[key])
         else:
             result[key] = obj[key]
     return result
-

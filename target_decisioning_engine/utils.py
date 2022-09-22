@@ -219,7 +219,7 @@ def with_lowercase_string_values(obj):
     result = copy(obj)
     for key in obj.keys():
         if type(obj[key]) == str:
-            result[f"{key}_lc"] = result[key].lower()
+            result["{0}_lc".format(key)] = result[key].lower()
         if type(obj[key]) == dict:
             result[key] = with_lowercase_string_values(result[key])
     return result

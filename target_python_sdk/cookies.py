@@ -74,7 +74,7 @@ def get_expires(cookie):
 
 def get_max_expires(cookies):
     """Get max expiration time from list of cookies"""
-    return max([get_expires(cookie) for cookie in cookies])
+    return max(get_expires(cookie) for cookie in cookies)
 
 
 def parse_cookies(target_cookie):

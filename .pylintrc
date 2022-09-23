@@ -1,10 +1,11 @@
 [MASTER]
 max-line-length=120
 no-docstring-rgx=^[tT]est*
+ignore=tests
 
 # https://github.com/PyCQA/pylint/issues/214
 [SIMILARITIES]
 # Minimum lines number of a similarity.
 min-similarity-lines=30
 
-disable=W0212,R0205,R0904,R0201,R0401,W0231,R0902,W0703,W0613,R0903,R0913,W0231,W1514
+disable=W0212,R0205,R0904,R0401,W0231,R0902,W0703,W0613,R0903,R0913,W0231,W1514,C0209

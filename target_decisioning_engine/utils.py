@@ -218,7 +218,7 @@ def with_lowercase_string_values(obj):
     """
     result = copy(obj)
     for key in obj.keys():
-        if isinstance(obj[key], str) or isinstance(obj[key], type(u"")):
+        if isinstance(obj[key], (str, type(''))):
             result["{0}_lc".format(key)] = result[key].lower()
         if isinstance(obj[key], dict):
             result[key] = with_lowercase_string_values(result[key])

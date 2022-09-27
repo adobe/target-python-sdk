@@ -210,20 +210,6 @@ def get_http_codes_to_retry():
     """
     return set(x for x in requests.status_codes._codes if should_retry_http_code(x))
 
-
-def with_lowercase_string_values(obj):
-    """Puts lowercase attributes for string values into a nested dictionary and returns the outcome
-    :param obj: (dict)
-    :return: (dict)
-    """
-    result = copy(obj)
-    for key in obj.keys():
-        if isinstance(obj[key], (str, type(u""))):
-            result["{0}_lc".format(key)] = result[key].lower()
-        if isinstance(obj[key], dict):
-            result[key] = with_lowercase_string_values(result[key])
-    return result
-
 def set_nested_value(obj, keys, value):
     """Places a value in the given dictionary with the path given by the keys.
     Creates new sub-dictionaries if the path is not already present.

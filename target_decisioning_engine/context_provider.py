@@ -17,7 +17,7 @@ from target_decisioning_engine.types.decisioning_context import PageContext
 from target_decisioning_engine.types.decisioning_context import GeoContext
 from target_decisioning_engine.types.decisioning_context import DecisioningContext
 from target_decisioning_engine.types.decisioning_context import TimingContext
-from target_decisioning_engine.utils import parse_url, unflatten, with_lowercase_string_values
+from target_decisioning_engine.utils import parse_url, unflatten
 from target_tools.utils import is_string
 from target_tools.utils import get_epoch_time_milliseconds
 from target_tools.client_info import browser_from_user_agent
@@ -81,6 +81,19 @@ def create_referring_context(address):
     :return: (target_decisioning_engine.types.decisioning_context.PageContext) Page context
     """
     return _create_url_context(address.referring_url if address else "")
+
+def with_lowercase_string_values(obj):
+    """Puts lowercase attributes for string values into a nested dictionary and returns the outcome
+    :param obj: (dict)
+    :return: (dict)
+    """
+    result = copy(obj)
+    for key in obj.keys():
+        if isinstance(obj[key], (str, type(u""))):
+            result["{0}_lc".format(key)] = result[key].lower()
+        if isinstance(obj[key], dict):
+            result[key] = with_lowercase_string_values(result[key])
+    return result
 
 def create_mbox_context(mbox_request):
     """Create mbox context

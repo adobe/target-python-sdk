@@ -9,7 +9,6 @@
 # governing permissions and limitations under the License.
 """On Device Decisioning util functions"""
 # pylint: disable=protected-access
-from copy import copy
 import requests
 from tld import get_tld
 from target_decisioning_engine.constants import CDN_BASE

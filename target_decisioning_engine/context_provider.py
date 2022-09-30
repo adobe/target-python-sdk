@@ -89,7 +89,7 @@ def with_lowercase_string_values(obj):
     """
     result = copy(obj)
     for key in obj.keys():
-        if isinstance(obj[key], (str, type(u""))):
+        if is_string(obj[key]):
             result["{0}_lc".format(key)] = result[key].lower()
         if isinstance(obj[key], dict):
             result[key] = with_lowercase_string_values(result[key])
@@ -104,7 +104,7 @@ def create_mbox_context(mbox_request):
         return {}
 
     parameters = mbox_request.parameters or {}
-    return with_lowercase_string_values(copy(unflatten(parameters)))
+    return with_lowercase_string_values(unflatten(parameters))
 
 
 def create_geo_context(_geo=None):

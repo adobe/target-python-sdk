@@ -60,8 +60,8 @@ class TestContextProvider(unittest.TestCase):
         result = create_page_context(address)
 
         self.assertTrue(isinstance(result, PageContext))
-        self.assertEqual(result.get("domain"), "geocities")
-        self.assertEqual(result.get("domain_lc"), "geocities")
+        self.assertEqual(result.get("domain"), "geocities.com")
+        self.assertEqual(result.get("domain_lc"), "geocities.com")
         self.assertEqual(result.get("fragment"), "Bottom")
         self.assertEqual(result.get("fragment_lc"), "bottom")
         self.assertEqual(result.get("path"), "/Posts")
@@ -80,8 +80,8 @@ class TestContextProvider(unittest.TestCase):
         result = create_page_context(address)
 
         self.assertTrue(isinstance(result, PageContext))
-        self.assertEqual(result.get("domain"), "applookout")
-        self.assertEqual(result.get("domain_lc"), "applookout")
+        self.assertEqual(result.get("domain"), "applookout.net")
+        self.assertEqual(result.get("domain_lc"), "applookout.net")
         self.assertEqual(result.get("fragment"), "")
         self.assertEqual(result.get("fragment_lc"), "")
         self.assertEqual(result.get("path"), "/")
@@ -108,8 +108,8 @@ class TestContextProvider(unittest.TestCase):
         result = create_referring_context(address)
 
         self.assertTrue(isinstance(result, PageContext))
-        self.assertEqual(result.get("domain"), "geocities")
-        self.assertEqual(result.get("domain_lc"), "geocities")
+        self.assertEqual(result.get("domain"), "geocities.com")
+        self.assertEqual(result.get("domain_lc"), "geocities.com")
         self.assertEqual(result.get("fragment"), "Bottom")
         self.assertEqual(result.get("fragment_lc"), "bottom")
         self.assertEqual(result.get("path"), "/Posts")

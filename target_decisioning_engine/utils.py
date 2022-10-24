@@ -11,6 +11,7 @@
 # pylint: disable=protected-access
 import requests
 from tld import get_tld
+from urllib.parse import urlparse
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
@@ -28,15 +29,6 @@ from target_tools.utils import parse_int
 
 logger = get_logger()
 
-DEFAULT_PARSED_URL = {
-    "path": "",
-    "query": "",
-    "fragment": "",
-    "domain": "",
-    "subdomain": "",
-    "topLevelDomain": ""
-}
-
 
 def get_rule_key(rule):
     """
@@ -46,33 +38,41 @@ def get_rule_key(rule):
     return rule.get("ruleKey")
 
 
-def _get_default_parsed_url(url):
-    """Returns default dict for urls that cannot be parsed"""
-    parsed = dict(DEFAULT_PARSED_URL)
-    parsed["url"] = url
-    return parsed
-
-
 def parse_url(url):
     """parse url"""
     if not is_string(url):
-        return _get_default_parsed_url(EMPTY_STRING)
+        return {
+            "url": "",
+            "path": "",
+            "query": "",
+            "fragment": "",
+            "domain": "",
+            "subdomain": "",
+            "topLevelDomain": ""
+        }
 
-    parsed = get_tld(url, as_object=True, fail_silently=True)
-    if not parsed:
-        return _get_default_parsed_url(url)
+    parsed = urlparse(url)
 
-    path, query, fragment = [getattr(parsed.parsed_url, key, "") for key in ["path", "query", "fragment"]]
-
-    return {
+    result = {
         "url": url,
-        "path": path,
-        "query": query,
-        "fragment": fragment,
-        "domain": parsed.domain,
-        "subdomain": parsed.subdomain,
-        "topLevelDomain": parsed.tld
+        "path": parsed.path,
+        "query": parsed.query,
+        "fragment": parsed.fragment
     }
+
+    parsed_host = get_tld(url, as_object=True, fail_silently=True)
+
+    if not parsed_host:
+        result["domain"] = ""
+        result["subdomain"] = ""
+        result["topLevelDomain"] = ""
+        return result
+
+    result["domain"] = parsed_host.domain + "." + parsed_host.tld
+    result["subdomain"] = parsed_host.subdomain[3:] if parsed_host.subdomain.startswith("www") else parsed_host.subdomain
+    result["topLevelDomain"] = parsed_host.tld
+
+    return result
 
 
 def has_remote_dependency(artifact, request):

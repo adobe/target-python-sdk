@@ -9,15 +9,14 @@
 # governing permissions and limitations under the License.
 """On Device Decisioning util functions"""
 # pylint: disable=protected-access
+from urllib.parse import urlparse
 import requests
 from tld import get_tld
-from urllib.parse import urlparse
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
 from target_decisioning_engine.messages import MESSAGES
 from target_tools.constants import POSSIBLE_ENVIRONMENTS
-from target_tools.constants import EMPTY_STRING
 from target_tools.constants import ENVIRONMENT_PROD
 from target_tools.logger import get_logger
 from target_tools.utils import get_mbox_names
@@ -63,13 +62,18 @@ def parse_url(url):
     parsed_host = get_tld(url, as_object=True, fail_silently=True)
 
     if not parsed_host:
-        result["domain"] = ""
+        result["domain"] = parsed.netloc
         result["subdomain"] = ""
         result["topLevelDomain"] = ""
         return result
 
     result["domain"] = parsed_host.domain + "." + parsed_host.tld
-    result["subdomain"] = parsed_host.subdomain[3:] if parsed_host.subdomain.startswith("www") else parsed_host.subdomain
+
+    if parsed_host.subdomain.startswith("www"):
+        result["subdomain"] = parsed_host.subdomain[3:]
+    else:
+        result["subdomain"] = parsed_host.subdomain
+
     result["topLevelDomain"] = parsed_host.tld
 
     return result

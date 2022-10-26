@@ -40,7 +40,7 @@ class TestUtils(unittest.TestCase):
     def test_parse_url_missing_top_level_domain(self):
         url = "http://myfavesite/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", EMPTY_STRING,
+        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite",
                                 EMPTY_STRING, EMPTY_STRING)
 
     def test_parse_url_without_subdomain(self):
@@ -72,6 +72,13 @@ class TestUtils(unittest.TestCase):
         result = parse_url(url)
         self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, "google.co.uk",
                                 "some.subdomain", "co.uk")
+
+    def test_parse_url_missing_tld_and_subdomain(self):
+        url = "http://local-target-test/"
+        result = parse_url(url)
+        self.validate_parse_url(result, url, "/", EMPTY_STRING, EMPTY_STRING, "local-target-test",
+                                EMPTY_STRING, EMPTY_STRING)
+
 
     def test_has_remote_dependency_no_artifact(self):
         with self.assertRaises(Exception) as err:

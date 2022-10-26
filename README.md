@@ -51,6 +51,9 @@ Once all the tools are installed, there is no need to invoke them directly, ever
 $ make codegen
 ```
 
+However, there are some deviations from the other SDKs, in which a manual code change is needed:
+- user agent parsing does not match for the Mac OS X operating system
+
 ### Run tests and format code
 
 ```bash

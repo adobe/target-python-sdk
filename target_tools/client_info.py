@@ -15,6 +15,10 @@ OTHER = "Other"
 UNKNOWN = "Unknown"
 DESKTOP = "Desktop"
 
+# Needed for language specific differences in user agent parsing
+OS_MAPPING = {
+    "Mac OS X" : "mac"
+}
 
 def browser_from_user_agent(user_agent=None):
     """Use regex to determine browser from the user agent
@@ -40,6 +44,10 @@ def operating_system_from_user_agent(user_agent):
     :return: (str) OS name
     """
     agent_obj = parse(user_agent)
+
+    if agent_obj.os.family in OS_MAPPING:
+        return OS_MAPPING[agent_obj.os.family]
+
     return agent_obj.os.family if agent_obj.os.family != OTHER else UNKNOWN
 
 

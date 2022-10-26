@@ -9,8 +9,8 @@
 # governing permissions and limitations under the License.
 """On Device Decisioning util functions"""
 # pylint: disable=protected-access
-from urllib.parse import urlparse
 import requests
+import six
 from tld import get_tld
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
@@ -25,6 +25,11 @@ from target_tools.utils import has_requested_views
 from target_tools.utils import is_string
 from target_tools.utils import parse_int
 
+
+if six.PY2:
+    from urlparse import urlparse # pylint: disable=E0401
+else:
+    from urllib.parse import urlparse
 
 logger = get_logger()
 

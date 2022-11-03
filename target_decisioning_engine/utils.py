@@ -44,32 +44,28 @@ def get_rule_key(rule):
 
 def parse_url(url):
     """parse url"""
-    if not is_string(url):
-        return {
-            "url": "",
+    result = {
+        "url": url,
             "path": "",
             "query": "",
             "fragment": "",
             "domain": "",
             "subdomain": "",
             "topLevelDomain": ""
-        }
+    }
+    if not is_string(url):
+        return result
 
     parsed = urlparse(url)
 
-    result = {
-        "url": url,
-        "path": parsed.path,
-        "query": parsed.query,
-        "fragment": parsed.fragment
-    }
+    result["path"] = parsed.path
+    result["query"] = parsed.query
+    result["fragment"] = parsed.fragment
 
     parsed_host = get_tld(url, as_object=True, fail_silently=True)
 
     if not parsed_host:
         result["domain"] = parsed.netloc
-        result["subdomain"] = ""
-        result["topLevelDomain"] = ""
         return result
 
     result["domain"] = parsed_host.domain + "." + parsed_host.tld

@@ -53,7 +53,6 @@ $ make codegen
 
 However, there are some deviations from the other SDKs, in which a manual code change is needed:
 - `geo.py` needs to be updated according to [this commit](https://github.com/adobe/target-python-sdk/pull/34/commits/05c7bcaf9d3946e9b5a6eea719b667449e2e09fd#diff-4a8ee26e9272c52959b34df9a7763e21dcaf2d1d231fd2070dab039f63c1676e)
-- this SDK does not currently support the telemetry feature, so `TEST_SUITE_TELEMETRY.json` needs to be modified according to [this commit](https://github.com/adobe/target-python-sdk/pull/34/commits/05c7bcaf9d3946e9b5a6eea719b667449e2e09fd#diff-a328ccff9f9446689c70bdc5cb120d462646a3863f62273cf8522e6f71ac0e8e)
 
 
 ### Run tests and format code
@@ -65,7 +64,8 @@ $ make format
 
 ### Integration Test Generation
 
-There is an integration test suite used by many of the Target SDKs. To get the latest version of these tests, follow the instructions defined [here](https://github.com/adobe/target-sdk-testing#updating-to-the-latest-schema) in the test repo.
+There is an integration test suite used by many of the Target SDKs. To get the latest version of these tests, follow the instructions defined [here](https://github.com/adobe/target-sdk-testing#updating-to-the-latest-schema) in the test repo. Note the following deviation from the other SDKs:
+- this SDK does not currently support the telemetry feature, so `TEST_SUITE_TELEMETRY.json` needs to be modified according to [this commit](https://github.com/adobe/target-python-sdk/pull/34/commits/05c7bcaf9d3946e9b5a6eea719b667449e2e09fd#diff-a328ccff9f9446689c70bdc5cb120d462646a3863f62273cf8522e6f71ac0e8e)
 
 ### Release build package
 

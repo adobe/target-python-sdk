@@ -16,6 +16,7 @@ class LocalDeliveryApi:
     """LocalDeliveryApi - used for on-device-decisioning instead of DeliveryApi"""
 
     def __init__(self, decisioning_engine, visitor, target_location_hint):
+        """Constructor for LocalDeliveryApi"""
         self.decisioning_engine = decisioning_engine
         self.visitor = visitor
         self.target_location_hint = target_location_hint

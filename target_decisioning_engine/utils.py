@@ -10,13 +10,13 @@
 """On Device Decisioning util functions"""
 # pylint: disable=protected-access
 import requests
+import six
 from tld import get_tld
 from target_decisioning_engine.constants import CDN_BASE
 from target_decisioning_engine.constants import ARTIFACT_FILENAME
 from target_decisioning_engine.constants import SUPPORTED_ARTIFACT_MAJOR_VERSION
 from target_decisioning_engine.messages import MESSAGES
 from target_tools.constants import POSSIBLE_ENVIRONMENTS
-from target_tools.constants import EMPTY_STRING
 from target_tools.constants import ENVIRONMENT_PROD
 from target_tools.logger import get_logger
 from target_tools.utils import get_mbox_names
@@ -26,16 +26,12 @@ from target_tools.utils import is_string
 from target_tools.utils import parse_int
 
 
-logger = get_logger()
+if six.PY2:
+    from urlparse import urlparse # pylint: disable=E0401
+else:
+    from urllib.parse import urlparse
 
-DEFAULT_PARSED_URL = {
-    "path": "",
-    "query": "",
-    "fragment": "",
-    "domain": "",
-    "subdomain": "",
-    "topLevelDomain": ""
-}
+logger = get_logger()
 
 
 def get_rule_key(rule):
@@ -46,33 +42,42 @@ def get_rule_key(rule):
     return rule.get("ruleKey")
 
 
-def _get_default_parsed_url(url):
-    """Returns default dict for urls that cannot be parsed"""
-    parsed = dict(DEFAULT_PARSED_URL)
-    parsed["url"] = url
-    return parsed
-
-
 def parse_url(url):
     """parse url"""
-    if not is_string(url):
-        return _get_default_parsed_url(EMPTY_STRING)
-
-    parsed = get_tld(url, as_object=True, fail_silently=True)
-    if not parsed:
-        return _get_default_parsed_url(url)
-
-    path, query, fragment = [getattr(parsed.parsed_url, key, "") for key in ["path", "query", "fragment"]]
-
-    return {
+    result = {
         "url": url,
-        "path": path,
-        "query": query,
-        "fragment": fragment,
-        "domain": parsed.domain,
-        "subdomain": parsed.subdomain,
-        "topLevelDomain": parsed.tld
+            "path": "",
+            "query": "",
+            "fragment": "",
+            "domain": "",
+            "subdomain": "",
+            "topLevelDomain": ""
     }
+    if not is_string(url):
+        return result
+
+    parsed = urlparse(url)
+
+    result["path"] = parsed.path
+    result["query"] = parsed.query
+    result["fragment"] = parsed.fragment
+
+    parsed_host = get_tld(url, as_object=True, fail_silently=True)
+
+    if not parsed_host:
+        result["domain"] = parsed.netloc
+        return result
+
+    result["domain"] = parsed_host.domain + "." + parsed_host.tld
+
+    if parsed_host.subdomain.startswith("www"):
+        result["subdomain"] = parsed_host.subdomain[3:]
+    else:
+        result["subdomain"] = parsed_host.subdomain
+
+    result["topLevelDomain"] = parsed_host.tld
+
+    return result
 
 
 def has_remote_dependency(artifact, request):
@@ -208,3 +213,38 @@ def get_http_codes_to_retry():
     :return: set of http codes that should be retried
     """
     return set(x for x in requests.status_codes._codes if should_retry_http_code(x))
+
+def set_nested_value(obj, keys, value):
+    """Places a value in the given dictionary with the path given by the keys.
+    Creates new sub-dictionaries if the path is not already present.
+    :param obj: (dict) the dictionary to add the value to
+    :param keys: (list<str>) the series of keys representing the value's path in the dictionary
+    :param value: (any) the value to place in the dictionary
+    """
+    current_obj = obj
+    for i in range(len(keys) - 1):
+        if keys[i] not in current_obj:
+            current_obj[keys[i]] = {}
+        current_obj = current_obj[keys[i]]
+    current_obj[keys[len(keys) - 1]] = value
+
+def is_expandable_key(key):
+    """Determines if the given key can be expanded by containing proper dot notation
+    :param key: (str) the key to check
+    :return: (bool) returns the result of the check
+    """
+    return "." in key and ".." not in key and key[0] != "." and key[len(key) - 1] != "."
+
+
+def unflatten(obj):
+    """Transformers a dictionary with dot notation into a nested dictionary
+    :param obj: (dict) the dictionary to transform
+    :return: (dict) the transformed dictionary
+    """
+    result = {}
+    for key in obj.keys():
+        if is_expandable_key(key):
+            set_nested_value(result, key.split("."), obj[key])
+        else:
+            result[key] = obj[key]
+    return result

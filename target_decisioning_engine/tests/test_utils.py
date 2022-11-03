@@ -40,38 +40,44 @@ class TestUtils(unittest.TestCase):
     def test_parse_url_missing_top_level_domain(self):
         url = "http://myfavesite/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING,
+        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite",
                                 EMPTY_STRING, EMPTY_STRING)
 
     def test_parse_url_without_subdomain(self):
         url = "http://myfavesite.com/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite",
+        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite.com",
                                 EMPTY_STRING, "com")
 
     def test_parse_url_with_subdomain(self):
         url = "http://www.myfavesite.com"
         result = parse_url(url)
-        self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, "myfavesite",
-                                "www", "com")
+        self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, "myfavesite.com",
+                                EMPTY_STRING, "com")
 
     def test_parse_url_with_subdomain_path_param_anchor(self):
         url = "http://www.myfavesite.com/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite",
-                                "www", "com")
+        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "myfavesite.com",
+                                EMPTY_STRING, "com")
 
     def test_parse_url_with_multi_part_subdomain(self):
         url = "http://blog.myfavesite.geocities.com/posts?page=1#bottom"
         result = parse_url(url)
-        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "geocities",
+        self.validate_parse_url(result, url, "/posts", "page=1", "bottom", "geocities.com",
                                 "blog.myfavesite", "com")
 
     def test_parse_url_with_multi_part_top_level_domain(self):
         url = "http://some.subdomain.google.co.uk"
         result = parse_url(url)
-        self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, "google",
+        self.validate_parse_url(result, url, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, "google.co.uk",
                                 "some.subdomain", "co.uk")
+
+    def test_parse_url_missing_tld_and_subdomain(self):
+        url = "http://local-target-test/"
+        result = parse_url(url)
+        self.validate_parse_url(result, url, "/", EMPTY_STRING, EMPTY_STRING, "local-target-test",
+                                EMPTY_STRING, EMPTY_STRING)
 
 
     def test_has_remote_dependency_no_artifact(self):

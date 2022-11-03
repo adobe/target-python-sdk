@@ -9,7 +9,7 @@
 # governing permissions and limitations under the License.
 """On Device Decisioning Context Provider"""
 import datetime
-
+from copy import copy
 from delivery_api_client import ChannelType
 from delivery_api_client import Context
 from target_decisioning_engine.types.decisioning_context import UserContext
@@ -17,14 +17,13 @@ from target_decisioning_engine.types.decisioning_context import PageContext
 from target_decisioning_engine.types.decisioning_context import GeoContext
 from target_decisioning_engine.types.decisioning_context import DecisioningContext
 from target_decisioning_engine.types.decisioning_context import TimingContext
-from target_decisioning_engine.utils import parse_url
+from target_decisioning_engine.utils import parse_url, unflatten
 from target_tools.utils import is_string
 from target_tools.utils import get_epoch_time_milliseconds
 from target_tools.client_info import browser_from_user_agent
 from target_tools.client_info import operating_system_from_user_agent
 
 EMPTY_CONTEXT = Context(channel=ChannelType.WEB)
-
 
 def get_lower_case_attributes(obj):
     """Put lowercase versions of object attributes onto the object
@@ -83,6 +82,18 @@ def create_referring_context(address):
     """
     return _create_url_context(address.referring_url if address else "")
 
+def with_lowercase_string_values(obj):
+    """Puts lowercase attributes for string values into a nested dictionary and returns the outcome
+    :param obj: (dict)
+    :return: (dict)
+    """
+    result = copy(obj)
+    for key in obj.keys():
+        if is_string(obj[key]):
+            result["{0}_lc".format(key)] = result[key].lower()
+        if isinstance(obj[key], dict):
+            result[key] = with_lowercase_string_values(result[key])
+    return result
 
 def create_mbox_context(mbox_request):
     """Create mbox context
@@ -93,9 +104,7 @@ def create_mbox_context(mbox_request):
         return {}
 
     parameters = mbox_request.parameters or {}
-    lc_parameters = get_lower_case_attributes(parameters)
-    parameters.update(lc_parameters)
-    return parameters
+    return with_lowercase_string_values(unflatten(parameters))
 
 
 def create_geo_context(_geo=None):

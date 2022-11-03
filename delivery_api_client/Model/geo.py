@@ -168,11 +168,6 @@ class Geo(object):
         :param country_code: The country_code of this Geo.
         :type: str
         """
-        if country_code is not None and len(country_code) > 2:
-            raise ValueError("Invalid value for `country_code`, length must be less than or equal to `2`")
-        if country_code is not None and len(country_code) < 2:
-            raise ValueError("Invalid value for `country_code`, length must be greater than or equal to `2`")
-
         self._country_code = country_code
 
     @property
@@ -195,11 +190,6 @@ class Geo(object):
         :param state_code: The state_code of this Geo.
         :type: str
         """
-        if state_code is not None and len(state_code) > 3:
-            raise ValueError("Invalid value for `state_code`, length must be less than or equal to `3`")
-        if state_code is not None and len(state_code) < 1:
-            raise ValueError("Invalid value for `state_code`, length must be greater than or equal to `1`")
-
         self._state_code = state_code
 
     @property

@@ -20,7 +20,7 @@
               "host": "local-target-test"
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -70,7 +70,7 @@
               "host": "local-target-test"
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -104,7 +104,7 @@
                 },
                 "request": {
                   "sessionId": "dummy_session",
-                  "pageURL": "http://local-target-test.com/",
+                  "pageURL": "http://local-target-test/",
                   "host": "local-target-test",
                   "mbox": {
                     "name": "mbox-magician",
@@ -132,25 +132,25 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS X",
+                        "platform": "mac",
                         "locale": "en",
                         "browserVersion": 80
                       },
                       "page": {
-                        "url": "http://local-target-test.com/",
+                        "url": "http://local-target-test/",
                         "path": "/",
                         "query": "",
                         "fragment": "",
                         "subdomain": "",
                         "domain": "local-target-test",
-                        "topLevelDomain": "com",
-                        "url_lc": "http://local-target-test.com/",
+                        "topLevelDomain": "",
+                        "url_lc": "http://local-target-test/",
                         "path_lc": "/",
                         "query_lc": "",
                         "fragment_lc": "",
                         "subdomain_lc": "",
                         "domain_lc": "local-target-test",
-                        "topLevelDomain_lc": "com"
+                        "topLevelDomain_lc": ""
                       },
                       "referring": {
                         "url": "",
@@ -224,7 +224,7 @@
               "host": "local-target-test"
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -255,7 +255,7 @@
                 },
                 "request": {
                   "sessionId": "dummy_session",
-                  "pageURL": "http://local-target-test.com/",
+                  "pageURL": "http://local-target-test/",
                   "host": "local-target-test",
                   "mbox": {
                     "name": "mbox-browsers",
@@ -280,25 +280,25 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS X",
+                        "platform": "mac",
                         "locale": "en",
                         "browserVersion": 80
                       },
                       "page": {
-                        "url": "http://local-target-test.com/",
+                        "url": "http://local-target-test/",
                         "path": "/",
                         "query": "",
                         "fragment": "",
                         "subdomain": "",
                         "domain": "local-target-test",
-                        "topLevelDomain": "com",
-                        "url_lc": "http://local-target-test.com/",
+                        "topLevelDomain": "",
+                        "url_lc": "http://local-target-test/",
                         "path_lc": "/",
                         "query_lc": "",
                         "fragment_lc": "",
                         "subdomain_lc": "",
                         "domain_lc": "local-target-test",
-                        "topLevelDomain_lc": "com"
+                        "topLevelDomain_lc": ""
                       },
                       "referring": {
                         "url": "",
@@ -374,7 +374,7 @@
               "host": "local-target-test"
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -405,7 +405,7 @@
                 },
                 "request": {
                   "sessionId": "dummy_session",
-                  "pageURL": "http://local-target-test.com/",
+                  "pageURL": "http://local-target-test/",
                   "host": "local-target-test",
                   "mbox": {
                     "name": "mbox-browsers",
@@ -444,25 +444,25 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS X",
+                        "platform": "mac",
                         "locale": "en",
                         "browserVersion": 80
                       },
                       "page": {
-                        "url": "http://local-target-test.com/",
+                        "url": "http://local-target-test/",
                         "path": "/",
                         "query": "",
                         "fragment": "",
                         "subdomain": "",
                         "domain": "local-target-test",
-                        "topLevelDomain": "com",
-                        "url_lc": "http://local-target-test.com/",
+                        "topLevelDomain": "",
+                        "url_lc": "http://local-target-test/",
                         "path_lc": "/",
                         "query_lc": "",
                         "fragment_lc": "",
                         "subdomain_lc": "",
                         "domain_lc": "local-target-test",
-                        "topLevelDomain_lc": "com"
+                        "topLevelDomain_lc": ""
                       },
                       "referring": {
                         "url": "",
@@ -538,7 +538,7 @@
               "host": "local-target-test"
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -567,7 +567,7 @@
               },
               "request": {
                 "sessionId": "dummy_session",
-                "pageURL": "http://local-target-test.com/",
+                "pageURL": "http://local-target-test/",
                 "host": "local-target-test",
                 "mbox": {
                   "parameters": {
@@ -650,25 +650,25 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS X",
+                      "platform": "mac",
                       "locale": "en",
                       "browserVersion": 80
                     },
                     "page": {
-                      "url": "http://local-target-test.com/",
+                      "url": "http://local-target-test/",
                       "path": "/",
                       "query": "",
                       "fragment": "",
                       "subdomain": "",
                       "domain": "local-target-test",
-                      "topLevelDomain": "com",
-                      "url_lc": "http://local-target-test.com/",
+                      "topLevelDomain": "",
+                      "url_lc": "http://local-target-test/",
                       "path_lc": "/",
                       "query_lc": "",
                       "fragment_lc": "",
                       "subdomain_lc": "",
                       "domain_lc": "local-target-test",
-                      "topLevelDomain_lc": "com"
+                      "topLevelDomain_lc": ""
                     },
                     "referring": {
                       "url": "",
@@ -716,25 +716,25 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS X",
+                      "platform": "mac",
                       "locale": "en",
                       "browserVersion": 80
                     },
                     "page": {
-                      "url": "http://local-target-test.com/",
+                      "url": "http://local-target-test/",
                       "path": "/",
                       "query": "",
                       "fragment": "",
                       "subdomain": "",
                       "domain": "local-target-test",
-                      "topLevelDomain": "com",
-                      "url_lc": "http://local-target-test.com/",
+                      "topLevelDomain": "",
+                      "url_lc": "http://local-target-test/",
                       "path_lc": "/",
                       "query_lc": "",
                       "fragment_lc": "",
                       "subdomain_lc": "",
                       "domain_lc": "local-target-test",
-                      "topLevelDomain_lc": "com"
+                      "topLevelDomain_lc": ""
                     },
                     "referring": {
                       "url": "",
@@ -806,25 +806,25 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS X",
+                      "platform": "mac",
                       "locale": "en",
                       "browserVersion": 80
                     },
                     "page": {
-                      "url": "http://local-target-test.com/",
+                      "url": "http://local-target-test/",
                       "path": "/",
                       "query": "",
                       "fragment": "",
                       "subdomain": "",
                       "domain": "local-target-test",
-                      "topLevelDomain": "com",
-                      "url_lc": "http://local-target-test.com/",
+                      "topLevelDomain": "",
+                      "url_lc": "http://local-target-test/",
                       "path_lc": "/",
                       "query_lc": "",
                       "fragment_lc": "",
                       "subdomain_lc": "",
                       "domain_lc": "local-target-test",
-                      "topLevelDomain_lc": "com"
+                      "topLevelDomain_lc": ""
                     },
                     "referring": {
                       "url": "",
@@ -938,7 +938,7 @@
               "host": "local-target-test"
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -977,7 +977,7 @@
               "host": "local-target-test"
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -1007,7 +1007,7 @@
                   }
                 },
                 "request": {
-                  "pageURL": "http://local-target-test.com/",
+                  "pageURL": "http://local-target-test/",
                   "host": "local-target-test",
                   "view": {
                     "name": "contact",
@@ -1034,25 +1034,25 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS X",
+                        "platform": "mac",
                         "locale": "en",
                         "browserVersion": 80
                       },
                       "page": {
-                        "url": "http://local-target-test.com/",
+                        "url": "http://local-target-test/",
                         "path": "/",
                         "query": "",
                         "fragment": "",
                         "subdomain": "",
                         "domain": "local-target-test",
-                        "topLevelDomain": "com",
-                        "url_lc": "http://local-target-test.com/",
+                        "topLevelDomain": "",
+                        "url_lc": "http://local-target-test/",
                         "path_lc": "/",
                         "query_lc": "",
                         "fragment_lc": "",
                         "subdomain_lc": "",
                         "domain_lc": "local-target-test",
-                        "topLevelDomain_lc": "com"
+                        "topLevelDomain_lc": ""
                       },
                       "referring": {
                         "url": "",

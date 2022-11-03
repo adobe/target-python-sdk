@@ -21,13 +21,13 @@
             },
             "geo": {
               "city": "SAN FRANCISCO",
-              "countryCode": "US",
-              "stateCode": "CA",
+              "countryCode": "UNITED STATES",
+              "stateCode": "CALIFORNIA",
               "latitude": 37.75,
               "longitude": -122.4
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -65,8 +65,8 @@
                     "option.name": "Offer3",
                     "activity.decisioningMethod": "on-device",
                     "geo.city": "SAN FRANCISCO",
-                    "geo.country": "US",
-                    "geo.state": "CA"
+                    "geo.country": "UNITED STATES",
+                    "geo.state": "CALIFORNIA"
                   }
                 }
               ],
@@ -91,13 +91,13 @@
             },
             "geo": {
               "city": "SAN FRANCISCO",
-              "countryCode": "US",
-              "stateCode": "CA",
+              "countryCode": "UNITED STATES",
+              "stateCode": "CALIFORNIA",
               "latitude": 37.75,
               "longitude": -122.4
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },
@@ -136,8 +136,8 @@
                     "option.name": "Offer3",
                     "activity.decisioningMethod": "on-device",
                     "geo.city": "SAN FRANCISCO",
-                    "geo.country": "US",
-                    "geo.state": "CA"
+                    "geo.country": "UNITED STATES",
+                    "geo.state": "CALIFORNIA"
                   }
                 }
               ],
@@ -161,7 +161,7 @@
               "host": "local-target-test"
             },
             "address": {
-              "url": "http://local-target-test.com/"
+              "url": "http://local-target-test/"
             },
             "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
           },

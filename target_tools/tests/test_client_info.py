@@ -90,7 +90,7 @@ class TestClientInfo(unittest.TestCase):
 
     def test_operating_system_from_user_agent_chrome_mac(self):
         os_name = operating_system_from_user_agent(CHROME_MAC)
-        self.assertEqual(os_name, "Mac OS X")
+        self.assertEqual(os_name, "mac")
 
     def test_operating_system_from_user_agent_ie_11(self):
         os_name = operating_system_from_user_agent(IE11_WIN)

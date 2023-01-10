@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Support for Python 3.10 and 3.11
 - Additional support for complex domain parsing for on-device-decisioning
 
 ### Fixed
